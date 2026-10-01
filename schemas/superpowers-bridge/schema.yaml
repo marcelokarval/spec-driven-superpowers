@@ -1,0 +1,68 @@
+name: superpowers-bridge
+version: 1
+description: Autonomous Spec-Driven Superpowers workflow with Master-Detail tasks, TDD micro-contracts, and Evidence Ledger.
+artifacts:
+  - id: proposal
+    generates: proposal.md
+    description: Initial proposal document outlining the change and capabilities
+    template: proposal.md
+    instruction: |
+      Create the proposal document that establishes WHY this change is needed.
+
+      Sections:
+      - **Why**: 1-2 sentences on the problem or opportunity. What problem does this solve? Why now?
+      - **What Changes**: Bullet list of changes. Be specific about new capabilities, modifications, or removals. Mark breaking changes with **BREAKING**.
+      - **Capabilities**: Identify which specs will be created or modified (New Capabilities / Modified Capabilities).
+      - **Impact**: Affected code, APIs, dependencies, or systems.
+    requires: []
+
+  - id: specs
+    generates: "specs/**/*.md"
+    description: Detailed behavioral specifications with BDD scenarios
+    template: spec.md
+    instruction: |
+      Create specification files that define WHAT the system should do.
+      Use RFC 2119 keywords (SHALL / MUST).
+      Format requirements with `### Requirement: <name>` and scenarios with `#### Scenario: <name>`.
+      Every requirement MUST have at least one scenario.
+    requires:
+      - proposal
+
+  - id: design
+    generates: design.md
+    description: Technical architecture and design decisions
+    template: design.md
+    instruction: |
+      Document the technical architecture and "HOW" behind decisions.
+      Include context, goals, non-goals, architecture choices, and security considerations.
+    requires:
+      - proposal
+
+  - id: tasks
+    generates: tasks.md
+    description: Master task index with dependency waves and links to task-*.md micro-contracts
+    template: tasks.md
+    instruction: |
+      Create the Master-Detail task architecture:
+      1. Group tasks into concurrency waves (`## Wave 1`, `## Wave 2`, etc.).
+      2. Link each task to its micro-contract: `- [ ] [Task ID](tasks/task-ID.md): Title`.
+      3. For each task, generate its micro-contract `tasks/task-ID.md` with rigid file boundaries, TDD steps, verification commands, and definition of done.
+    requires:
+      - specs
+      - design
+
+  - id: summary
+    generates: summary.md
+    description: Evidence Ledger consolidating atomic commits, test proofs, and visual verification
+    template: summary.md
+    instruction: |
+      Consolidate the final Evidence Ledger prior to archiving the change.
+      Record all git commits, test run outputs, visual proofs/screenshots, and verified capabilities.
+    requires:
+      - tasks
+
+apply:
+  requires: [tasks]
+  tracks: tasks.md
+  instruction: |
+    Execute tasks wave by wave following strict TDD, subagent isolation, and atomic commits.
