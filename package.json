@@ -1,0 +1,28 @@
+{
+  "name": "spec-driven-superpowers",
+  "version": "1.0.0",
+  "description": "Autonomous Spec-Driven Superpowers (ASDS) Standard & Toolkit for AI Coding Agents",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/index.test.js",
+    "validate": "openspec validate initial-asds-release"
+  },
+  "keywords": [
+    "openspec",
+    "superpowers",
+    "agentic-coding",
+    "spec-driven-development",
+    "tdd",
+    "subagents",
+    "gemini",
+    "antigravity",
+    "claude-code"
+  ],
+  "author": "João Manoel (Jaoguatirica)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jaoguatirica/spec-driven-superpowers.git"
+  }
+}
