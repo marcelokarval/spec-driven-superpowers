@@ -110,15 +110,17 @@ capabilities, sequential fallback and review limitations.
 
 ### Preservation and limits
 
-- Existing identical files are accepted; conflicting files abort before writes.
-- Repeat with the same flags for idempotence. This is not an in-place upgrader:
-  changed source files or install options can conflict with an existing manifest.
+- Default installation accepts identical files; conflicting files abort before writes.
+- Repeat with the same flags for idempotence. Default installation is additive;
+  use explicit `--update` for the manifest-checked update described below. Changed
+  user content and incompatible install options remain conflicts.
   Compare old/new hashes and migrate explicitly; there is no force-overwrite flag.
 - Existing rules/configuration and unrelated directory content are preserved.
 - Symlinks in destination ancestry are rejected, including broken links. On
   systems with aliased temporary/home paths, select their canonical real path.
-- On ordinary apply errors, only newly created files/directories are rolled back.
-  This is not crash recovery or a defense against a hostile concurrent writer.
+- On ordinary apply errors, newly created files/directories are removed; explicit
+  updates also restore replaced bytes from memory. This is not crash recovery or
+  a defense against a hostile concurrent writer.
 - No uninstall, provider/auth changes, service restarts, commits, push or automatic
   archive. Do not run concurrent installers against the same destination.
 
@@ -220,3 +222,17 @@ review them and regenerate evidence. Receipts now carry `contractRevision` from
 also require evidence and independent reviews on `integrationRevision`. For checked
 tasks, pass `--receipts /external/receipts.json` (a map keyed by task ID).
 These structural checks cannot authenticate the user, reviewer or test log.
+
+### Updating an existing installation
+
+Use the same scope, target, data-home and skills-dir with `--update` to preview,
+then add `--apply` after the update is authorized. The existing ownership manifest
+and every owned file must match; changed user content, hardlinks, removed payload
+entries and unknown conflicts fail before writing. Only unchanged owned files
+are replaced. File modes are preserved, and ordinary failures restore replaced
+bytes from memory and remove newly created files. No disk backups are made.
+This is not crash recovery or protection against hostile concurrent mutations.
+User-scope shared schema/license/provenance changes require separate reconciliation
+across installations; this mode does not silently invalidate another manifest.
+
+Use a quiescent directory. A manifest records ownership, not human authorization.

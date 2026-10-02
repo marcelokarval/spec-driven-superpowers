@@ -7,9 +7,10 @@ try {
     scope: { type: 'string' }, target: { type: 'string' },
     'data-home': { type: 'string' }, 'skills-dir': { type: 'string' }, apply: { type: 'boolean' },
     activate: { type: 'boolean' }, rules: { type: 'boolean' }, help: { type: 'boolean' },
+    update: { type: 'boolean' },
   } });
   if (values.help) {
-    console.log('Usage: node scripts/install.mjs --scope project|user --target DIR [--data-home DIR] [--skills-dir RELATIVE_DIR] [--activate] [--rules] [--apply]\nPreview is the default. User schemas use OpenSpec XDG_DATA_HOME, not config home. No overwrites or global npm installation.');
+    console.log('Usage: node scripts/install.mjs --scope project|user --target DIR [--data-home DIR] [--skills-dir RELATIVE_DIR] [--activate] [--rules] [--update] [--apply]\nPreview is the default. --update replaces only unchanged manifest-owned files. User schemas use OpenSpec XDG_DATA_HOME. No global npm installation.');
   } else {
     const files = planInstall({ ...values, dataHome: values['data-home'], skillsDir: values['skills-dir'] });
     if (values.apply) applyInstall(files);

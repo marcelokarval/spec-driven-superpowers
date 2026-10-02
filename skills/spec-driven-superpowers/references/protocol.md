@@ -25,6 +25,8 @@ not code verification.
 Only the coordinator writes the shared `tasks.md` progress index. Workers receive
 their contract plus relevant specs, project rules, base revision and context.
 Workers can read needed context; scoped writes are not a security sandbox.
+Needed context follows the read scope in planning.md; a worker must not search
+unrelated projects or earlier evaluation evidence merely because it can read them.
 Do not give workers only a bare task file if that hides required instructions.
 
 Superpowers subagent-driven-development remains sequential within one workstream.

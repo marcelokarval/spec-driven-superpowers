@@ -1,4 +1,8 @@
-# Proposed conditional entry — not installed
+# Conditional entry proposal — historical pre-application record
+
+The owner subsequently authorized application. See
+[native entry application](native-entry-2026-10-02.md) for the installed state and
+fresh-session results. The account below describes the earlier proposal.
 
 This rule was tested through a per-call Codex `developer_instructions` override.
 It is a candidate for explicit owner adoption, not a new global default. The

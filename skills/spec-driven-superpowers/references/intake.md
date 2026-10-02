@@ -47,6 +47,10 @@ them through Accelerate again. `continueWork` preserves state; a material change
 records a reason and affected task IDs as `needs-reassessment`. Preserve unaffected
 work. Resolve the affected scope and approvals before reaccepting it.
 
+Preserve read boundaries from scope, constraints and authorized references using
+the existing v1 fields; no new mandatory packet field is needed. After acceptance,
+ASDS applies planning.md's read-scope rules on every continuation and delegation.
+
 ## Return
 `createReturn` produces `protocolVersion`, `owner: asds`, `status`, `outcome`,
 `evidence` references, `remainingWork` and `limitations`. Status is `completed`,

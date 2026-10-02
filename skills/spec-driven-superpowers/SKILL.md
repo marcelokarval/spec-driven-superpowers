@@ -38,6 +38,8 @@ authorize commits, external actions or configuration changes.
 
 1. Receive the request or handoff. Separate received, accepted and authorized actions.
    Reuse existing context; resolve only missing facts needed for the next step.
+   Keep discovery within the selected project and necessary instruction/skill files.
+   Apply the [read scope and reporting rules](references/planning.md#read-scope).
 2. Follow [planning and readiness](references/planning.md). Inspect relevant sources,
    consolidate understanding, and resolve material decisions before generating tasks.
    Use brainstorming here when needed; its outputs belong to the OpenSpec change.
