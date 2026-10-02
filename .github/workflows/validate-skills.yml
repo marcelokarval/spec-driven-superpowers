@@ -2,31 +2,55 @@ name: ASDS Validation CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   validate:
-    name: Validate Skills, Schemas & Governance Rules
-    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-
+        include:
+          - os: ubuntu-latest
+            node: '20.19.0'
+          - os: ubuntu-latest
+            node: '22'
+          - os: ubuntu-latest
+            node: '24'
+          - os: windows-latest
+            node: '24'
+          - os: macos-latest
+            node: '24'
+    runs-on: ${{ matrix.os }}
+    env:
+      OPENSPEC_TELEMETRY: '0'
+      OPENSPEC_NO_UPDATE_CHECK: '1'
+      DO_NOT_TRACK: '1'
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Run Test Suite
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm run validate
+      - run: npm test
+      - name: Bash wrapper syntax
+        if: runner.os != 'Windows'
+        run: bash -n scripts/install.sh
+      - name: PowerShell wrapper preview and error propagation
+        if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          npm test
-
-      - name: Test Cross-Platform Installer Syntax
-        run: |
-          bash -n scripts/install.sh
+          $target = Join-Path $env:RUNNER_TEMP "asds-wrapper-preview"
+          & ./scripts/install.ps1 --scope project --target $target
+          if ($LASTEXITCODE -ne 0) { throw "Preview failed" }
+          if (Test-Path $target) { throw "Preview wrote files" }
+          & ./scripts/install.ps1 --unknown
+          if ($LASTEXITCODE -eq 0) { throw "Unknown flag was accepted" }
+          $global:LASTEXITCODE = 0

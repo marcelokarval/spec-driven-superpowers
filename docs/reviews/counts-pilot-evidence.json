@@ -1,0 +1,68 @@
+{
+  "project": "/tmp/asds-counts-pilot-mJ0D1D",
+  "change": "/tmp/asds-counts-pilot-mJ0D1D/openspec/changes/counts",
+  "base": "b93195453250058aa8be28130e77929d5f8e47b8",
+  "scope": {
+    "baseRevision": "b93195453250058aa8be28130e77929d5f8e47b8",
+    "revision": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb",
+    "changedFiles": [
+      "src/count.js",
+      "tests/count.test.js"
+    ]
+  },
+  "contractRevision": "d1aea820e8e9ce7a01ac0075cdbda74573c866722aba3821c9aaa403a7530631",
+  "work": {
+    "source": "direct",
+    "state": "accepted",
+    "owner": "asds",
+    "executionAuthorized": false,
+    "context": {
+      "objective": "Validate positive counts",
+      "project": "/tmp/asds-counts-pilot-mJ0D1D",
+      "scope": [
+        "src/count.js",
+        "tests/count.test.js"
+      ],
+      "constraints": [
+        "fixture only",
+        "no publication"
+      ],
+      "risks": [],
+      "references": [
+        "/tmp/asds-counts-pilot-mJ0D1D/openspec/changes/counts"
+      ],
+      "authorizations": []
+    },
+    "gaps": []
+  },
+  "red": {
+    "command": "node --test tests/count.test.js",
+    "exitCode": 1,
+    "output": "node:internal/modules/cjs/loader:1568\n  throw err;\n  ^\n\nError: Cannot find module '../src/count.js'\nRequire stack:\n- /tmp/asds-counts-pilot-mJ0D1D/tests/count.test.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)\n    at Module._load (node:internal/modules/cjs/loader:1341:5)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.require (node:internal/modules/cjs/loader:1674:12)\n    at require (node:internal/modules/helpers:157:16)\n    at Object.<anonymous> (/tmp/asds-counts-pilot-mJ0D1D/tests/count.test.js:3:29)\n    at Module._compile (node:internal/modules/cjs/loader:1929:14) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [ '/tmp/asds-counts-pilot-mJ0D1D/tests/count.test.js' ]\n}\n\nNode.js v24.20.0\n\u2716 tests/count.test.js (85.931836ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 105.676842\n\n\u2716 failing tests:\n\ntest at tests/count.test.js:1:1\n\u2716 tests/count.test.js (85.931836ms)\n  'test failed'\n"
+  },
+  "green": {
+    "command": "node --test tests/count.test.js",
+    "exitCode": 0,
+    "output": "\u2714 accept positive integers (1.561746ms)\n\u2714 reject invalid counts (0.325029ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 128.042108\n"
+  },
+  "status": "integrated-and-index-reconciled",
+  "boundary": "temporary test fixture, no installed toolkit/runtime",
+  "integrationVerification": {
+    "exitCode": 0,
+    "output": "\u2714 accept positive integers (2.537379ms)\n\u2714 reject invalid counts (0.558517ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 144.177058\n"
+  },
+  "review": {
+    "thread": "01a0f874-589a-7081-82d9-a3815921ff3e",
+    "spec": "pass",
+    "quality": "pass",
+    "limitation": "RED proved missing module, not failed behavioral assertion"
+  },
+  "cliVerification": "ASDS validation passed (structural checks; not a certification of test/review authenticity).\n",
+  "cleanup": {
+    "path": "/tmp/asds-counts-pilot-mJ0D1D",
+    "activeUserProcessConsumers": [],
+    "mounts": 0,
+    "uniqueUserData": "none: task-created disposable fixture",
+    "removed": true
+  }
+}

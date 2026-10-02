@@ -3,6 +3,14 @@ name: subagent-driven-development
 description: Use when executing implementation plans with independent tasks in the current session
 ---
 
+## ASDS mode
+When ASDS owns the lifecycle, receive the microcontract, specs, applicable rules,
+accepted contract revision and base. Never start another plan or progress index.
+The worker returns delivery evidence; only the coordinator checks off tasks.md after
+integration verification. Commit/model/workspace changes require applicable authority.
+ASDS recovery and material-change invalidation override repeated dispatch loops below.
+
+
 # Subagent-Driven Development
 
 Execute plan by dispatching fresh subagent per task, with two-stage review after each: spec compliance review first, then code quality review.

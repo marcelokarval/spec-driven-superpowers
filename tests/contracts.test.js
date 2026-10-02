@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateTasks, chooseExecution, validateDelivery } from '../lib/contracts.mjs';
+import { safePath, validateTasks, chooseExecution, validateDelivery } from '../lib/contracts.mjs';
 
 const task = (id, overrides = {}) => ({
   id, dependsOn: [], write: [`src/${id}.js`, `tests/${id}.test.js`],
   resources: [], scenarios: [`feature/${id}`],
   verification: ['npm test'], ...overrides,
+  openDecisions: overrides.openDecisions ?? [],
+  body: overrides.body ?? '## Outcome\nValidate the feature.\n## Inputs\nFeature spec.\n## Acceptance\nValid input succeeds.\n## Verification\nRun npm test.\n## Definition of done\nReviewed and integrated.',
 });
 test('task graph rejects cycles, missing dependencies, duplicate IDs and path escape', () => {
   assert.deepEqual(validateTasks([task('1'), task('2', { dependsOn: ['1'] })]), []);
@@ -19,20 +21,38 @@ test('task graph rejects cycles, missing dependencies, duplicate IDs and path es
     [task('1', { scenarios: [] })],
   ]) assert.ok(validateTasks(tasks).length > 0);
 });
+test('portable paths reject Windows aliases and ambiguous suffixes', () => {
+  for (const file of ['src/NUL.txt', 'CON', 'src/COM1.log', 'src/LPT9', 'src/file.js.', 'src /file.js']) {
+    assert.equal(safePath(file), false, file);
+  }
+  for (const file of ['src/console.js', '.agents/skills', 'src/company.txt']) {
+    assert.equal(safePath(file), true, file);
+  }
+});
 test('parallelism requires live capabilities, budget, disjoint scope and resources', () => {
   const capabilities = { spawn: true, isolatedWrites: true, maxParallel: 2 };
   assert.equal(chooseExecution([task('1'), task('2')], capabilities).mode, 'parallel');
   assert.equal(chooseExecution([task('1'), task('2')], {}).mode, 'sequential');
   assert.equal(chooseExecution([task('1'), task('2', { dependsOn: ['1'] })], capabilities).mode, 'sequential');
   assert.equal(chooseExecution([task('1'), task('2', { write: ['src/1.js'] })], capabilities).mode, 'sequential');
+  assert.equal(chooseExecution([task('1'), task('2', { write: ['SRC/1.JS'] })], capabilities).mode, 'sequential');
+  assert.equal(chooseExecution([task('1'), task('2')], { ...capabilities, maxParallel: 1 }).mode, 'sequential');
+  assert.equal(chooseExecution([
+    task('1', { write: ['src/caf\u00e9.js'] }), task('2', { write: ['src/cafe\u0301.js'] }),
+  ], capabilities).mode, 'sequential');
   assert.equal(chooseExecution([
     task('1', { resources: ['db:test'] }), task('2', { resources: ['db:test'] }),
   ], capabilities).mode, 'sequential');
 });
+test('scheduler blocks unresolved decisions and missing readiness in all modes', () => {
+  const capabilities = { spawn: true, isolatedWrites: true, maxParallel: 2 };
+  assert.equal(chooseExecution([task('1', { openDecisions: ['Payload?'] })]).mode, 'blocked');
+  assert.equal(chooseExecution([task('1'), task('2', { body: '' })], capabilities).mode, 'blocked');
+});
 test('delivery requires reviewed revision, passing evidence and no scope escape', () => {
   const delivery = {
     status: 'reviewed', baseRevision: 'base', revision: 'head',
-    changedFiles: ['src/1.js'], evidence: [{ command: 'npm test', exitCode: 0 }],
+    changedFiles: ['src/1.js'], evidence: [{ command: 'npm test', exitCode: 0, revision: 'head' }],
     reviews: { spec: 'head', quality: 'head', independent: true },
   };
   assert.deepEqual(validateDelivery(task('1'), delivery), []);
@@ -40,6 +60,7 @@ test('delivery requires reviewed revision, passing evidence and no scope escape'
     { changedFiles: ['src/outside.js'] },
     { evidence: [] },
     { evidence: [{ command: 'npm test', exitCode: 1 }] },
+    { evidence: [{ command: 'npm test', exitCode: 0, revision: 'old-head' }] },
     { reviews: { spec: 'old-head', quality: 'head', independent: true } },
     { reviews: { spec: 'head', quality: 'head', independent: false } },
   ]) assert.ok(validateDelivery(task('1'), { ...delivery, ...change }).length > 0);

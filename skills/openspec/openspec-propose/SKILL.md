@@ -10,6 +10,15 @@ metadata:
   generatedBy: "1.14.0"
 ---
 
+## ASDS mode
+For work already accepted by ASDS, use its intake and planning contract. Reuse the
+Accelerate context and preserve scoped approvals/refusals. Generate the configured
+microcontracts artifact as well as the task index. Under ASDS the standalone planning
+boundary below does not revoke existing explicit implementation authorization: present
+reviewable artifacts, then continue when that authorization covers the resolved scope.
+Do not add a mandatory new-turn gate. Missing material decisions still require an answer.
+
+
 Propose a new change - create the change and generate all artifacts in one step.
 
 **Planning boundary**: This workflow creates planning artifacts only. The user request that selected or triggered this workflow authorizes planning only, even if it asks to build or fix something. Do not edit project code. After the planning artifacts are complete, stop. Do not start implementation in the same response, even if the initial request asks for it. Wait for a new user request after the artifacts are presented; then start the apply workflow.

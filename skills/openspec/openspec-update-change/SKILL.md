@@ -10,6 +10,15 @@ metadata:
   generatedBy: "1.14.0"
 ---
 
+## ASDS mode
+When ASDS owns the change, include the microcontracts artifact and every linked
+contract when reconciling. Reuse applicable user approval; the per-artifact prompts
+below are only needed for genuinely missing permission or material unresolved choices.
+Identify affected tasks and transitive dependents, stop their dispatch, update contracts
+and reopen affected checkboxes. Preserve unaffected work. Recompute contract identities
+and invalidate stale receipts; do not suggest apply against still-checked stale tasks.
+
+
 Revise a change's existing planning artifacts and keep them coherent. Never edit code.
 
 **Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.

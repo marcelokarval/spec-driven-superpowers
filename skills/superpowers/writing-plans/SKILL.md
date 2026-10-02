@@ -3,6 +3,15 @@ name: writing-plans
 description: Use when you have a spec or requirements for a multi-step task, before touching code
 ---
 
+## ASDS mode
+When ASDS owns this work, replace the standalone plan/header/commit/handoff steps
+below with its microcontracts artifact and tasks.md index. Read its planning and
+contract references. Produce Outcome, Inputs, Acceptance, Verification and Definition
+of done per task, with resolved decisions and explicit shared interfaces/resources.
+Do not create docs/superpowers/plans or a second checkbox tracker. Existing approval
+and selected execution mode persist. Do not create a worktree or commit implicitly.
+
+
 # Writing Plans
 
 ## Overview

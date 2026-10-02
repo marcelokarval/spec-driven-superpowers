@@ -1,6 +1,6 @@
 {
   "name": "spec-driven-superpowers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Autonomous Spec-Driven Superpowers (ASDS) Standard & Toolkit for AI Coding Agents",
   "type": "module",
   "private": true,
@@ -8,7 +8,8 @@
     "node": ">=20.19.0"
   },
   "scripts": {
-    "test": "node --test tests/*.test.js",
+    "test": "node --test",
+    "check": "node scripts/check.mjs",
     "validate": "node scripts/validate.mjs",
     "install:asds": "node scripts/install.mjs"
   },

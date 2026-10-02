@@ -1,0 +1,37 @@
+{
+  "baseRevision": "b93195453250058aa8be28130e77929d5f8e47b8",
+  "revision": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb",
+  "changedFiles": [
+    "src/count.js",
+    "tests/count.test.js"
+  ],
+  "contractRevision": "d1aea820e8e9ce7a01ac0075cdbda74573c866722aba3821c9aaa403a7530631",
+  "status": "integrated",
+  "evidence": [
+    {
+      "command": "node --test tests/count.test.js",
+      "exitCode": 0,
+      "revision": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb"
+    }
+  ],
+  "reviews": {
+    "spec": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb",
+    "quality": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb",
+    "independent": true,
+    "reviewer": "01a0f874-589a-7081-82d9-a3815921ff3e"
+  },
+  "integrationRevision": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb",
+  "integrationEvidence": [
+    {
+      "command": "node --test tests/count.test.js",
+      "exitCode": 0,
+      "revision": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb"
+    }
+  ],
+  "integrationReviews": {
+    "spec": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb",
+    "quality": "ba994fd7851867ac7026a5e21ea7fd6510d40bbb",
+    "independent": true,
+    "reviewer": "01a0f874-589a-7081-82d9-a3815921ff3e"
+  }
+}

@@ -1,0 +1,388 @@
+{
+  "format": 1,
+  "sourceRepository": "https://github.com/Jaoguatirica/spec-driven-superpowers",
+  "sourceRevision": "0e55c2d482b42a71132ee8604065c28c1a62d7cd",
+  "description": "Original source inventory; current local modifications are documented in docs/provenance.md.",
+  "files": [
+    {
+      "path": "rules/AGENTS.md",
+      "gitBlob": "993b3a5941ea817efcf621072f935b5e497359e3",
+      "mode": "100644"
+    },
+    {
+      "path": "schemas/superpowers-bridge/schema.yaml",
+      "gitBlob": "25ca3d59af6126a1bb5870dcadea05bd8f49c449",
+      "mode": "100644"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/design.md",
+      "gitBlob": "070c20cc4b6f1ca5fd1906f82e394903731b7187",
+      "mode": "100644"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/proposal.md",
+      "gitBlob": "68c7f3c56b787eeb477f633b7ed912d5b4d1febb",
+      "mode": "100644"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/spec.md",
+      "gitBlob": "a9bc5afc583d64cc3b3b175037c8018ea93484d1",
+      "mode": "100644"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/summary.md",
+      "gitBlob": "83ad8c41919e517b44e8e929f0ee9c7dc6755f87",
+      "mode": "100644"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/task-template.md",
+      "gitBlob": "1edaa0dafe3a79df6ab77bd4ab73e2ffcf277443",
+      "mode": "100644"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/tasks.md",
+      "gitBlob": "faf910c23bf429baea8d159973bbc4707e1f0cdf",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/openspec/openspec-apply-change/SKILL.md",
+      "gitBlob": "b3daa01ef7067c0adb554c971682bae1db7b8b91",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/openspec/openspec-archive-change/SKILL.md",
+      "gitBlob": "426d4197dd9821b1b49f71c09729a947ec647ec6",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/openspec/openspec-explore/SKILL.md",
+      "gitBlob": "2bfbf0b258723d4e698bcbacd55b6b4d81356dbe",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/openspec/openspec-propose/SKILL.md",
+      "gitBlob": "c9a369409e1739e33d096d922ac46ffd1d848392",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/openspec/openspec-sync-specs/SKILL.md",
+      "gitBlob": "8a9b404e435f1c3d43aa450dad63a8e7d1e5ebe7",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/openspec/openspec-update-change/SKILL.md",
+      "gitBlob": "c70a7e2f0c04e54b7913ab6699f34c98a3d7fb14",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/SKILL.md",
+      "gitBlob": "5c43171ea46d701bfde6a94981dacc809dffdb40",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/SKILL.md",
+      "gitBlob": "06cd0a21ee771f6bb7aaba9341a77ca09a8c7d04",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/agents/openai.yaml",
+      "gitBlob": "66b37b253e170ab003b73538da96df26828f45cb",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/scripts/frame-template.html",
+      "gitBlob": "9d7c0192ed8ff79ac27d629f45221a14d3a1d17f",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/scripts/helper.js",
+      "gitBlob": "111f97f597e95d5357b33e39c1da4a8d36f7ce82",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/scripts/server.cjs",
+      "gitBlob": "562c17f8933a39e1973737617bad8637529fe018",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/scripts/start-server.sh",
+      "gitBlob": "9ef6dcb991547a28e2b555d6fd08e97b8ea27400",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/scripts/stop-server.sh",
+      "gitBlob": "a6b94e6532b7006c7cb05898475e9f71c53c173e",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/spec-document-reviewer-prompt.md",
+      "gitBlob": "35acbb611c054f59f8cba0e551e7f04d3ce489e7",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/brainstorming/visual-companion.md",
+      "gitBlob": "7f481abdd18b06d56a93254d9a9ac216fef739a9",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/dispatching-parallel-agents/SKILL.md",
+      "gitBlob": "27c0ed9a943a660b38773c6035516ea3ea7a0984",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/dispatching-parallel-agents/agents/openai.yaml",
+      "gitBlob": "bef505ee177d39d01b0db572a061bd61d8699ff0",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/executing-plans/SKILL.md",
+      "gitBlob": "554495fd4347e3c17a7ed52ccb5eefd973f7775f",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/executing-plans/agents/openai.yaml",
+      "gitBlob": "9fe12eb95f01ef4557c3318eff3fd07b3bf4ab0c",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/finishing-a-development-branch/SKILL.md",
+      "gitBlob": "c308b43b4b6a856f8d721c594f0907af614b8e2e",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/finishing-a-development-branch/agents/openai.yaml",
+      "gitBlob": "e4b6aa8e44dd36b09263a80ba744e1de6f3fae6b",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/receiving-code-review/SKILL.md",
+      "gitBlob": "0f3025f4ec143ec02d49023d2b82b6f3ef6306c5",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/receiving-code-review/agents/openai.yaml",
+      "gitBlob": "89f1ffba3b6b67276e9af5f78bedf5b84f5039c1",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/requesting-code-review/SKILL.md",
+      "gitBlob": "fe7c8d90c85bd0de5640f7c4db522659537bbb5e",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/requesting-code-review/agents/openai.yaml",
+      "gitBlob": "aa9d517943941bf236a090d58bcc406907616c2e",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/requesting-code-review/code-reviewer.md",
+      "gitBlob": "3c427c91b269a61b3033abf6357a3048319caacc",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/spec-driven-superpowers/SKILL.md",
+      "gitBlob": "5c43171ea46d701bfde6a94981dacc809dffdb40",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/subagent-driven-development/SKILL.md",
+      "gitBlob": "5150b18632aab99596c87d38cbf56709c1068028",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/subagent-driven-development/agents/openai.yaml",
+      "gitBlob": "7d40cd6f3384352c84f860ad9019224b864de915",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/subagent-driven-development/code-quality-reviewer-prompt.md",
+      "gitBlob": "a04201aceb48302ae93e60404f9bcf7a1e1c5a4a",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/subagent-driven-development/implementer-prompt.md",
+      "gitBlob": "400c1034792d9931a4507f58fa05a1a2d9b38e51",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/subagent-driven-development/spec-reviewer-prompt.md",
+      "gitBlob": "ab5ddb8a5594d0655ff2e7e6aa1ec097eaf16b48",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/CREATION-LOG.md",
+      "gitBlob": "e8d25f08782caf0e289af74d0fe72375a5176c4b",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/SKILL.md",
+      "gitBlob": "111d2a98c2698b5a202ddae8906f75f16ecfcffd",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/agents/openai.yaml",
+      "gitBlob": "1306dcc2abcc26841f9ed9615048170483a99e60",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/condition-based-waiting-example.ts",
+      "gitBlob": "703a06b653160d060bbf46ab5c6e0cd7446bd592",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/condition-based-waiting.md",
+      "gitBlob": "70994f777c586f7d4c43033aac34c7cf0da6688b",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/defense-in-depth.md",
+      "gitBlob": "e2483354dc2b62478a2624e34ca18bc0efe887b2",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/find-polluter.sh",
+      "gitBlob": "1d71c56077dd819f0966cdae353fb142201611c6",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/root-cause-tracing.md",
+      "gitBlob": "948477497bb13c06f572defb5a55b4a11bbd5e25",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/test-academic.md",
+      "gitBlob": "23a6ed7a2044e0c44d74c3101406140f4851aa41",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/test-pressure-1.md",
+      "gitBlob": "8d13b467e4a98abfffd12161cbc3c418021d6023",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/test-pressure-2.md",
+      "gitBlob": "2d2315ec8a24ca872bc80d2f4056468ba051462a",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/systematic-debugging/test-pressure-3.md",
+      "gitBlob": "89734b86fdc756488df315d53e5c3ac2d3752cd8",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/test-driven-development/SKILL.md",
+      "gitBlob": "7a751fa946b7fd801feb504cb1af6b5b62adcf43",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/test-driven-development/agents/openai.yaml",
+      "gitBlob": "729f55acc1ce08c3eebf9fd4004a55f299cf5204",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/test-driven-development/testing-anti-patterns.md",
+      "gitBlob": "e77ab6b6d65ecfb0d8212a32186bf68d18b5eade",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/using-git-worktrees/SKILL.md",
+      "gitBlob": "74dfdedcfe0b62548e21b3f2cacca32e8aaba82c",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/using-git-worktrees/agents/openai.yaml",
+      "gitBlob": "7c145e4088b0a0f719e1b3ea062e16f285b81e9e",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/using-superpowers/SKILL.md",
+      "gitBlob": "7e997ef5d893569ca9bed08e1454dfd3f1446012",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/using-superpowers/agents/openai.yaml",
+      "gitBlob": "3d2f1ad708e162677c5c701a8fdc17acc61f6516",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/using-superpowers/references/codex-tools.md",
+      "gitBlob": "7c53961351d3cc384fdd9f4078636218e02d6a91",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/using-superpowers/references/copilot-tools.md",
+      "gitBlob": "c97f4f28c372e6fd6e9ef4c6d6ab7c2cb45c157e",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/using-superpowers/references/gemini-tools.md",
+      "gitBlob": "188370190658fb5363b597ca7e8dfde098301d52",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/verification-before-completion/SKILL.md",
+      "gitBlob": "2f14076e59e6ce5cd6f88007421a85f0bd772520",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/verification-before-completion/agents/openai.yaml",
+      "gitBlob": "6033d3f16f33fc33d268a74e3c83018c6fcfe99c",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-plans/SKILL.md",
+      "gitBlob": "0d9c00ba7c3107e76fd0fb71f7f8e337e64b5037",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-plans/agents/openai.yaml",
+      "gitBlob": "07ea2d27c5caebc4e743563a17c8887d0aebc648",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-plans/plan-document-reviewer-prompt.md",
+      "gitBlob": "2db2806783ece718ef32491bad45c1d650404e71",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/SKILL.md",
+      "gitBlob": "f599db5e6be87c6b898701f355e17080d22306e4",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/agents/openai.yaml",
+      "gitBlob": "ef0bde6e768436a6bdf765f1deb287188be24c96",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/anthropic-best-practices.md",
+      "gitBlob": "a9846e48066b0033cb655d5b0a662e42d5d1d686",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/examples/AGENTS_MD_TESTING.md",
+      "gitBlob": "72baa40f62147e5f750c3ef65b81259fd855c572",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/graphviz-conventions.dot",
+      "gitBlob": "3509e2f028cacaa8118cbc8c80025efb089ec28e",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/persuasion-principles.md",
+      "gitBlob": "9818a5f951b66d02d288c56fd1941b6b5f5478f1",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/render-graphs.js",
+      "gitBlob": "1d670fbb356553f898b9f8273f8b314f35ef1a59",
+      "mode": "100644"
+    },
+    {
+      "path": "skills/superpowers/writing-skills/testing-skills-with-subagents.md",
+      "gitBlob": "8d33179a6ed296254158a000be03fa696404037a",
+      "mode": "100644"
+    }
+  ]
+}
