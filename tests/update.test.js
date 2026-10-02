@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 import { planInstall, applyInstall } from '../lib/install.mjs';
 const hash = data => createHash('sha256').update(data).digest('hex');
 function oldInstall(t) {
- const target=fs.mkdtempSync(path.join(os.tmpdir(),'asds-update-'));t.after(()=>fs.rmSync(target,{recursive:true,force:true}));
+ const target=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-update-')));t.after(()=>fs.rmSync(target,{recursive:true,force:true}));
  const opts={scope:'project',target};applyInstall(planInstall(opts));
  const file=path.join(target,'.agents/skills/spec-driven-superpowers/SKILL.md');
  const manifest=path.join(target,'.asds/install-manifest.json');
@@ -48,7 +48,7 @@ test('update preserves permissions and rejects mode changes after preview',{skip
  assert.throws(()=>applyInstall(stale),/changed/);assert.equal(fs.readFileSync(second.file,'utf8'),'previous released skill\n');
 });
 test('user update refuses changing shared payload without reconciling other manifests',t=>{
- const target=fs.mkdtempSync(path.join(os.tmpdir(),'asds-update-shared-'));t.after(()=>fs.rmSync(target,{recursive:true,force:true}));
+ const target=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-update-shared-')));t.after(()=>fs.rmSync(target,{recursive:true,force:true}));
  const opts={scope:'user',target,dataHome:path.join(target,'data')};applyInstall(planInstall(opts));
  const file=path.join(target,'.asds/LICENSE'),manifest=path.join(target,'.asds/install-manifest.json');
  fs.writeFileSync(file,'old shared payload');const data=JSON.parse(fs.readFileSync(manifest));data.files.find(e=>e.path===file).sha256=hash(fs.readFileSync(file));fs.writeFileSync(manifest,JSON.stringify(data));
