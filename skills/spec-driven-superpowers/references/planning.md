@@ -13,6 +13,31 @@ Assign an owner to each material decision. Record chosen option, rationale and
 consequence in design.md. If evidence is missing, plan a bounded investigation
 with a concrete question/output before its dependent implementation.
 
+## Read scope
+After accepting work, ASDS preserves the selected project and the received read
+boundaries throughout discovery, implementation, review and resumption. Default
+to relevant project files plus the necessary global instruction/skill references.
+Read access is not a reason to explore sibling projects, HOME, temporary logs,
+other sessions or previous evaluation evidence. A suggestive directory name or
+nearby report does not make that material relevant to the current task.
+
+Before an outside-project read, identify the missing fact, why local evidence
+cannot answer it and the exact external reference needed. Use existing authorized
+references when sufficient; ask only if expansion needs a new decision or permission.
+Never perform broad HOME/tmp searches to guess the purpose of a project. If the
+necessary context is missing, report the gap and continue independent scoped work.
+Delegated workers and reviewers inherit the same boundary, not just a write scope.
+
+If unrelated evidence was read, record that exposure and exclude it from claims
+of independent verification. A later restricted probe does not erase the earlier
+deviation. These are behavioral instructions, not a filesystem sandbox.
+
+Report observed operations precisely: reading source, checking `node -v`, running
+project tests, writing artifacts and publishing are distinct actions. A version
+command executed a program even when no project code ran. Inspect the project
+before asserting that a file/directory is absent, and distinguish proposed paths
+from existing artifacts. Do not substitute an agent's summary for tool evidence.
+
 ## One planning home
 Use brainstorming before specs/design/tasks, only when understanding or choices
 need elaboration. Under ASDS its output feeds proposal.md and design.md. Writing

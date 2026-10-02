@@ -1,6 +1,6 @@
 {
   "name": "spec-driven-superpowers",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Autonomous Spec-Driven Superpowers (ASDS) Standard & Toolkit for AI Coding Agents",
   "type": "module",
   "private": true,
@@ -24,7 +24,7 @@
     "antigravity",
     "claude-code"
   ],
-  "author": "João Manoel (Jaoguatirica)",
+  "author": "Jo\u00e3o Manoel (Jaoguatirica)",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -1,11 +1,19 @@
 # Changelog
 
-## Unreleased
+## 1.1.1 — 2026-10-02
 
 - Give explicitly selected native harness skill roots separate installation
   manifests so a second supported root can coexist with the default installation.
   Existing default payload and manifest bytes are preserved. Payload conflicts
   remain errors; native discovery and global activation are separate checks.
+
+- Bound discovery after acceptance to the project and necessary references;
+  require concrete justification for expansion and report actual commands precisely.
+- Add explicit manifest-checked updates of unchanged owned skills, with in-memory
+  rollback of ordinary failures and no automatic backups. Shared user payload
+  changes/removals require separate reconciliation.
+- Preserve native-entry evidence, including the contaminated Agy probe and its
+  restricted repeat; instructions do not provide filesystem confinement.
 
 ## 1.1.0 — 2026-10-02
 
