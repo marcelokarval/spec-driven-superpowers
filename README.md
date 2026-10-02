@@ -110,15 +110,17 @@ capabilities, sequential fallback and review limitations.
 
 ### Preservation and limits
 
-- Existing identical files are accepted; conflicting files abort before writes.
-- Repeat with the same flags for idempotence. This is not an in-place upgrader:
-  changed source files or install options can conflict with an existing manifest.
+- Default installation accepts identical files; conflicting files abort before writes.
+- Repeat with the same flags for idempotence. Default installation is additive;
+  use explicit `--update` for the manifest-checked update described below. Changed
+  user content and incompatible install options remain conflicts.
   Compare old/new hashes and migrate explicitly; there is no force-overwrite flag.
 - Existing rules/configuration and unrelated directory content are preserved.
 - Symlinks in destination ancestry are rejected, including broken links. On
   systems with aliased temporary/home paths, select their canonical real path.
-- On ordinary apply errors, only newly created files/directories are rolled back.
-  This is not crash recovery or a defense against a hostile concurrent writer.
+- On ordinary apply errors, newly created files/directories are removed; explicit
+  updates also restore replaced bytes from memory. This is not crash recovery or
+  a defense against a hostile concurrent writer.
 - No uninstall, provider/auth changes, service restarts, commits, push or automatic
   archive. Do not run concurrent installers against the same destination.
 
