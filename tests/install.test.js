@@ -99,6 +99,30 @@ test('repeat installation is idempotent', t => {
   assert.equal(fs.readFileSync(path.join(target, '.asds/install-manifest.json'), 'utf8'), manifest);
 });
 
+test('native harness skill roots coexist without replacing another installation manifest', t => {
+  for (const roots of [['.agents/skills', '.gemini/config/skills'], ['.gemini/config/skills', '.agents/skills']]) {
+    const target = fixture(t), dataHome = fixture(t);
+    const run = skillsDir => spawnSync(process.execPath, [cli, '--scope', 'user', '--target', target,
+      '--data-home', dataHome, '--skills-dir', skillsDir, '--apply'], { encoding: 'utf8' });
+    for (const skillsDir of roots) {
+      const result = run(skillsDir);
+      assert.equal(result.status, 0, result.stderr);
+    }
+    const legacy = path.join(target, '.asds/install-manifest.json');
+    const before = fs.readFileSync(legacy, 'utf8');
+    assert.ok(JSON.parse(before).files.some(file => file.path.includes(`${path.sep}.agents${path.sep}`)));
+    for (const skillsDir of roots) {
+      assert.ok(fs.existsSync(path.join(target, skillsDir, 'spec-driven-superpowers/SKILL.md')));
+      assert.equal(run(skillsDir).status, 0);
+    }
+    assert.equal(fs.readFileSync(legacy, 'utf8'), before);
+    const profiles = fs.readdirSync(path.join(target, '.asds/install-manifests'));
+    assert.equal(profiles.length, 1);
+    const other = JSON.parse(fs.readFileSync(path.join(target, '.asds/install-manifests', profiles[0]), 'utf8'));
+    assert.ok(other.files.some(file => file.path.includes(`${path.sep}.gemini${path.sep}`)));
+  }
+});
+
 test('schema selection requires explicit activation and preserves existing config', t => {
   const target = fixture(t);
   assert.equal(install(target, '--apply', '--activate').status, 0);

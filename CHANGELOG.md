@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Give explicitly selected native harness skill roots separate installation
+  manifests so a second supported root can coexist with the default installation.
+  Existing default payload and manifest bytes are preserved. Payload conflicts
+  remain errors; native discovery and global activation are separate checks.
+
 ## 1.1.0 — 2026-10-02
 
 - Separate global skill availability from project activation. Ordinary questions

@@ -29,6 +29,14 @@ The normal setup installs skills globally **for the current user**. Global
 availability does not activate ASDS or Superpowers for every terminal conversation.
 An ordinary question receives a direct answer: no workflow, setup question or folder.
 
+Each harness must actually discover its supported skill directory. Installing
+into `.agents/skills` does not prove discovery by another client. The default
+installation keeps `.asds/install-manifest.json`; explicitly selected native
+skill roots use independent manifests under `.asds/install-manifests/`. They can
+coexist without replacing the default manifest. Payload conflicts still abort
+before writes. Older customized installations with a legacy default-named
+manifest require explicit reconciliation; this change does not migrate them.
+
 For suitable project work, the agent checks the intended project's `openspec/`.
 If missing, it asks whether to create that exact path or continue without OpenSpec,
 and waits before creating anything. Existing configuration is reused. A prior
