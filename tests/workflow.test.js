@@ -27,7 +27,7 @@ test('microcontract body and material decisions are readiness gates', t => {
   const dir = fixture(t);
   const file = path.join(dir, 'tasks/task-0001.md');
   const original = fs.readFileSync(file, 'utf8');
-  fs.writeFileSync(file, original.match(/^---\n[\s\S]*?\n---\n/)[0]);
+  fs.writeFileSync(file, original.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n/)[0]);
   assert.ok(validateChange(dir).some(error => /readiness/.test(error)));
   fs.writeFileSync(file, original.replace('openDecisions: []', 'openDecisions: ["Unresolved API"]'));
   assert.ok(validateChange(dir).some(error => /decisions/.test(error)));

@@ -57,3 +57,14 @@ bytes. Release metadata/documentation require a final delta review; GitHub matri
 results and final release identity are reported separately at publication.
 No new installation or backup temporary directories were created in this run.
 Existing worktrees from earlier work were not created or removed by this release.
+
+## Windows CI correction
+
+Initial GitHub run 36960273904 passed Linux (Node 20.19, 22, 24) and macOS,
+but failed Windows. Git rejected Node's Windows null-device spelling in fixture
+configuration; the scope collector compared canonical paths as raw strings;
+one fixture regex assumed LF. Use Git's `NUL` spelling on Windows, host path
+comparison for the already-realpathed repository root, and a CRLF-aware fixture
+regex. The existing nested-repository rejection test is retained; the clean
+scope test also checks Windows drive/separator spelling. This functional delta
+requires a focused independent re-review and a fresh CI run before publication.

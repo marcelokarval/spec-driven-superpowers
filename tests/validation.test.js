@@ -80,7 +80,7 @@ test('change validation connects index, contracts and real scenarios', t => {
 });
 test('Git scope includes committed, staged, unstaged, deleted and untracked paths', t => {
   const dir = fixture(t);
-  const git = (...args) => execFileSync('git', ['-c', `core.hooksPath=${os.devNull}`, '-c', 'commit.gpgSign=false', ...args], { cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  const git = (...args) => execFileSync('git', ['-c', `core.hooksPath=${process.platform === 'win32' ? 'NUL' : os.devNull}`, '-c', 'commit.gpgSign=false', ...args], { cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
   git('init');
   git('config', 'user.email', 'fixture@example.invalid');
   git('config', 'user.name', 'Test fixture');
@@ -108,7 +108,7 @@ test('Git scope includes committed, staged, unstaged, deleted and untracked path
 test('delivery CLI checks real scope and stale snapshots without executing contract commands', t => {
   const repo = fixture(t), change = changeFixture(t), evidence = fixture(t);
   const git = (...args) => execFileSync('git', [
-    '-c', `core.hooksPath=${os.devNull}`, '-c', 'commit.gpgSign=false',
+    '-c', `core.hooksPath=${process.platform === 'win32' ? 'NUL' : os.devNull}`, '-c', 'commit.gpgSign=false',
     '-c', 'user.email=fixture@example.invalid', '-c', 'user.name=Fixture', ...args,
   ], { cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
   git('init');
@@ -148,7 +148,7 @@ test('delivery CLI checks real scope and stale snapshots without executing contr
 
 test('CLI verifies distinct delivered and integrated revisions without widening task scope', t => {
   const repo = fixture(t), change = changeFixture(t), evidence = fixture(t);
-  const git = (...args) => execFileSync('git', ['-c', `core.hooksPath=${os.devNull}`,
+  const git = (...args) => execFileSync('git', ['-c', `core.hooksPath=${process.platform === 'win32' ? 'NUL' : os.devNull}`,
     '-c', 'commit.gpgSign=false', '-c', 'user.email=fixture@example.invalid', '-c', 'user.name=Fixture', ...args],
     { cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
   git('init');

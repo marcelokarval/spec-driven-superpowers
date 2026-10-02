@@ -6,20 +6,23 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { collectGitScope } from '../lib/git-scope.mjs';
 
+// Git accepts NUL on Windows, but not Node's \\.\nul device namespace spelling.
+const gitNull = process.platform === 'win32' ? 'NUL' : os.devNull;
+
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-git-scope-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('GIT_')));
   Object.assign(env, {
     GIT_CONFIG_NOSYSTEM: '1',
-    GIT_CONFIG_GLOBAL: os.devNull,
+    GIT_CONFIG_GLOBAL: gitNull,
     GIT_AUTHOR_NAME: 'ASDS fixture',
     GIT_AUTHOR_EMAIL: 'fixture@example.invalid',
     GIT_COMMITTER_NAME: 'ASDS fixture',
     GIT_COMMITTER_EMAIL: 'fixture@example.invalid',
   });
   const git = (...args) => execFileSync('git', [
-    '-c', `core.hooksPath=${os.devNull}`, '-c', 'commit.gpgSign=false',
+    '-c', `core.hooksPath=${gitNull}`, '-c', 'commit.gpgSign=false',
     '-c', 'tag.gpgSign=false', ...args,
   ], { cwd: root, env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
   const write = (file, content) => {
@@ -48,6 +51,10 @@ test('clean scope resolves revisions and includes committed out-of-scope paths',
     changedFiles: ['outside/contract.txt'],
   });
   assert.equal(collectGitScope(root, 'HEAD~1').baseRevision, base);
+  if (process.platform === 'win32') {
+    const alternate = root.replace(/^[A-Za-z]/, drive => drive.toLowerCase()).replaceAll('\\', '/');
+    assert.deepEqual(collectGitScope(alternate, base), collectGitScope(root, base));
+  }
 });
 
 test('scope unions staged, unstaged, untracked, deleted and renamed paths', t => {
