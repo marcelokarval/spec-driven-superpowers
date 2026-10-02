@@ -1,7 +1,17 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "Use for engineering work with unresolved intent, requirements or design choices before specification and implementation. Reuse existing decisions; not for ordinary conversation or already-resolved bounded edits."
 ---
+
+## ASDS mode
+When ASDS owns this work, this section replaces the standalone artifact paths,
+commit steps and repeated approval gates below. Use brainstorming during incremental
+understanding, before specs and tasks. Reuse received context and prior decisions.
+Write into the change's proposal.md/design.md; do not create docs/superpowers/specs.
+Transition to ASDS microcontracts and tasks.md, not a separate implementation plan.
+Ask only unresolved material questions/permissions. Do not commit unless authorized.
+For ordinary conversation do not activate; for bounded work do not impose this flow.
+
 
 # Brainstorming Ideas Into Designs
 

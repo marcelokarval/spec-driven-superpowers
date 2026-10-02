@@ -1,181 +1,214 @@
 # Autonomous Spec-Driven Superpowers (ASDS)
 
-[![CI Validation](https://github.com/Jaoguatirica/spec-driven-superpowers/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/Jaoguatirica/spec-driven-superpowers/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![OpenSpec Compatible](https://img.shields.io/badge/OpenSpec-Compatible-brightgreen.svg)](https://github.com/Fission-AI/openspec)
-[![Superpowers Compatible](https://img.shields.io/badge/Superpowers-v1.0-blueviolet.svg)](https://github.com/anthropics/superpowers)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-blue.svg)](https://nodejs.org)
+OpenSpec defines **what** to build; Superpowers guides **how** to build it.
+ASDS connects them with a small task index, per-task microcontracts, TDD and
+revision-bound reviews. It is a workflow toolkit, not an inference engine or a
+guarantee of zero defects, lower token usage or faster delivery.
 
-> **The zero-defect, zero-command autonomous engineering standard for AI coding agents.**  
-> Fusing **OpenSpec** (behavioral contracts & specifications) with **Superpowers** (TDD, micro-planning, worktree isolation, subagents, and double-review execution).
+This fork separates a portable protocol, harness-specific adapters and an opt-in
+project profile. See [architecture](docs/architecture.md) and
+[upstream provenance](docs/provenance.md).
 
----
+## Requirements and local setup
 
-## ⚡ Why ASDS?
-
-Traditional AI coding sessions ("vibe coding") suffer from structural flaws as projects scale:
-- **Context Rot & Scope Creep:** The LLM drifts from requirements, hallucinating removed features or modifying unrelated files.
-- **Flaky Deliveries:** Absence of strict TDD results in silent regressions and unverified claims.
-- **Manual Overhead:** Users are forced to act as workflow micromanagers, typing repetitive slash commands (`/opsx-propose`, `/opsx-apply`, `/opsx-archive`).
-- **Disposable Evidence:** Visual tests or screenshots are tossed into temporary caches instead of providing an auditable proof ledger.
-
-**ASDS eliminates vibe coding entirely.** It establishes a self-governing protocol where the agent autonomously plans, specifies, verifies, parallelizes, audits, and archives changes with 100% mathematical and test-backed certainty.
-
----
-
-## 🏛️ Core Principles
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│                    ASDS CORE PARADIGM                         │
-├───────────────────────────────┬───────────────────────────────┤
-│    OpenSpec Governs "WHAT"    │   Superpowers Governs "HOW"   │
-│  - Behavioral Requirements    │  - Strict Test-Driven (TDD)   │
-│  - Living Specifications      │  - Isolated Git Worktrees     │
-│  - RFC 2119 BDD Scenarios     │  - Concurrent Subagent Waves  │
-│  - Scope & Schema Validation  │  - Independent Double-Review  │
-└───────────────────────────────┴───────────────────────────────┘
-```
-
-1. **OpenSpec Governs "What", Superpowers Governs "How":** Requirements are frozen in formal spec deltas before any code is written; technical execution adheres to strict TDD and worktree isolation.
-2. **Zero-Command Autonomous Orchestration:** The agent leads from conception to archival. It never prompts the user to run manual slash commands. Human authorization is given via natural language (e.g., *"aprovado"*, *"pode prosseguir"*).
-3. **Pre-flight Baseline Health Check:** Project test suites run before starting any task to detect legacy anomalies, preventing out-of-scope token waste.
-4. **Master-Detail Task Architecture (`tasks.md` + `tasks/task-*.md`):** A stable dependency index links to atomic micro-contracts with rigid file boundaries.
-5. **Native Parallelism & Workspace Isolation:** Disjoint tasks run concurrently via subagents in isolated workspaces (`Workspace: share` / worktrees) to avoid file-locking and cache collisions.
-6. **Strict TDD & Evidence Ledger:** Every change requires Red-Green-Refactor. All visual UI proofs (`screenshots/`) and test outputs are permanently committed alongside code into a consolidated Evidence Ledger (`summary.md`).
-
----
-
-## 🔄 Autonomous Lifecycle Workflow
-
-```mermaid
-flowchart TD
-    A["User Natural Prompt"] --> B["Explore & Brainstorming"]
-    B --> C["OpenSpec Proposal & Specs (RFC 2119 BDD)"]
-    C --> D["Pre-Validation Gate (openspec validate)"]
-    D --> E["Master-Detail Decomposition (tasks.md + tasks/task-*.md)"]
-    E --> F["Human Natural Language Sign-Off ('Aprovado')"]
-    F --> G["Pre-flight Baseline Health Check"]
-    G --> H{"Analyze Dependencies into Concurrency Waves"}
-    
-    subgraph Execution ["Wave Concurrency & Subagent Isolation"]
-        H -->|Wave 1: Scaffold| W1["Task 0001..N (Subagents / Isolated Worktrees)"]
-        W1 -->|Wave 2: Implementation| W2["Parallel Disjoint Micro-Contracts"]
-        W2 -->|Wave 3: Verification| W3["Strict TDD & Code Reviewer Audit"]
-    end
-    
-    Execution --> I["Capture Visual Proofs (Persisted screenshots/)"]
-    I --> J["Evidence Ledger Synthesis (summary.md)"]
-    J --> K["Automated OpenSpec Archival & Commit Release"]
-```
-
----
-
-## 📋 Master-Detail Task Architecture
-
-Rather than a monolithic markdown checklist that causes merge conflicts and context overflow, ASDS enforces a **Master-Detail** model:
-
-### 1. Master Index (`tasks.md`)
-Defines execution waves, dependency order, and real-time completion state:
-```markdown
-## Wave 1: Foundation & Scaffolding (Concurrent)
-- [x] [Task 0001](tasks/task-0001.md): Scaffolding repository structure
-- [x] [Task 0002](tasks/task-0002.md): Architectural documentation
-
-## Wave 2: Core Implementation (Concurrent - Depends on Wave 1)
-- [ ] [Task 0003](tasks/task-0003.md): Core state machine engine
-- [ ] [Task 0004](tasks/task-0004.md): Network RPC client
-```
-
-### 2. Micro-Contracts (`tasks/task-0001.md`)
-Every task has an atomic contract that constrains the agent:
-```markdown
-# Task 0001: Core state machine engine
-
-## 1. Metadata & Dependencies
-- Task ID: Task 0001
-- Concurrency Wave: Wave 2
-- Prerequisites: Task 0001, Task 0002
-
-## 2. Rigid File Boundary
-- Permitted for Write: src/engine/state-machine.ts
-- Strictly Prohibited: Any files outside the permitted list.
-
-## 3. Test-Driven Development Protocol
-1. RED: Write failing unit test in tests/state-machine.test.ts
-2. GREEN: Minimal production code to satisfy test.
-3. REFACTOR: Optimize without breaking contract.
-
-## 4. Empirical Verification Command
-$ npm test -- -t "state-machine"
-
-## 5. Definition of Done
-- Verification exits with code 0.
-- No files outside permitted boundary modified.
-- Atomic commit created: feat(engine): [Task 0001] State machine implementation
-```
-
----
-
-## 📊 Empirical ROI Matrix
-
-| Metric | Traditional "Vibe Coding" | ASDS Autonomous Standard | Real-World Impact |
-| :--- | :--- | :--- | :--- |
-| **Defect Rate** | 25% – 40% silent regressions | **< 1%** (zero-defect target) | Eliminates repetitive debugging loops |
-| **Token Efficiency** | High waste (re-explaining scope) | **Optimized (-45% tokens)** | Focused subagent micro-contracts |
-| **Delivery Speed** | Sequential & manual prompting | **3x – 5x faster** | Concurrency waves + subagent dispatch |
-| **Human Fatigue** | High (must babysit CLI commands) | **Minimal (1-click sign-off)** | Agent orchestrates from spec to release |
-| **Living Documentation** | Stale / Disconnected | **100% Synchronized** | OpenSpec deltas automatically merge |
-| **Audit Trail** | Fleeting terminal history | **Permanent Evidence Ledger** | Commits + Tests + Screenshots persisted |
-
----
-
-## 🚀 Quick Start (1-Click Global Installation)
-
-Clone this repository and run the setup script for your platform:
-
-### Windows (PowerShell)
-```powershell
-git clone https://github.com/Jaoguatirica/spec-driven-superpowers.git
-cd spec-driven-superpowers
-.\scripts\install.ps1
-```
-
-### Linux & macOS (Bash)
-```bash
-git clone https://github.com/Jaoguatirica/spec-driven-superpowers.git
-cd spec-driven-superpowers
-chmod +x ./scripts/install.sh
-./scripts/install.sh
-```
-
-### What gets installed:
-1. `@fission-ai/openspec` CLI (global npm package).
-2. Global skills directory linked to `~/.gemini/config/skills/` and `~/.agents/skills/`.
-3. 21+ battle-tested skills (OpenSpec lifecycle, Superpowers TDD, Subagent dispatchers).
-4. Universal governance rule `rules/AGENTS.md` injected automatically into every agent session.
-5. `superpowers-bridge` custom OpenSpec workflow schema.
-
----
-
-## 🛠️ Verification & Testing
-
-Run the automated test suite locally:
+Node **>=20.19.0**, npm and Git. OpenSpec **1.14.0** and YAML **2.9.1** are pinned
+in the local lockfile. No global npm installation is performed.
 
 ```bash
+git clone https://github.com/marcelokarval/spec-driven-superpowers.git
+cd spec-driven-superpowers
+npm ci --ignore-scripts
 npm test
+npm run validate
+npm run check
 ```
 
-This verifies:
-- YAML frontmatter integrity across all 21+ packaged skills.
-- Universal `AGENTS.md` rule directives and invariants.
-- `superpowers-bridge` OpenSpec schema and templates.
-- Cross-platform installer existence.
+## Global installation and project activation
 
----
+The normal setup installs skills globally **for the current user**. Global
+availability does not activate ASDS or Superpowers for every terminal conversation.
+An ordinary question receives a direct answer: no workflow, setup question or folder.
 
-## 👤 Author & Governance
+For suitable project work, the agent checks the intended project's `openspec/`.
+If missing, it asks whether to create that exact path or continue without OpenSpec,
+and waits before creating anything. Existing configuration is reused. A prior
+explicit authorization to initialize that project is sufficient; no repeat question.
+Refusal continues the task without OpenSpec. See the
+[activation contract](skills/spec-driven-superpowers/references/activation.md).
 
-- **Author:** João Manoel ([@Jaoguatirica](https://github.com/Jaoguatirica))
-- **Standard:** Autonomous Spec-Driven Superpowers (ASDS) v1.0
-- **License:** [MIT](LICENSE)
+### Install once for the user
+
+Run from this toolkit checkout. Preview is the default:
+
+```bash
+node scripts/install.mjs --scope user --target "$HOME" \
+  --data-home "${XDG_DATA_HOME:-$HOME/.local/share}"
+```
+
+After reviewing the preview, repeat with `--apply` to install.
+The default layout is:
+
+- `~/.agents/skills/`: ASDS, OpenSpec and Superpowers skills and references.
+- `<data-home>/openspec/schemas/superpowers-bridge/`: reusable schema/templates.
+- `~/.asds/`: installation manifest, license and provenance.
+
+The global schema directory is **not project state**. Specifications, changes,
+tasks and project configuration belong in `<project>/openspec/` after authorized
+initialization. User installation does not initialize the current working directory.
+
+On Unix, OpenSpec data home defaults to `~/.local/share` or `XDG_DATA_HOME`.
+On Windows it is `LOCALAPPDATA`, unless overridden by `XDG_DATA_HOME`.
+This is not `XDG_CONFIG_HOME`. A custom data home must also be selected in the
+OpenSpec process environment; the installer does not edit shell startup files.
+
+### Optional project-scoped installation
+
+For projects that explicitly want their own copy of the skills and schema:
+
+```bash
+node scripts/install.mjs --scope project --target /absolute/path/to/project
+node scripts/install.mjs --scope project --target /absolute/path/to/project --apply --activate
+```
+
+Project apply creates local schema files under `openspec/`, even without
+`--activate`; that flag additionally creates a new `openspec/config.yaml` selecting
+`superpowers-bridge`. Existing conflicting configuration is never overwritten.
+The CLI does not ask an interactive question: the agent obtains authorization
+before invoking a root-creating command. An explicit request for this project
+installation already supplies that authorization.
+
+The Bash and PowerShell wrappers accept the same arguments:
+`bash scripts/install.sh ...` and `.\scripts\install.ps1 ...`.
+Rules are optional: `--rules` installs the [project profile](rules/AGENTS.md) as
+root `AGENTS.md` only when no conflicting file exists. No mandatory global rules
+are installed.
+
+### Harness paths
+
+The default `.agents/skills` path is documented by Warp/Oz, Codex, OpenCode,
+Gemini CLI and current Antigravity workspace discovery. Verify loading in the
+actual session. Claude Code uses `.claude/skills`:
+
+```bash
+node scripts/install.mjs --scope project --target /absolute/project \
+  --skills-dir .claude/skills
+```
+
+`--skills-dir` is relative to `--target`, with the same conflict/symlink checks.
+Antigravity's documented user layout can be selected explicitly with
+`--skills-dir .gemini/config/skills`. No whole-tree aliases are created.
+Read the [adapter catalog](skills/spec-driven-superpowers/SKILL.md) for session
+capabilities, sequential fallback and review limitations.
+
+### Preservation and limits
+
+- Existing identical files are accepted; conflicting files abort before writes.
+- Repeat with the same flags for idempotence. This is not an in-place upgrader:
+  changed source files or install options can conflict with an existing manifest.
+  Compare old/new hashes and migrate explicitly; there is no force-overwrite flag.
+- Existing rules/configuration and unrelated directory content are preserved.
+- Symlinks in destination ancestry are rejected, including broken links. On
+  systems with aliased temporary/home paths, select their canonical real path.
+- On ordinary apply errors, only newly created files/directories are rolled back.
+  This is not crash recovery or a defense against a hostile concurrent writer.
+- No uninstall, provider/auth changes, service restarts, commits, push or automatic
+  archive. Do not run concurrent installers against the same destination.
+
+## Microcontracts and evidence
+
+`tasks.md` is the sole completion index; only the coordinator changes it.
+Each `tasks/task-ID.md` has YAML frontmatter for ID, kind, open material decisions,
+dependencies, exact write paths, shared resources, scenarios and verification commands.
+Readiness also requires Outcome, Inputs, Acceptance, Verification and Definition of
+done sections. The schema exposes microcontracts as an artifact before the task index.
+
+See the [valid example](examples/basic-change/tasks/task-0001.md) and
+[contract reference](skills/spec-driven-superpowers/references/contracts.md).
+Test paths are part of the allowed scope; the example has no self-dependency.
+
+```bash
+npm run validate -- --change examples/basic-change
+npm run validate -- --change /project/openspec/changes/example \
+  --delivery /evidence/receipt.json --task 0001 --repo /project --base APPROVED_SHA
+```
+
+The second check compares the receipt to actual committed/staged/unstaged/untracked
+Git paths and the current revision/fingerprint. It never executes command strings
+from the contract. Evidence must be revision-bound; claimed test/reviewer identity
+still needs human or harness verification.
+
+The Node validator runs from this toolkit checkout. Installed skills are prompts
+and references; they do not silently install another Node toolchain.
+OpenSpec validation remains separate. Use its pinned executable from this checkout
+against the target project's working directory. `openspec/config.yaml` in this
+toolkit repository stays on `spec-driven`; installation with `--activate` selects
+the bridge in the destination project.
+
+## Verification and support status
+
+- `npm test`: deterministic contracts, installer preservation/rollback, Git scope,
+  package metadata/links and real OpenSpec schema discovery/status/apply/validation.
+- `npm run validate`: YAML, skills, schema dependency graph and templates.
+- `npm run check`: JavaScript syntax checks; this is not an external lint/typecheck.
+- CI is configured for Linux Node 20.19/22/24 and Windows/macOS Node 24. Windows
+  symlink-specific tests are skipped because link privileges vary. Local execution
+  on one platform is not proof that every matrix job has run.
+- Adapter documents distinguish documentation from runtime observation. No
+  six-harness end-to-end compatibility or subscription-billing guarantee is made.
+- [Skill evaluation scenarios](skills/spec-driven-superpowers/evals/evals.json)
+  are prepared for human review. Model A/B runs are not implied by passing unit tests.
+
+To generate a static scenario-review page with the `create-skill` viewer available
+in your environment (Python 3 required):
+
+```bash
+python3 scripts/prepare-eval-review.py \
+  --viewer-script /path/to/create-skill/eval-viewer/generate_review.py
+```
+
+The generated, git-ignored workspace is
+`skills/spec-driven-superpowers-workspace/prepared/`. Every case is labeled
+**prepared, not run**; there are no invented model outputs, grades or benchmarks.
+
+Cancelled tool returns and agent lifecycle failures are not process exit codes.
+Preserve independent evidence; use at most three recovery attempts per blocker,
+defer unresolved blockers and their dependent tasks, and continue independent work.
+
+## Credits
+
+ASDS originated with João Manoel
+([Jaoguatirica](https://github.com/Jaoguatirica/spec-driven-superpowers)).
+This fork preserves its OpenSpec + Superpowers method while adapting installation,
+validation and runtime boundaries. See [LICENSE](LICENSE) and
+[provenance](docs/provenance.md) for the captured source and modification policy.
+
+
+## Accelerate entry and workflow evolution
+
+ASDS accepts both direct user requests and Accelerate v1.0.0 handoffs. It preserves
+the seven-field input format and prior decisions. Receiving a packet, accepting
+lifecycle ownership and being authorized to execute are distinct. Intake does not
+initialize a project or write artifacts. See the
+[intake contract](skills/spec-driven-superpowers/references/intake.md) and
+[planning rules](skills/spec-driven-superpowers/references/planning.md).
+
+The portable receiver is `lib/handoff.mjs`; it is a data contract, not an installed
+harness hook. Validate the real producer/consumer boundary against an existing
+Accelerate checkout (Python 3, read-only, no copied runtime):
+
+```bash
+node scripts/check-accelerate-handoff.mjs --accelerate /absolute/path/to/accelerate
+```
+
+This checks structured input, refusals/grants, acceptance with gaps, continuation
+and direct-entry parity. It does not certify model behavior or skill discovery.
+Under ASDS, upstream engineering skills use one OpenSpec planning home; brainstorming
+precedes specification and decomposition. Existing authorizations persist.
+
+Current change validation requires the richer readiness contract; archived legacy
+changes are not rewritten automatically. Migrate old active contracts explicitly,
+review them and regenerate evidence. Receipts now carry `contractRevision` from
+`loadTasks`, bound to planning context and prerequisite contracts. Integrated receipts
+also require evidence and independent reviews on `integrationRevision`. For checked
+tasks, pass `--receipts /external/receipts.json` (a map keyed by task ID).
+These structural checks cannot authenticate the user, reviewer or test log.

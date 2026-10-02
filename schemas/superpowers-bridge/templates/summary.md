@@ -1,22 +1,24 @@
-# Evidence Ledger: <!-- Change Title -->
+# Evidence ledger: <!-- Change title -->
 
-## 1. Executive Summary
-- **Change ID:** <!-- Change ID -->
-- **Completed Waves:** <!-- e.g. Wave 1 through Wave 5 -->
-- **Total Atomic Commits:** <!-- Count -->
+## Scope and state
+- Approved base:
+- Delivered snapshot(s):
+- Integrated snapshot:
+- Completed tasks:
+- Deferred/blocked tasks and affected dependencies:
 
-## 2. Commit Log (Audit Trail)
-- <!-- e.g. `feat(...): [Task 0001] ...` -->
+## Verification
+For each command, record working directory, exit code, timestamp, tested snapshot
+and durable output location. Include baseline failures and unexecuted checks.
 
-## 3. Test & Verification Proofs
-- **Automated Test Run Output:**
-  ```text
-  <!-- Paste test output here -->
-  ```
+## Reviews
+Record spec and quality review against the exact snapshot, reviewer independence,
+findings and resolutions. Identify self-review as such. No blanket pass claims.
 
-## 4. Visual Verification Proofs (Screenshots)
-- **Persisted Artifacts:**
-  - `screenshots/<!-- screenshot-name -->.png`
+## Visual evidence
+Link authorized, persistent screenshots/artifacts when applicable. Do not expose
+private data or assume these files must be committed.
 
-## 5. Specification Compliance
-All requirements and scenarios defined in `specs/` verified with 100% pass rate.
+## Delivery
+List commits only if authorized and created. Record remaining approval needs,
+runtime/harness limitations, and whether archive/publication was authorized.

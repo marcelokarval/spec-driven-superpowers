@@ -3,6 +3,14 @@ name: executing-plans
 description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
 ---
 
+## ASDS mode
+When ASDS owns the lifecycle, use its tasks.md and linked microcontracts. Its readiness,
+contract identity, delivery/review/integration and recovery gates replace the generic
+mark-completed loop below. Lack of subagents means sequential execution with explicit
+review limitations. Do not claim completion from self-review alone, restart planning,
+or mandate a workspace change. Actual user/project permissions govern isolation.
+
+
 # Executing Plans
 
 ## Overview
@@ -11,7 +19,8 @@ Load plan, review critically, execute all tasks, report when complete.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
-**Note:** Tell your human partner that Superpowers works much better with access to subagents. The quality of its work will be significantly higher if run on a platform with subagent support such as Codex. If subagents are available, use superpowers:subagent-driven-development instead of this skill.
+**Note:** Select sequential or delegated execution from actual capabilities, task needs
+and permissions. Tool availability alone is not authorization or a quality guarantee.
 
 ## The Process
 

@@ -1,10 +1,13 @@
-# Tasks: <!-- Change Title -->
+# Tasks: <!-- Change title -->
 
-## Wave 1: Foundation & Scaffolding (Concurrent)
+Only the coordinator updates this index after integration and verification.
+Dependencies live in each linked contract; waves do not imply concurrency.
+
+## Wave 1: Foundation
 - [ ] [Task 0001](tasks/task-0001.md): <!-- Description -->
 
-## Wave 2: Core Implementation (Concurrent - Depends on Wave 1)
+## Wave 2: Dependent work
 - [ ] [Task 0002](tasks/task-0002.md): <!-- Description -->
 
-## Wave 3: Integration & Verification (Final - Depends on Wave 2)
-- [ ] [Task 0003](tasks/task-0003.md): <!-- Description -->
+Create both linked contracts from task-template.md. Task 0002 may depend on
+`"0001"`; Task 0001 must not depend on itself. Include all test paths.

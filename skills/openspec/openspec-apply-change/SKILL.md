@@ -10,6 +10,17 @@ metadata:
   generatedBy: "1.14.0"
 ---
 
+## ASDS mode
+When schemaName is superpowers-bridge or ASDS owns this work, the completion loop
+below is subject to ASDS readiness and delivery gates. Read every linked microcontract,
+validate the complete index/contract collection, and record the accepted contract hash.
+Follow scenario assertions and verification commands. A pending task is checked only
+by the coordinator after independent review, integration checks and receipt validation.
+Do not mark complete immediately after editing code or because CLI state says all_done.
+Keep received authorization/refusal records and return to ASDS on pause/resumption,
+not Accelerate classification. Reopen tasks affected by material changes before retrying.
+
+
 Implement tasks from an OpenSpec change.
 
 **Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.

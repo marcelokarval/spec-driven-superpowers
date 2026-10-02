@@ -1,0 +1,42 @@
+{
+  "command": [
+    "codex",
+    "exec",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "read-only",
+    "--json",
+    "Quanto é 17 vezes 8?"
+  ],
+  "cwd": "/home/marcelo-karval",
+  "exitCode": 0,
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "01a0fa6d-11e7-77c0-bf5e-195b105d161c"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "agent_message",
+        "text": "17 × 8 = 136."
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 25006,
+        "cached_input_tokens": 12032,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 12,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "openspecBefore": false,
+  "openspecAfter": false,
+  "stderrPresent": true,
+  "boundary": "fresh ephemeral CLI session, default configured model/provider, read-only tool sandbox"
+}

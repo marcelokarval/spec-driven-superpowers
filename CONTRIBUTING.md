@@ -10,7 +10,7 @@ We welcome contributions to the Autonomous Spec-Driven Superpowers standard, sch
 
 ## Development Setup
 ```bash
-git clone https://github.com/Jaoguatirica/spec-driven-superpowers.git
+git clone https://github.com/marcelokarval/spec-driven-superpowers.git
 cd spec-driven-superpowers
 npm test
 ```

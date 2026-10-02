@@ -1,0 +1,21 @@
+{
+  "manifestFiles": 89,
+  "mismatches": [],
+  "freshPromptExit": 0,
+  "discoveredSkillEntries": [
+    "- spec-driven-superpowers: Coordinate approved, multi-step software cha (file: r0/spec-driven-superpowers/SKILL.md)",
+    "- using-superpowers: Select relevant Superpowers workflows for so (file: r0/using-superpowers/SKILL.md)"
+  ],
+  "boundary": "fresh CLI prompt generation, not model execution",
+  "installer": "node scripts/install.mjs --scope user --target /home/marcelo-karval --data-home /home/marcelo-karval/.local/share --apply",
+  "installedFilesIncludingManifest": 90,
+  "sourceInventory": "candidate-r2-2026-10-01.json",
+  "schemaDiscovery": {
+    "name": "superpowers-bridge",
+    "source": "user",
+    "path": "/home/marcelo-karval/.local/share/openspec/schemas/superpowers-bridge",
+    "shadows": []
+  },
+  "runtimeChanges": "none; existing Codex/Node/OpenSpec dependency reused",
+  "cleanup": "owned pilot fixture removed; no installation staging or backups created"
+}

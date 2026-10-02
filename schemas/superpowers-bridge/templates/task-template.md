@@ -1,30 +1,44 @@
-# Task <ID>: <!-- Title -->
+---
+id: "0001"
+kind: implementation
+openDecisions: []
+dependsOn: []
+write: [src/example.js, tests/example.test.js]
+resources: []
+scenarios: [example/Accept valid input]
+verification: [npm test]
+---
+# Task 0001: Replace this example with the approved task
 
-## 1. Metadata & Dependencies
-- **Task ID:** Task <ID>
-- **Concurrency Wave:** Wave <N>
-- **Prerequisites:** <!-- Prerequisites or None -->
+## Outcome
+<!-- State one observable result, bounded enough to review independently. -->
 
-## 2. Rigid File Boundary
-- **Permitted for Write (Write Allowed):**
-  - <!-- Exact file path 1 -->
-- **Strictly Prohibited:**
-  - Any files outside the permitted list.
+## Inputs
+<!-- Name relevant specs, decisions, interface contracts and prerequisite outputs.
+Dependencies must be integrated before this task is dispatched. -->
 
-## 3. Implementation Requirements
-<!-- Detailed requirements and spec scenario mapping -->
+## Scope and dependencies
+Replace the frontmatter with exact repository-relative paths, including test files.
+All other files are read-only. Quote IDs; do not list the task as its own dependency.
+Shared resources include test databases, ports and caches. Do not put progress here.
 
-## 4. Test-Driven Development Protocol
-1. **RED:** Write test asserting expected output or file structure.
-2. **GREEN:** Write minimal production code/files to satisfy test.
-3. **REFACTOR:** Optimize and format cleanly.
+## Acceptance
+Map each scenario to actual assertions. Scenario references use
+`<capability>/<exact heading>` from `specs/<capability>/spec.md`.
 
-## 5. Empirical Verification Command
-```bash
-<!-- Exact shell command to verify completion -->
-```
+## RED–GREEN–REFACTOR
+1. Write the named failing check and record the expected failure.
+2. Implement only the approved scope.
+3. Refactor while keeping the relevant checks green.
 
-## 6. Definition of Done
-- Verification command exits with code 0.
-- No files outside permitted boundary modified.
-- Atomic commit executed following conventional commit standard.
+## Verification
+Use project-specific commands, not the illustrative `npm test` if inapplicable.
+Record command, exit code and tested revision/fingerprint. UI tasks also identify
+a durable, authorized evidence location. Keep receipts outside the audited tree.
+
+## Definition of done
+- Approved scope checked against committed, dirty and untracked Git paths.
+- Required commands passed on the delivery snapshot.
+- Spec/quality review status recorded, including independence limitations.
+- Coordinator integrated/reverified the result before updating `tasks.md`.
+- Commit/push/archive only if explicitly authorized.

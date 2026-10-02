@@ -16,3 +16,11 @@
 
 ## Impact
 <!-- Affected code, APIs, dependencies, or systems. -->
+
+## Understanding
+<!-- Observable desired outcome; current behavior and inspected evidence. Reuse
+received context. State constraints, assumptions and scope exclusions explicitly. -->
+
+## Open questions
+<!-- Material questions, decision owner and affected work; write None when resolved.
+Routine details may be decided from project evidence without another approval. -->
