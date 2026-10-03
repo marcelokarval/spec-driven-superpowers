@@ -38,7 +38,7 @@ test('real CLI init, dispatch, review, integration, acceptance and stale-source 
  const file=fixture(t),dir=path.dirname(file),change=path.join(dir,'change');
  fs.cpSync('examples/basic-change',change,{recursive:true});
  const contract=path.join(change,'tasks/task-0001.md');
- fs.writeFileSync(contract,fs.readFileSync(contract,'utf8').replace(/^---\n/,'---\norchestration: '+JSON.stringify(task.orchestration)+'\n'));
+ fs.writeFileSync(contract,fs.readFileSync(contract,'utf8').replace(/^---\r?\n/,'---\norchestration: '+JSON.stringify(task.orchestration)+'\n'));
  const write=(name,value)=>{const target=path.join(dir,`${name}.json`);fs.writeFileSync(target,JSON.stringify(value));return target;};
  const context={coordinator:'root',authorization:{source:'fixture user',scope:'fixture'},readScope:['fixture']};
  const run=(command,args=[])=>spawnSync(process.execPath,['scripts/orchestrate.mjs',command,'--state',file,...args],{encoding:'utf8'});
