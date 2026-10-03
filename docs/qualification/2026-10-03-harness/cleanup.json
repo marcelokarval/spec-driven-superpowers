@@ -1,0 +1,14 @@
+{
+  "removed_fixture_root": "/tmp/asds-harness-qualification-20261003",
+  "active_consumers": [],
+  "mounts": [],
+  "symlinks": [],
+  "evidence_preserved": [
+    "fixture-artifacts.json",
+    "effect-checks.json",
+    "public JSONL",
+    "public-event-filter.py"
+  ],
+  "root_absent": true,
+  "no_installation_backup_created": true
+}

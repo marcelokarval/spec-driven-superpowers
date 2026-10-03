@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "plan": {
+    "version": 1,
+    "tasks": [
+      {
+        "id": "review",
+        "kind": "investigation",
+        "openDecisions": [],
+        "dependsOn": [],
+        "write": [],
+        "resources": [],
+        "scenarios": [
+          "continuity/review"
+        ],
+        "verification": [
+          "independent source inspection"
+        ],
+        "body": "## Outcome\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Inputs\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Acceptance\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Verification\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Definition of done\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n",
+        "contractRevision": "978d7e6c4bcdd795d6e553021396c9887aa1cffc15ba2fa147fd77e138c772b6",
+        "orchestration": {
+          "complexity": "high",
+          "risk": "high",
+          "uncertainty": "medium",
+          "rationale": "Lifecycle and authority boundary changes require adversarial review.",
+          "skills": [
+            "requesting-code-review"
+          ],
+          "references": [
+            "openspec/changes/operational-continuity/design.md",
+            "openspec/changes/operational-continuity/specs/asds-continuity/spec.md",
+            "openspec/changes/operational-continuity/evidence/candidate-1.json"
+          ],
+          "claims": []
+        },
+        "tier": "high"
+      }
+    ],
+    "profile": {
+      "version": 1,
+      "tiers": {
+        "bounded": {
+          "executor": {
+            "model": "inherited-session",
+            "effort": "inherited"
+          },
+          "reviewer": {
+            "model": "inherited-session",
+            "effort": "inherited"
+          }
+        },
+        "medium": {
+          "executor": {
+            "model": "inherited-session",
+            "effort": "inherited"
+          },
+          "reviewer": {
+            "model": "inherited-session",
+            "effort": "inherited"
+          }
+        },
+        "high": {
+          "executor": {
+            "model": "inherited-session",
+            "effort": "inherited"
+          },
+          "reviewer": {
+            "model": "inherited-session",
+            "effort": "inherited"
+          }
+        }
+      }
+    },
+    "revision": "76c4c6b53c11a7b39bf783a46b71e0fc5934e6d7c45660a2a95237a934afa51d"
+  },
+  "context": {
+    "coordinator": "/root",
+    "authorization": {
+      "source": "user latest execute request and requesting-code-review skill",
+      "scope": "read-only candidate review"
+    },
+    "readScope": [
+      "lib/orchestration.mjs",
+      "lib/validation.mjs",
+      "lib/runtime-preflight.mjs",
+      "lib/plan-projection.mjs",
+      "lib/host-bridge.mjs",
+      "scripts/orchestrate.mjs",
+      "tests/operational-continuity.test.js",
+      "tests/runtime-preflight.test.js",
+      "tests/plan-projection.test.js",
+      "tests/host-bridge.test.js",
+      "tests/orchestration.test.js",
+      "skills/spec-driven-superpowers/SKILL.md",
+      "skills/spec-driven-superpowers/references/orchestration.md",
+      "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "openspec/changes/operational-continuity",
+      "/home/marcelo-karval/.agents/skills/requesting-code-review/SKILL.md"
+    ],
+    "limitations": [
+      "Controlled explicit protocol probe; no natural-entry qualification",
+      "Inherited model selection; provider-effective identity not observed",
+      "Investigation executor is an independent code reviewer; this is not a full delivery lifecycle"
+    ]
+  },
+  "digest": "3311367fc312ad8284c108b41bd2fbcf8351ae98dbf44ac9acf1d842791bc48a",
+  "events": [
+    {
+      "sequence": 1,
+      "previous": "3311367fc312ad8284c108b41bd2fbcf8351ae98dbf44ac9acf1d842791bc48a",
+      "event": {
+        "type": "dispatch",
+        "taskId": "review",
+        "role": "executor",
+        "session": "/root/continuity_review",
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "models": [
+            {
+              "model": "inherited-session",
+              "efforts": [
+                "inherited"
+              ]
+            }
+          ]
+        },
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "collaboration.spawn_agent fork_turns none; standby acknowledged before dispatch"
+        }
+      },
+      "digest": "0cd0ada514eae0b83cc8c291562de64c5ea0c4da9b1bf1eca57eaffff95839a7"
+    },
+    {
+      "sequence": 2,
+      "previous": "0cd0ada514eae0b83cc8c291562de64c5ea0c4da9b1bf1eca57eaffff95839a7",
+      "event": {
+        "type": "deliver",
+        "taskId": "review",
+        "session": "/root/continuity_review",
+        "stopped": true,
+        "receipt": {
+          "status": "delivered",
+          "contractRevision": "978d7e6c4bcdd795d6e553021396c9887aa1cffc15ba2fa147fd77e138c772b6",
+          "baseRevision": "candidate-1",
+          "revision": "978d7e6c4bcdd795d6e553021396c9887aa1cffc15ba2fa147fd77e138c772b6",
+          "changedFiles": [],
+          "evidence": [
+            {
+              "command": "independent source inspection",
+              "exitCode": 0,
+              "revision": "978d7e6c4bcdd795d6e553021396c9887aa1cffc15ba2fa147fd77e138c772b6"
+            }
+          ]
+        }
+      },
+      "digest": "afa21a9c20d76b7883d20ce23c48c60943c20d363cb6cad4d3f7aa670ebd810f"
+    }
+  ]
+}

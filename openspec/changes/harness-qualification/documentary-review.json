@@ -1,0 +1,9 @@
+{
+  "reviewer": "/root/qualification_review",
+  "disposition": "no_documentary_blocker_identified",
+  "hashesVerified": 86,
+  "contractRevisionsVerified": 3,
+  "validateChangeErrors": [],
+  "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+  "scope": "Qualification investigation, independent assessment and local release preparation complete; Agy behavior gate partial; no public release or isolated Git-branch claim"
+}

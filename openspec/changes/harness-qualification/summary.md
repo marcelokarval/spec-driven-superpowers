@@ -1,0 +1,13 @@
+# Bounded harness qualification and local version candidate
+
+The qualification investigation and local release preparation are complete. New natural prompts exercised installed Codex 0.160.0 and Agy 1.2.16. Both selected installed Accelerate/ASDS sources for structured read-only engineering, preserved missing-root authorization and explicit refusals, produced both approved investigation reports, and resumed exact sessions for status without file changes.
+
+Agy requirement fidelity remains partial: its risk analysis reopened zero acceptance even though nonnegative already includes zero. A planning reference clarification and prepared eval 13 were added; a fresh investigation repeat still contained the contradiction and did not visibly read that reference. Neither a behaviorally qualified fix nor an ASDS-exclusive cause is claimed. Read-only structured selection is confirmed separately. Denied headless attempts and an interrupted wrong-cwd attempt remain visible and excluded from passed cases.
+
+Root verified 101 local Node tests, syntax/package validation, strict OpenSpec validation and real Accelerate producer/receiver compatibility. An independent fresh reviewer verified 87 candidate hashes, fixture content hashes and bounded conclusions without seeing executor history. It did not rerun the full suite or installations. Final source identity excludes mutable index and completion ledgers; receipts are portable combined source-artifact contributions, not isolated Git branch receipts or proof that every behavioral gate passed.
+
+The package and lockfile prepare version 1.2.0 on feat/asds-orchestration-v1.2. The new Node preflight test uses the actual native executable; three POSIX shell/permission fixtures are explicitly skipped on Windows. Remote CI remains unrun. Existing Codex/Agy skill installations read back 93/93 targets each after the reference/catalog update; owner rules and auth/provider configuration were preserved. All temporary test fixtures/helpers were removed after their inputs/results were preserved and consumers/mounts/symlinks checked.
+
+Task checkboxes mean the investigation, independent assessment and release preparation artifacts are complete. They do not mean all operational gates passed. No public push, tag or release occurred. Scheduler/provider/cross-process qualification and optional phase 2 tracker/visual integrations remain distinct future work.
+
+Detailed report: docs/qualification/2026-10-03-harness/report.md. Local release description: docs/qualification/2026-10-03-harness/release-draft.md. Raw observation event logs from prior projects remain local and outside this source commit.

@@ -1,0 +1,13 @@
+{
+  "reviewer": "/root/continuity_review",
+  "disposition": "no_documentary_blocker_identified",
+  "sourceHashesVerified": 23,
+  "unchangedCandidate3Files": 17,
+  "contractRevisionsVerified": 3,
+  "validateChangeErrors": [],
+  "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+  "limits": [
+    "Source-artifact local delivery, not isolated Git integration, public release or natural-entry/provider qualification",
+    "100-test suite and 93/93 installation readbacks are root evidence, not independently rerun"
+  ]
+}

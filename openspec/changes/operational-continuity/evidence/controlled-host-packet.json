@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "planRevision": "76c4c6b53c11a7b39bf783a46b71e0fc5934e6d7c45660a2a95237a934afa51d",
+  "sequence": 1,
+  "task": {
+    "id": "review",
+    "kind": "investigation",
+    "openDecisions": [],
+    "dependsOn": [],
+    "write": [],
+    "resources": [],
+    "scenarios": [
+      "continuity/review"
+    ],
+    "verification": [
+      "independent source inspection"
+    ],
+    "body": "## Outcome\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Inputs\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Acceptance\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Verification\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n\n## Definition of done\nIndependent read-only review of candidate-1.json against operational-continuity design and spec. Report reproducible findings and limits.\n",
+    "contractRevision": "978d7e6c4bcdd795d6e553021396c9887aa1cffc15ba2fa147fd77e138c772b6",
+    "orchestration": {
+      "complexity": "high",
+      "risk": "high",
+      "uncertainty": "medium",
+      "rationale": "Lifecycle and authority boundary changes require adversarial review.",
+      "skills": [
+        "requesting-code-review"
+      ],
+      "references": [
+        "openspec/changes/operational-continuity/design.md",
+        "openspec/changes/operational-continuity/specs/asds-continuity/spec.md",
+        "openspec/changes/operational-continuity/evidence/candidate-1.json"
+      ],
+      "claims": []
+    },
+    "tier": "high"
+  },
+  "assignment": {
+    "session": "/root/continuity_review",
+    "role": "executor",
+    "purpose": "implementation",
+    "context": {
+      "fresh": true,
+      "inheritedHistory": false,
+      "source": "collaboration.spawn_agent fork_turns none; standby acknowledged before dispatch"
+    },
+    "claims": [],
+    "planRevision": "76c4c6b53c11a7b39bf783a46b71e0fc5934e6d7c45660a2a95237a934afa51d"
+  },
+  "selection": {
+    "model": "inherited-session",
+    "effort": "inherited"
+  },
+  "coordinator": "/root",
+  "authorizationReference": {
+    "source": "user latest execute request and requesting-code-review skill",
+    "scope": "read-only candidate review"
+  },
+  "coordinationContext": {
+    "coordinator": "/root",
+    "authorization": {
+      "source": "user latest execute request and requesting-code-review skill",
+      "scope": "read-only candidate review"
+    },
+    "readScope": [
+      "lib/orchestration.mjs",
+      "lib/validation.mjs",
+      "lib/runtime-preflight.mjs",
+      "lib/plan-projection.mjs",
+      "lib/host-bridge.mjs",
+      "scripts/orchestrate.mjs",
+      "tests/operational-continuity.test.js",
+      "tests/runtime-preflight.test.js",
+      "tests/plan-projection.test.js",
+      "tests/host-bridge.test.js",
+      "tests/orchestration.test.js",
+      "skills/spec-driven-superpowers/SKILL.md",
+      "skills/spec-driven-superpowers/references/orchestration.md",
+      "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "openspec/changes/operational-continuity",
+      "/home/marcelo-karval/.agents/skills/requesting-code-review/SKILL.md"
+    ],
+    "limitations": [
+      "Controlled explicit protocol probe; no natural-entry qualification",
+      "Inherited model selection; provider-effective identity not observed",
+      "Investigation executor is an independent code reviewer; this is not a full delivery lifecycle"
+    ]
+  },
+  "executionAuthorized": false,
+  "readScope": [
+    "lib/orchestration.mjs",
+    "lib/validation.mjs",
+    "lib/runtime-preflight.mjs",
+    "lib/plan-projection.mjs",
+    "lib/host-bridge.mjs",
+    "scripts/orchestrate.mjs",
+    "tests/operational-continuity.test.js",
+    "tests/runtime-preflight.test.js",
+    "tests/plan-projection.test.js",
+    "tests/host-bridge.test.js",
+    "tests/orchestration.test.js",
+    "skills/spec-driven-superpowers/SKILL.md",
+    "skills/spec-driven-superpowers/references/orchestration.md",
+    "skills/spec-driven-superpowers/references/operational-continuity.md",
+    "openspec/changes/operational-continuity",
+    "/home/marcelo-karval/.agents/skills/requesting-code-review/SKILL.md"
+  ],
+  "skills": [
+    "requesting-code-review"
+  ],
+  "references": [
+    "openspec/changes/operational-continuity/design.md",
+    "openspec/changes/operational-continuity/specs/asds-continuity/spec.md",
+    "openspec/changes/operational-continuity/evidence/candidate-1.json"
+  ],
+  "candidateRevision": null,
+  "reviewInstruction": null
+}

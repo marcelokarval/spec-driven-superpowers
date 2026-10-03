@@ -1,0 +1,92 @@
+[
+  {
+    "version": 1,
+    "tool": "node",
+    "operation": "orchestrate",
+    "required": true,
+    "state": "available",
+    "selected": {
+      "path": "/home/marcelo-karval/.nvm/versions/node/v24.20.0/bin/node",
+      "origin": "PATH",
+      "effectivePath": "/home/marcelo-karval/.nvm/versions/node/v24.20.0/bin/node",
+      "version": "24.20.0",
+      "state": "available",
+      "exitCode": 0
+    },
+    "candidates": [
+      {
+        "path": "/home/marcelo-karval/.nvm/versions/node/v24.20.0/bin/node",
+        "origin": "PATH",
+        "effectivePath": "/home/marcelo-karval/.nvm/versions/node/v24.20.0/bin/node",
+        "version": "24.20.0",
+        "state": "available",
+        "exitCode": 0
+      },
+      {
+        "path": "/usr/bin/node",
+        "origin": "PATH",
+        "effectivePath": "/usr/bin/node",
+        "version": "18.19.1",
+        "state": "incompatible",
+        "exitCode": 0
+      },
+      {
+        "path": "/bin/node",
+        "origin": "PATH",
+        "effectivePath": "/usr/bin/node",
+        "version": "18.19.1",
+        "state": "incompatible",
+        "exitCode": 0
+      }
+    ],
+    "project": {
+      "state": "configured"
+    },
+    "capability": "unverified",
+    "observedAt": "2026-10-03T03:53:26.958Z",
+    "installationDecision": null,
+    "installationAuthorized": false,
+    "remediation": {
+      "action": "reuse_observed_path",
+      "source": "https://nodejs.org/en/download",
+      "note": "Installation, project initialization and execution are separate authorizations. Version alone does not prove command or harness capability."
+    }
+  },
+  {
+    "version": 1,
+    "tool": "openspec",
+    "operation": "validate",
+    "required": true,
+    "state": "available",
+    "selected": {
+      "path": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/node_modules/.bin/openspec",
+      "origin": "documented",
+      "effectivePath": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/node_modules/@fission-ai/openspec/bin/openspec.js",
+      "version": "1.14.0",
+      "state": "available",
+      "exitCode": 0
+    },
+    "candidates": [
+      {
+        "path": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/node_modules/.bin/openspec",
+        "origin": "documented",
+        "effectivePath": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/node_modules/@fission-ai/openspec/bin/openspec.js",
+        "version": "1.14.0",
+        "state": "available",
+        "exitCode": 0
+      }
+    ],
+    "project": {
+      "state": "configured"
+    },
+    "capability": "unverified",
+    "observedAt": "2026-10-03T03:53:27.726Z",
+    "installationDecision": null,
+    "installationAuthorized": false,
+    "remediation": {
+      "action": "reuse_observed_path",
+      "source": "https://github.com/Fission-AI/OpenSpec",
+      "note": "Installation, project initialization and execution are separate authorizations. Version alone does not prove command or harness capability."
+    }
+  }
+]

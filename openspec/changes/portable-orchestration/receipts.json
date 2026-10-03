@@ -1,0 +1,187 @@
+{
+  "0001": {
+    "status": "integrated",
+    "contractRevision": "07da0377f45c75ed7704f37ac221380b2cb5208f55bd5191ea97a734fc614fe4",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+    "changedFiles": [
+      "lib/orchestration.mjs",
+      "tests/orchestration.test.js"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "quality": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "quality": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "independent": true
+    },
+    "evidenceMode": "scoped-source-artifacts",
+    "reviewer": "/root/orchestration_review",
+    "limitations": [
+      "Local source review and tests; no isolated per-task Git branch, new release or live provider qualification."
+    ]
+  },
+  "0002": {
+    "status": "integrated",
+    "contractRevision": "ad1336bc19b9366b462f4dfef3f3cbc99523462541317de8b1c9a5d3f68fd859",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+    "changedFiles": [
+      "lib/orchestration-store.mjs",
+      "scripts/orchestrate.mjs",
+      "tests/orchestration-store.test.js",
+      "package.json"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "quality": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "quality": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "independent": true
+    },
+    "evidenceMode": "scoped-source-artifacts",
+    "reviewer": "/root/orchestration_review",
+    "limitations": [
+      "Local source review and tests; no isolated per-task Git branch, new release or live provider qualification."
+    ]
+  },
+  "0003": {
+    "status": "integrated",
+    "contractRevision": "bce0b7ae9cae6aaad671817dbe97b693d026920d42f74744628a928b2d3fdf6b",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+    "changedFiles": [
+      "skills/spec-driven-superpowers/SKILL.md",
+      "skills/spec-driven-superpowers/references/orchestration.md",
+      "skills/spec-driven-superpowers/references/integrations.md",
+      "README.md",
+      "examples/orchestration-profile.json"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "quality": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "quality": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+      "independent": true
+    },
+    "evidenceMode": "scoped-source-artifacts",
+    "reviewer": "/root/orchestration_review",
+    "limitations": [
+      "Local source review and tests; no isolated per-task Git branch, new release or live provider qualification."
+    ]
+  }
+}

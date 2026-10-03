@@ -1,0 +1,171 @@
+{
+  "0001": {
+    "status": "integrated",
+    "contractRevision": "02de16e156ed72004ca3acf3511ac00d769f6875643eb98ab624ac240736c7e7",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+    "changedFiles": [
+      "docs/qualification/2026-10-03-harness/report.md"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "quality": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "quality": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "independent": true
+    }
+  },
+  "0002": {
+    "status": "integrated",
+    "contractRevision": "6cb6d64066e9bd9c2451e26fb0e5c2ad9eb4b82dd31e7af78835e2b9958805ee",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+    "changedFiles": [
+      "docs/qualification/2026-10-03-harness/report.md"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "quality": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "quality": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "independent": true
+    }
+  },
+  "0003": {
+    "status": "integrated",
+    "contractRevision": "2f27324794fc89093cd1c018401f9d167d81c53d3e63dd1e22809be3120876da",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+    "changedFiles": [
+      "package.json",
+      "package-lock.json",
+      "CHANGELOG.md",
+      "README.md",
+      "tests/runtime-preflight.test.js",
+      "skills/spec-driven-superpowers/references/planning.md",
+      "skills/spec-driven-superpowers/evals/evals.json",
+      "docs/qualification/2026-10-03-harness/release-draft.md"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "quality": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "quality": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+      "independent": true
+    }
+  }
+}

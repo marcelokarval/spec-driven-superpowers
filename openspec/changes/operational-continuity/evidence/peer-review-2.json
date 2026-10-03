@@ -1,0 +1,21 @@
+{
+  "session": "01a0f874-589a-7081-82d9-a3815921ff3e",
+  "candidate": "candidate-2.json",
+  "reportedHashes": 17,
+  "reportedTests": {
+    "focused": 11,
+    "handoff": 5,
+    "totalPassed": 16
+  },
+  "disposition": "favorable_with_scope_limits",
+  "confirmed": [
+    "checkbox progress preserves contract revision; text changes invalidate",
+    "regressions cover source drift in authorize and pause after dispatch",
+    "v1 intake compatible; refusals, context and authority preserved"
+  ],
+  "limits": [
+    "Peer report received through inter-session message",
+    "No live adapter, natural entry or conversational-continuity qualification",
+    "No edits or installations by peer"
+  ]
+}

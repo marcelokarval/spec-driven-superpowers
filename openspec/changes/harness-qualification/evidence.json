@@ -1,0 +1,373 @@
+{
+  "base": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+  "version": "1.2.0",
+  "revision": "source-sha256:2b4a9ffed923df1dfb6b900d28c8a57096e47c69105b3ee2471dc5c1247bd84d",
+  "manifest": [
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "6f91914c31d61542cde07761024916abde1259a7e9a4142b6d3e9005ddbbd40b"
+    },
+    {
+      "path": "README.md",
+      "sha256": "44b682738c235620b542fe4a19e1fd499c49b26d57abb16a9ed3cedfcd2096c2"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-existing-plan-permitted-result.json",
+      "sha256": "8eb68c43d0fb58d0079f5b0820a802a0abb0561242171d36656d464c95802ea8"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-existing-plan-result.json",
+      "sha256": "4b0242ef09907629c897dfc48221184a7d0dc534561689396e30d51779b17d7e"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-existing-plan-retest-valid.jsonl",
+      "sha256": "327c67f499fa435086f65bfcdcb1232ee91be35d17592157deecfb8057283625"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-existing-plan-retest.jsonl",
+      "sha256": "8b9baba0593320ea40138378ac58e5b548c45126a169cabcc9f07dba435dd726"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-missing-root-permitted.jsonl",
+      "sha256": "24185edd72e1538b651cddb7294daa68066815210cdc5af0a92d442fefdc67af"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-missing-root-retest.jsonl",
+      "sha256": "9b8acae56c7cc100bc669c30cd94aea2506e0f5f8d0c2925fcb6aa9aef76b5a4"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-missing-root.jsonl",
+      "sha256": "385274b45947334376e16d35e76ea9bb2513db3b5f33aeb6f6dec092ba378820"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/agy-status.jsonl",
+      "sha256": "047876dcef0e16f4ad5ab119b2a55468f4be091193f3246329c861fc36fca301"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/baseline.json",
+      "sha256": "c7735b061f8bc2aaea0ebe0c36876caaa16593b817085087a3a55205b60160c8"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/cleanup.json",
+      "sha256": "4b4dfe3c4d58f880cef5adebcf03c92fd9d87c1019d9e8d802cc4087d7a1d8e4"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/codex-existing-plan.jsonl",
+      "sha256": "eae504216c00062f3c5b2df0b42f24409182ee67826c47342b3534e58052c49a"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/codex-missing-root.jsonl",
+      "sha256": "b86c514fed3c06535dcd4db693f32709ddf9e9e73fb3e6f934dd6415113c8b7a"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/codex-status.jsonl",
+      "sha256": "1b54bae696e90c0a4d175129f19625f476c2ebb6a6bdfbee1d157bbd22eead37"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/effect-checks.json",
+      "sha256": "8b838d637ee5343dcb8693feb99887829006e86fce55894ce05a29aef0856ba5"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/fixture-artifacts.json",
+      "sha256": "df3fe62cb358ea2e4cd2b608024871424690c40e53f112e79db45f7e1678ae46"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/installation-readback.json",
+      "sha256": "7952d671221dbce9cbf3c94e603ad7ac955beba8a8da6c153b9e90dc46ff5840"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/package-tests.txt",
+      "sha256": "4309d6c54f6e823a5564233048281509254695898835d8098b55b0d681b814e7"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/post-status-hashes.json",
+      "sha256": "897288a1c31a55dcd596e3827f58358a696d62a1669c0a9891e6997d1b565d16"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/pre-status-hashes.json",
+      "sha256": "897288a1c31a55dcd596e3827f58358a696d62a1669c0a9891e6997d1b565d16"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/public-event-filter.py",
+      "sha256": "a8b782c092c68b8334996ac84e270ad55af6cfa89b00dfd939f54bea2912a0af"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/release-draft.md",
+      "sha256": "db522ccb37577b3c2c0a5239540b16997703830a328353ec5c1390d2dc4d3dc3"
+    },
+    {
+      "path": "docs/qualification/2026-10-03-harness/report.md",
+      "sha256": "c8fc393284e16f4837387bb4e935dfe3eca432419cdb802160d2c7d0e5c13673"
+    },
+    {
+      "path": "examples/orchestration-profile.json",
+      "sha256": "5d9e4e4db94d53b4f9865c94af6ea785f3ac68526ccac901cc4257173f01ff13"
+    },
+    {
+      "path": "lib/contracts.mjs",
+      "sha256": "4cef255264535ff0802ffa0c8335b2918527d54b19b2f2fce39feba64ce66341"
+    },
+    {
+      "path": "lib/git-scope.mjs",
+      "sha256": "0d8d13bc0d97ca03cb51c92360249c48b75ac9d03b8865564432bc8a859bc5bc"
+    },
+    {
+      "path": "lib/handoff.mjs",
+      "sha256": "a7a65d5ef593eb067ce84295f40e878c44ff1d2a1119c3872bfc6733140caba0"
+    },
+    {
+      "path": "lib/host-bridge.mjs",
+      "sha256": "9e7e9bf119e472203f04f93a7e70177838f8a6202eafc7e88e5fe762f6e713e9"
+    },
+    {
+      "path": "lib/install.mjs",
+      "sha256": "b9396e469fc48832ff268f6f6dc2f6485cee1b73c6870f1ef6c36ce4cc6736db"
+    },
+    {
+      "path": "lib/orchestration-store.mjs",
+      "sha256": "99934c6fdd9bf315a42b9cf9e1fcea743dbb558e8db509f2a92f06aa6ee3531b"
+    },
+    {
+      "path": "lib/orchestration.mjs",
+      "sha256": "e2a62deaee361914e8257879500f0cb7c6185bfdecf522ad5d337dd97935c813"
+    },
+    {
+      "path": "lib/plan-projection.mjs",
+      "sha256": "6d7e71c66f2fa159dcd3bc44a9ffd6f1666e2d0c1876be2c79ab0b14dea8ee87"
+    },
+    {
+      "path": "lib/runtime-preflight.mjs",
+      "sha256": "65ef481e034fe2af4b2c3e1162458b3d1fe87c4e19c76da91e07a1ad6e967e44"
+    },
+    {
+      "path": "lib/validation.mjs",
+      "sha256": "7f8501af3b1b9e363f5a91072890cc575075ab437965fbb4638bea848ba3a856"
+    },
+    {
+      "path": "openspec/changes/harness-qualification/design.md",
+      "sha256": "74e64474db49504a281930f9a29a3b5c92372963a011da0e509054cd0ab85b5a"
+    },
+    {
+      "path": "openspec/changes/harness-qualification/proposal.md",
+      "sha256": "ca45fa30858327fe61ab5875a7606dae203b204486c40b45f8dd939fa4ccdfd1"
+    },
+    {
+      "path": "openspec/changes/harness-qualification/specs/asds-qualification/spec.md",
+      "sha256": "8bce05172589b409b933f169c0be4e1e4bb7533fae926ba97e81199d59c15267"
+    },
+    {
+      "path": "openspec/changes/harness-qualification/tasks/task-0001.md",
+      "sha256": "74eb6e5b35109eff864530d85b9bab1e4f1ec1dbc9ee42115109501b0b966476"
+    },
+    {
+      "path": "openspec/changes/harness-qualification/tasks/task-0002.md",
+      "sha256": "127f8520a717b74a9ce0e995e3cd34a1255dcdcb8ae43b5b635c68a214ac2d71"
+    },
+    {
+      "path": "openspec/changes/harness-qualification/tasks/task-0003.md",
+      "sha256": "b696bef9779c0e2e6a6d074332c3abd4bb0cd6eee77685c4233c55bb6821ffd0"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "e9e82628b270ca592d738e9f89c6487f3cb7fcafe656911fc3b449fd3c792676"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8bca7910b1d057d7bcad9bafc03845fdb887a58079ed67cc1187ca8f421caa02"
+    },
+    {
+      "path": "scripts/check-accelerate-handoff.mjs",
+      "sha256": "43e0b93df5afa4c18ed378541867cad18f3f617f106d06ad3ada215b5658b118"
+    },
+    {
+      "path": "scripts/check.mjs",
+      "sha256": "69cd9eda598a0176baf98f91efa4eb54bed940740d0393ea513b6a707e45d9cf"
+    },
+    {
+      "path": "scripts/install.mjs",
+      "sha256": "d1b8c7a4ea44a67f3c8200ff97231606ef80df61c1262e9f69a390fe41dad22c"
+    },
+    {
+      "path": "scripts/install.ps1",
+      "sha256": "016601315ac45f466380561bafdff6c27f97f2589a866ffdae499ef925f6c645"
+    },
+    {
+      "path": "scripts/install.sh",
+      "sha256": "907d6220e3b3322031bba4a0de8d891d0c451163a4d90fce46964ccc54290402"
+    },
+    {
+      "path": "scripts/orchestrate.mjs",
+      "sha256": "b7af417c2418472be3da3b34d7f8abe4e6ddf120e54b7ec0c6fadadb3199c1fd"
+    },
+    {
+      "path": "scripts/prepare-eval-review.py",
+      "sha256": "4cdff6427602749e23e404ef7441d27a8c69f466a97de4e374c56c93417f14d9"
+    },
+    {
+      "path": "scripts/validate.mjs",
+      "sha256": "d2abf0411e9dd309ef35daa686b03ee5bd98637fcaa6380a9619b34af8e063ad"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/SKILL.md",
+      "sha256": "e51d4808caf216ce81f63f4e38a122bafee336df21e9eabed787c14ad59b6b22"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/evals/evals.json",
+      "sha256": "e24938e5fb5fbc8c92ce4236b9c22856a9135733b3b5a4c6c11f649670c3dc97"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/activation.md",
+      "sha256": "0cbb562aafbcbd0fab49cda0d4edb01ba18d8a0d097dac72467859b57d9ba7a3"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/adapters/antigravity.md",
+      "sha256": "a21ccf74c71c4ec562dfeca0aeb54587be1ca9892875b0b7c3430ac1cdde3071"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/adapters/claude-code.md",
+      "sha256": "19fe66652e0549e170f52717d7b6ddec1c9e8c261a9899c0a370fdcf418ddbac"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/adapters/codex.md",
+      "sha256": "11052259cd23f011f0b4fa5c2ca96e858a9c0a8c50018215c456badd77aa4b4b"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/adapters/gemini.md",
+      "sha256": "16e692d1f544be7b076014f95715935ba3d5b692a484bb8cb8d96b2b9c7bdbf8"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/adapters/opencode.md",
+      "sha256": "79332dcab99a6493a250fed30ea65e1457567d5892153b5dd18bc23d276dacf3"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/adapters/warp-oz.md",
+      "sha256": "5bfc006b7b4949df2dbf695e01daa824ae14c34bd375968aaae42359e60f4bb0"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/capabilities.md",
+      "sha256": "475ca625bd9e4ea1dd530601af8ecb442505b463a9d7ebd600b4a1c1ac27df06"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/contracts.md",
+      "sha256": "9331a2ee1f716038368b9f80b89c152a1663c427a75bc3b7547e928004c3b4dd"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/intake.md",
+      "sha256": "e503a5571596cc6c4fe04cbd247507af5ab4271f0b570a23df19ce08097c38f0"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/integrations.md",
+      "sha256": "133749f37561296462621eaea6242b6fc5bebc9a9ff4456d7898a729712a81d7"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "sha256": "30332b46c3e103bf0822f5842e5e5d06d8507c0e5a12c355e916dd1ef64b9ee6"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/orchestration.md",
+      "sha256": "a3252c9c82d32fd36c58936c086a76695db030df2d3c7414cdddc4691205f0f6"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/planning.md",
+      "sha256": "4db4dda500b2f63559495fd8af3a301bd01821dff8514e6574e104fdc31a5880"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/protocol.md",
+      "sha256": "45a554a5d3bbeaf87e990a5cfdaadbfa6b1c16a4f88acab773f5e392ab1d77bf"
+    },
+    {
+      "path": "tests/continuity-boundaries.test.js",
+      "sha256": "9dde3498e3f9df59b5002bc5ec2660b31d3d2d62cbba03ac12f9c7fdcf78831f"
+    },
+    {
+      "path": "tests/continuity-cli.test.js",
+      "sha256": "bc7abc1a032a16fcb7f397ae4eb7abeb5320bf20cafc6d982ee5f9ad7f0071bd"
+    },
+    {
+      "path": "tests/contracts.test.js",
+      "sha256": "e627004e5ec4a4d5cfe0b26c86c6d5c27fd24d4e53491494bc06c42f22166342"
+    },
+    {
+      "path": "tests/git-scope.test.js",
+      "sha256": "26d57a7959db84bbe175492efd7f1d5cdedb785d9f2e7b524b5974e431c0e12c"
+    },
+    {
+      "path": "tests/handoff.test.js",
+      "sha256": "002a8ba3594e76733be9ee762ab2e7edfbfa767a738c615a421fbdfa74814bb1"
+    },
+    {
+      "path": "tests/host-bridge.test.js",
+      "sha256": "307258a55b30feda1bcba9d10759877febaca0dd4b6926b1d123eee187b1fcc1"
+    },
+    {
+      "path": "tests/index.test.js",
+      "sha256": "8726b9bef18a054d6c1d7e445bc82ae1e155f099f7ac6b52bdf89332f512341a"
+    },
+    {
+      "path": "tests/install.test.js",
+      "sha256": "484b1b303d9f2ea3c842273a130814aee0eaf4531b8e448389d8fac0f8fdd3f2"
+    },
+    {
+      "path": "tests/openspec.test.js",
+      "sha256": "04dc4daa99fc61fff6ce5cc5347e3784345f6060d0c3e97a2dc6d013fff87173"
+    },
+    {
+      "path": "tests/operational-continuity.test.js",
+      "sha256": "01295e37a7056a53cb2f9cb57fa7690adffc3fbc3083972f5137d8525934727d"
+    },
+    {
+      "path": "tests/orchestration-store.test.js",
+      "sha256": "fff83bd438ad3b38d89d8c94b1f98c5923fa48a94b10112544181bc578552d24"
+    },
+    {
+      "path": "tests/orchestration.test.js",
+      "sha256": "db6953fa20a0d0ba1b68b8698605184c74b39e5a96ea53b61f9b1bd01babfde6"
+    },
+    {
+      "path": "tests/plan-projection.test.js",
+      "sha256": "8dc3d140c81447248c03564698e13648b95bed93865765094b1a3d8554a53fe0"
+    },
+    {
+      "path": "tests/runtime-preflight.test.js",
+      "sha256": "8a3ca1c3d9ff50f27a8a990844253b3984c1cf3db2c309d90c0877f8c6e84e7b"
+    },
+    {
+      "path": "tests/skill-discovery.test.js",
+      "sha256": "816888670bbe1c74287db844c1ca5ff21139cd1d9cedf599602d6699204fe757"
+    },
+    {
+      "path": "tests/update.test.js",
+      "sha256": "fee22f6615a98fc26ac719981cf9519d2d79b4eecfae1561758a2c13bbf38803"
+    },
+    {
+      "path": "tests/validation.test.js",
+      "sha256": "265a06cee81522b1d587b73a165b602119a41657269f4fe94e491dc3a7ba2e65"
+    },
+    {
+      "path": "tests/workflow.test.js",
+      "sha256": "43ff6d526d20c551c70c6400300cd8d5e138796f48dc531f420c54c23773a786"
+    }
+  ],
+  "identityFormula": "SHA256(JSON.stringify({base,manifest})); manifest paths sorted; entry key order path,sha256",
+  "verification": [
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "testsPassed": 101
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run validate",
+      "exitCode": 0
+    }
+  ],
+  "scope": "Local qualification investigation and release preparation. A failed behavioral gate is a preserved result, not a claim of passed operational qualification.",
+  "exclusions": [
+    "mutable task index",
+    "candidate.json",
+    "summary/receipts/review/evidence to avoid self-reference"
+  ]
+}

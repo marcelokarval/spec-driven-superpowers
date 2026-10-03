@@ -34,6 +34,9 @@ System/developer instructions, project scope and approvals remain authoritative.
 A skill cannot grant permissions, override higher-priority instructions or
 authorize commits, external actions or configuration changes.
 
+Read [operational continuity](references/operational-continuity.md) for stage-scoped
+blockers, dependency preflight, partial readiness, existing plans and host qualification.
+
 ## Workflow
 
 1. Receive the request or handoff. Separate received, accepted and authorized actions.
@@ -48,14 +51,18 @@ authorize commits, external actions or configuration changes.
 4. Validate OpenSpec and ASDS separately, review semantic readiness and preserve
    applicable approvals. Read [contracts](references/contracts.md). No automatic
    permission reset, initialization, worktree installation or publication.
-5. Record baseline and accepted contract revisions. Execute ready tasks with suitable
+5. For repeatable multi-task scheduling, use the optional [coordination protocol](references/orchestration.md):
+   canonical DAG, justified role profiles, ready waves, reservations and replayable state.
+   Record baseline and accepted contract revisions. Execute ready tasks with suitable
    verification (TDD for behavioral code). Default to sequential; concurrency requires
    live capabilities, authorization, independent scopes/interfaces and resource isolation.
 6. Verify scoped deliveries, final revision evidence and independent spec/quality
    reviews. Replan only affected work when decisions materially change.
 7. Integrate and reverify; bind integration evidence/reviews to the combined revision.
    Reconcile integrated receipts before the coordinator checks off `tasks.md`.
-8. Produce the evidence ledger and structured return: outcome, evidence, remaining
+8. Re-evaluate the next eligible authorized action after each task; a status question
+   does not end the objective. Honor explicit pause before new work. Only after
+   checking the original outcome, produce the evidence ledger and structured return: outcome, evidence, remaining
    work and limitations. Accelerate presents it without a second acceptance gate.
    Commit, archive and publication remain subject to actual authorization.
 

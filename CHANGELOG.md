@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.2.0 — local candidate, 2026-10-03
+
+- Add portable DAG scheduling, tiered executor/reviewer profiles, resource
+  reservations, independent candidate/integration reviews and replayable local state.
+- Preserve strict v1 compilation and add opt-in v2 partial readiness. Add explicit
+  pause/resume, stage-scoped blockers and next-operation decisions.
+- Preserve explicit requirements and their direct consequences during incremental
+  understanding; sample/test gaps do not reopen already settled decisions.
+- Reuse existing canonical plans through reviewed source-bound projections;
+  retain approval criteria and require current integrated evidence at acceptance.
+- Diagnose existing Node/OpenSpec executables without downloads or project
+  initialization; distinguish observed versions from proven command capability.
+- Add an injectable host boundary that reserves before starting and rejects stale
+  contracts, paused work and pending cancellation.
+- Exercise natural entry with installed Codex/Agy CLIs on bounded fixtures;
+  retain denied headless attempts and separate investigation completion from
+  scheduler/provider qualification. Optional trackers and dashboards stay phase 2.
+- Keep POSIX executable fixtures platform-specific and verify actual installed
+  Node preflight on every supported test platform. Remote CI is not inferred from
+  local Linux checks.
+
+This is a prepared local version candidate. No public release is implied. Existing
+source-artifact receipts remain historical; new source identity is recorded with
+qualification evidence.
+
 ## 1.1.1 — 2026-10-02
 
 - Give explicitly selected native harness skill roots separate installation

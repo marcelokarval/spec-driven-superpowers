@@ -1,0 +1,34 @@
+{
+  "installations": [
+    {
+      "skillsDir": ".agents/skills",
+      "matched": 93,
+      "total": 93,
+      "residuals": []
+    },
+    {
+      "skillsDir": ".gemini/config/skills",
+      "matched": 93,
+      "total": 93,
+      "residuals": []
+    }
+  ],
+  "rules": [
+    {
+      "path": "/home/marcelo-karval/.codex/AGENTS.md",
+      "sha256": "ca528e1dc8681a9291c160df3f55e5cb6fae493102f432e1b0cec4b95a1ab648",
+      "unchanged": true
+    },
+    {
+      "path": "/home/marcelo-karval/.gemini/GEMINI.md",
+      "sha256": "a6c4d26a21c43c5542f39d14af2483bca4a63c2bde6e20dfbe09920926d7227b",
+      "unchanged": true
+    }
+  ],
+  "residuals": [],
+  "limits": [
+    "No CLI, launcher, service, provider or auth configuration changed",
+    "Existing source checkout remains the Node toolkit location",
+    "No backup or parallel installation created"
+  ]
+}

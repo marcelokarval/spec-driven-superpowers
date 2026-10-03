@@ -1,0 +1,178 @@
+{
+  "0001": {
+    "status": "integrated",
+    "contractRevision": "b9577bf33f36a573b3477f064302d38469251df7b8b7028331000263f6c223f4",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+    "changedFiles": [
+      "lib/orchestration.mjs",
+      "lib/validation.mjs",
+      "tests/orchestration.test.js",
+      "tests/operational-continuity.test.js"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "quality": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "quality": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "independent": true
+    }
+  },
+  "0002": {
+    "status": "integrated",
+    "contractRevision": "14921c80dfc29d8a96c41d4ca1f302453997e5be1895fa895288e1992cc2bfb5",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+    "changedFiles": [
+      "lib/runtime-preflight.mjs",
+      "lib/plan-projection.mjs",
+      "tests/runtime-preflight.test.js",
+      "tests/plan-projection.test.js"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "quality": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "quality": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "independent": true
+    }
+  },
+  "0003": {
+    "status": "integrated",
+    "contractRevision": "3efb6333c35a8e9a4d829fa1e60a26d953e75f401bf75aa772a4b9be31af9ceb",
+    "baseRevision": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+    "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+    "changedFiles": [
+      "lib/host-bridge.mjs",
+      "scripts/orchestrate.mjs",
+      "tests/host-bridge.test.js",
+      "tests/continuity-cli.test.js",
+      "tests/continuity-boundaries.test.js",
+      "skills/spec-driven-superpowers/SKILL.md",
+      "skills/spec-driven-superpowers/references/orchestration.md",
+      "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "README.md"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "quality": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "quality": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+      "independent": true
+    }
+  }
+}
