@@ -47,7 +47,8 @@ blockers, dependency preflight, partial readiness, existing plans and host quali
    consolidate understanding, and resolve material decisions before generating tasks.
    Use brainstorming here when needed; its outputs belong to the OpenSpec change.
 3. Prepare proposal, delta specs and design. Generate `tasks/task-ID.md` microcontracts
-   then the sole `tasks.md` index. Writing-plans feeds these files, not a second plan.
+   then the sole `tasks.md` index. Review granularity before dispatch: broad outcomes
+   become packages; only delimited tasks execute. Refine within existing scope autonomously. Writing-plans feeds these files, not a second plan.
 4. Validate OpenSpec and ASDS separately, review semantic readiness and preserve
    applicable approvals. Read [contracts](references/contracts.md). No automatic
    permission reset, initialization, worktree installation or publication.

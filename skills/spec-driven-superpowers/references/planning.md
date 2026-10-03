@@ -84,6 +84,49 @@ Schedule only after prerequisites are integrated. Scope independence alone does 
 prove semantic or resource independence. Invalid graphs are blocked, never executed
 as a sequential fallback. Lack of concurrency capabilities permits sequential work.
 
+## Adaptive decomposition
+A package groups an approved result; only its executable children are dispatched.
+Keep one level (package -> tasks) in the existing tasks.md and task contracts. IDs
+are stable identities; dependencies determine order. Do not create a second plan.
+A simple change needs no package. More tasks do not mean more approved scope.
+
+Before dispatch, the coordinator reviews granularity: name the exact behavior
+change, target, exclusions, independent completion check and prerequisite decisions.
+If multiple independently deliverable results remain, split them automatically
+within the existing grant. If a material decision is unknown, schedule a bounded
+investigation first. A negative experiment result completes the investigation,
+not the implementation goal; another hypothesis is a separate justified task.
+Do not split a coherent atomic operation merely by file, line count or test step.
+
+Examples: "templates with AI authority" is a package. "Restore filters when opening
+an existing saved view" is a task. "Change button X normal color from Y to Z while
+preserving other states" is one task, including its proportional verification.
+For scale, separate measuring query X on dataset Y from implementing the selected
+correction and from proving the package's representative-volume acceptance.
+
+New contracts declare nodeType: task or package. Tasks include boundary.change,
+boundary.target, nonempty boundary.exclusions and boundary.review with verdict:
+ready and source naming the coordinator's semantic assessment. These fields are
+recorded claims, not proof of good granularity; review the meaning and evaluate
+behavior. Package scenarios are covered by child scenarios; all approved acceptance
+requirements must additionally be reconciled by the coordinator. No dropped or
+invented requirement is permitted merely because scenario IDs match.
+
+A worker finding an oversized contract reports the completed/partial evidence,
+remaining results and a proposed split; it does not silently expand implementation
+or start descendants. Coordinator stops affected workers, preserves artifacts and
+uses decompose for an unfinished root task or refine for an unfinished child.
+Neither requires a new human approval within the original grant. Material changes
+use ordinary replan with applicable authorization. Existing accepted independent
+work remains accepted when its contract identity is unchanged. Historical evidence
+is retained but never relabelled as proof of a new contract.
+
+Review is scoped to the task plus relevant regressions. Separate contract defects,
+missing evidence and optional improvements. Improvements receive their own explicit
+disposition, not endless additions to the same correction round. Integration review
+checks composition once at the package boundary; reuse still-current evidence.
+The package closes only after child acceptance AND its integrated outcome proof.
+
 ## Approval and change control
 Readiness is not execution authorization. Carry forward applicable user decisions;
 ask only for genuinely missing authorization or a material scope change. Record its

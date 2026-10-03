@@ -1,5 +1,12 @@
 ---
 id: "0001"
+nodeType: task
+# parentId: "P01" # Optional existing one-level package.
+boundary:
+  change: ""
+  target: ""
+  exclusions: []
+  review: {verdict: pending, source: ""}
 kind: implementation
 openDecisions: []
 dependsOn: []
@@ -11,7 +18,7 @@ verification: [npm test]
 # Task 0001: Replace this example with the approved task
 
 ## Outcome
-<!-- State one observable result, bounded enough to review independently. -->
+<!-- State one exact behavior change and its target. Split separable outcomes before dispatch. A package groups the outcome but never receives an executor. -->
 
 ## Inputs
 <!-- Name relevant specs, decisions, interface contracts and prerequisite outputs.

@@ -125,3 +125,17 @@ Writing tasks.md after verification changes a repository-wide dirty fingerprint.
 Keep the receipt's tested revision as historical evidence; do not rewrite it to
 claim that an untested bookkeeping edit was tested. Reconcile checkoff from that
 receipt, then run final change-level verification on the combined state as needed.
+
+## Packages and executable boundaries
+New contracts use nodeType: task with boundary.change, boundary.target,
+boundary.exclusions and boundary.review {verdict: ready, source: coordinator evidence}.
+The coordinator assesses semantics; nonempty fields alone cannot establish granularity.
+A nodeType: package uses the same contract file/index, preserving its approved scope,
+scenarios and verification. Children use parentId; no nested packages. All package
+scenarios need child coverage and all child scenarios/paths/resources stay in the
+package scope. Child prerequisites include the parent's prerequisites. Packages do
+not need worker model metadata. Keep normal readiness body sections on both kinds.
+Checked packages require an integrated receipt and checked children. CLI journal
+acceptance additionally verifies the complete child state. Independent reviews and
+integrated checks are necessary even when all children passed. Legacy contracts
+retain their existing shape; opting into the new protocol requires semantic review.

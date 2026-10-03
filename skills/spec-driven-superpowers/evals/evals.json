@@ -188,6 +188,45 @@
         "Distingue deduplicação conflitante de elegibilidade por valor.",
         "Status e retomada não voltam a listar regras já resolvidas como decisões abertas."
       ]
+    },
+    {
+      "id": 14,
+      "name": "broad-package-before-dispatch",
+      "prompt": "Execute templates autorizados: salvar visão, abrir filtros, propor mudança IA e aplicar com versão e permissão. Já aprovado.",
+      "expected_output": "Decompõe pacote em tarefas delimitadas antes do despacho, conserva critérios e autorização; investigação precede decisão desconhecida.",
+      "files": [
+        "skills/spec-driven-superpowers/references/planning.md"
+      ],
+      "assertions": [
+        "Decompõe pacote em tarefas delimitadas antes do despacho, conserva critérios e autorização; investigação precede decisão desconhecida.",
+        "Não inventa escopo nem assume que campos preenchidos provam granularidade."
+      ]
+    },
+    {
+      "id": 15,
+      "name": "refine-without-reset",
+      "prompt": "O plano aprovado tinha 20 tarefas; uma precisa virar 4. Duas tarefas independentes já foram aceitas.",
+      "expected_output": "Atualiza somente fronteiras e dependências afetadas, preserva histórico e aceites independentes, não pede autorização só por aumentar a lista.",
+      "files": [
+        "skills/spec-driven-superpowers/references/planning.md"
+      ],
+      "assertions": [
+        "Atualiza somente fronteiras e dependências afetadas, preserva histórico e aceites independentes, não pede autorização só por aumentar a lista.",
+        "Não inventa escopo nem assume que campos preenchidos provam granularidade."
+      ]
+    },
+    {
+      "id": 16,
+      "name": "small-change-and-negative-investigation",
+      "prompt": "Mude só a cor normal do botão X de Y para Z; preserve hover. Uma investigação separada rejeitou a hipótese de performance.",
+      "expected_output": "Uma tarefa coerente para botão incluindo verificação proporcional; resultado negativo encerra investigação, não o pacote de performance, e não inicia experimentos infinitos.",
+      "files": [
+        "skills/spec-driven-superpowers/references/planning.md"
+      ],
+      "assertions": [
+        "Uma tarefa coerente para botão incluindo verificação proporcional; resultado negativo encerra investigação, não o pacote de performance, e não inicia experimentos infinitos.",
+        "Não inventa escopo nem assume que campos preenchidos provam granularidade."
+      ]
     }
   ]
 }

@@ -1,0 +1,36 @@
+{
+  "sharedSchema": "/home/marcelo-karval/.local/share/openspec/schemas/superpowers-bridge",
+  "ownerManifests": [
+    "/home/marcelo-karval/.asds/install-manifest.json",
+    "/home/marcelo-karval/.asds/install-manifests/fa4fcf638c79ef5894b3a264a4932c8c7afc9ee30a751bf0f18fcec221a9637a.json"
+  ],
+  "sharedFiles": [
+    {
+      "path": "/home/marcelo-karval/.local/share/openspec/schemas/superpowers-bridge/schema.yaml",
+      "sha256": "3ded838ca0b27c7edd0ef737a03731294f50e3c92894a21d828ec44960e0b707"
+    },
+    {
+      "path": "/home/marcelo-karval/.local/share/openspec/schemas/superpowers-bridge/templates/task-template.md",
+      "sha256": "1f81e67dbce7ffba17c40af399ee6a1f8fb3dfc313776476406d22f64356b78e"
+    },
+    {
+      "path": "/home/marcelo-karval/.local/share/openspec/schemas/superpowers-bridge/templates/tasks.md",
+      "sha256": "3606e3bc0c8ddaa9d070dc9dc84ad73de5474931f5aa7089ffc3029c17afbeb5"
+    }
+  ],
+  "checks": [
+    {
+      "skillsDir": ".agents/skills",
+      "files": 93,
+      "matches": true
+    },
+    {
+      "skillsDir": ".gemini/config/skills",
+      "files": 93,
+      "matches": true
+    }
+  ],
+  "method": "existing applyInstall transaction with preverified shared ownership; ordinary manifest updater for both native roots",
+  "alternateInstallation": false,
+  "diskBackup": false
+}

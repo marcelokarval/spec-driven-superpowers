@@ -198,3 +198,26 @@ CLI `next` requires current sources and capabilities, like `wave`. CLI `prefligh
 uses `--request` without a journal. `--projection` is mutually exclusive with
 `--change` on init and current-source checks. New global events are pause/resume;
 operationBlock/operationUnblock remain task-scoped.
+
+## Adaptive packages (plan protocol 3)
+Explicit nodeType activates plan version 3; old v1/v2 journals remain replayable.
+Do not silently relabel legacy work as granularity-reviewed. New leaf tasks declare
+boundary change/target/exclusions and coordinator review provenance. nodeType package
+cannot receive worker transitions; its children use parentId. Nesting is refused.
+Child paths/resources/scenarios stay within the parent contract and inherit its
+prerequisites. Coverage and effective cycles include package-to-child dependencies.
+
+`decompose` carries taskId, newly compiled plan, reason and existing authorization.
+It converts an unfinished, stopped root task into a package while preserving its
+original contract and introducing only its children. Existing contracts cannot be
+rewritten except refreshed computed identities. Ordinary replan handles material
+scope changes. `refine` subdivides a stopped child into sibling leaves under the
+same package, retaining its ID for one narrowed result and adding stable IDs for
+others. Coordinator records semantic coverage; affected dependents await all results.
+
+`acceptPackage` carries an integrated receipt, reason, limitations and applicable
+approvalEvidence. Children and prerequisites must already be accepted. Verification,
+independent reviews and explicit criteria bind to the integrated revision. `next`
+returns packageAcceptance when child completion enables that check; it never marks
+packages Done automatically. Package hashes and invalidation include their children.
+These are consistency checks on evidence; no automatic host enforcement is claimed.

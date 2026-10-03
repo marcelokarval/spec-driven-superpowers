@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — adaptive task decomposition
+
+- Distinguish coordinator-owned packages from executable tasks in one canonical plan.
+- Add reviewed behavior boundaries, same-scope decomposition/refinement and explicit
+  integrated package acceptance, retaining legacy journal compatibility.
+- Preserve unchanged independent acceptance and bind package/dependent evidence to
+  child revisions. Support CLI and existing-plan projections without a second plan.
+- Native skill/schema copies updated; natural-language evals remain prepared, not run.
+
 ## 1.2.0 — local candidate, 2026-10-03
 
 - Add portable DAG scheduling, tiered executor/reviewer profiles, resource

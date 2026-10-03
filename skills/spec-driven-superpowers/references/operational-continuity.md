@@ -136,3 +136,11 @@ bounded path. It cannot prove spontaneous activation in all sessions. Preserve
 failed/contaminated probes and their limits. Never resume paused observed projects
 to manufacture qualification. Trackers and visual integrations remain phase 2,
 optional projections of the same contracts and lifecycle.
+
+## Granularity during continuation
+Before each new assignment, apply the decomposition review in planning.md. Continuing
+an objective does not mean keeping an oversized assignment alive. Split separable
+results, keep the original outcome covered and resume only affected ready leaves.
+Do not interpret a longer task list as scope expansion or a completed investigation
+as proof that its parent implementation is complete. Record blocked package outcomes
+without inventing unrelated preparatory work to keep workers busy.

@@ -44,6 +44,10 @@ artifacts:
     description: Executable task contracts with readiness and scenario traceability
     template: task-template.md
     instruction: |
+      Distinguish packages from executable tasks before dispatch. Decompose broad outcomes
+      autonomously within the approved scope; do not cap task count or require new approval
+      merely for a more precise plan. Use nodeType, parentId and reviewed task boundary fields.
+      Keep package -> tasks as one level, with scenario coverage and inherited prerequisites.
       Decompose the approved design into tasks with one observable outcome each.
       Use exact file paths, dependencies, shared resources and scenario references.
       Fill Outcome, Inputs, Acceptance, Verification and Definition of done sections.
