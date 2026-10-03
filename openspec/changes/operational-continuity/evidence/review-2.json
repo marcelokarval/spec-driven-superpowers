@@ -1,0 +1,14 @@
+{
+  "reviewer": "/root/continuity_review",
+  "candidate": "candidate-2.json",
+  "hashesVerified": 17,
+  "disposition": "changes_required",
+  "findings": [
+    "P1 pending stop still starts worker; require expected executing/reviewing state",
+    "P2 canonical checkbox normalization changes fenced code literals",
+    "P2 plus and ordered checkbox formats unsupported without declared restriction"
+  ],
+  "limits": [
+    "Follow-up context, in-memory reproduction, no provider proof"
+  ]
+}

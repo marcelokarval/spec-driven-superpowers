@@ -1,0 +1,27 @@
+{
+  "reviewer": "/root/qualification_review",
+  "context": "fork_turns none; no executor conversation",
+  "hashesVerified": 87,
+  "artifactContentHashesVerified": true,
+  "disposition": "no_new_blocker_for_bounded_local_candidate",
+  "passed": [
+    "natural skill reads in both structured read-only cases",
+    "both reports and revenue15 preserved",
+    "status session IDs and unchanged hashes",
+    "denied/invalid attempts preserved and excluded",
+    "temporary fixture absent",
+    "package/lock consistent and claims bounded"
+  ],
+  "remaining": [
+    "Agy requirement fidelity gate partial",
+    "broad scheduler/provider/cross-process qualification unproven",
+    "remote CI unrun",
+    "catalog eval13 prepared, not run"
+  ],
+  "reportedNotRerun": [
+    "101 tests",
+    "installation readbacks",
+    "historical process/mount checks"
+  ],
+  "noEdits": true
+}

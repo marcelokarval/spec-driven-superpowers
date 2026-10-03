@@ -1,0 +1,81 @@
+{
+  "codex/existing-plan": {
+    "files": [
+      "README.md",
+      "TASKS.md",
+      "orders.json",
+      "policy.md",
+      "revenue-report.md",
+      "risk-report.md"
+    ],
+    "directories": [],
+    "openspec_absent": true,
+    "inputs_unchanged": true,
+    "reports_present": true,
+    "two_index_entries_checked": true
+  },
+  "codex/missing-root": {
+    "files": [
+      "README.md",
+      "package.json"
+    ],
+    "directories": [],
+    "openspec_absent": true
+  },
+  "codex/ordinary": {
+    "files": [],
+    "directories": [],
+    "openspec_absent": true
+  },
+  "agy/existing-plan": {
+    "files": [
+      "README.md",
+      "TASKS.md",
+      "orders.json",
+      "policy.md",
+      "revenue-report.md",
+      "risk-report.md"
+    ],
+    "directories": [],
+    "openspec_absent": true,
+    "inputs_unchanged": true,
+    "reports_present": true,
+    "two_index_entries_checked": true
+  },
+  "agy/existing-plan-retest": {
+    "files": [
+      "README.md",
+      "TASKS.md",
+      "orders.json",
+      "policy.md",
+      "revenue-report.md",
+      "risk-report.md"
+    ],
+    "directories": [],
+    "openspec_absent": true,
+    "inputs_unchanged": true,
+    "reports_present": true,
+    "two_index_entries_checked": true
+  },
+  "agy/missing-root": {
+    "files": [
+      "README.md",
+      "package.json"
+    ],
+    "directories": [],
+    "openspec_absent": true
+  },
+  "agy/missing-root-retest": {
+    "files": [
+      "README.md",
+      "package.json"
+    ],
+    "directories": [],
+    "openspec_absent": true
+  },
+  "agy/ordinary": {
+    "files": [],
+    "directories": [],
+    "openspec_absent": true
+  }
+}

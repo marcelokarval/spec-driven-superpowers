@@ -1,0 +1,22 @@
+{
+  "reviewer": "/root/continuity_review",
+  "context": "fork_turns none; standby before packet",
+  "candidate": "candidate-1.json",
+  "hashesVerified": 14,
+  "disposition": "changes_required",
+  "findings": [
+    "P1: source drift during awaited authorization/capabilities admitted stale worker",
+    "P1: pause after dispatch before start did not stop host invocation"
+  ],
+  "hostObservation": [
+    "collaboration.spawn_agent standby acknowledged",
+    "core appendEvent dispatch persisted before collaboration.followup_task",
+    "reviewer returned completed source inspection and no ongoing reads",
+    "core deliver persisted with stopped:true; no active reservation remains"
+  ],
+  "limits": [
+    "Controlled explicit invocation, not natural-entry qualification",
+    "Manual Codex integration, not execution of injected bridge with live provider",
+    "Investigation delivery, not implementation acceptance or whole-objective completion"
+  ]
+}

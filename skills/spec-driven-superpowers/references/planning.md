@@ -7,6 +7,17 @@ behavior and evidence, scope/non-goals, constraints, assumptions and open questi
 Do not create another intake document. Ask only material questions that block the
 next step; resolve routine implementation details from evidence and record them.
 
+Before listing a decision as open, compare it with the authoritative received
+contract. Preserve explicit rules and their direct logical consequences. A boundary
+missing from the sample/test data is a verification gap, not automatically an
+unspecified behavior: a rule accepting nonnegative values already includes zero.
+Do not ask to approve that boundary again or present an option that contradicts the
+rule as routine clarification. A distinct issue such as conflicting duplicate
+records may remain open; name that issue precisely instead of reopening the settled
+rule. Changing a settled rule needs a concrete counterexample/contradiction, its
+source and an applicable new decision. Review both resolved and open decision lists
+against the same contract before delivery and on status/resumption.
+
 A question is material when different answers change behavior, acceptance, public
 interfaces, security, data migration, irreversible effects or approved scope.
 Assign an owner to each material decision. Record chosen option, rationale and

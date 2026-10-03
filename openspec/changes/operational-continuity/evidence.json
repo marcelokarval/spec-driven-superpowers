@@ -1,0 +1,128 @@
+{
+  "base": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+  "manifest": [
+    {
+      "path": "README.md",
+      "sha256": "4be6cd2c26bd8dcdc46fa8219f8eefaf947fbb9c3f611979d20b8172cbf31fce"
+    },
+    {
+      "path": "lib/host-bridge.mjs",
+      "sha256": "9e7e9bf119e472203f04f93a7e70177838f8a6202eafc7e88e5fe762f6e713e9"
+    },
+    {
+      "path": "lib/orchestration.mjs",
+      "sha256": "e2a62deaee361914e8257879500f0cb7c6185bfdecf522ad5d337dd97935c813"
+    },
+    {
+      "path": "lib/plan-projection.mjs",
+      "sha256": "6d7e71c66f2fa159dcd3bc44a9ffd6f1666e2d0c1876be2c79ab0b14dea8ee87"
+    },
+    {
+      "path": "lib/runtime-preflight.mjs",
+      "sha256": "65ef481e034fe2af4b2c3e1162458b3d1fe87c4e19c76da91e07a1ad6e967e44"
+    },
+    {
+      "path": "lib/validation.mjs",
+      "sha256": "7f8501af3b1b9e363f5a91072890cc575075ab437965fbb4638bea848ba3a856"
+    },
+    {
+      "path": "openspec/changes/operational-continuity/design.md",
+      "sha256": "97eec596ae79eb1a01dbc0dc56b1fd9bb4851c73475d06ec2d763414295f04df"
+    },
+    {
+      "path": "openspec/changes/operational-continuity/proposal.md",
+      "sha256": "3371bb59392b27f2726b9283d0df5d033e6fce8ceb043903967cc9f45513b085"
+    },
+    {
+      "path": "openspec/changes/operational-continuity/specs/asds-continuity/spec.md",
+      "sha256": "bd8f818674e25db3e827655c00ba96026512a56b564f2f3bb30bda5ca4ddff74"
+    },
+    {
+      "path": "openspec/changes/operational-continuity/tasks/task-0001.md",
+      "sha256": "b619deac60d6c99cf0ceaf5b694d956e1dc626cfa87b5d5b2241740c9fb5998e"
+    },
+    {
+      "path": "openspec/changes/operational-continuity/tasks/task-0002.md",
+      "sha256": "652c04eff3a83098cddda7fc7cc9a55040feb538e8aefa98c2e28c33be967578"
+    },
+    {
+      "path": "openspec/changes/operational-continuity/tasks/task-0003.md",
+      "sha256": "74948f751eeb0a8f171752ddd929949b6a3d6b8de886c09d02948398b422bb9b"
+    },
+    {
+      "path": "scripts/orchestrate.mjs",
+      "sha256": "b7af417c2418472be3da3b34d7f8abe4e6ddf120e54b7ec0c6fadadb3199c1fd"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/SKILL.md",
+      "sha256": "e51d4808caf216ce81f63f4e38a122bafee336df21e9eabed787c14ad59b6b22"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "sha256": "30332b46c3e103bf0822f5842e5e5d06d8507c0e5a12c355e916dd1ef64b9ee6"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/orchestration.md",
+      "sha256": "a3252c9c82d32fd36c58936c086a76695db030df2d3c7414cdddc4691205f0f6"
+    },
+    {
+      "path": "tests/continuity-boundaries.test.js",
+      "sha256": "9dde3498e3f9df59b5002bc5ec2660b31d3d2d62cbba03ac12f9c7fdcf78831f"
+    },
+    {
+      "path": "tests/continuity-cli.test.js",
+      "sha256": "bc7abc1a032a16fcb7f397ae4eb7abeb5320bf20cafc6d982ee5f9ad7f0071bd"
+    },
+    {
+      "path": "tests/host-bridge.test.js",
+      "sha256": "307258a55b30feda1bcba9d10759877febaca0dd4b6926b1d123eee187b1fcc1"
+    },
+    {
+      "path": "tests/operational-continuity.test.js",
+      "sha256": "01295e37a7056a53cb2f9cb57fa7690adffc3fbc3083972f5137d8525934727d"
+    },
+    {
+      "path": "tests/orchestration.test.js",
+      "sha256": "db6953fa20a0d0ba1b68b8698605184c74b39e5a96ea53b61f9b1bd01babfde6"
+    },
+    {
+      "path": "tests/plan-projection.test.js",
+      "sha256": "8dc3d140c81447248c03564698e13648b95bed93865765094b1a3d8554a53fe0"
+    },
+    {
+      "path": "tests/runtime-preflight.test.js",
+      "sha256": "d119628b76e7b87cc8670ba85c487639543f48012ae4f9538df351df101e04f1"
+    }
+  ],
+  "revision": "source-sha256:e7c531a9a0e9efafabedf1bf1be4b1b5dd91d3c903856795fc3a4e2868375407",
+  "identityFormula": "SHA256(JSON.stringify({base,manifest})); sorted paths; entry key order path,sha256",
+  "verification": [
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "testsPassed": 100
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run validate",
+      "exitCode": 0
+    },
+    {
+      "command": "node_modules/.bin/openspec validate operational-continuity --strict --no-interactive",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/check-accelerate-handoff.mjs --accelerate /home/marcelo-karval/Backup/Projetos/accelerate",
+      "exitCode": 0
+    }
+  ],
+  "scope": "Portable combined source-artifact receipts; task changedFiles are scoped contributions, not isolated Git branch diffs. Root-owned planning and evidence excluded from worker attribution.",
+  "limits": [
+    "No public commit/release",
+    "No natural-entry qualification",
+    "Evidence manifest excludes itself, receipts, summary and mutable task index"
+  ]
+}

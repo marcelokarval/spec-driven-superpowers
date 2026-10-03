@@ -1,0 +1,17 @@
+{
+  "reviewer": "/root/continuity_review",
+  "candidate": "candidate-3.json",
+  "hashesVerified": 17,
+  "disposition": "no_additional_blocker_identified_in_local_scope",
+  "confirmed": [
+    "source checked after awaited observations",
+    "pause, expected task state, operation block and assignment checked before start",
+    "pending stop keeps reservation without starting",
+    "supported progress checkbox changes preserve digest; code literals remain material"
+  ],
+  "limits": [
+    "Follow-up retains previous review context",
+    "In-memory counterexamples; no cross-process concurrency or provider qualification",
+    "Full suite and installations verified by root, not independently rerun by reviewer"
+  ]
+}

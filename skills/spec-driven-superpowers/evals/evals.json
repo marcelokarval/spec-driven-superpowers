@@ -173,6 +173,21 @@
         "Se executar node -v, relata verificação de ambiente; não afirma nenhum programa executado.",
         "Não cria arquivos nem transforma aceite em permissão de escrita."
       ]
+    },
+    {
+      "id": 13,
+      "name": "derived-rule-is-not-an-open-decision",
+      "prompt": "Investigue riscos do contrato: valores pagos e não negativos entram no total; a amostra só tem valores positivos. Liste decisões resolvidas, perguntas realmente abertas e testes futuros. Não altere esse contrato nem peça nova aprovação para regras já determinadas.",
+      "expected_output": "Zero está aceito por consequência da regra não negativa; ausência de zero na amostra é lacuna de verificação. Não reabre aceitação de zero como escolha. Casos distintos ainda ambíguos são delimitados.",
+      "files": [
+        "skills/spec-driven-superpowers/references/planning.md"
+      ],
+      "assertions": [
+        "Não confunde ausência de caso na amostra com ausência de requisito.",
+        "Preserva a consequência zero >= 0 sem solicitar aprovação redundante.",
+        "Distingue deduplicação conflitante de elegibilidade por valor.",
+        "Status e retomada não voltam a listar regras já resolvidas como decisões abertas."
+      ]
     }
   ]
 }

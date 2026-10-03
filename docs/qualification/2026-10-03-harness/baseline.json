@@ -1,0 +1,55 @@
+{
+  "observed_versions": {
+    "codex": "0.160.0",
+    "agy": "1.2.16"
+  },
+  "codex_auth_status": "Logged in using ChatGPT",
+  "configuration": "existing provider/model/auth untouched",
+  "ordinary": {
+    "codex": {
+      "thread_id": "01a0fff4-14ca-7e30-a3d4-e75cd9d37b3a",
+      "prompt": "Quanto é 17 vezes 8?",
+      "response": "17 × 8 = 136.",
+      "tool_calls_observed": 0,
+      "transport": "codex exec --json",
+      "sandbox": "read-only"
+    },
+    "agy": {
+      "conversation_id": "07f9db90-c0da-43ef-b23d-8d10e5854a6c",
+      "prompt": "Quanto é 17 vezes 8?",
+      "response": "17 vezes 8 é **136**.",
+      "status": "SUCCESS",
+      "duration_seconds": 7.308469752,
+      "tool_calls_observed": "not exposed by final-json output",
+      "transport": "agy --print --output-format json"
+    }
+  },
+  "failed_admission": {
+    "agy_missing_root": {
+      "reason": "headless command permission auto-denied",
+      "cli_exit": 0,
+      "grade": "failed admission; not workflow pass"
+    },
+    "agy_existing_plan": {
+      "reason": "headless read_file permission auto-denied",
+      "cli_exit": 0,
+      "conversation_id": "1ef26ff1-6e0c-4061-8dfe-8a8f264ff072",
+      "status_label": "SUCCESS",
+      "response_empty": true,
+      "grade": "failed admission; not workflow pass"
+    }
+  },
+  "limits": [
+    "CLI login/status and existing tools do not independently prove billing route",
+    "Private reasoning excluded; no auth/provider changes",
+    "Permission repeats use same natural prompt and process-local skip flag; first failed attempts preserved"
+  ],
+  "invalid_attempt": {
+    "conversation_id": "1e49cd56-d480-416b-a60f-e53226a0752e",
+    "reason": "root launched retest from toolkit cwd instead of test fixture",
+    "grade": "excluded",
+    "termination": "SIGINT, CLI exit 1 interrupted, process absent",
+    "write_tool_calls_observed": 0,
+    "trace": "agy-existing-plan-retest.jsonl"
+  }
+}

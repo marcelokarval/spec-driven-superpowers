@@ -236,3 +236,25 @@ User-scope shared schema/license/provenance changes require separate reconciliat
 across installations; this mode does not silently invalidate another manifest.
 
 Use a quiescent directory. A manifest records ownership, not human authorization.
+
+## Portable coordination and optional integrations
+
+The opt-in [coordination protocol](skills/spec-driven-superpowers/references/orchestration.md)
+adds generated DAGs, configurable executor/reviewer profiles, causal ready waves,
+resource reservations, fresh review packets, root dispositions and a replayable
+local journal. Run `node scripts/orchestrate.mjs` from this checkout; installed
+skills do not silently add a runtime or spawn agents.
+
+The [two-phase evolution](skills/spec-driven-superpowers/references/integrations.md)
+preserves a standalone core and defines the next optional tracker/UI boundaries.
+Plane, Linear and third-party visual plugins are planned adapters, not implemented
+connectors. The two suggested OpenSpec dashboards are compared as documentary
+references; neither has been installed or forked.
+
+### Operational continuity
+
+The optional coordinator now supports partial-readiness plans, stage-specific
+blockers, pause/resume and next-action decisions, bounded runtime preflight, and
+source-bound input from existing TASKS.md plans. See [the protocol](skills/spec-driven-superpowers/references/operational-continuity.md).
+The injectable host bridge does not certify natural-entry activation in Codex or
+Agy; local tests, controlled invocation and real-session qualification are separate.

@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+test('CLI consumes original plan, preserves unresolved sibling, explains next/pause and refuses source drift',t=>{
+ const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-continuity-cli-'))); t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const put=(name,value)=>{const p=path.join(root,name);fs.writeFileSync(p,typeof value==='string'?value:JSON.stringify(value));return p;};
+ const index=put('TASKS.md','- [ ] T01 bounded\n- [ ] T02 future\n');
+ const body=['Outcome','Inputs','Acceptance','Verification','Definition of done'].map(h=>`## ${h}\nConcrete.\n`).join('');
+ const tasks=['T01','T02'].map(id=>({id,source:{path:'TASKS.md',anchor:id},kind:'implementation',openDecisions:id==='T02'?['unknown']:[],dependsOn:[],write:[`${id}.js`],resources:[],scenarios:['ui/test'],verification:['test'],body,orchestration:{complexity:'bounded',risk:'bounded',uncertainty:'bounded',rationale:'known',skills:['tdd'],references:['TASKS.md'],claims:[]}}));
+ const projection=put('projection.json',{version:1,root,canonicalIndex:'TASKS.md',sources:[{path:'TASKS.md',sha256:createHash('sha256').update(fs.readFileSync(index)).digest('hex')}],tasks});
+ const profile=put('profile.json',{version:1,tiers:Object.fromEntries(['bounded','medium','high'].map(t=>[t,{executor:{model:'e',effort:'high'},reviewer:{model:'r',effort:'medium'}}]))});
+ const context=put('context.json',{coordinator:'root',readScope:['project'],authorization:{source:'fixture user',scope:'fixture'}});
+ const capabilities=put('caps.json',{spawn:true,isolatedWrites:true,maxAgents:3,externalActive:0,models:[{model:'e',efforts:['high']}]});
+ const state=path.join(root,'state.json');
+ const run=(cmd,args=[])=>spawnSync(process.execPath,['scripts/orchestrate.mjs',cmd,'--state',state,...args],{encoding:'utf8'});
+ let r=run('init',['--projection',projection,'--profile',profile,'--context',context]);assert.equal(r.status,0,r.stderr);
+ r=run('next',['--projection',projection,'--capabilities',capabilities]);assert.equal(r.status,0,r.stderr);
+ assert.deepEqual(JSON.parse(r.stdout).actions,[{operation:'executor',taskId:'T01'}]);
+ r=run('event',['--event',put('pause.json',{type:'pause',source:'user',reason:'no execution'}),'--expected-sequence','0']);assert.equal(r.status,0,r.stderr);
+ r=run('next',['--projection',projection,'--capabilities',capabilities]);assert.equal(JSON.parse(r.stdout).disposition,'paused');
+ assert.equal(fs.readFileSync(index,'utf8'),'- [ ] T01 bounded\n- [ ] T02 future\n');assert.equal(fs.existsSync(path.join(root,'openspec')),false);
+ fs.appendFileSync(index,'new requirement');r=run('next',['--projection',projection,'--capabilities',capabilities]);assert.notEqual(r.status,0);assert.match(r.stderr,/source changed/);
+});

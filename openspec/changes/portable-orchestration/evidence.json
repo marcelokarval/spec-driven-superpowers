@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "base": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+  "revision": "source-sha256:d07f8eb7127c00f4ab87b17020fe750d018aa466bfcc7f50bb86b236caa69ced",
+  "manifest": [
+    {
+      "path": "README.md",
+      "sha256": "4692f7e90eae55cf7e442fc7debf4623f37da6bfaf464fec944e44bbc97b5c3a"
+    },
+    {
+      "path": "examples/orchestration-profile.json",
+      "sha256": "5d9e4e4db94d53b4f9865c94af6ea785f3ac68526ccac901cc4257173f01ff13"
+    },
+    {
+      "path": "lib/orchestration-store.mjs",
+      "sha256": "99934c6fdd9bf315a42b9cf9e1fcea743dbb558e8db509f2a92f06aa6ee3531b"
+    },
+    {
+      "path": "lib/orchestration.mjs",
+      "sha256": "742e0378b440128862d27197473894e5c34470f8e708bfbb73ed1b76fb554235"
+    },
+    {
+      "path": "openspec/changes/portable-orchestration/design.md",
+      "sha256": "655f056d4613f62c6832b1e3cee046e97220caa30fc59b0bb80c8d5018810299"
+    },
+    {
+      "path": "openspec/changes/portable-orchestration/proposal.md",
+      "sha256": "1147c68765d72c8e4f2f917b7ef9fd3bb3b239e729ecd85cf17b01e871f69a8f"
+    },
+    {
+      "path": "openspec/changes/portable-orchestration/specs/asds-orchestration/spec.md",
+      "sha256": "06ea8570c114c2e3cfd931071b586cc040de3e351b779036db18264ba649d460"
+    },
+    {
+      "path": "openspec/changes/portable-orchestration/tasks/task-0001.md",
+      "sha256": "867fb97108c9c25cf6e68c63ce7148124fd13256bf9e93bdca34a37537872f69"
+    },
+    {
+      "path": "openspec/changes/portable-orchestration/tasks/task-0002.md",
+      "sha256": "5df83a208ff1595464c3160fe4abb57252b28b910e66e9a687ac722060e18440"
+    },
+    {
+      "path": "openspec/changes/portable-orchestration/tasks/task-0003.md",
+      "sha256": "ca9d1436b00ea6b168c0227c56ca06d5f740bf987ddbc53ad815be3a00deb612"
+    },
+    {
+      "path": "package.json",
+      "sha256": "a2c44d486ce0fffcb768962aed0f97f2a2009ded826d2cd71632c492ad3595ec"
+    },
+    {
+      "path": "scripts/orchestrate.mjs",
+      "sha256": "0a6e1e6188ecef42f09ad11fa7b8c9b44f7c418c78111d9d0bf8bd2e8cfb5005"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/SKILL.md",
+      "sha256": "cae34ee9ca15d5b7be60c8a53f475ee01c1f0e0025409f697f2d411186dbf8ae"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/integrations.md",
+      "sha256": "133749f37561296462621eaea6242b6fc5bebc9a9ff4456d7898a729712a81d7"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/orchestration.md",
+      "sha256": "63212f39932bb4ae385bf16f67fb324c805371a75f722252c63fd5a461f50a50"
+    },
+    {
+      "path": "tests/orchestration-store.test.js",
+      "sha256": "fff83bd438ad3b38d89d8c94b1f98c5923fa48a94b10112544181bc578552d24"
+    },
+    {
+      "path": "tests/orchestration.test.js",
+      "sha256": "2fb8536a2694b5db448df227668083222166ce30ff1f82a6508f822e7f0302bb"
+    }
+  ],
+  "verification": {
+    "testCount": 82,
+    "newTestCount": 18,
+    "independentReview": "orchestration_review: favorable after four fixes",
+    "openspec": "strict passed",
+    "accelerate": "producer-receiver passed",
+    "nativeInstallations": [
+      {
+        "root": ".agents/skills",
+        "verifiedFiles": 92
+      },
+      {
+        "root": ".gemini/config/skills",
+        "verifiedFiles": 92
+      }
+    ]
+  },
+  "excludedLedgerFiles": [
+    "tasks.md",
+    "summary.md",
+    "evidence.json",
+    "receipts.json"
+  ],
+  "identityAlgorithm": "source-sha256: + SHA256(UTF-8 JSON.stringify({base, manifest})); key order base then manifest; manifest entries use path then sha256 and retain the recorded array order; compact JSON with no trailing newline"
+}

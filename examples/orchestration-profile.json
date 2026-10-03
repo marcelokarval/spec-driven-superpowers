@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "tiers": {
+    "bounded": {
+      "executor": { "model": "gpt-6-luna", "effort": "high" },
+      "reviewer": { "model": "gpt-6.1-sol", "effort": "medium" }
+    },
+    "medium": {
+      "executor": { "model": "gpt-6.1-sol", "effort": "medium" },
+      "reviewer": { "model": "gpt-6-astra", "effort": "low" }
+    },
+    "high": {
+      "executor": { "model": "gpt-6-astra", "effort": "low" },
+      "reviewer": { "model": "gpt-6-astra", "effort": "medium" }
+    }
+  }
+}

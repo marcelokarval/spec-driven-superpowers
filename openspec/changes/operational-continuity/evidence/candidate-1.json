@@ -1,0 +1,61 @@
+{
+  "base": "ba40c136c9d13c17c0ab1548c72c8b7d1c912d7b",
+  "manifest": [
+    {
+      "path": "lib/orchestration.mjs",
+      "sha256": "e2a62deaee361914e8257879500f0cb7c6185bfdecf522ad5d337dd97935c813"
+    },
+    {
+      "path": "lib/validation.mjs",
+      "sha256": "7f8501af3b1b9e363f5a91072890cc575075ab437965fbb4638bea848ba3a856"
+    },
+    {
+      "path": "lib/runtime-preflight.mjs",
+      "sha256": "65ef481e034fe2af4b2c3e1162458b3d1fe87c4e19c76da91e07a1ad6e967e44"
+    },
+    {
+      "path": "lib/plan-projection.mjs",
+      "sha256": "32afeb1d155c0136de11533b96613544500c87bec485c06972c3ef2775f82830"
+    },
+    {
+      "path": "lib/host-bridge.mjs",
+      "sha256": "aa0f803c8e38c66fb3a6d91290c6df99506b3c2bddb4cb67f50b98dfcba4ab51"
+    },
+    {
+      "path": "scripts/orchestrate.mjs",
+      "sha256": "b7af417c2418472be3da3b34d7f8abe4e6ddf120e54b7ec0c6fadadb3199c1fd"
+    },
+    {
+      "path": "tests/operational-continuity.test.js",
+      "sha256": "01295e37a7056a53cb2f9cb57fa7690adffc3fbc3083972f5137d8525934727d"
+    },
+    {
+      "path": "tests/runtime-preflight.test.js",
+      "sha256": "d119628b76e7b87cc8670ba85c487639543f48012ae4f9538df351df101e04f1"
+    },
+    {
+      "path": "tests/plan-projection.test.js",
+      "sha256": "8dc3d140c81447248c03564698e13648b95bed93865765094b1a3d8554a53fe0"
+    },
+    {
+      "path": "tests/host-bridge.test.js",
+      "sha256": "307258a55b30feda1bcba9d10759877febaca0dd4b6926b1d123eee187b1fcc1"
+    },
+    {
+      "path": "tests/orchestration.test.js",
+      "sha256": "db6953fa20a0d0ba1b68b8698605184c74b39e5a96ea53b61f9b1bd01babfde6"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/SKILL.md",
+      "sha256": "e51d4808caf216ce81f63f4e38a122bafee336df21e9eabed787c14ad59b6b22"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/orchestration.md",
+      "sha256": "a3252c9c82d32fd36c58936c086a76695db030df2d3c7414cdddc4691205f0f6"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "sha256": "28e1b3f206c988d2c13f783f46c58483a9b485d52106cbe5fb2f51b431846391"
+    }
+  ]
+}
