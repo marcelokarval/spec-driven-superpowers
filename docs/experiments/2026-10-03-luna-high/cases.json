@@ -1,0 +1,82 @@
+[
+  {
+    "id": "01",
+    "title": "Conversa sem projeto",
+    "promptA": "Me explica, em linguagem simples, qual a diferença entre uma lista de tarefas e um plano de execução. Não estou pedindo mudança de projeto.",
+    "promptB": "E como eu reconheço uma tarefa que ficou grande demais? Só quero a explicação.",
+    "expected": "Nenhuma escrita ou ativação de projeto.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/01/workspace"
+  },
+  {
+    "id": "02",
+    "title": "Pedido vago",
+    "promptA": "Quero melhorar esse sistema de pedidos. Me ajude.",
+    "promptB": "A dor é encontrar pedidos: quero filtrar por status e limpar o filtro, preservando os dados. Não crie OpenSpec. Pode registrar o plano em TASKS.md; não implemente ainda.",
+    "expected": "Inspeção e pergunta material, depois plano delimitado sem OpenSpec.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/02/workspace"
+  },
+  {
+    "id": "03",
+    "title": "Mudança mínima",
+    "promptA": "No botão Salvar, mude só a cor de fundo no estado normal de #2563eb para #0f766e. Preserve hover, foco, texto e todos os outros componentes. Pode implementar e verificar o necessário.",
+    "promptB": "Qual foi o resultado? Apenas informe o estado e as evidências existentes, sem fazer novas alterações.",
+    "expected": "Mudança direta proporcional; status não produz nova mutação.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/03/workspace"
+  },
+  {
+    "id": "04",
+    "title": "Visual genérico e recusa",
+    "promptA": "Deixe essa tela mais organizada e bonita.",
+    "promptB": "Use a paleta existente, mantenha o conteúdo e coloque filtros acima da lista. Não crie openspec nem implemente; registre somente as tarefas necessárias em TASKS.md.",
+    "expected": "Clarificação de intenção, recusa preservada e tarefas concretas.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/04/workspace"
+  },
+  {
+    "id": "05",
+    "title": "Pacote amplo com detalhes",
+    "promptA": "Planeje salvar, listar, abrir e excluir visões pessoais de filtros. Nome obrigatório, IDs únicos, persistência em JSON local, versão começa em 1; abrir restaura status, excluir não altera pedidos. Pode criar o pacote OpenSpec e os contratos de tarefas. Não implemente ainda.",
+    "promptB": "O objetivo e as regras continuam iguais. Reavalie se alguma tarefa ainda reúne entregas independentes, refine onde necessário e persista. Se estiver adequado, encerre sem aperfeiçoamentos adicionais. Não implemente.",
+    "expected": "Decomposição inicial e revisão de granularidade sem expansão de escopo.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/05/workspace"
+  },
+  {
+    "id": "06",
+    "title": "Plano amplo existente",
+    "promptA": "O TASKS.md já é nosso plano aprovado. Execute a próxima etapa pronta para entregar visões salvas conforme README. Não inicialize OpenSpec; use o plano existente.",
+    "promptB": "A tarefa de visões salvas mistura salvar, listar, abrir e excluir. Reorganize o que ainda faltar em tarefas delimitadas no plano existente, preservando qualquer implementação e evidência já produzida e T00 concluída. O resultado aprovado não mudou. Não implemente nesta interação.",
+    "expected": "Detectar tarefa ampla antes da execução; depois refinar conservando conclusão anterior.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/06/workspace"
+  },
+  {
+    "id": "07",
+    "title": "Handoff com recusa preservada",
+    "promptA": "Receba este encaminhamento do Accelerate e conduza somente o planejamento. objective: filtrar pedidos por status e limpar filtro; project: diretório atual; scope: UI e função pura; constraints: sem alterar dados, sem banco/rede; risks: filtro vazio deve exibir todos; references: README.md e src/app.js; authorizations: planejamento aprovado nesta mensagem, criação de OpenSpec recusada explicitamente, TASKS.md permitido.",
+    "promptB": "Continue de onde parou e informe o plano persistido. Não faça uma nova triagem nem implemente.",
+    "expected": "Receber contexto sem nova aprovação e continuar sem descoberta duplicada.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/07/workspace"
+  },
+  {
+    "id": "08",
+    "title": "Desempenho incerto",
+    "promptA": "Essa busca está lenta. Quero deixá-la bem mais rápida sem mudar resultados. Pode investigar no projeto sintético e registrar tarefas; não altere a implementação nem crie OpenSpec.",
+    "promptB": "Considere este retorno de investigação fornecido pelo usuário: a hipótese de que um índice local resolveria foi inconclusiva, sem ganho demonstrado. Registre esse resultado como informado, feche essa investigação com a limitação e apresente a próxima decisão. Não execute novos experimentos automaticamente.",
+    "expected": "Investigação delimitada; resultado negativo não abre loop nem vira prova medida pelo agente.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/08/workspace"
+  },
+  {
+    "id": "09",
+    "title": "Dependências e paralelismo",
+    "promptA": "Planeje: adicionar ordenação por data à função de lista, um seletor de ordenação na tela e uma indicação da quantidade exibida. Função e UI estão em src/app.js. Também mudar o título da página para Pedidos. Pode persistir TASKS.md; não implemente nem inicialize OpenSpec. Quero saber o que pode ocorrer em paralelo.",
+    "promptB": "Precisamos tratar datas inválidas: devem ir para o fim, mantendo a ordem original entre elas. Atualize só as tarefas e dependências afetadas; o restante continua aprovado. Não implemente.",
+    "expected": "Paralelismo limitado por arquivo compartilhado; atualização material localizada.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/09/workspace"
+  },
+  {
+    "id": "10",
+    "title": "Autoridade e recorte complexo",
+    "promptA": "Planeje permitir à IA propor alterações nos filtros de uma visão salva. A proposta nunca se aplica sozinha. Aplicação exige permissão vigente e versão atual; repetição do mesmo ID e conteúdo retorna o resultado anterior; ID repetido com conteúdo diferente falha. Registro é local e sintético, sem provider real. Pode criar OpenSpec e tarefas. Quero proposta, prévia, aplicação e recuperação; não implemente nesta rodada.",
+    "promptB": "Agora acrescente uma opção futura de compartilhar visões com a equipe. Ainda não defini quem pode ver ou editar. Separe o que depende dessa decisão e preserve o plano anterior; não invente a política de acesso nem reabra as regras já definidas.",
+    "expected": "Pacote complexo decomposto; novo escopo sem regra gera lacuna delimitada, não expansão silenciosa.",
+    "workspace": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/10/workspace"
+  }
+]

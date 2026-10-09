@@ -1,78 +1,80 @@
 ---
 name: spec-driven-superpowers
-description: Coordinate approved, multi-step software changes using OpenSpec specifications, per-task microcontracts, Superpowers TDD and evidence-based reviews. Use for ASDS workflows, specification-driven features or refactors, and tasks.md plus task-*.md execution; not for simple questions or unrelated one-step edits.
+description: Produce reviewed and persisted implementation planning by combining OpenSpec traceability with Superpowers planning and review practices. ASDS plans; a caller-selected consumer implements.
 ---
-
 # Autonomous Spec-Driven Superpowers
 
-OpenSpec governs **what**; Superpowers guides **how**. This skill connects them,
-not a replacement for either framework or a new inference engine.
+ASDS is a self-contained planning product. OpenSpec organizes requirements,
+decisions and traceability; adapted Superpowers skills help understand, decompose,
+write and review the plan. ASDS does not implement the future tasks it produces.
 
-## Decide whether to activate
+## Activation and intake
 
-Global installation makes this skill available, not mandatory for every message.
-Read [the intake contract](references/intake.md): direct requests use local triage;
-Accelerate handoffs reuse received context and preserve lifecycle continuity.
-Apply [the activation gate](references/activation.md). General questions
-receive a direct answer, without workflow loading, setup questions or artifacts.
-For suitable project work, verify the selected project's `openspec/`; if absent,
-ask before creation unless initialization was already explicitly authorized.
+Read [intake](references/intake.md), [activation](references/activation.md),
+[planning](references/planning.md), [contracts](references/contracts.md) and the
+matching harness adapter. Conversation bypasses planning. Bounded direct execution
+belongs to the caller, not ASDS. Suitable planning work reuses received Accelerate
+context and preserves grants, refusals, scope and read boundaries.
 
-## Start with the actual session
+If the intended project lacks `openspec/`, ask once before creating that exact root.
+Refusal continues with an equivalent neutral planning package at an authorized
+destination; it never lowers output quality. Installation and activation are separate.
 
-Read [the protocol](references/protocol.md) and [capabilities](references/capabilities.md).
-Select only the matching adapter:
-[Warp/Oz](references/adapters/warp-oz.md),
-[Codex](references/adapters/codex.md),
-[OpenCode](references/adapters/opencode.md),
-[Claude Code](references/adapters/claude-code.md),
-[Gemini CLI](references/adapters/gemini.md), or
-[Antigravity](references/adapters/antigravity.md).
-For an unknown harness, use the sequential fallback in capabilities.
+## Product boundary
 
-System/developer instructions, project scope and approvals remain authoritative.
-A skill cannot grant permissions, override higher-priority instructions or
-authorize commits, external actions or configuration changes.
+ASDS owns only the planning contribution:
 
-Read [operational continuity](references/operational-continuity.md) for stage-scoped
-blockers, dependency preflight, partial readiness, existing plans and host qualification.
+1. distinguish the original requested product from the planning contribution;
+2. inspect authorized sources and resolve only material planning gaps;
+3. record requirements, negative/preservation rules, decisions and design contracts;
+4. produce a recursive composition tree plus a separate precedence DAG;
+5. write `tasks.md`, every `tasks/task-ID.md`, and `planning-manifest.json`;
+6. review fidelity before quality, correct material findings and re-review;
+7. validate, persist and read back the same package revision;
+8. return delivered, partial, blocked or cancelled planning and release ownership.
 
-## Workflow
+The delivered manifest also includes a deterministic task-manager projection. It
+must distinguish all reviewed contracts from the initial executable frontier and
+make owners, decision resolvers, blockers, prerequisite outputs, reverse dependents,
+waves, safe parallel peers and conflict exclusions machine-readable. Directory
+projection reads the exact ordered inventory in `tasks.md`; it does not discover
+extra task files or renumber identities to match execution order.
 
-1. Receive the request or handoff. Separate received, accepted and authorized actions.
-   Reuse existing context; resolve only missing facts needed for the next step.
-   Keep discovery within the selected project and necessary instruction/skill files.
-   Apply the [read scope and reporting rules](references/planning.md#read-scope).
-2. Follow [planning and readiness](references/planning.md). Inspect relevant sources,
-   consolidate understanding, and resolve material decisions before generating tasks.
-   Use brainstorming here when needed; its outputs belong to the OpenSpec change.
-3. Prepare proposal, delta specs and design. Generate `tasks/task-ID.md` microcontracts
-   then the sole `tasks.md` index. Review granularity before dispatch: broad outcomes
-   become packages; only delimited tasks execute. Refine within existing scope autonomously. Writing-plans feeds these files, not a second plan.
-4. Validate OpenSpec and ASDS separately, review semantic readiness and preserve
-   applicable approvals. Read [contracts](references/contracts.md). No automatic
-   permission reset, initialization, worktree installation or publication.
-5. For repeatable multi-task scheduling, use the optional [coordination protocol](references/orchestration.md):
-   canonical DAG, justified role profiles, ready waves, reservations and replayable state.
-   Record baseline and accepted contract revisions. Execute ready tasks with suitable
-   verification (TDD for behavioral code). Default to sequential; concurrency requires
-   live capabilities, authorization, independent scopes/interfaces and resource isolation.
-6. Verify scoped deliveries, final revision evidence and independent spec/quality
-   reviews. Replan only affected work when decisions materially change.
-7. Integrate and reverify; bind integration evidence/reviews to the combined revision.
-   Reconcile integrated receipts before the coordinator checks off `tasks.md`.
-8. Re-evaluate the next eligible authorized action after each task; a status question
-   does not end the objective. Honor explicit pause before new work. Only after
-   checking the original outcome, produce the evidence ledger and structured return: outcome, evidence, remaining
-   work and limitations. Accelerate presents it without a second acceptance gate.
-   Commit, archive and publication remain subject to actual authorization.
+A new delivered plan keeps future implementation checkboxes open. If the original
+request asked for implementation, the return explicitly says it remains unfulfilled
+and the caller selects a consumer. An instruction to implement does not make ASDS
+that consumer. A concrete plan defect may return to ASDS as bounded revision work.
 
-## Interrupted execution
+## Required planning properties
 
-Persist artifact paths, base/snapshot, command exit status and unresolved work
-before handoff when possible. A tool cancellation or agent lifecycle failure is
-not a test result. Check persisted evidence before rerunning commands.
-Use at most three recovery attempts per blocker, retaining the same contract.
-If still blocked, defer it visibly, skip its dependent tasks, and continue
-independent tasks. Never mark deferred work complete. A replacement gets the
-contract, constraints, partial artifacts and diagnostics in an isolated workspace.
+- All applicable layers C01-C16 are evaluated; `not_applicable` needs a reason.
+- Composition and precedence are distinct. Packages may nest but never execute.
+- Every declared requirement reaches leaf acceptance through explicit traceability.
+- Structural validity remains `need-review`; validators never invent semantic approval.
+- Fidelity and quality reviews bind revision, source inventory, task inventory and findings.
+- Delivery requires authorized persistence plus readback of bytes, IDs, relations,
+  decisions, reviews and files. A textual evidence reference is insufficient.
+- Existing project configuration and owner content are preserved. No implicit
+  worktree, backup, commit, publication, installation or external write is allowed.
+
+## Self-contained distribution
+
+This repository contains the canonical ASDS skill, adapted OpenSpec and Superpowers
+skills, bridge schema/templates, validators, installer and provenance. The Node
+toolkit runs from this repository; installed prompt skills do not download another
+runtime. Exact external executable dependencies are declared and verified separately.
+
+Legacy orchestration, host bridge, TDD, code review and integration utilities remain
+available for explicitly selected consumers. They are not imported by the planning
+entry and cannot take ASDS lifecycle ownership. See [consumer boundary](references/consumer-boundary.md).
+
+## Evidence and limitations
+
+Use the pure planning graph/lifecycle/review APIs and the planning store. OpenSpec
+validation is additional adapter evidence, not a prerequisite for a neutral package.
+Before reporting the OpenSpec CLI unavailable, distinguish a missing PATH entry from
+an unavailable dependency: when the active ASDS source checkout is supplied, inspect
+and invoke its lockfile-pinned `node_modules/@fission-ai/openspec/bin/openspec.js`
+directly. Never install, copy or substitute a runtime merely to satisfy this check.
+Tests prove only what they execute. If independent review or authorized persistence
+is unavailable, return partial/blocked planning instead of fabricating delivery.

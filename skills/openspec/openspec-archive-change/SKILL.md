@@ -11,11 +11,10 @@ metadata:
 ---
 
 ## ASDS mode
-ASDS closure requires a current evidence ledger and reconciled integrated receipts
-before reporting completed work. CLI artifact existence and checkboxes alone do not
-prove completion. Explicit archival of partial/cancelled work remains possible but
-must preserve that status, unresolved tasks and limitations in the ledger and return.
-Archival never converts missing review or integration evidence into a passing result.
+Archiving an implemented OpenSpec change is a consumer operation outside ASDS planning.
+ASDS planning delivery requires its own revision-bound reviews and readback, not code
+integration receipts. Archive state and implementation checkboxes never retroactively
+prove planning quality or transfer implementation ownership to ASDS.
 
 
 Archive a completed change in the experimental workflow.

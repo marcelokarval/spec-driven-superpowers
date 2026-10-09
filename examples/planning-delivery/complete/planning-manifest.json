@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "asds.planning-delivery/1",
+  "returnVersion": "asds.planning-return/1",
+  "packageId": "catalog-complete",
+  "revision": "complete-r1",
+  "state": "delivered",
+  "synthetic": true,
+  "originalRequestedProduct": {
+    "kind": "implementation",
+    "text": "Implementar listagem somente leitura e exportação do catálogo existente, com guia para consumidores, sem alterar os registros.",
+    "source": "brief.md#S01",
+    "status": "not_fulfilled"
+  },
+  "planningContribution": {
+    "product": "reviewed-planning-package",
+    "executionPerformed": false,
+    "usableTasks": [
+      "0001",
+      "0002",
+      "0003"
+    ],
+    "limitations": [
+      "Modelo sintético, não entrega/review vivo",
+      "Nenhum software implementado"
+    ]
+  },
+  "attendanceOutcome": "planning_delivered",
+  "authority": {
+    "intentSource": "brief.md#S01",
+    "normativeContract": "../../../docs/architecture/planning-delivery-contract.md",
+    "destination": "fixture-local",
+    "authorization": "Autorização real T01 apenas para escrever modelos nestes caminhos; S04 é sintética.",
+    "preservedRefusals": [
+      "D04: não inicializar OpenSpec"
+    ],
+    "originalExecutionAuthority": "Não herdada pelo planejador"
+  },
+  "references": [
+    {
+      "id": "brief.md",
+      "path": "brief.md",
+      "role": "source",
+      "sha256": "b51c6990a4fc0f6ae75b229eff684c268fc5c0d4ecded96848070b087b3bdb6f"
+    },
+    {
+      "id": "tasks.md",
+      "path": "tasks.md",
+      "role": "index",
+      "sha256": "4c8667a8e57a3d5a48fc64c1680d891281c5708219ba9a091a9b86c4e2fa3a7d"
+    },
+    {
+      "id": "tasks/task-P01.md",
+      "path": "tasks/task-P01.md",
+      "role": "contract",
+      "sha256": "e16d0a7e87a43cd3896ea6e6cd9a6772bf1cf14f306533d685547afbf0d09406"
+    },
+    {
+      "id": "tasks/task-0001.md",
+      "path": "tasks/task-0001.md",
+      "role": "contract",
+      "sha256": "5c7775d08a47946d03f745eda7caac154d58bf0c53f69be83da2de0a73afaac9"
+    },
+    {
+      "id": "tasks/task-0002.md",
+      "path": "tasks/task-0002.md",
+      "role": "contract",
+      "sha256": "20f3dd144c7d9f8e273392ce04853592212ca529c64e9082d14c46d440d0507e"
+    },
+    {
+      "id": "tasks/task-0003.md",
+      "path": "tasks/task-0003.md",
+      "role": "contract",
+      "sha256": "26a94ffa9b25ccabcfd2463237c3dd9d491d75dd6fed872b12665a6c7c94c657"
+    },
+    {
+      "id": "reviews.md",
+      "path": "reviews.md",
+      "role": "review",
+      "sha256": "b5349202c56cb8c30eff0fa9a00c36b29b0bb3970a43d3fdc9addc692bf55c5d"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P01",
+      "nodeType": "package",
+      "parentId": null,
+      "dependsOn": [],
+      "requirements": [
+        "R01",
+        "R02",
+        "R03",
+        "R04"
+      ],
+      "implementationStatus": "not_started"
+    },
+    {
+      "id": "0001",
+      "nodeType": "task",
+      "parentId": "P01",
+      "dependsOn": [],
+      "requirements": [
+        "R01",
+        "R04"
+      ],
+      "implementationStatus": "not_started"
+    },
+    {
+      "id": "0002",
+      "nodeType": "task",
+      "parentId": "P01",
+      "dependsOn": [],
+      "requirements": [
+        "R02",
+        "R04"
+      ],
+      "implementationStatus": "not_started"
+    },
+    {
+      "id": "0003",
+      "nodeType": "task",
+      "parentId": "P01",
+      "dependsOn": [
+        "0001",
+        "0002"
+      ],
+      "requirements": [
+        "R03",
+        "R04"
+      ],
+      "implementationStatus": "not_started",
+      "dependencyDetails": [
+        {
+          "id": "0001",
+          "reason": "O guia precisa de exemplos fiéis à listagem entregue e verificada.",
+          "requiredOutput": "Interface listCatalog e resultados verificados de listagem para base a/b, vazio e erro de leitura."
+        },
+        {
+          "id": "0002",
+          "reason": "O guia precisa de exemplos fiéis à exportação entregue e verificada.",
+          "requiredOutput": "Interface exportCatalog e resultados verificados de exportação para base a/b, vazio e erro de leitura."
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D01",
+      "source": "brief.md",
+      "owner": "proprietário sintético",
+      "status": "resolved",
+      "reason": "Somente leitura, reaproveitar reader"
+    },
+    {
+      "id": "D02",
+      "source": "brief.md",
+      "owner": "proprietário sintético",
+      "status": "resolved",
+      "reason": "CSV UTF-8 RFC 4180"
+    },
+    {
+      "id": "D03",
+      "source": "brief.md",
+      "owner": "mantenedor sintético",
+      "status": "resolved",
+      "reason": "Transformações puras separadas"
+    },
+    {
+      "id": "D04",
+      "source": "brief.md",
+      "owner": "proprietário sintético",
+      "status": "resolved",
+      "reason": "Preservar recusa e escopo de planejamento"
+    }
+  ],
+  "blockers": [],
+  "parallelism": {
+    "recommended": [
+      [
+        "0001",
+        "0002"
+      ],
+      [
+        "0003"
+      ]
+    ],
+    "reason": "Arquivos disjuntos; guia precisa das duas interfaces. Recomendação sujeita aos bloqueios, não dispatch.",
+    "currentlyUsable": [
+      "0001",
+      "0002",
+      "0003"
+    ]
+  },
+  "layers": {
+    "C01": {
+      "status": "satisfied",
+      "reason": "Pedido original de implementação preservado; contribuição é plano, sem execução.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C02": {
+      "status": "reused",
+      "reason": "Contexto sintético suficiente S02/S03 identificado, sem varredura desnecessária.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C03": {
+      "status": "satisfied",
+      "reason": "Requisitos R01–R04 e exclusões consolidados com fonte S01.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C04": {
+      "status": "not_applicable",
+      "reason": "Não há escolha material não respondida neste briefing sintético.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C05": {
+      "status": "not_applicable",
+      "reason": "Interface existente S02 é entrada sintética definida; nenhum fato externo impede planejar.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C06": {
+      "status": "not_applicable",
+      "reason": "Abordagem já decidida D01/D03; comparar frameworks não resolveria lacuna real.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C07": {
+      "status": "satisfied",
+      "reason": "Cenários positivos, negativos e preservação estão em cada folha.",
+      "references": [
+        "tasks/task-0001.md",
+        "tasks/task-0002.md",
+        "tasks/task-0003.md"
+      ]
+    },
+    "C08": {
+      "status": "satisfied",
+      "reason": "Contrato reader e decisões D01–D04 bastam para decomposição.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C09": {
+      "status": "satisfied",
+      "reason": "Agregado P01 compõe três entregas independentes sem nível artificial.",
+      "references": [
+        "tasks.md"
+      ]
+    },
+    "C10": {
+      "status": "satisfied",
+      "reason": "Composição separada de DAG; recomendação paralela não é dispatch.",
+      "references": [
+        "tasks.md"
+      ]
+    },
+    "C11": {
+      "status": "satisfied",
+      "reason": "Índice e quatro contratos autônomos presentes e referenciados.",
+      "references": [
+        "tasks.md"
+      ]
+    },
+    "C12": {
+      "status": "satisfied",
+      "reason": "Fidelidade ilustrativa da revisão atual declarada com limites de self-review.",
+      "references": [
+        "reviews.md"
+      ]
+    },
+    "C13": {
+      "status": "satisfied",
+      "reason": "Qualidade ilustrativa sucede fidelidade da mesma revisão.",
+      "references": [
+        "reviews.md"
+      ]
+    },
+    "C14": {
+      "status": "satisfied",
+      "reason": "Nenhum achado material no modelo; duas rodadas e invalidação declaradas.",
+      "references": [
+        "reviews.md"
+      ]
+    },
+    "C15": {
+      "status": "satisfied",
+      "reason": "Arquivos-fixture identificados por hash; readback ilustrativo não executa projeto.",
+      "references": [
+        "tasks.md",
+        "reviews.md"
+      ]
+    },
+    "C16": {
+      "status": "satisfied",
+      "reason": "Contribuição planning_delivered separada do software não implementado.",
+      "references": [
+        "tasks.md",
+        "brief.md"
+      ]
+    }
+  },
+  "reviewPolicy": {
+    "risk": "ordinary-low",
+    "independentRequired": false,
+    "mode": "self-review",
+    "reason": "Baixo risco e nenhuma política de independência",
+    "maxRounds": 2
+  },
+  "reviews": [
+    {
+      "kind": "fidelity",
+      "revision": "complete-r1",
+      "candidateSha256": "b5bbd35b3fb95d568da1e09e03c8db40b53dddcdb3389114263209ca4677f690",
+      "mode": "self-review",
+      "reviewer": "fixture-author",
+      "synthetic": true,
+      "liveEvidence": null,
+      "verdict": "pass",
+      "reference": "reviews.md"
+    },
+    {
+      "kind": "quality",
+      "revision": "complete-r1",
+      "candidateSha256": "b5bbd35b3fb95d568da1e09e03c8db40b53dddcdb3389114263209ca4677f690",
+      "mode": "self-review",
+      "reviewer": "fixture-author",
+      "synthetic": true,
+      "liveEvidence": null,
+      "verdict": "pass",
+      "reference": "reviews.md"
+    }
+  ],
+  "readback": {
+    "revision": "complete-r1",
+    "destination": "examples/planning-delivery/complete",
+    "status": "matched",
+    "synthetic": true,
+    "executionEvidence": false,
+    "referenceIds": [
+      "brief.md",
+      "tasks.md",
+      "tasks/task-P01.md",
+      "tasks/task-0001.md",
+      "tasks/task-0002.md",
+      "tasks/task-0003.md",
+      "reviews.md"
+    ],
+    "limitation": "Ilustração de readback dos fixtures, não comprovante de entrega real/projeção externa."
+  }
+}

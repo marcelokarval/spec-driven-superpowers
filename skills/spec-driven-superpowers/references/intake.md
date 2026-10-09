@@ -26,16 +26,17 @@ adapter may build the same context in memory from the conversation; the user nee
 not provide JSON or another document. No packet file per task is required.
 
 ## Authority and lifecycle
-Authorization records describe prior decisions; they do not prove permission.
+Authorization records describe prior decisions; they do not prove permission and
+ASDS never consumes implementation authorization.
 Consult the actual conversation and harness/project policy before the relevant
 operation. Conflicting records need scope/source reconciliation, not last-item-wins.
 Never turn a missing record or silence into consent. Refusing OpenSpec initialization
 allows accepted work to continue without OpenSpec. Do not repeat a refused setup
 question or an already resolved approval for the same scope.
 
-`received` means the input has valid structure. `acceptWork` makes ASDS the lifecycle
-owner and returns `accepted`, possibly with clarification gaps. Neither state means
-execution is authorized, started, reviewed or completed. The helper always reports
+`received` means the input has valid structure. `acceptWork` makes ASDS the planning
+lifecycle owner and returns `accepted`, possibly with clarification gaps. Neither state means
+implementation is authorized, started, reviewed or completed. The helper always reports
 `executionAuthorized: false`: it is not a permission issuer. The harness and the
 user's actual instructions determine which actions may proceed. Independent read-only
 work can continue while dependent actions wait for a necessary answer.
@@ -52,13 +53,18 @@ the existing v1 fields; no new mandatory packet field is needed. After acceptanc
 ASDS applies planning.md's read-scope rules on every continuation and delegation.
 
 ## Return
-`createReturn` produces `protocolVersion`, `owner: asds`, `status`, `outcome`,
+`createReturn` remains the legacy v1 structural return. It produces `protocolVersion`, `owner: asds`, `status`, `outcome`,
 `evidence` references, `remainingWork` and `limitations`. Status is `completed`,
 `partial`, `blocked` or `cancelled`, never `received`. Completion requires no open
 intake gaps/reassessment/remaining work and evidence references. This structural
 check does not prove evidence authenticity, integration, deployment or runtime health.
-Use the delivery/closure checks separately. Accelerate may present this return in
-the user's language; it must not add another plan or closure approval.
+Use the delivery/closure checks separately.
+
+`createPlanningReturn` is the planning-only v2 return. Delivered status requires
+verified persistence evidence, releases ASDS ownership and distinguishes the planning
+contribution from the original requested product. If implementation was originally
+requested, it remains `not_fulfilled` for a caller-selected consumer. Accelerate may
+present this return without adding another planning review.
 
 ## Verification
 `node scripts/check-accelerate-handoff.mjs --accelerate /existing/accelerate`

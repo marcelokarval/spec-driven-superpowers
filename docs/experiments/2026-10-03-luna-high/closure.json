@@ -1,0 +1,15 @@
+{
+  "sessions": 10,
+  "turns": 21,
+  "allRecordedLunaHigh": true,
+  "completedCLI": 17,
+  "timedOut": 4,
+  "remainingExperimentProcessesObserved": 0,
+  "removedGeneratedCaches": [
+    "__pycache__/run.cpython-312.pyc"
+  ],
+  "externalTemporaryAbsent": true,
+  "frameworkTrackedChanges": false,
+  "fixtureLimitsDataAndBaselineTestsUnchanged": true,
+  "frameworkWasNotPatched": true
+}

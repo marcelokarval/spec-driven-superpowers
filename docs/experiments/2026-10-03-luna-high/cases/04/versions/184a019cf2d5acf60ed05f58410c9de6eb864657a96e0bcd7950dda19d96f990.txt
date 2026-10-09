@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f6fb">
+    <title>Pedidos — Minha lista</title>
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="page-header">
+        <div class="heading-group">
+          <p class="eyebrow">MINHA LISTA <span aria-hidden="true">/</span> VISÃO GERAL</p>
+          <h1>Pedidos</h1>
+          <p class="page-description">Acompanhe os pedidos e confira o status de cada um.</p>
+        </div>
+        <button class="save-button" type="button">
+          <span class="button-icon" aria-hidden="true">＋</span>
+          Salvar visão
+        </button>
+      </header>
+
+      <section class="summary-grid" aria-label="Resumo dos pedidos">
+        <article class="summary-card summary-total">
+          <div class="summary-topline"><span class="summary-label">Total de pedidos</span><span class="summary-mark" aria-hidden="true">▤</span></div>
+          <strong class="summary-value">04</strong>
+          <span class="summary-note">na sua lista</span>
+        </article>
+        <article class="summary-card">
+          <div class="summary-topline"><span class="summary-label">Pagos</span><span class="summary-mark mark-paid" aria-hidden="true">✓</span></div>
+          <strong class="summary-value">02</strong>
+          <span class="summary-note">confirmados</span>
+        </article>
+        <article class="summary-card">
+          <div class="summary-topline"><span class="summary-label">Pendentes</span><span class="summary-mark mark-pending" aria-hidden="true">◷</span></div>
+          <strong class="summary-value">01</strong>
+          <span class="summary-note">aguardando pagamento</span>
+        </article>
+        <article class="summary-card">
+          <div class="summary-topline"><span class="summary-label">Cancelados</span><span class="summary-mark mark-cancelled" aria-hidden="true">×</span></div>
+          <strong class="summary-value">01</strong>
+          <span class="summary-note">encerrados</span>
+        </article>
+      </section>
+
+      <section class="orders-panel" aria-labelledby="orders-heading">
+        <div class="panel-heading">
+          <div>
+            <h2 id="orders-heading">Todos os pedidos</h2>
+            <p>Lista completa dos pedidos registrados</p>
+          </div>
+          <span class="result-count"><span class="count-dot" aria-hidden="true"></span> 4 pedidos</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">Pedido</th><th scope="col">Data</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="order-id">O1</span></td><td><time datetime="2026-01-01">01 jan. 2026</time></td><td><span class="status status-paid"><span aria-hidden="true"></span>Pago</span></td></tr>
+              <tr><td><span class="order-id">O2</span></td><td><time datetime="2026-01-02">02 jan. 2026</time></td><td><span class="status status-pending"><span aria-hidden="true"></span>Pendente</span></td></tr>
+              <tr><td><span class="order-id">O3</span></td><td><time datetime="2026-01-03">03 jan. 2026</time></td><td><span class="status status-cancelled"><span aria-hidden="true"></span>Cancelado</span></td></tr>
+              <tr><td><span class="order-id">O4</span></td><td><time datetime="2026-01-04">04 jan. 2026</time></td><td><span class="status status-paid"><span aria-hidden="true"></span>Pago</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <footer class="panel-footer">Exibindo <strong>4</strong> de <strong>4</strong> pedidos</footer>
+      </section>
+      <p class="page-footnote">Dados de pedidos da sua lista</p>
+    </main>
+  </body>
+</html>

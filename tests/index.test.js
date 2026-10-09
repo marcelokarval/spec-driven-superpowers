@@ -21,11 +21,23 @@ test('ASDS has a single source and portable wrappers exist', () => {
     assert.ok(fs.statSync(path.join(root, file)).size > 0);
   }
 });
-test('schema apply gate tracks only the master task index', () => {
+test('self-contained planning entry ships every required local reference and no sibling checkout dependency', () => {
+  const skill = fs.readFileSync(path.join(root, 'skills/spec-driven-superpowers/SKILL.md'), 'utf8');
+  assert.match(skill, /self-contained planning product/i);
+  assert.doesNotMatch(skill, /Backup\/Projetos|\.\.\/\.\.\/accelerate/);
+  for (const file of ['lib/planning-graph.mjs', 'lib/planning-coverage.mjs', 'lib/planning-lifecycle.mjs',
+    'lib/planning-review.mjs', 'lib/planning-store.mjs', 'lib/handoff.mjs',
+    'schemas/superpowers-bridge/schema.yaml', 'vendor-provenance.json']) {
+    assert.ok(fs.statSync(path.join(root, file)).isFile(), file);
+  }
+});
+test('schema apply gate tracks the master task index and requires its reviewed projection', () => {
   const schema = parseMapping(fs.readFileSync(path.join(root, 'schemas/superpowers-bridge/schema.yaml'), 'utf8'));
   assert.equal(schema.apply.tracks, 'tasks.md');
-  assert.deepEqual(schema.apply.requires, ['tasks']);
-  assert.deepEqual(schema.artifacts.map(artifact => artifact.id), ['proposal', 'specs', 'design', 'microcontracts', 'tasks', 'summary']);
+  assert.deepEqual(schema.apply.requires, ['tasks', 'planning-manifest']);
+  assert.deepEqual(schema.artifacts.map(artifact => artifact.id), [
+    'proposal', 'specs', 'design', 'microcontracts', 'tasks', 'summary', 'planning-manifest',
+  ]);
 });
 
 test('project documentation links and prepared eval scenarios remain valid', () => {

@@ -11,14 +11,11 @@ metadata:
 ---
 
 ## ASDS mode
-When schemaName is superpowers-bridge or ASDS owns this work, the completion loop
-below is subject to ASDS readiness and delivery gates. Read every linked microcontract,
-validate the complete index/contract collection, and record the accepted contract hash.
-Follow scenario assertions and verification commands. A pending task is checked only
-by the coordinator after independent review, integration checks and receipt validation.
-Do not mark complete immediately after editing code or because CLI state says all_done.
-Keep received authorization/refusal records and return to ASDS on pause/resumption,
-not Accelerate classification. Reopen tasks affected by material changes before retrying.
+This is a consumer workflow, never the ASDS planning lifecycle. Use it only when the
+caller separately selects and authorizes an implementation consumer. Read the delivered
+planning revision and every linked leaf contract; keep implementation progress and code
+receipts separate from planning state. A concrete planning defect may be returned to
+ASDS with affected requirements/tasks, but ASDS does not resume as implementer.
 
 
 Implement tasks from an OpenSpec change.

@@ -1,0 +1,57 @@
+{
+  "startedAt": "2026-10-03T06:40:29.983010+00:00",
+  "requestedModel": "gpt-6-luna",
+  "requestedEffort": "high",
+  "cwd": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/09/workspace",
+  "argv": [
+    "codex",
+    "exec",
+    "--skip-git-repo-check",
+    "--model",
+    "gpt-6-luna",
+    "--config",
+    "model_reasoning_effort=\"high\"",
+    "--sandbox",
+    "workspace-write",
+    "--cd",
+    "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/09/workspace",
+    "--json",
+    "--color",
+    "never",
+    "resume",
+    "01a1007c-6901-74a2-bb66-9a04b5cb30e0",
+    "-"
+  ],
+  "phase": "B",
+  "resumeThread": "01a1007c-6901-74a2-bb66-9a04b5cb30e0",
+  "timeoutSeconds": 240,
+  "threadId": "01a1007c-6901-74a2-bb66-9a04b5cb30e0",
+  "usage": {
+    "input_tokens": 418669,
+    "cached_input_tokens": 370688,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 5852,
+    "reasoning_output_tokens": 4105
+  },
+  "endedAt": "2026-10-03T06:41:18.252135+00:00",
+  "durationSeconds": 48.26,
+  "exitCode": 0,
+  "timedOut": false,
+  "eventCounts": {
+    "thread.started": 1,
+    "turn.started": 1,
+    "item.completed": 2,
+    "turn.completed": 1
+  },
+  "stderrLinesOmitted": 1,
+  "afterHashes": {
+    "README.md": "d8b226c50e012bb687abb756962ca5ddf3b0d364bf46d3ddfcb9dff2492e355f",
+    "index.html": "fba68e1e9312336a6c5fef244d66692c77da08116f1ec22ef0afe837bbc09578",
+    "AGENTS.md": "b061828f9b2b8802a0660f65d3ba257f740b209c9f39c759149a04ccac1d0eb7",
+    "package.json": "7211282e8f334dbb4fa0659859c9fa961d2844c44b0035bde2ae3301fed374ed",
+    "data/orders.json": "2beecb4b37ab245dd7f34deca535d9f351271ac7dc3ceb2fd50f94ba347a3071",
+    "src/app.js": "8d4f4982ad4be4eba90e4ac4d6bcc683843d76ce2c947d100608c4e359c06aa3",
+    "src/styles.css": "9437c18db53e653fd36603b477c837a637cc7f1ddb38c8c06dae4571a8f9d7a4",
+    "tests/app.test.mjs": "7a2f0d5660a930ebb17981f8c7d890cf17a8dcb819fb4b96d0c5251f3798a0f9"
+  }
+}

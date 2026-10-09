@@ -1,0 +1,1 @@
+Use a paleta existente, mantenha o conteúdo e coloque filtros acima da lista. Não crie openspec nem implemente; registre somente as tarefas necessárias em TASKS.md.

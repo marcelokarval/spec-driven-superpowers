@@ -5,8 +5,9 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { parseFrontmatter, validateSchema, validateChange, loadTasks } from '../lib/validation.mjs';
+import { parseFrontmatter, validateSchema, validateChange, validateChangeSpecs, validateTaskIndex, loadTasks } from '../lib/validation.mjs';
 import { collectGitScope } from '../lib/git-scope.mjs';
+import { projectTaskManager } from '../lib/planning-graph.mjs';
 
 function fixture(t) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-validation-'));
@@ -26,11 +27,13 @@ resources: []
 scenarios: [example/Accept input]
 verification: [npm test]
 ---
-# Task 0001
+# Task 0001: Example
 ## Outcome
 Accept valid input.
 ## Inputs
 The example specification.
+## Scope and dependencies
+Only the declared write paths are mutable. There are no prerequisite outputs.
 ## Acceptance
 Valid input is accepted.
 ## Verification
@@ -77,6 +80,51 @@ test('change validation connects index, contracts and real scenarios', t => {
   assert.ok(validateChange(dir).some(error => /orphan/.test(error)));
   write(dir, 'tasks.md', '- [ ] [Task 0001](../outside.md): Escape\n');
   assert.ok(validateChange(dir).length);
+});
+test('change specs enforce the OpenSpec delta contract before delivery', t => {
+  const dir = changeFixture(t), file='specs/example/spec.md';
+  assert.deepEqual(validateChangeSpecs(dir), []);
+  write(dir,file,fs.readFileSync(path.join(dir,file),'utf8').replace('## ADDED Requirements','# ADDED Requirements'));
+  assert.ok(validateChangeSpecs(dir).some(error=>error.includes('no OpenSpec delta section')));
+  write(dir,file,'## ADDED Requirements\n### Requirement: Input\nAccept input.\n#### Scenario: Accept input\n- **WHEN** valid\n- **THEN** accepted\n');
+  assert.ok(validateChangeSpecs(dir).some(error=>error.includes('SHALL/MUST')));
+  write(dir,file,'## ADDED Requirements\n### Requirement: Input\nThe system SHALL accept input.\n#### Scenario: Accept input\n- **GIVEN** valid input\n');
+  assert.ok(validateChangeSpecs(dir).some(error=>error.includes('WHEN/THEN')));
+});
+test('tasks.md is the canonical ordered inventory for projections', t => {
+  const dir=changeFixture(t), tasks=loadTasks(dir);
+  assert.deepEqual(validateTaskIndex(dir,tasks).errors,[]);
+  write(dir,'tasks.md','# Tasks\n- [ ] [Task 0001](tasks/task-0001.md): Wrong title\n');
+  assert.ok(validateTaskIndex(dir,tasks).errors.some(error=>error.includes('title differs')));
+  write(dir,'tasks/task-0002.md',contract.replaceAll('0001','0002'));
+  write(dir,'tasks.md','# Tasks\n- [ ] [Task 0002](tasks/task-0002.md): Example\n- [ ] [Task 0001](tasks/task-0001.md): Example\n');
+  assert.ok(validateTaskIndex(dir,loadTasks(dir)).errors.some(error=>error.includes('strictly increasing')));
+  write(dir,'tasks.md','# Tasks\n- [ ] [Task 0001](tasks/task-0001.md): Example\n- [ ] [Task 0002](tasks/task-0002.md): Example\n- Onda 1: 0001, 0002\n');
+  assert.deepEqual(validateTaskIndex(dir,loadTasks(dir)).declaredWaves,[['0001','0002']]);
+});
+test('neutral planning package remains valid without OpenSpec artifacts', t => {
+  const dir=fixture(t);
+  write(dir,'tasks.md','# Tasks\n- [ ] [Task 0001](tasks/task-0001.md): Example\n');
+  write(dir,'tasks/task-0001.md',contract);
+  assert.deepEqual(validateChangeSpecs(dir),[]);
+  assert.deepEqual(validateChange(dir),[]);
+});
+test('planning delivery compares tasks.md wave declarations with the deterministic projection', t => {
+  const dir=changeFixture(t), loaded=loadTasks(dir);
+  const fields=['id','title','owner','nodeType','parentId','requirements','dependsOn','dependencyDetails','decisionInputs','resolvesDecisions','decisionBundleReason','write','resources','scenarios','verification'];
+  const tasks=loaded.map(task=>Object.fromEntries(fields.filter(field=>task[field]!==undefined).map(field=>[field,task[field]])));
+  const manifest={state:'ready',tasks,decisions:[],blockers:[],taskManager:projectTaskManager(tasks),references:[],reviewPolicy:{domains:['frontend'],risk:'ordinary-low',independentRequired:false}};
+  write(dir,'planning-manifest.json',JSON.stringify(manifest));
+  assert.ok(validateChange(dir).some(error=>error.includes('must declare the projected waves')));
+  write(dir,'tasks.md','# Tasks\n- [ ] [Task 0001](tasks/task-0001.md): Example\n- Wave 1: 0001\n');
+  assert.ok(!validateChange(dir).some(error=>error.includes('tasks.md waves differ')||error.includes('must declare the projected waves')));
+});
+test('present planning manifest is part of change validation and fails closed', t => {
+  const dir = changeFixture(t);
+  write(dir, 'planning-manifest.json', JSON.stringify({ state:'delivered', tasks:[], reviewPolicy:{risk:'ordinary-low',independentRequired:false} }));
+  const errors=validateChange(dir);
+  assert.ok(errors.some(error=>error.includes('planning manifest')));
+  assert.ok(errors.some(error=>error.includes('declared delivered')));
 });
 test('Git scope includes committed, staged, unstaged, deleted and untracked paths', t => {
   const dir = fixture(t);

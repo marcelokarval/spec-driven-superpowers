@@ -1,0 +1,11 @@
+{
+  "reportedBy": "accelerate_planning_audit",
+  "verification": "delegated auditor ran tests; root inspected relevant sources but did not repeat this command",
+  "cwd": "/home/marcelo-karval/Backup/Projetos/accelerate",
+  "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -q -p no:cacheprovider tests/test_entry.py tests/test_routing.py tests/test_v1_authority.py",
+  "exitCode": 0,
+  "stdoutSummary": "66 passed in 0.36s",
+  "wallTimeSeconds": 0.855575856,
+  "toolChunkId": "f48ea2",
+  "limits": "Pure routing/entry/authority tests, not model planning or deployed runtime proof."
+}

@@ -1,9 +1,18 @@
 # Autonomous Spec-Driven Superpowers (ASDS)
 
-OpenSpec defines **what** to build; Superpowers guides **how** to build it.
-ASDS connects them with a small task index, per-task microcontracts, TDD and
-revision-bound reviews. It is a workflow toolkit, not an inference engine or a
-guarantee of zero defects, lower token usage or faster delivery.
+Para trabalhar na evolução deste repositório, comece pelo
+[estado atual do projeto](PROJECT-STATUS.md) e pelas instruções de [AGENTS.md](AGENTS.md).
+O estado distingue o release publicado do realinhamento local para entrega de planejamento.
+
+OpenSpec organizes **what** must be preserved; adapted Superpowers practices help
+ASDS understand, decompose, write and review the plan. ASDS delivers a reviewed,
+persisted planning package. A caller-selected consumer implements future tasks.
+It is a planning toolkit, not an inference engine or an implementation runtime.
+
+The repository is self-contained: canonical ASDS/OpenSpec/Superpowers skills,
+schema, templates, validators, installer and provenance live here. Exact Node and
+OpenSpec CLI dependencies remain declared external executables; no sibling source
+checkout supplies required ASDS behavior.
 
 This fork separates a portable protocol, harness-specific adapters and an opt-in
 project profile. See [architecture](docs/architecture.md) and
@@ -124,13 +133,19 @@ capabilities, sequential fallback and review limitations.
 - No uninstall, provider/auth changes, service restarts, commits, push or automatic
   archive. Do not run concurrent installers against the same destination.
 
-## Microcontracts and evidence
+## Planning package and evidence
 
-`tasks.md` is the sole completion index; only the coordinator changes it.
-Each `tasks/task-ID.md` has YAML frontmatter for ID, kind, open material decisions,
-dependencies, exact write paths, shared resources, scenarios and verification commands.
-Readiness also requires Outcome, Inputs, Acceptance, Verification and Definition of
-done sections. The schema exposes microcontracts as an artifact before the task index.
+`tasks.md` is the sole task index; only the planning coordinator changes it before delivery.
+Directory projections consume that index and reject unindexed/orphaned contracts,
+title drift and non-monotonic numeric IDs. Execution waves are declared separately
+and checked against the manifest; they never renumber task identities.
+Each `tasks/task-ID.md` has YAML frontmatter for ID/title, owner, kind, decision
+inputs/resolution, dependencies with exact required outputs, write paths, shared
+resources, scenarios and verification commands. Readiness also requires Outcome,
+Inputs, Scope and dependencies, Acceptance, Verification and Definition of done.
+The schema exposes microcontracts as an artifact before the task index.
+The task-manager projection exports precedence (`waitingOn`/`blocks`), decision
+blockers, safe peers and per-task conflict exclusions (`serializesWith`).
 
 See the [valid example](examples/basic-change/tasks/task-0001.md) and
 [contract reference](skills/spec-driven-superpowers/references/contracts.md).
@@ -138,6 +153,7 @@ Test paths are part of the allowed scope; the example has no self-dependency.
 
 ```bash
 npm run validate -- --change examples/basic-change
+node scripts/plan.mjs manager /project/openspec/changes/example
 npm run validate -- --change /project/openspec/changes/example \
   --delivery /evidence/receipt.json --task 0001 --repo /project --base APPROVED_SHA
 ```
@@ -232,8 +248,14 @@ entries and unknown conflicts fail before writing. Only unchanged owned files
 are replaced. File modes are preserved, and ordinary failures restore replaced
 bytes from memory and remove newly created files. No disk backups are made.
 This is not crash recovery or protection against hostile concurrent mutations.
-User-scope shared schema/license/provenance changes require separate reconciliation
-across installations; this mode does not silently invalidate another manifest.
+User-scope shared schema/license/provenance changes require explicit reconciliation
+across installations. Add `--reconcile-shared` to the `--update` preview only when
+that shared update is intended. The installer then validates every default/profile
+manifest and every file they own before planning the shared bytes and all affected
+receipts together. Any stale profile refuses the whole plan. Review the preview,
+then add `--apply` separately; ordinary rollback covers the shared files and receipts.
+Without this flag, `--update` remains fail-closed and cannot silently invalidate
+another manifest.
 
 Use a quiescent directory. A manifest records ownership, not human authorization.
 
@@ -247,8 +269,9 @@ skills do not silently add a runtime or spawn agents.
 
 The [two-phase evolution](skills/spec-driven-superpowers/references/integrations.md)
 preserves a standalone core and defines the next optional tracker/UI boundaries.
-Plane, Linear and third-party visual plugins are planned adapters, not implemented
-connectors. The two suggested OpenSpec dashboards are compared as documentary
+The core now emits a deterministic neutral projection usable by simple queues or
+Plane/Linear adapters; provider-specific read/write connectors remain unimplemented.
+The two suggested OpenSpec dashboards are compared as documentary
 references; neither has been installed or forked.
 
 ### Operational continuity

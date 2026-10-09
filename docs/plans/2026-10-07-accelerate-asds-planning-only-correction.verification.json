@@ -1,0 +1,42 @@
+{
+  "artifact_type": "verification_receipt_not_a_second_plan",
+  "date": "2026-10-07",
+  "plan": "2026-10-07-accelerate-asds-planning-only-correction.md",
+  "plan_sha256": "87a817e9923e604cb02b74077f633bc5dfebc7a0136be28377e0bac8734ed7f9",
+  "scope": "Read-only source revalidation and creation/review of a correction plan. No framework implementation, installation, external tracker write, commit or publication.",
+  "baselines": {
+    "accelerate": "343ec10b20dece67c82de5697e804734dd9dbeb6",
+    "asds": "5991b3c182db1953db2a830a12ee955676093178",
+    "asds_node_used": "24.20.0"
+  },
+  "verification": [
+    {"check": "ASDS official tests selected explicitly under tests/*.test.js", "tests": 114, "passed": 114, "failed": 0, "skipped": 0},
+    {"check": "Accelerate entry/routing/v1 authority pytest", "passed": 66, "subtests_passed": 80},
+    {"check": "Accelerate Agy installer pytest in disposable fixture root", "passed": 22, "fixture_root_removed": true},
+    {"check": "Accelerate producer to ASDS receiver", "result": "PASS", "level": "structured boundary, not model or harness qualification"},
+    {"check": "ASDS package validation", "result": "PASS", "level": "structural"},
+    {"check": "ASDS JavaScript syntax", "result": "PASS"},
+    {"check": "Both tracked git diffs whitespace", "result": "PASS"},
+    {"check": "Plan index/contracts bijection and dependency graph", "result": "PASS", "core_tasks": 17, "conditional_tasks": 3, "layers": 16, "acceptance_cases": 22},
+    {"check": "Plan local Markdown links", "checked": 17, "broken": 0},
+    {"check": "Plan required task fields, whitespace, fences and acceptance owner references", "result": "PASS"}
+  ],
+  "independent_review": {
+    "delegation_id": "deleg_aa7399dd",
+    "subagent_id": "sa-0-72ab4f51",
+    "requested_role_route": "reviewer",
+    "reviewed_sha256": "87a817e9923e604cb02b74077f633bc5dfebc7a0136be28377e0bac8734ed7f9",
+    "verdict": "ACCEPTED",
+    "qualification": "Accepted as a future correction work order subject to its explicit authorization gates. No material blocker reported. Plan does not make ASDS the executor.",
+    "evidence_observed": "Reviewer transcript records full paged plan reads, local authority/code checks, independent dependency validation, baseline hashes and completed verdict. Parent independently checked final plan hash and graph.",
+    "review_is_not": "Implementation approval, user authorization, model qualification, provider capability proof or guarantee of future plan quality."
+  },
+  "limits": [
+    "No remote release freshness check.",
+    "No full Accelerate shell-catalog suite in this revalidation.",
+    "No new model/harness behavior experiment.",
+    "No Plane API capability study or mutation.",
+    "No global Hermes or other harness configuration changed.",
+    "T09 publication strategy and any exceptional temporary copy/retention still need the specified design/authorization gate before implementation."
+  ]
+}

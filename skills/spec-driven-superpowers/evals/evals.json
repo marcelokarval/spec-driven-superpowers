@@ -227,6 +227,54 @@
         "Uma tarefa coerente para botão incluindo verificação proporcional; resultado negativo encerra investigação, não o pacote de performance, e não inicia experimentos infinitos.",
         "Não inventa escopo nem assume que campos preenchidos provam granularidade."
       ]
+    },
+    {
+      "id": 17,
+      "name": "implementation-request-stops-at-planning",
+      "prompt": "Implemente a exportação de relatórios. O trabalho é amplo e precisa de planejamento; produza o pacote ASDS.",
+      "expected_output": "Entrega planejamento revisado e persistido, mantém as tasks futuras abertas e informa que a implementação original continua para um consumidor selecionado pelo chamador.",
+      "files": ["skills/spec-driven-superpowers/SKILL.md", "skills/spec-driven-superpowers/references/consumer-boundary.md"],
+      "assertions": ["Não edita o código-alvo.", "Não despacha executor.", "Não declara o pedido original concluído."]
+    },
+    {
+      "id": 18,
+      "name": "openspec-refusal-keeps-quality",
+      "prompt": "Planeje a mudança, mas não crie openspec/ neste projeto.",
+      "expected_output": "Usa o pacote neutro no destino autorizado, sem repetir a pergunta ou reduzir contratos/revisão/readback.",
+      "files": ["skills/spec-driven-superpowers/references/activation.md", "skills/spec-driven-superpowers/references/planning.md"],
+      "assertions": ["Não cria openspec/.", "Produz manifest, índice e contratos equivalentes."]
+    },
+    {
+      "id": 19,
+      "name": "planning-defect-return",
+      "prompt": "O executor encontrou que T04 omite a regra negativa R7. Corrija só o plano.",
+      "expected_output": "Retoma a revisão de planejamento afetada, preserva trabalho independente e emite revisão sucessora sem assumir execução.",
+      "files": ["skills/spec-driven-superpowers/references/planning.md", "skills/spec-driven-superpowers/references/consumer-boundary.md"],
+      "assertions": ["Invalida reviews/readback afetados.", "Não reinicia intake completo.", "Não corrige código do produto."]
+    },
+    {
+      "id": 20,
+      "name": "self-contained-source-boundary",
+      "prompt": "Mostre de onde vêm as skills, schema, validadores e atualização necessários ao ASDS.",
+      "expected_output": "Aponta apenas recursos canônicos deste repositório e dependências executáveis declaradas; não exige copiar lógica de outro checkout.",
+      "files": ["README.md", "docs/provenance.md", "lib/install.mjs"],
+      "assertions": ["OpenSpec e Superpowers adaptados estão no repositório.", "Dependências externas são declaradas e versionadas."]
+    },
+    {
+      "id": 21,
+      "name": "auth-plan-needs-independent-review-and-frontier",
+      "prompt": "Planeje uma correção de prontidão do login que pode afetar credenciais legadas. Há decisões abertas sobre senha, navegador e servidor.",
+      "expected_output": "Classifica Auth/credenciais como domínio protegido, exige revisão independente e exporta somente resolvers desbloqueados na fronteira inicial.",
+      "files": ["skills/spec-driven-superpowers/references/planning.md", "skills/spec-driven-superpowers/references/contracts.md"],
+      "assertions": ["Não usa ordinary-low self-review.", "Decisões propostas possuem blocker e resolver distintos.", "Dependentes aparecem waiting ou blocked, não ready."]
+    },
+    {
+      "id": 22,
+      "name": "decision-distillation-for-task-managers",
+      "prompt": "O plano tem uma tarefa que decide compatibilidade de credenciais, progressive enhancement e boundary servidor, com owners e evidências diferentes.",
+      "expected_output": "Separa decisões independentes em folhas paralelizáveis, consolida por dependência explícita e exporta owners, outputs, blockers e reverse edges.",
+      "files": ["skills/spec-driven-superpowers/references/contracts.md", "lib/planning-graph.mjs"],
+      "assertions": ["Não agrupa por compartilhar a mesma feature.", "Cada consumidor depende do output exato do resolver.", "A projeção é utilizável por fila simples e DAG externa."]
     }
   ]
 }

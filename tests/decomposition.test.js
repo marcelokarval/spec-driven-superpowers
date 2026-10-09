@@ -36,7 +36,7 @@ test('legacy plans still compile; explicit task needs reviewed boundary and pack
 });
 test('coverage, inherited dependencies, nesting, scope and effective dependency cycles fail closed',()=>{
  for(const tasks of [[pkg()],[pkg(),child('A',{scenarios:['ui/other']})],[pkg(),child('A',{write:['else.js']})],[pkg(),child('A',{dependsOn:['P']})],[pkg(),child('A',{nodeType:'package'})],[pkg(),child('A',{parentId:'missing'})]])assert.ok(validateTasks(tasks).length);
- assert.ok(validateTasks([task('before'),pkgWithDependency(),child()]).some(x=>x.includes('inherited')));
+ assert.ok(validateTasks([task('before'),pkgWithDependency(),child()],{legacyExecution:true}).some(x=>x.includes('inherited')));
  function pkgWithDependency(){return task('P',{nodeType:'package',dependsOn:['before']});}
 });
 test('decomposition preserves independent acceptance, original contract and historical events',()=>{
@@ -73,6 +73,15 @@ test('refining a child creates siblings, redirects dependents and preserves inde
  assert.ok(!readyWave(j,caps).selected.includes('B'));
  const wrong=next.map(t=>t.id==='B'?{...t,dependsOn:['A']}:t);
  assert.throws(()=>emit(journal(before),{type:'refine',taskId:'A',plan:plan(wrong),reason:'split',coverageReview:'checked',authorization:{source:'u',scope:'button'}}),/redirect/);
+});
+test('refinement journal accepts only the authorized dependency metadata extension',()=>{
+ const a={id:'A',reason:'Needs A',requiredOutput:'A result'},a2={id:'A2',reason:'Needs A2',requiredOutput:'A2 result'};
+ const before=[pkg(),child(),child('B',{dependsOn:['A'],dependencyDetails:[a]})];
+ const after=[pkg(),child(),child('A2'),child('B',{dependsOn:['A','A2'],dependencyDetails:[a,a2]})];
+ const event=tasks=>({type:'refine',taskId:'A',plan:plan(tasks),reason:'two separable changes',coverageReview:'scenarios conserved',authorization:{source:'existing grant',scope:'button'}});
+ const refined=emit(journal(before),event(after));
+ assert.deepEqual(replay(refined).plan.tasks.find(t=>t.id==='B').dependencyDetails,[a,a2]);
+ assert.throws(()=>emit(journal(before),event(after.map(t=>t.id==='B'?{...t,dependencyDetails:[{...a,reason:'rewritten'},a2]}:t))),/rewrites/);
 });
 test('unready package never offers impossible acceptance and DAG includes completion edges',async()=>{
  const {renderDag}=await import('../lib/orchestration.mjs');

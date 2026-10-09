@@ -1,6 +1,6 @@
 {
   "name": "spec-driven-superpowers",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Autonomous Spec-Driven Superpowers (ASDS) Standard & Toolkit for AI Coding Agents",
   "type": "module",
   "private": true,

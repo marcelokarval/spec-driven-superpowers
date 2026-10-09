@@ -1,0 +1,14 @@
+[
+  {
+    "turn_id": "01a1007a-345a-7162-84bc-c54ba15e8363",
+    "cwd": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/08/workspace",
+    "model": "gpt-6-luna",
+    "effort": "high"
+  },
+  {
+    "turn_id": "01a1007b-9a3c-79a1-b072-2ab4d8d88783",
+    "cwd": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/08/workspace",
+    "model": "gpt-6-luna",
+    "effort": "high"
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "case10IndependentStructuralReadback": [
+    {
+      "command": [
+        "node",
+        "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/scripts/validate.mjs",
+        "--change",
+        "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/10/workspace/openspec/changes/propose-saved-view-filter-changes"
+      ],
+      "cwd": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/10/workspace",
+      "exitCode": 0,
+      "stdout": "ASDS validation passed (structural checks; not a certification of test/review authenticity).\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/node_modules/@fission-ai/openspec/bin/openspec.js",
+        "validate",
+        "propose-saved-view-filter-changes",
+        "--strict"
+      ],
+      "cwd": "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/10/workspace",
+      "exitCode": 0,
+      "stdout": "Change 'propose-saved-view-filter-changes' is valid\n",
+      "stderr": ""
+    }
+  ],
+  "workspaceUnchanged": true,
+  "case05": "Config and .openspec.yaml metadata exist, but no proposal/design/spec/tasks contracts.",
+  "temporaryCase10PreflightAbsent": true,
+  "case05StructuralReadback": {
+    "command": [
+      "node",
+      "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/scripts/validate.mjs",
+      "--change",
+      "/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/05/workspace/openspec/changes/saved-filter-views"
+    ],
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "ENOENT: no such file or directory, lstat '/home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/05/workspace/openspec/changes/saved-filter-views/tasks.md'\n"
+  }
+}

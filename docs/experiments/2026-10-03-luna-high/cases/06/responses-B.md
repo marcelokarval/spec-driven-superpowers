@@ -1,0 +1,1 @@
+Vou tratar o `TASKS.md` como índice canônico e desdobrar o antigo T01 em quatro contratos independentes por comportamento. Vou preservar T00 como concluído, registrar que `src/saved-views.js` já existe mas não tem testes executados, manter T02 depois desses contratos e não alterar código de produto nesta interação.

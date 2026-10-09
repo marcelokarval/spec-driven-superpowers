@@ -1,0 +1,1 @@
+Precisamos tratar datas inválidas: devem ir para o fim, mantendo a ordem original entre elas. Atualize só as tarefas e dependências afetadas; o restante continua aprovado. Não implemente.

@@ -1,0 +1,54 @@
+---
+id: "0001"
+kind: implementation
+openDecisions: []
+dependsOn: []
+write: [src/app.js, tests/app.test.mjs]
+resources: ["indexeddb:saved-views"]
+scenarios:
+  - saved-view-filter-proposals/Apply with a current permission and version
+  - saved-view-filter-proposals/Preview the proposal
+verification: ["node --test tests/app.test.mjs"]
+nodeType: task
+boundary:
+  change: "Persist the local saved-view and history model needed by this change."
+  target: "A view starts at version 1 and retains filter snapshots and append-only operation results in local IndexedDB records."
+  exclusions:
+    - "Do not implement AI/provider calls, team sharing, remote storage, or production identity."
+    - "Do not alter order records or add filter fields beyond status."
+  review:
+    verdict: ready
+    source: "Coordinator semantic review: storage, version, and snapshot contract is a prerequisite for all subsequent tasks."
+---
+# Task 0001: Persist versioned saved views locally
+
+## Outcome
+
+Add the local saved-view persistence boundary with an initial version of 1 and retained operation snapshots/results.
+
+## Inputs
+
+Read the project `AGENTS.md`, `README.md`, `src/app.js`, `tests/app.test.mjs`, the proposal, design, and capability spec. There are no prerequisite tasks.
+
+## Acceptance
+
+- A saved view stores its name, unique ID, status filter and integer version beginning at 1.
+- View state and its append-only operation/snapshot records persist locally through IndexedDB; no provider or remote service is called.
+- A storage transaction can atomically compare the current view version and write the view and operation result.
+- Listing views does not mutate them; opening one restores its status filter as documented in the project README.
+
+## Verification
+
+Use TDD and run `node --test tests/app.test.mjs`. Cover initial version, reload persistence through an injectable storage boundary, atomic version comparison, and list/open behavior.
+
+## Definition of done
+
+Return scoped code and test evidence on one revision. Coordinator review verifies that local persistence, versioning and snapshots support the remaining scenarios without adding team policy. No commit or publication is authorized.
+
+## TDD
+
+RED: add tests for initial version, local persistence, listing/opening, and a stale compare-and-write. GREEN: implement an IndexedDB adapter and a deterministic injectable test adapter. REFACTOR: keep storage concerns separate from filter behavior.
+
+## Boundaries and delivery
+
+Write only `src/app.js` and `tests/app.test.mjs`. Preserve the synthetic four-order fixture. Sharing access policy is not an input to this task.

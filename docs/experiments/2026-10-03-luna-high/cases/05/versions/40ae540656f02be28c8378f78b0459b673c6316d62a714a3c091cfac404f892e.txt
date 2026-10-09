@@ -1,0 +1,2 @@
+schema: spec-driven
+context: "Aplicação sintética estática. Visões pessoais de filtros são persistidas em JSON no localStorage deste navegador, sem servidor, sincronização, usuário real ou provider."

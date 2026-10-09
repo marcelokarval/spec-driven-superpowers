@@ -4,12 +4,14 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 ---
 
 ## ASDS mode
-When ASDS owns this work, replace the standalone plan/header/commit/handoff steps
-below with its microcontracts artifact and tasks.md index. Read its planning and
-contract references. Produce Outcome, Inputs, Acceptance, Verification and Definition
-of done per task, with resolved decisions and explicit shared interfaces/resources.
-Do not create docs/superpowers/plans or a second checkbox tracker. Existing approval
-and selected execution mode persist. Do not create a worktree or commit implicitly.
+When ASDS owns planning, this section replaces the standalone workflow below.
+Write its neutral planning manifest, recursive packages, leaf microcontracts and
+sole tasks.md index. Produce outcome, inputs, inclusions/exclusions, acceptance,
+future verification with expected results and future definition of done. Do not
+require complete implementation code, 2-5 minute command steps, worktrees, commits,
+execution handoff or a second tracker. Run fidelity review followed by quality review;
+correct material findings and re-review the changed planning revision. ASDS stops
+after persistence/readback and never invokes an implementation skill.
 
 
 # Writing Plans

@@ -1,0 +1,35 @@
+{
+  "nativeSources": [
+    "/home/marcelo-karval/.codex/sessions/2026/10/03/rollout-2026-10-03T02-41-18-01a1007e-e500-7921-a6ce-df4146979e1a.jsonl"
+  ],
+  "failures": [
+    {
+      "line": 18,
+      "callId": "call_lgQdEIS9BeZ6mFB41ps3tIwE",
+      "categories": [
+        "Argument list too long"
+      ]
+    },
+    {
+      "line": 25,
+      "callId": "call_6FDMKpSnfDScoJ7gRSGiTmiM",
+      "categories": [
+        "Argument list too long"
+      ]
+    },
+    {
+      "line": 34,
+      "callId": "call_wuIabNAlyptQOppvViyjpeGx",
+      "categories": [
+        "Argument list too long"
+      ]
+    },
+    {
+      "line": 41,
+      "callId": "call_4X7mXFrrfAnLijJKzmkqQrbB",
+      "categories": [
+        "Argument list too long"
+      ]
+    }
+  ]
+}

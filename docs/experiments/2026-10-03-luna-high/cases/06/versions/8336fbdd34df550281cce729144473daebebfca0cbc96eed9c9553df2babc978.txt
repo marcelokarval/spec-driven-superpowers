@@ -1,0 +1,5 @@
+# Plano aprovado
+
+- [x] T00: Identificar botão e filtros. Evidência: src/app.js e src/styles.css lidos.
+- [ ] T01: Implementar todas as visões salvas com nome, IDs, JSON, abrir, listar e excluir.
+- [ ] T02: Integrar as visões à tela, após T01.

@@ -44,3 +44,13 @@ test('existing-plan projections carry reviewed packages without a second plan; c
  assert.equal(compilePlan(loadProjection(f),profile,{allowUnready:true}).version,3);
  assert.ok(!fs.existsSync(path.join(root,'openspec')));
 });
+test('deep leaf binds every ancestor and inherited transitive sources, not sibling content',t=>{
+ const root=fixture(t);
+ for(const [id,extra] of [['P',{nodeType:'package',dependsOn:['D']}],['Q',{nodeType:'package',parentId:'P'}],['R',{nodeType:'package',parentId:'Q'}],['A',{nodeType:'task',parentId:'R',boundary}],['sibling',{nodeType:'task',parentId:'Q',boundary}],['D',{dependsOn:['E']}],['E',{}]]) writeTask(root,id,extra);
+ const revisions=()=>Object.fromEntries(loadTasks(root).map(task=>[task.id,task.contractRevision]));
+ for(const id of ['P','Q','R','D','E']) {
+  const before=revisions();fs.appendFileSync(path.join(root,`tasks/task-${id}.md`),`\nChange ${id}.\n`);const after=revisions();
+  assert.notEqual(after.A,before.A,`${id} must bind A`);assert.equal(after['0001'],before['0001']);
+ }
+ const before=revisions();fs.appendFileSync(path.join(root,'tasks/task-sibling.md'),'\nSibling-only change.\n');assert.equal(revisions().A,before.A);
+});
