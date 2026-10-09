@@ -10,7 +10,7 @@ import { compilePlan } from '../lib/orchestration.mjs';
 const profile={version:1,tiers:Object.fromEntries(['bounded','medium','high'].map(t=>[t,{executor:{model:'e',effort:'high'},reviewer:{model:'r',effort:'medium'}}]))};
 const metadata={complexity:'bounded',risk:'bounded',uncertainty:'bounded',rationale:'one change',skills:['review'],references:['spec'],claims:[]};
 const boundary={change:'Change button color',target:'Button X',exclusions:['other states'],review:{verdict:'ready',source:'coordinator'}};
-function fixture(t){const dir=fs.mkdtempSync(path.join(os.tmpdir(),'asds-decomposition-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));fs.cpSync('examples/basic-change',dir,{recursive:true});return dir;}
+function fixture(t){const dir=fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()),'asds-decomposition-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));fs.cpSync('examples/basic-change',dir,{recursive:true});return dir;}
 function writeTask(root,id,extra={}){const original=fs.readFileSync(path.join(root,'tasks/task-0001.md'),'utf8');const body=original.replace(/^---\r?\n[\s\S]*?\r?\n---/,'').trimStart();const sample=loadTasks(root).find(t=>t.id==='0001');const {contractRevision,body:ignored,...data}=sample;fs.writeFileSync(path.join(root,`tasks/task-${id}.md`),`---\n${JSON.stringify({...data,id,...extra})}\n---\n${body}`);}
 test('package and transitive contract identities bind child content; independent leaf identity survives',t=>{
  const root=fixture(t);writeTask(root,'P',{nodeType:'package'});writeTask(root,'A',{nodeType:'task',parentId:'P',boundary});writeTask(root,'B',{dependsOn:['P']});

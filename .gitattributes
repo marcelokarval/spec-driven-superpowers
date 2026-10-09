@@ -1,0 +1,2 @@
+# Planning delivery fixtures bind exact bytes and hashes across platforms.
+examples/planning-delivery/** -text
