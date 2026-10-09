@@ -1,0 +1,35 @@
+{
+  "broadTaskWithMeaninglessSections": {
+    "structuralErrors": [],
+    "readinessErrors": [],
+    "interpretation": "Structural metadata is not a semantic plan-quality gate."
+  },
+  "nestedPlanningHierarchy": {
+    "errors": [
+      "P1: require one-level package parent",
+      "0001: require one-level package parent"
+    ],
+    "interpretation": "Recursive containment is explicitly rejected."
+  },
+  "separateTasksSharingAFile": {
+    "graphErrors": [],
+    "schedule": {
+      "mode": "sequential",
+      "reason": "Overlapping write scope: src/app.js"
+    },
+    "interpretation": "Shared file blocks parallelism, not separate contracts."
+  },
+  "planningReturnWithoutArtifactVerification": {
+    "protocolVersion": 1,
+    "owner": "asds",
+    "status": "completed",
+    "outcome": "Planning ready",
+    "evidence": [
+      "UNVERIFIED-TASKS.md"
+    ],
+    "remainingWork": [],
+    "limitations": [
+      "This is a structural probe, not a real delivery."
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "cases": [
+    {
+      "case": "01",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 2
+    },
+    {
+      "case": "02",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 3
+    },
+    {
+      "case": "03",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 2
+    },
+    {
+      "case": "04",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 4
+    },
+    {
+      "case": "05",
+      "nativeSources": 1,
+      "contextCount": 3,
+      "allRecordedLunaHigh": true,
+      "failures": 2
+    },
+    {
+      "case": "06",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 2
+    },
+    {
+      "case": "07",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 3
+    },
+    {
+      "case": "08",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 3
+    },
+    {
+      "case": "09",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 3
+    },
+    {
+      "case": "10",
+      "nativeSources": 1,
+      "contextCount": 2,
+      "allRecordedLunaHigh": true,
+      "failures": 4
+    }
+  ],
+  "skillReadback": [
+    {
+      "path": "/home/marcelo-karval/.agents/skills/accelerate/SKILL.md",
+      "unchanged": true
+    },
+    {
+      "path": "/home/marcelo-karval/.agents/skills/spec-driven-superpowers/SKILL.md",
+      "unchanged": true
+    },
+    {
+      "path": "/home/marcelo-karval/.agents/skills/spec-driven-superpowers/references/planning.md",
+      "unchanged": true
+    },
+    {
+      "path": "/home/marcelo-karval/.agents/skills/spec-driven-superpowers/references/orchestration.md",
+      "unchanged": true
+    }
+  ]
+}

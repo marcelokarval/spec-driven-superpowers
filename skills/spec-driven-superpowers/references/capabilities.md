@@ -5,9 +5,10 @@ tools, approvals, workspace kind, maximum parallelism and evidence location.
 Separate **documented**, **observed**, **unavailable**, and **unknown**.
 Installing a file does not prove discovery or activation.
 
-Conceptual operations: load skill, read/edit files, execute command, track task,
-spawn worker, communicate, wait/resume, collect delivery, isolate writes, request
-review, persist evidence. The adapter maps only operations exposed in this session.
+Planning operations are load skill, read sources, write planning artifacts, request
+review and persist/read back the package. The adapter maps only operations exposed
+in this session. Spawn, execution isolation and code delivery are consumer capabilities,
+not prerequisites for ASDS planning.
 
 `chooseExecution(tasks, capabilities)` requires `spawn: true`,
 `isolatedWrites: true` and an integer `maxParallel` covering the whole wave.
@@ -18,11 +19,10 @@ dependencies removed; retain the original contracts for validation and handoff.
 It also rejects overlapping paths and shared resources. This helper checks
 declared data; it cannot discover or enforce live tool capabilities.
 
-## Sequential fallback
-When spawn, isolation, budget or approvals are missing, work sequentially.
-Keep microcontracts, TDD and verification unchanged. If there is no separate
-reviewer, record self-review and the missing independent review. Do not silently
-promote a delivered task to reviewed/integrated.
+## Consumer compatibility
+Legacy `chooseExecution` remains available to explicitly selected consumers. ASDS
+does not call it. If a separate planning reviewer is unavailable, record self-review;
+when policy requires independence, leave delivery blocked rather than fabricating it.
 
 ## Models and access
 Track model, reasoning effort, provider, authentication route and billing route

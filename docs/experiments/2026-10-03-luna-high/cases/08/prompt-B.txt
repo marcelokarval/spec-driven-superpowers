@@ -1,0 +1,1 @@
+Considere este retorno de investigação fornecido pelo usuário: a hipótese de que um índice local resolveria foi inconclusiva, sem ganho demonstrado. Registre esse resultado como informado, feche essa investigação com a limitação e apresente a próxima decisão. Não execute novos experimentos automaticamente.

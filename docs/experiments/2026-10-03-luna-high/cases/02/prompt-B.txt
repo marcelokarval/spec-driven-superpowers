@@ -1,0 +1,1 @@
+A dor é encontrar pedidos: quero filtrar por status e limpar o filtro, preservando os dados. Não crie OpenSpec. Pode registrar o plano em TASKS.md; não implemente ainda.

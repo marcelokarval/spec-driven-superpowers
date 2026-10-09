@@ -14,9 +14,10 @@ metadata:
 For work already accepted by ASDS, use its intake and planning contract. Reuse the
 Accelerate context and preserve scoped approvals/refusals. Generate the configured
 microcontracts artifact as well as the task index. Under ASDS the standalone planning
-boundary below does not revoke existing explicit implementation authorization: present
-reviewable artifacts, then continue when that authorization covers the resolved scope.
-Do not add a mandatory new-turn gate. Missing material decisions still require an answer.
+boundary below is the product boundary. Preserve existing implementation authorization
+for a later consumer, but ASDS never consumes it. Generate the neutral planning
+manifest/index/contracts even when the configured schema lacks microcontracts.
+After review and persistence, return planning and release ownership.
 
 
 Propose a new change - create the change and generate all artifacts in one step.

@@ -55,3 +55,27 @@ test('user update refuses changing shared payload without reconciling other mani
  assert.throws(()=>planInstall({...opts,update:true}),/shared payload/);
  assert.equal(fs.readFileSync(file,'utf8'),'old shared payload');
 });
+test('explicit shared reconciliation updates every verified user manifest',t=>{
+ const target=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-update-shared-all-')));t.after(()=>fs.rmSync(target,{recursive:true,force:true}));
+ const base={scope:'user',target,dataHome:path.join(target,'data')};
+ applyInstall(planInstall(base));applyInstall(planInstall({...base,skillsDir:'.gemini/config/skills'}));
+ const shared=path.join(target,'.asds/LICENSE');
+ const manifests=[path.join(target,'.asds/install-manifest.json'),...fs.readdirSync(path.join(target,'.asds/install-manifests')).map(name=>path.join(target,'.asds/install-manifests',name))];
+ fs.writeFileSync(shared,'old shared payload');
+ for(const manifest of manifests){const data=JSON.parse(fs.readFileSync(manifest));data.files.find(e=>e.path===shared).sha256=hash(fs.readFileSync(shared));fs.writeFileSync(manifest,JSON.stringify(data,null,2)+'\n');}
+ assert.throws(()=>planInstall({...base,update:true}),/shared payload/);
+ const files=planInstall({...base,update:true,reconcileShared:true});
+ assert.equal(manifests.every(manifest=>files.some(file=>file.path===manifest)),true);
+ applyInstall(files);
+ const expected=hash(fs.readFileSync(shared));
+ for(const manifest of manifests)assert.equal(JSON.parse(fs.readFileSync(manifest)).files.find(e=>e.path===shared).sha256,expected);
+});
+test('shared reconciliation rejects a stale secondary profile before writing',t=>{
+ const target=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-update-shared-stale-')));t.after(()=>fs.rmSync(target,{recursive:true,force:true}));
+ const base={scope:'user',target,dataHome:path.join(target,'data')};
+ applyInstall(planInstall(base));applyInstall(planInstall({...base,skillsDir:'.gemini/config/skills'}));
+ const secondary=path.join(target,'.gemini/config/skills/spec-driven-superpowers/SKILL.md');
+ fs.writeFileSync(secondary,'local edit');
+ assert.throws(()=>planInstall({...base,update:true,reconcileShared:true}),/modified or missing owned file/);
+ assert.equal(fs.readFileSync(secondary,'utf8'),'local edit');
+});

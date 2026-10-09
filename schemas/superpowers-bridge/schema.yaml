@@ -1,6 +1,6 @@
 name: superpowers-bridge
 version: 1
-description: Autonomous Spec-Driven Superpowers workflow with Master-Detail tasks, TDD micro-contracts, and Evidence Ledger.
+description: Self-contained planning workflow combining OpenSpec traceability with Superpowers planning and review practices.
 artifacts:
   - id: proposal
     generates: proposal.md
@@ -25,7 +25,9 @@ artifacts:
       Use RFC 2119 keywords (SHALL / MUST).
       Format requirements with `### Requirement: <name>` and scenarios with `#### Scenario: <name>`.
       Every requirement MUST have at least one scenario.
-      Changes use ADDED/MODIFIED/REMOVED/RENAMED Requirements delta sections, not main-spec Requirements.
+      Changes use exact level-two headings such as `## ADDED Requirements` and
+      `## MODIFIED Requirements`; never use a level-one or main-spec Requirements heading.
+      Every scenario names the requirement-specific observable condition with WHEN and THEN.
     requires:
       - proposal
 
@@ -41,13 +43,25 @@ artifacts:
 
   - id: microcontracts
     generates: "tasks/task-*.md"
-    description: Executable task contracts with readiness and scenario traceability
+    description: Future-work contracts with planning readiness and scenario traceability
     template: task-template.md
     instruction: |
+      Distinguish packages from future executable leaf tasks. Decompose broad outcomes
+      autonomously within the approved scope; do not cap task count or require new approval
+      merely for a more precise plan. Use nodeType, parentId and reviewed task boundary fields.
+      Use only as much recursive package hierarchy as the outcome requires. Composition
+      and precedence are distinct relations; packages are never executable.
       Decompose the approved design into tasks with one observable outcome each.
       Use exact file paths, dependencies, shared resources and scenario references.
       Fill Outcome, Inputs, Acceptance, Verification and Definition of done sections.
-      Declare kind and openDecisions. Unresolved material decisions block implementation;
+      Give every leaf a stable title. For each dependency, record why the dependent
+      outcome cannot start first and the exact artifact/state it consumes in
+      dependencyDetails; generic feature proximity is not a dependency. Repeat the
+      requiredOutput verbatim in the task body.
+      Declare the accountable owner, decisionInputs and resolvesDecisions. Split
+      independent decision owners/evidence into separate leaves; bundling multiple
+      decisions requires an explicit decisionBundleReason.
+      Declare kind and openDecisions. Unresolved material decisions block planning readiness;
       use a bounded investigation task to answer them before scheduling dependent work.
       Keep interfaces and decision ownership explicit. Do not split solely by file count.
       Do not copy sample paths or commands without inspecting the project.
@@ -56,35 +70,55 @@ artifacts:
 
   - id: tasks
     generates: tasks.md
-    description: Sole completion index linking every microcontract
+    description: Sole planning index linking every future-work contract
     template: tasks.md
     instruction: |
       Index every tasks/task-ID.md as - [ ] [Task ID](tasks/task-ID.md): Title.
+      The title must exactly equal the contract title. Keep numeric IDs in strictly
+      increasing order and preserve assigned IDs across revisions; append new IDs.
       Dependencies remain in the contracts. Waves are scheduling hints, not concurrency mandates.
-      Validate index/contract bijection, readiness and scenario coverage before execution.
-      Only the coordinator marks integrated tasks with matching integration receipts.
+      After the ordered inventory, declare each projected wave once as
+      `- Wave N: ID, ID`; these declarations must exactly match taskManager.plannedWaves.
+      Validate index/contract bijection, planning readiness and scenario coverage before delivery.
+      Deliver a new plan with implementation checkboxes open. A later consumer owns progress.
       Do not generate another plan or progress checklist under docs/superpowers.
     requires: [microcontracts]
 
   - id: summary
     generates: summary.md
-    description: Evidence Ledger consolidating revisions, test proofs, review status and visual verification
+    description: Planning delivery summary consolidating revision, reviews, readback and limitations
     template: summary.md
     instruction: |
-      Consolidate the final Evidence Ledger prior to archiving the change.
-      Record approved base and delivered/integrated revisions (or dirty fingerprints), commands,
-      exit codes, review status, visual evidence, baseline failures and unresolved limitations.
-      Include commits only when authorized and created. Do not fabricate complete verification.
+      Consolidate the planning delivery before return. Record package revision, fidelity and
+      quality review evidence, persistence/readback receipt, blockers and limitations.
+      State explicitly whether the original request asked for implementation and that ASDS did
+      not perform it. Future verification commands are contract data, not executed evidence.
+      Distinguish all delivered contracts from the initial execution frontier: ready now,
+      waiting on tasks, blocked by decisions/policy, completed, reverse blockers and planned waves.
     requires:
       - tasks
 
+  - id: planning-manifest
+    generates: planning-manifest.json
+    description: Machine-readable reviewed planning lifecycle and task-manager projection
+    template: planning-manifest.json
+    instruction: |
+      Fill the canonical planning-delivery/1 envelope after task review. Use the exact
+      persisted contract inventory and SHA-256 reference hashes. Declare risk domains,
+      decision resolvers/blockers and the deterministic taskManager projection. A protected
+      domain requires independent review. Set delivered/partial only after planning-store
+      readback matches this revision; do not use a prose-only receipt.
+      Each projected task must expose waitingOn, blockedBy, reverse blocks, parallelWith
+      and serializesWith so a simple queue can honor both precedence and conflicts.
+    requires:
+      - summary
+
 apply:
-  requires: [tasks]
+  requires: [tasks, planning-manifest]
   tracks: tasks.md
   instruction: |
-    Follow microcontracts and Superpowers TDD. Use isolated workers only when current
-    capabilities, budget, disjoint writes and resources allow it; otherwise work sequentially.
-    Check base-to-delivery Git scope plus dirty/untracked files. Bind evidence and reviews
-    to the delivered snapshot. Only the coordinator checks off integrated, verified tasks.
-    Commits, publication and archive require authorization. After at most three failed
-    recoveries, defer the blocker and dependent tasks and continue independent work.
+    Applying future implementation is outside the ASDS planning lifecycle. A separately
+    selected consumer MAY use these contracts, Superpowers TDD and scoped verification.
+    That consumer owns execution progress and MUST NOT infer implementation authorization
+    from planning delivery. ASDS checkboxes remain a planning view unless explicitly imported
+    as historical evidence under a compatible consumer contract.

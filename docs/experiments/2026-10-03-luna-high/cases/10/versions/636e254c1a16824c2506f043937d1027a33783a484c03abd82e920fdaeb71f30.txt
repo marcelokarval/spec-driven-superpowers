@@ -1,0 +1,4 @@
+schema: spec-driven
+context: |
+  Este é um projeto sintético, estático e local. As visões e registros desta mudança
+  não usam provedores reais, serviços externos nem autenticação de produção.

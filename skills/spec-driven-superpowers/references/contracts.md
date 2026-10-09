@@ -1,127 +1,54 @@
-# Task and delivery contracts
+# Planning package and task contracts
 
-`tasks.md` is the sole completion index. Contracts hold scope/dependencies, not a
-second progress state. Link format:
+`tasks.md` is the sole task index and the only inventory read by directory-based
+task-manager projection. Numeric task IDs appear in strictly increasing order,
+assigned IDs survive revisions, and index titles exactly equal contract titles.
+Its `Wave N: ID, ID` declarations exactly match the manifest projection.
+`planning-manifest.json` identifies the package
+revision, sources, layers, decisions, reviews, destination and readback; it does not
+duplicate task content or track future implementation progress.
 
-```markdown
-- [ ] [Task 0001](tasks/task-0001.md): Accept valid input
-```
+Each linked `tasks/task-ID.md` has YAML frontmatter with stable `id`, stable `title`, `nodeType`,
+optional `parentId`, `requirements`, `dependsOn`, dependency explanations, exact
+future write paths, resources, scenarios and verification commands. Paths are
+repository-relative POSIX paths without globs or traversal. Quote leading-zero IDs.
+Leaves also declare an accountable `owner`, `decisionInputs` and
+`resolvesDecisions`. One leaf resolves one independently reviewable decision; a
+multi-decision leaf needs `decisionBundleReason` proving the decisions share owner,
+evidence boundary and inseparable output.
 
-Each linked Markdown file starts with real YAML frontmatter:
+Packages may contain packages or leaves at any justified depth. Packages are not
+executable. `parentId` is composition, not precedence. `dependsOn` is a separate DAG;
+each edge names its reason and required output. Sharing a path/resource recommends
+sequential consumption but does not merge independent outcomes.
 
-```yaml
----
-id: "0001"
-kind: implementation
-openDecisions: []
-dependsOn: []
-write: [src/input.js, tests/input.test.js]
-resources: []
-scenarios: [input/Accept valid input]
-verification: [npm test]
----
-```
+Leaf bodies must let a consumer without conversation history understand the outcome,
+inputs, inclusions/exclusions, positive/negative/preservation acceptance, future
+verification with expected results and definition of future completion.
+Every dependency names an exact required output in frontmatter and repeats it in the
+body. The package exports a deterministic `taskManager` projection with `ready`,
+`waiting`, `blocked` and `completed` states, `waitingOn`, `blockedBy`, reverse
+`blocks`, conflict-aware waves and parallel peers. Delivered does not mean every
+task is initially executable.
+Each projected leaf also names `serializesWith`; this turns write/resource conflicts
+into a usable exclusion relation for simple queues without inventing DAG precedence.
 
-Use string IDs, exact repository-relative POSIX file paths (including tests), no
-globs/traversal/absolute paths, and explicit shared resource names such as
-`db:integration` or `port:3000`. Empty `write` permits read-only verification tasks.
-Quote IDs with leading zeros. Cycles, missing dependencies and duplicate IDs are
-invalid. The filename must match the ID. Keep all contracts linked from the index.
+An unresolved material decision has exactly one resolver task and one localized
+blocker. The blocker holds consumers and their dependents, never the resolver itself.
+Every consumer lists the decision in `decisionInputs` and depends transitively on
+the resolver. This makes decision ownership and unblock flow exportable without
+requiring a task manager to interpret prose.
 
-Scenario IDs are `<capability>/<exact Scenario heading>`, from
-`specs/<capability>/spec.md`. Names must be unique within a capability. All
-scenarios must be assigned and all assigned scenarios must exist. Use required body sections
-Outcome, Inputs, Acceptance, Verification and Definition of done. Include concrete
-assertions and TDD steps for behavioral implementation. Declare openDecisions: []
-only after material choices blocking this task are resolved. See [readiness](planning.md).
-Verification commands are data for validation; the validator never executes them.
+Open material decisions localize blockers. Structural validation cannot certify
+semantic quality. Fidelity review precedes quality review and both bind the same
+candidate, sources and task inventory. New delivered plans keep checkboxes open.
 
-## Validation from the ASDS toolkit checkout
+Planning persistence uses `lib/planning-store.mjs`; ordinary errors roll back bytes
+in memory and clean operation temporaries. Delivery requires a matching readback.
+`createPlanningReturn` emits protocol v2 and releases ASDS ownership. The legacy v1
+return and code delivery receipts remain readable compatibility APIs, not proof of
+planning delivery.
 
-```bash
-npm run validate
-npm run validate -- --change /absolute/project/openspec/changes/example
-```
-
-The toolkit CLI and dependencies stay in its checkout; installation deploys skills
-and schema, not another copy of the Node toolchain. OpenSpec validation remains a
-separate check using the pinned CLI. A checked box alone is not verified evidence.
-
-## Delivery receipt
-
-```json
-{
-  "status": "reviewed",
-  "contractRevision": "<hash returned by loadTasks for accepted planning>",
-  "baseRevision": "<approved base SHA>",
-  "revision": "<HEAD SHA or HEAD+worktree:sha256>",
-  "changedFiles": ["src/input.js", "tests/input.test.js"],
-  "evidence": [{"command": "npm test", "exitCode": 0, "revision": "<same revision>"}],
-  "reviews": {"spec": "<same revision>", "quality": "<same revision>", "independent": true}
-}
-```
-
-For `integrated`, also supply `integrationRevision`, `integrationEvidence` (command,
-exitCode, revision) and `integrationReviews` (spec, quality, independent) bound to
-that combined revision. Review the integrated result, not only each earlier branch. `delivered` does not claim independent review.
-Save the receipt outside the inspected tree, then validate with an independently
-approved base (do not trust a base chosen by the worker to hide its changes):
-
-```bash
-npm run validate -- --change /project/openspec/changes/example \
-  --delivery /evidence/receipt.json --task 0001 --repo /project --base APPROVED_SHA
-```
-
-`collectGitScope(repo, baseRevision)` in `lib/git-scope.mjs` returns baseRevision,
-revision and changedFiles. It includes both sides of renames and dirty files.
-Use a quiescent repository root: the collector is not an atomic snapshot.
-Ignored untracked files are not audited. Symlinks are hashed, not followed.
-Git filters are disabled to avoid running repository-configured programs; projects
-using clean filters may therefore see conservative dirty results.
-These checks validate consistency and scope, not the authenticity of supplied
-test logs or reviewer identities. Humans/harnesses still verify that evidence.
-
-
-## Completion and migration
-Current change validation requires readiness sections, openDecisions and proposal/design
-context. Legacy contracts may still be read with parseFrontmatter/validateTasks for
-structural inspection, but must be explicitly enriched and reviewed before execution;
-do not label an old shape ready or silently rewrite archived changes.
-
-`loadTasks` returns body and contractRevision in addition to frontmatter. Use its
-identity in receipts. The coordinator must compare it with the accepted planning
-revision before dispatch/checkoff; the hash is not an approval signature.
-
-For checked tasks pass an external JSON map `{ "0001": <integrated receipt> }`:
-
-```bash
-npm run validate -- --change /project/openspec/changes/example --receipts /evidence/receipts.json
-```
-
-This reconciles historical completion receipts with current contracts and their
-dependencies. It is structural validation of recorded evidence, not live Git proof.
-The --delivery/--repo/--base mode verifies scoped delivery D against actual Git.
-By default it inspects the current working tree. Use --delivery-revision COMMIT for
-an explicitly selected historical committed delivery in the same repository; that
-mode deliberately excludes current dirty state and cannot reconstruct a lost dirty
-snapshot. Preserve uncommitted deliveries in their original authorized workspace.
-
-Integrated receipts keep D and I distinct. Supply --integration-base APPROVED_SHA
-and --integration-scope /evidence/approved-paths.json (an exact array of combined
-changed paths supplied by the coordinator, not trusted from the worker receipt).
-Optionally --integration-repo selects a different existing integration workspace;
-otherwise the delivery repo is used. The integration check inspects its current
-working tree, verifies I and the combined scope without widening the task's D scope.
-Integration evidence/reviews must reference I. No workspace is created by validation.
-
-```bash
-npm run validate -- --change /project/openspec/changes/example \
-  --delivery /evidence/receipt.json --task 0001 --repo /project --base TASK_BASE \
-  --delivery-revision DELIVERED_COMMIT --integration-base INTEGRATION_BASE \
-  --integration-scope /evidence/approved-paths.json
-```
-
-Writing tasks.md after verification changes a repository-wide dirty fingerprint.
-Keep the receipt's tested revision as historical evidence; do not rewrite it to
-claim that an untested bookkeeping edit was tested. Reconcile checkoff from that
-receipt, then run final change-level verification on the combined state as needed.
+When `planning-manifest.json` exists, `npm run validate -- --change <root>` validates
+its lifecycle gate, exact contract inventory, reference hashes, review policy and
+task-manager projection. OpenSpec validation alone is insufficient.

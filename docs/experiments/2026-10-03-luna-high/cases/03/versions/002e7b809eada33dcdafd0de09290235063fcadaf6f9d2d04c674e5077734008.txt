@@ -1,0 +1,4 @@
+.save-button { background: #0f766e; color: white; }
+.save-button:hover { background: #1d4ed8; }
+.save-button:focus-visible { outline: 2px solid #111827; }
+.cancel-button { background: #e5e7eb; }

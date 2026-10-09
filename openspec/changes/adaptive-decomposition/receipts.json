@@ -1,0 +1,264 @@
+{
+  "001": {
+    "status": "integrated",
+    "contractRevision": "fdc88ef0deeb91d3dcbe35008714ec668ba8c0d6215247051f6d0428c89585de",
+    "baseRevision": "78b84b910c42f54a912adfbb5f70aab3dab254ea",
+    "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "changedFiles": [
+      "lib/decomposition.mjs",
+      "lib/contracts.mjs",
+      "lib/orchestration.mjs",
+      "lib/validation.mjs",
+      "scripts/orchestrate.mjs"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "reviewReference": "review.json",
+    "limitations": [
+      "Source-artifact evidence; independent review and root command execution are separately attributed."
+    ]
+  },
+  "002": {
+    "status": "integrated",
+    "contractRevision": "73b9e351709a9cd62dd150ce31f2c779fa64a1a739d0d840228e6d2556f74381",
+    "baseRevision": "78b84b910c42f54a912adfbb5f70aab3dab254ea",
+    "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "changedFiles": [
+      "skills/spec-driven-superpowers/SKILL.md",
+      "skills/spec-driven-superpowers/references/planning.md",
+      "skills/spec-driven-superpowers/references/orchestration.md",
+      "skills/spec-driven-superpowers/references/contracts.md",
+      "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "schemas/superpowers-bridge/schema.yaml",
+      "schemas/superpowers-bridge/templates/tasks.md",
+      "schemas/superpowers-bridge/templates/task-template.md",
+      "CHANGELOG.md"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "reviewReference": "review.json",
+    "limitations": [
+      "Source-artifact evidence; independent review and root command execution are separately attributed."
+    ]
+  },
+  "003": {
+    "status": "integrated",
+    "contractRevision": "758b5414f660231f5318e493dd8e0e6778bdbcecc339042914bf1b74c3294832",
+    "baseRevision": "78b84b910c42f54a912adfbb5f70aab3dab254ea",
+    "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "changedFiles": [
+      "tests/decomposition.test.js",
+      "tests/decomposition-sources.test.js",
+      "skills/spec-driven-superpowers/evals/evals.json"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "reviewReference": "review.json",
+    "limitations": [
+      "Source-artifact evidence; independent review and root command execution are separately attributed."
+    ]
+  },
+  "P01": {
+    "status": "integrated",
+    "contractRevision": "758b5414f660231f5318e493dd8e0e6778bdbcecc339042914bf1b74c3294832",
+    "baseRevision": "78b84b910c42f54a912adfbb5f70aab3dab254ea",
+    "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "changedFiles": [
+      "lib/decomposition.mjs",
+      "lib/contracts.mjs",
+      "lib/orchestration.mjs",
+      "lib/validation.mjs",
+      "scripts/orchestrate.mjs",
+      "skills/spec-driven-superpowers/SKILL.md",
+      "skills/spec-driven-superpowers/references/planning.md",
+      "skills/spec-driven-superpowers/references/orchestration.md",
+      "skills/spec-driven-superpowers/references/contracts.md",
+      "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "schemas/superpowers-bridge/schema.yaml",
+      "schemas/superpowers-bridge/templates/tasks.md",
+      "schemas/superpowers-bridge/templates/task-template.md",
+      "tests/decomposition.test.js",
+      "tests/decomposition-sources.test.js",
+      "skills/spec-driven-superpowers/evals/evals.json",
+      "CHANGELOG.md"
+    ],
+    "evidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "reviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "integrationRevision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+    "integrationEvidence": [
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run check",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      },
+      {
+        "command": "npm run validate",
+        "exitCode": 0,
+        "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913"
+      }
+    ],
+    "integrationReviews": {
+      "spec": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "quality": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+      "independent": true
+    },
+    "reviewReference": "review.json",
+    "limitations": [
+      "Source-artifact evidence; independent review and root command execution are separately attributed."
+    ]
+  }
+}

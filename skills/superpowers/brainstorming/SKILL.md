@@ -9,7 +9,9 @@ commit steps and repeated approval gates below. Use brainstorming during increme
 understanding, before specs and tasks. Reuse received context and prior decisions.
 Write into the change's proposal.md/design.md; do not create docs/superpowers/specs.
 Transition to ASDS microcontracts and tasks.md, not a separate implementation plan.
-Ask only unresolved material questions/permissions. Do not commit unless authorized.
+Ask only unresolved material questions. Existing decisions do not need repeated
+approval; write/persistence permission remains separate. Do not commit. ASDS ends
+after reviewed planning delivery and does not invoke an implementation skill.
 For ordinary conversation do not activate; for bounded work do not impose this flow.
 
 

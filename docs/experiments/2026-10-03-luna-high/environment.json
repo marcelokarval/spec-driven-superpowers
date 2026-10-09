@@ -1,0 +1,30 @@
+{
+  "codexVersion": "0.160.0",
+  "loginReadback": "Logged in using ChatGPT",
+  "asdsCommit": "5991b3c182db1953db2a830a12ee955676093178",
+  "accelerateCommit": "343ec10b20dece67c82de5697e804734dd9dbeb6",
+  "requestedModel": "gpt-6-luna",
+  "requestedEffort": "high",
+  "maxConcurrentCases": 2,
+  "maxSecondsPerTurn": 240,
+  "maxTurnsPerCase": 2,
+  "delegation": "none",
+  "skills": [
+    {
+      "path": "/home/marcelo-karval/.agents/skills/accelerate/SKILL.md",
+      "sha256": "3d523ae40908c13946a181a0003f58fdabc4b6c7c76de884b4079eb6ed29752b"
+    },
+    {
+      "path": "/home/marcelo-karval/.agents/skills/spec-driven-superpowers/SKILL.md",
+      "sha256": "1dbc7737b85525e09d4bc8c6c218a075dd023f0e58b5e796bb71e3a6d2e48f5f"
+    },
+    {
+      "path": "/home/marcelo-karval/.agents/skills/spec-driven-superpowers/references/planning.md",
+      "sha256": "f59eabf2f2449570647272121667dcba0c75c099cf879d48615c042f7f32c720"
+    },
+    {
+      "path": "/home/marcelo-karval/.agents/skills/spec-driven-superpowers/references/orchestration.md",
+      "sha256": "affa15d2b58bcfbb19d52481f4c4055b0acb9f7092014c4b52201578176969b9"
+    }
+  ]
+}

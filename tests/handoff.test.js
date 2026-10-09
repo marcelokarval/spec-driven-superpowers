@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { receiveHandoff, acceptWork, declineWork, continueWork, createReturn } from '../lib/handoff.mjs';
+import { receiveHandoff, acceptWork, declineWork, continueWork, createReturn, createPlanningReturn } from '../lib/handoff.mjs';
 
 export const packet = () => ({
   objective: 'Adicionar exportação', project: '/project', scope: ['exportação'],
@@ -56,4 +56,19 @@ test('direct and forwarded entries preserve the same constraints and outcome', (
   assert.deepEqual(createReturn(forwarded, result), createReturn(direct, result));
   assert.throws(() => createReturn(receiveHandoff(packet()), result), /accepted/);
   assert.throws(() => createReturn(forwarded, { ...result, status: 'completed' }), /remaining/);
+});
+
+test('planning return v2 releases ownership and never claims implementation completion', () => {
+  const accepted = acceptWork(receiveHandoff(packet()));
+  const result = createPlanningReturn(accepted, { status: 'delivered', outcome: 'Planning package delivered',
+    revision: 'plan-r1', manifest: 'planning-manifest.json', evidence: ['readback receipt'],
+    remainingPlanningWork: [], limitations: [], storeVerified: true,
+    originalRequest: { product: 'implementation', status: 'not_fulfilled' } });
+  assert.equal(result.protocolVersion, 2);
+  assert.equal(result.owner, null);
+  assert.equal(result.nextOwner, 'caller-selects-consumer');
+  assert.throws(() => createPlanningReturn(accepted, { ...result, owner: null, nextOwner: null,
+    storeVerified: true, originalRequest: { product: 'implementation', status: 'fulfilled' } }), /cannot fulfill/);
+  assert.throws(() => createPlanningReturn(accepted, { ...result, owner: null, nextOwner: null,
+    storeVerified: false }), /persistence/);
 });

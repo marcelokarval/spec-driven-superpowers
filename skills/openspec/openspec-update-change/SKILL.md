@@ -11,12 +11,11 @@ metadata:
 ---
 
 ## ASDS mode
-When ASDS owns the change, include the microcontracts artifact and every linked
-contract when reconciling. Reuse applicable user approval; the per-artifact prompts
-below are only needed for genuinely missing permission or material unresolved choices.
-Identify affected tasks and transitive dependents, stop their dispatch, update contracts
-and reopen affected checkboxes. Preserve unaffected work. Recompute contract identities
-and invalidate stale receipts; do not suggest apply against still-checked stale tasks.
+When ASDS owns planning, include the manifest, task index and every linked contract.
+Reuse applicable decisions and ask only material unresolved choices. Identify affected
+tasks/dependents, update contracts, preserve independent work and invalidate stale
+planning reviews/readback. Do not invoke apply or implementation; deliver a successor
+planning revision and release ownership again.
 
 
 Revise a change's existing planning artifacts and keep them coherent. Never edit code.

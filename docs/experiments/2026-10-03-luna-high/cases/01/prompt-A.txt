@@ -1,0 +1,3 @@
+Leia /home/marcelo-karval/.agents/skills/accelerate/SKILL.md e /home/marcelo-karval/.agents/skills/spec-driven-superpowers/SKILL.md, usando referências pertinentes. A disponibilidade dessas skills não obriga ativação. Trabalhe somente no projeto sintético /home/marcelo-karval/Backup/Projetos/spec-driven-superpowers/docs/experiments/2026-10-03-luna-high/cases/01/workspace; leia seu AGENTS.md. Responda em português. Você é o coordenador deste caso, sem delegação. O usuário pede:
+
+Me explica, em linguagem simples, qual a diferença entre uma lista de tarefas e um plano de execução. Não estou pedindo mudança de projeto.

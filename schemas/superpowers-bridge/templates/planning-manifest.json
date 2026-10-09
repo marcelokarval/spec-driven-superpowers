@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "asds.planning-delivery/1",
+  "returnVersion": "asds.planning-return/1",
+  "packageId": "replace-with-change-id",
+  "revision": "replace-with-reviewed-revision",
+  "state": "draft",
+  "synthetic": false,
+  "author": "replace-with-planning-author",
+  "originalRequestedProduct": {
+    "kind": "planning",
+    "status": "fulfilled"
+  },
+  "planningContribution": {
+    "product": "reviewed-planning-package",
+    "executionPerformed": false,
+    "limitations": []
+  },
+  "attendanceOutcome": "planning_in_progress",
+  "authority": {
+    "destination": "replace-with-authorized-project-relative-destination",
+    "authorization": "replace-with-authorization-source"
+  },
+  "references": [],
+  "tasks": [],
+  "decisions": [],
+  "blockers": [],
+  "taskManager": {
+    "version": "asds.task-manager-projection/1",
+    "tasks": [],
+    "readyTaskIds": [],
+    "waitingTaskIds": [],
+    "blockedTaskIds": [],
+    "completedTaskIds": [],
+    "plannedWaves": [],
+    "conflicts": []
+  },
+  "layers": {},
+  "reviewPolicy": {
+    "domains": ["replace-with-domain"],
+    "risk": "replace-with-risk",
+    "independentRequired": false,
+    "mode": "self-review",
+    "reason": "replace-with-policy-reason",
+    "maxRounds": 3
+  },
+  "reviews": [],
+  "readback": null
+}

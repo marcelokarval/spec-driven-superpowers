@@ -1,0 +1,119 @@
+{
+  "base": "78b84b910c42f54a912adfbb5f70aab3dab254ea",
+  "revision": "source-sha256:1d60952bc4d25284c14634519e8bb355369c2a146e7ca9673335e5b66029c913",
+  "manifest": [
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "d4cf5f8351fabf8194aa679407c50172ada0308bb3473df4ed5ae33350b9f64c"
+    },
+    {
+      "path": "lib/contracts.mjs",
+      "sha256": "ef31ede9f9aa96fed254f40d0a81c75c04307e3bf88c51cb2d476573d2496434"
+    },
+    {
+      "path": "lib/decomposition.mjs",
+      "sha256": "0e87ed55a4cfe820bf5ae2603eba28eabe59553d443d58af2affc9d514cb21dd"
+    },
+    {
+      "path": "lib/orchestration.mjs",
+      "sha256": "21cf4e285e93f2fe72cc4a8e83d4918f76d23affb5000570c615c7ac438b9f5f"
+    },
+    {
+      "path": "lib/validation.mjs",
+      "sha256": "71a628ca0d261feeba51f83f08cf7af997de7fa8ddd001cc76a2ee4e25f48c4e"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/design.md",
+      "sha256": "f1e6a9f490921986fc838c395fc71615056da29baf6aa1ca46ef9556ddc552f8"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/installation.json",
+      "sha256": "386aceb7be111ebaa74589abff026af592dc6d09eee3cc182cc4a728d211b806"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/proposal.md",
+      "sha256": "4be25c96c43a65904dd50991c7ec92f832113fc79ac1be2800a282832be215be"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/review.json",
+      "sha256": "22345e282bf5ecebb9a08d02b7214dc8d64f12c8cb15220d817e1de99bae8137"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/specs/task-decomposition/spec.md",
+      "sha256": "50d616edc10bfca8f17431395cb01c5ed76fcd33d2f91766f4d6244ee560704b"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/summary.md",
+      "sha256": "5516ce997868f10fe106264485f490128246fd5f9d2df0780c798f9b4ea63fcb"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/tasks/task-001.md",
+      "sha256": "eb40d6a684baefd66fa56ad8713894fe8c35149a029a3a683a638054e795bd5c"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/tasks/task-002.md",
+      "sha256": "015828556e25b34826aec8388c5c90a255365c19e727f99ed77e855f39ace599"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/tasks/task-003.md",
+      "sha256": "d7c7f93ca941760c67be1ba14e5b11e751bfe4d28fab323cf36895aa4fab2413"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/tasks/task-P01.md",
+      "sha256": "8cc4d5a09f5a00073452153d8679e9a5c8f37069a40acbfef252ac364045da3b"
+    },
+    {
+      "path": "openspec/changes/adaptive-decomposition/tests.txt",
+      "sha256": "18afee2c6bba31b8de23bf27f832fe597c737ced6f6731a491fb991c7ff46742"
+    },
+    {
+      "path": "schemas/superpowers-bridge/schema.yaml",
+      "sha256": "3ded838ca0b27c7edd0ef737a03731294f50e3c92894a21d828ec44960e0b707"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/task-template.md",
+      "sha256": "1f81e67dbce7ffba17c40af399ee6a1f8fb3dfc313776476406d22f64356b78e"
+    },
+    {
+      "path": "schemas/superpowers-bridge/templates/tasks.md",
+      "sha256": "3606e3bc0c8ddaa9d070dc9dc84ad73de5474931f5aa7089ffc3029c17afbeb5"
+    },
+    {
+      "path": "scripts/orchestrate.mjs",
+      "sha256": "5d4470fe6ac25e94e5f50d0a8bdfc354c83b8d48eb9b8f09e09693abf56f410d"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/SKILL.md",
+      "sha256": "1dbc7737b85525e09d4bc8c6c218a075dd023f0e58b5e796bb71e3a6d2e48f5f"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/evals/evals.json",
+      "sha256": "1ad1f61919c1ef14de61d7f5aacf2a96eab6c7ce7081b675d70105ef37f4a8ae"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/contracts.md",
+      "sha256": "0b837b5bc7cb48ec30574183418a0b524f8d7fbc8e286a650a7e601d90a80bbd"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/operational-continuity.md",
+      "sha256": "d262926f1b0d4cbada66a38d69ffde808b42e5c76a2ce021e287f0938687e045"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/orchestration.md",
+      "sha256": "affa15d2b58bcfbb19d52481f4c4055b0acb9f7092014c4b52201578176969b9"
+    },
+    {
+      "path": "skills/spec-driven-superpowers/references/planning.md",
+      "sha256": "f59eabf2f2449570647272121667dcba0c75c099cf879d48615c042f7f32c720"
+    },
+    {
+      "path": "tests/decomposition-sources.test.js",
+      "sha256": "6cedab67e1f7d2c648361b95ae7c16d52148e9f0f36922a4309e28c08771f91d"
+    },
+    {
+      "path": "tests/decomposition.test.js",
+      "sha256": "9ead5587555e561dcbfe4b5237977e0f6ffbc45ad32101f1b6b6f6d48efecec9"
+    }
+  ],
+  "kind": "source-artifact verification, not per-task Git diff proof"
+}

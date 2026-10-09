@@ -1,0 +1,1 @@
+O objetivo e as regras continuam iguais. Reavalie se alguma tarefa ainda reúne entregas independentes, refine onde necessário e persista. Se estiver adequado, encerre sem aperfeiçoamentos adicionais. Não implemente.

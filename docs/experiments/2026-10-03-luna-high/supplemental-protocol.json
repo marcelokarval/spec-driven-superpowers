@@ -1,0 +1,21 @@
+{
+  "reason": "Preserve original A/B and answer the material storage question in case05; run the originally planned B after bounded interruption of case04. No retry of A.",
+  "cases": {
+    "04": {
+      "phase": "B",
+      "originallyPlanned": true,
+      "afterTimeout": true
+    },
+    "05": {
+      "phase": "C",
+      "originallyPlanned": false,
+      "intervention": "synthetic owner resolves localStorage vs file"
+    },
+    "10": {
+      "phase": "B",
+      "originallyPlanned": true,
+      "afterTimeout": true,
+      "limitation": "A broad documentation search reached experiment files. Case remains contaminated; continuation is not independent evidence."
+    }
+  }
+}

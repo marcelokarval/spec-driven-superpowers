@@ -1,5 +1,38 @@
 # Changelog
 
+## 2.0.0 — self-contained planning product, 2026-10-08
+
+Tracked by GitHub issue #5.
+
+Breaking: ASDS now ends at reviewed, persisted planning delivery. A
+caller-selected consumer owns implementation, code review and software integration.
+
+- Make reviewed, persisted planning the ASDS product boundary; future implementation
+  belongs to a caller-selected consumer.
+- Add pure recursive planning graph, traceability, lifecycle, revision-bound review,
+  bounded publication/readback and planning-return v2 contracts.
+- Keep OpenSpec and adapted Superpowers skills, schema, templates, validators,
+  installer and provenance inside this repository.
+- Preserve legacy orchestration/code-delivery APIs as explicit consumer utilities,
+  not the ASDS entry lifecycle.
+- Retain Accelerate wire v1 intake and manifest-owned preview-first updates.
+- Add a deterministic task-manager projection with owners, decision routing,
+  blockers, prerequisite outputs, reverse edges, execution frontier and waves.
+- Validate a present planning manifest with lifecycle, on-disk contract inventory,
+  reference hashes, protected-domain review policy and projection consistency.
+- Make `tasks.md` authoritative for directory projections, enforce exact titles and
+  monotonic numeric IDs, verify declared waves, expose per-task conflict exclusions,
+  harden decision/blocker routing and reject invalid OpenSpec delta syntax.
+
+### Earlier work retained in this candidate
+
+- Distinguish coordinator-owned packages from executable tasks in one canonical plan.
+- Add reviewed behavior boundaries, same-scope decomposition/refinement and explicit
+  integrated package acceptance, retaining legacy journal compatibility.
+- Preserve unchanged independent acceptance and bind package/dependent evidence to
+  child revisions. Support CLI and existing-plan projections without a second plan.
+- Native skill/schema copies updated; natural-language evals remain prepared, not run.
+
 ## 1.2.0 — local candidate, 2026-10-03
 
 - Add portable DAG scheduling, tiered executor/reviewer profiles, resource

@@ -1,0 +1,365 @@
+{
+  "schemaVersion": "asds.planning-delivery/1",
+  "returnVersion": "asds.planning-return/1",
+  "packageId": "catalog-blocked",
+  "revision": "blocked-r1",
+  "state": "blocked",
+  "synthetic": true,
+  "originalRequestedProduct": {
+    "kind": "implementation",
+    "text": "Implementar listagem somente leitura e exportação do catálogo existente, com guia para consumidores, sem alterar os registros.",
+    "source": "brief.md#S01",
+    "status": "not_fulfilled"
+  },
+  "planningContribution": {
+    "product": "reviewed-planning-package",
+    "executionPerformed": false,
+    "usableTasks": [],
+    "limitations": [
+      "Modelo sintético, não entrega/review vivo",
+      "Nenhum software implementado"
+    ]
+  },
+  "attendanceOutcome": "planning_blocked",
+  "authority": {
+    "intentSource": "brief.md#S01",
+    "normativeContract": "../../../docs/architecture/planning-delivery-contract.md",
+    "destination": "fixture-local",
+    "authorization": "Autorização real T01 apenas para escrever modelos nestes caminhos; S04 é sintética.",
+    "preservedRefusals": [
+      "D04: não inicializar OpenSpec"
+    ],
+    "originalExecutionAuthority": "Não herdada pelo planejador"
+  },
+  "references": [
+    {
+      "id": "brief.md",
+      "path": "brief.md",
+      "role": "source",
+      "sha256": "dae2540d4dec145d97631d870f8b3af975d359e261748cda986bfc314fee606d"
+    },
+    {
+      "id": "tasks.md",
+      "path": "tasks.md",
+      "role": "index",
+      "sha256": "eb7a55520ba0bba81b243b3b4f4c772f7dbaf56cdbe884ac0466571428680585"
+    },
+    {
+      "id": "tasks/task-P01.md",
+      "path": "tasks/task-P01.md",
+      "role": "contract",
+      "sha256": "0a490c4fdbc4cb1dd98a8e701e6a83fa1805fad745994ffa8033bc044cedcd2c"
+    },
+    {
+      "id": "tasks/task-0001.md",
+      "path": "tasks/task-0001.md",
+      "role": "contract",
+      "sha256": "3eb1e1c1566ded005f01d809dc9aa183f9517498acf7b6686e1a09c249860f50"
+    },
+    {
+      "id": "tasks/task-0002.md",
+      "path": "tasks/task-0002.md",
+      "role": "contract",
+      "sha256": "5fa6496eab256f378032cfdf93cdcdbf8b70e0d98e716219e84e0543ee9afa49"
+    },
+    {
+      "id": "tasks/task-0003.md",
+      "path": "tasks/task-0003.md",
+      "role": "contract",
+      "sha256": "195adae625afb0a16983b3f6a71ed3a6600fc44e59e0f83c15b30c0c3297bc88"
+    },
+    {
+      "id": "reviews.md",
+      "path": "reviews.md",
+      "role": "review",
+      "sha256": "c3a695274363580025533845a4e835e6e6eb8effd5e4859471addd2cb5a1db51"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P01",
+      "nodeType": "package",
+      "parentId": null,
+      "dependsOn": [],
+      "requirements": [
+        "R01",
+        "R02",
+        "R03",
+        "R04"
+      ],
+      "implementationStatus": "not_started"
+    },
+    {
+      "id": "0001",
+      "nodeType": "task",
+      "parentId": "P01",
+      "dependsOn": [],
+      "requirements": [
+        "R01",
+        "R04"
+      ],
+      "implementationStatus": "not_started"
+    },
+    {
+      "id": "0002",
+      "nodeType": "task",
+      "parentId": "P01",
+      "dependsOn": [],
+      "requirements": [
+        "R02",
+        "R04"
+      ],
+      "implementationStatus": "not_started"
+    },
+    {
+      "id": "0003",
+      "nodeType": "task",
+      "parentId": "P01",
+      "dependsOn": [
+        "0001",
+        "0002"
+      ],
+      "requirements": [
+        "R03",
+        "R04"
+      ],
+      "implementationStatus": "not_started",
+      "dependencyDetails": [
+        {
+          "id": "0001",
+          "reason": "O guia precisa de exemplos fiéis à listagem entregue e verificada.",
+          "requiredOutput": "Interface listCatalog e resultados verificados de listagem para base a/b, vazio e erro de leitura."
+        },
+        {
+          "id": "0002",
+          "reason": "O guia precisa de exemplos fiéis à exportação entregue e verificada.",
+          "requiredOutput": "Interface exportCatalog e resultados verificados de exportação para base a/b, vazio e erro de leitura."
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D01",
+      "source": "brief.md",
+      "owner": "proprietário sintético",
+      "status": "resolved",
+      "reason": "Somente leitura, reaproveitar reader"
+    },
+    {
+      "id": "D02",
+      "source": "brief.md",
+      "owner": "proprietário sintético",
+      "status": "resolved",
+      "reason": "CSV UTF-8 RFC 4180"
+    },
+    {
+      "id": "D03",
+      "source": "brief.md",
+      "owner": "mantenedor sintético",
+      "status": "resolved",
+      "reason": "Transformações puras separadas"
+    },
+    {
+      "id": "D04",
+      "source": "brief.md",
+      "owner": "proprietário sintético",
+      "status": "resolved",
+      "reason": "Preservar recusa e escopo de planejamento"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "B02",
+      "owner": "coordenador",
+      "question": "Quem realizará revisão independente real?",
+      "affectedTasks": [
+        "P01",
+        "0001",
+        "0002",
+        "0003"
+      ],
+      "consequence": "Gate global impede qualquer contrato ready/delivered.",
+      "resolution": "Obter revisão independente real de fidelidade e qualidade da revisão corrente."
+    }
+  ],
+  "parallelism": {
+    "recommended": [
+      [
+        "0001",
+        "0002"
+      ],
+      [
+        "0003"
+      ]
+    ],
+    "reason": "Arquivos disjuntos; guia precisa das duas interfaces. Recomendação sujeita aos bloqueios, não dispatch.",
+    "currentlyUsable": []
+  },
+  "layers": {
+    "C01": {
+      "status": "satisfied",
+      "reason": "Pedido original de implementação preservado; contribuição é plano, sem execução.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C02": {
+      "status": "reused",
+      "reason": "Contexto sintético suficiente S02/S03 identificado, sem varredura desnecessária.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C03": {
+      "status": "satisfied",
+      "reason": "Requisitos R01–R04 e exclusões consolidados com fonte S01.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C04": {
+      "status": "not_applicable",
+      "reason": "Não há escolha material não respondida neste briefing sintético.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C05": {
+      "status": "not_applicable",
+      "reason": "Interface existente S02 é entrada sintética definida; nenhum fato externo impede planejar.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C06": {
+      "status": "not_applicable",
+      "reason": "Abordagem já decidida D01/D03; comparar frameworks não resolveria lacuna real.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C07": {
+      "status": "satisfied",
+      "reason": "Cenários positivos, negativos e preservação estão em cada folha.",
+      "references": [
+        "tasks/task-0001.md",
+        "tasks/task-0002.md",
+        "tasks/task-0003.md"
+      ]
+    },
+    "C08": {
+      "status": "satisfied",
+      "reason": "Contrato reader e decisões D01–D04 bastam para decomposição.",
+      "references": [
+        "brief.md"
+      ]
+    },
+    "C09": {
+      "status": "satisfied",
+      "reason": "Agregado P01 compõe três entregas independentes sem nível artificial.",
+      "references": [
+        "tasks.md"
+      ]
+    },
+    "C10": {
+      "status": "satisfied",
+      "reason": "Composição separada de DAG; recomendação paralela não é dispatch.",
+      "references": [
+        "tasks.md"
+      ]
+    },
+    "C11": {
+      "status": "satisfied",
+      "reason": "Índice e quatro contratos autônomos presentes e referenciados.",
+      "references": [
+        "tasks.md"
+      ]
+    },
+    "C12": {
+      "status": "blocked",
+      "reason": "B02: revisão independente ausente.",
+      "references": [
+        "reviews.md"
+      ]
+    },
+    "C13": {
+      "status": "blocked",
+      "reason": "Gate global independente indisponível.",
+      "references": [
+        "reviews.md"
+      ]
+    },
+    "C14": {
+      "status": "blocked",
+      "reason": "Bloqueio material remanescente; parar sem veredito pass.",
+      "references": [
+        "reviews.md"
+      ]
+    },
+    "C15": {
+      "status": "satisfied",
+      "reason": "Arquivos-fixture identificados por hash; readback ilustrativo não executa projeto.",
+      "references": [
+        "tasks.md",
+        "reviews.md"
+      ]
+    },
+    "C16": {
+      "status": "blocked",
+      "reason": "Gate global impede entrega de plano revisado.",
+      "references": [
+        "tasks.md",
+        "brief.md"
+      ]
+    }
+  },
+  "reviewPolicy": {
+    "risk": "sensitive",
+    "independentRequired": true,
+    "mode": "independent-unavailable",
+    "reason": "Dados sensíveis exigem reviewer real",
+    "maxRounds": 2
+  },
+  "reviews": [
+    {
+      "kind": "fidelity",
+      "revision": "blocked-r1",
+      "candidateSha256": "a97a875e3625dbb8d117b6b33b06ba5d373d8882dcf54754ff9cebc050a96bba",
+      "mode": "independent-unavailable",
+      "reviewer": null,
+      "synthetic": true,
+      "liveEvidence": null,
+      "verdict": "blocked",
+      "reference": "reviews.md"
+    },
+    {
+      "kind": "quality",
+      "revision": "blocked-r1",
+      "candidateSha256": "a97a875e3625dbb8d117b6b33b06ba5d373d8882dcf54754ff9cebc050a96bba",
+      "mode": "independent-unavailable",
+      "reviewer": null,
+      "synthetic": true,
+      "liveEvidence": null,
+      "verdict": "blocked",
+      "reference": "reviews.md"
+    }
+  ],
+  "readback": {
+    "revision": "blocked-r1",
+    "destination": "examples/planning-delivery/blocked",
+    "status": "matched",
+    "synthetic": true,
+    "executionEvidence": false,
+    "referenceIds": [
+      "brief.md",
+      "tasks.md",
+      "tasks/task-P01.md",
+      "tasks/task-0001.md",
+      "tasks/task-0002.md",
+      "tasks/task-0003.md",
+      "reviews.md"
+    ],
+    "limitation": "Ilustração de readback dos fixtures, não comprovante de entrega real/projeção externa."
+  }
+}

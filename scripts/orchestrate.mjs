@@ -41,8 +41,12 @@ try {
       case 'event': {
         if (!/^\d+$/.test(values['expected-sequence'] ?? '')) throw new Error('--expected-sequence is required');
         const event = json('event');
-        if (['dispatch', 'deliver', 'reviewResult', 'beginIntegration', 'integrate', 'decide'].includes(event.type)) {
+        if (['dispatch', 'deliver', 'reviewResult', 'beginIntegration', 'integrate', 'decide', 'acceptPackage'].includes(event.type)) {
           assertCurrentPlan(journal, sourceTasks());
+        }
+        if (['decompose', 'refine'].includes(event.type)) {
+          const expected = compilePlan(sourceTasks(), replay(journal).plan.profile, { allowUnready: true });
+          if (expected.revision !== event.plan?.revision) throw new Error('decomposition plan must match current sources');
         }
         result = replay(updateStore(values.state, event, Number(values['expected-sequence']))); break;
       }

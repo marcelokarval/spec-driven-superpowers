@@ -1,0 +1,21 @@
+{
+  "nativeSources": [
+    "/home/marcelo-karval/.codex/sessions/2026/10/03/rollout-2026-10-03T02-32-17-01a10076-a445-7d61-8aeb-b8b0e67fa0c3.jsonl"
+  ],
+  "failures": [
+    {
+      "line": 18,
+      "callId": "call_0F1ynyVXOWXPhiPlTBMY4NSr",
+      "categories": [
+        "Argument list too long"
+      ]
+    },
+    {
+      "line": 28,
+      "callId": "call_RG4kWhvQK5zC66MipbDZJptj",
+      "categories": [
+        "Argument list too long"
+      ]
+    }
+  ]
+}

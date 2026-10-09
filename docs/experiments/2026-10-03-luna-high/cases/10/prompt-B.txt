@@ -1,0 +1,1 @@
+Agora acrescente uma opção futura de compartilhar visões com a equipe. Ainda não defini quem pode ver ou editar. Separe o que depende dessa decisão e preserve o plano anterior; não invente a política de acesso nem reabra as regras já definidas.

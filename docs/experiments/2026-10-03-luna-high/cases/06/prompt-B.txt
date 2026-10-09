@@ -1,0 +1,1 @@
+A tarefa de visões salvas mistura salvar, listar, abrir e excluir. Reorganize o que ainda faltar em tarefas delimitadas no plano existente, preservando qualquer implementação e evidência já produzida e T00 concluída. O resultado aprovado não mudou. Não implemente nesta interação.

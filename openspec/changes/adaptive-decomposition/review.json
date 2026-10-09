@@ -1,0 +1,18 @@
+{
+  "reviewer": "/root/decomposition_review",
+  "context": "fresh independent session; read-only",
+  "verdict": "pass_with_documented_limits",
+  "fixedFindings": [
+    "v1 derived metadata reopened unrelated accepted work",
+    "decompose could downgrade sibling boundary metadata",
+    "unready package offered impossible acceptance",
+    "DAG omitted child completion edges"
+  ],
+  "verification": "reviewer ran initial 8 decomposition tests and targeted counterexamples; final documentary validateChange returned zero errors",
+  "rootVerification": "114 full tests and 13 focused decomposition/source tests passed",
+  "limits": [
+    "Reviewer did not re-run full suite or installed runtime proof",
+    "Native model adherence is not certified",
+    "Prepared evals are not reported as executed"
+  ]
+}

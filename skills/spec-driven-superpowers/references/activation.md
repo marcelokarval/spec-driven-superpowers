@@ -34,9 +34,9 @@ Acceptance does not authorize execution or initialization. Refusal records persi
    command or file write that could create the root, including installer apply.
 4. An explicit request to initialize that exact project, or an earlier affirmative
    answer in the same scope, already authorizes creation. Do not ask again.
-5. Refusal means continue the authorized task without OpenSpec artifacts. Silence
+5. Refusal means continue equivalent planning without OpenSpec artifacts. Silence
    is not consent; continue only work independent of initialization while waiting.
-   Do not repeatedly offer setup after refusal for the same task.
+   Do not repeatedly offer setup after refusal for the same planning contribution.
 6. After authorized initialization, verify the local root and preserve the selected
    configuration. Project activation is separate from installation of global skills.
 

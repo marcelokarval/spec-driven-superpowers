@@ -1,8 +1,9 @@
 # ASDS architecture
 
 ## Three layers
-1. **Core protocol**: OpenSpec intent, `tasks.md` plus microcontracts, Superpowers
-   TDD, scoped delivery, reviews and evidence. It does not call a model provider.
+1. **Core planning protocol**: OpenSpec intent, neutral planning manifest,
+   `tasks.md` plus microcontracts, Superpowers planning/review practices and readback.
+   It does not call a model provider or implement future tasks.
 2. **Harness adapter**: discovery/loading paths, tool mapping, session capability
    checks, approvals, persistence, worker handoff and honest fallback.
 3. **Project profile**: test commands, scope, resources, concurrency budget,
@@ -27,21 +28,28 @@ skill behavior; the explicit installer remains preview/apply, not interactive.
 Direct requests and Accelerate handoffs converge on one lifecycle. The latter reuse
 classification/context while ASDS resolves remaining requirements. Receipt is not
 acceptance; acceptance is not permission. The receiver never issues tool authority.
-ASDS retains ownership through subtasks and resumptions and returns outcome, evidence,
-remaining work and limitations without a second Accelerate closure gate.
+ASDS retains ownership only through planning revisions and returns planning outcome,
+evidence, remaining planning work and limitations, then releases ownership.
 
-Planning order is understanding/decisions -> proposal -> specs/design -> microcontracts
--> tasks index -> readiness -> authorized execution. Upstream skills have an explicit
-ASDS mode for this order and one artifact home. Completion receipts bind contracts,
-prerequisites and shared planning; integrated evidence/reviews bind the final revision.
+Planning order is understanding/decisions -> proposal/specs/design as useful ->
+microcontracts -> tasks index -> fidelity review -> quality review -> persistence/readback.
+Upstream skills have an explicit ASDS mode for this order and one artifact home.
+Future execution belongs to a separately selected consumer.
 
 ## Deterministic components
 - `lib/handoff.mjs`: compatible intake, acceptance/decline, continuity and return data contracts.
 - `lib/install.mjs`: build/preflight a complete additive file plan; apply with
   exclusive file creation and rollback on ordinary failures.
-- `lib/contracts.mjs`: task DAG, conservative wave selection and receipt checks.
+- `lib/contracts.mjs`: shared task validation and legacy consumer receipt checks.
+- `lib/planning-graph.mjs`: pure composition/precedence graph, decision routing,
+  initial execution frontier and task-manager projection.
+- `lib/planning-coverage.mjs`: explicit requirement-to-leaf traceability.
+- `lib/planning-lifecycle.mjs`: planning layers, readiness and delivery state.
+- `lib/planning-review.mjs`: revision-bound fidelity/quality review envelopes.
+- `lib/planning-store.mjs`: bounded publication, rollback and readback.
 - `lib/validation.mjs`: real YAML parsing, schema/templates, linked contracts and
-  scenario coverage.
+  scenario coverage; a present planning manifest is also lifecycle-, hash-,
+  decision-route- and task-manager-validated.
 - `lib/git-scope.mjs`: base-to-HEAD scope plus staged, unstaged and untracked state.
 - `scripts/validate.mjs`: package/change validation and optional Git-backed receipts.
 
@@ -50,15 +58,16 @@ checks are not proof of review independence, test authenticity or sandboxing.
 Dirty fingerprints require quiescent files and exclude ignored untracked content.
 The supplied base must come from the coordinator, not an untrusted receipt.
 
-## State and concurrency
-Planned → delivered → reviewed → integrated. Only integrated and reverified work
-is checked off. Snapshot changes invalidate prior tests/reviews. Self-review does
-not satisfy independent review. Sequential execution preserves the full method.
+## Consumer compatibility
+Planning states are draft, reviewing, ready, delivered, partial, blocked and
+superseded. New future-work checkboxes stay open. Snapshot changes invalidate
+planning reviews/readback. Parallelism is only a recommendation in the plan.
+Task-manager state is a separate consumer projection: `ready` means executable at
+the initial frontier, `waiting` names incomplete prerequisites, `blocked` names
+decision/policy blockers, and `completed` is supplied only by a later consumer.
 
-Parallelism is a scheduling decision, not a universal directive. The existing
-Superpowers sequential subagent workflow remains valid within each workstream.
-Independent concurrent workstreams need distinct worktrees and shared-resource
-ownership; identical cache/database/port resources defeat filesystem isolation.
+Legacy orchestration, TDD, code-review and integration modules remain optional
+consumer utilities. They are not part of the ASDS planning lifecycle.
 
 ## Recovery and durable handoff
 Record process result, tool return, agent lifecycle and file delivery separately.

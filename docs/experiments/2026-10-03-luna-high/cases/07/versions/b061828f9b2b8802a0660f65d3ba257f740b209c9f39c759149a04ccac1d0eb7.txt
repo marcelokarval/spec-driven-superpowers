@@ -1,0 +1,4 @@
+# Limites do experimento
+Este diretório é o único projeto deste caso. Arquivos sintéticos podem ser lidos e alterados conforme o pedido vigente.
+Não leia outros casos, memórias, sessões anteriores, credenciais, arquivos .env ou projetos reais. Não use rede, serviços, tracker, instalação, Git, publicação ou outros agentes. Referências globais das skills e o toolkit ASDS em /home/marcelo-karval/Backup/Projetos/spec-driven-superpowers podem ser lidos; scripts do toolkit podem ser usados com argumentos apontando apenas para este caso. Não edite o toolkit ou as skills. Não existe autorização implícita para criar openspec.
+Se faltar uma decisão material, faça a pergunta e encerre o turno aguardando resposta. Relate suas decisões e evidências publicamente de forma concisa; não forneça raciocínio interno privado.

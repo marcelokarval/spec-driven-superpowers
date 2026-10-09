@@ -1,24 +1,25 @@
-# Evidence ledger: <!-- Change title -->
+# Planning delivery: <!-- Change title -->
 
 ## Scope and state
-- Approved base:
-- Delivered snapshot(s):
-- Integrated snapshot:
-- Completed tasks:
-- Deferred/blocked tasks and affected dependencies:
+- Planning revision:
+- Original requested product: planning | implementation
+- ASDS contribution: planning only
+- Ready future tasks:
+- Initially executable tasks:
+- Waiting tasks and their prerequisite outputs:
+- Blocked tasks and affected dependents:
 
 ## Verification
-For each command, record working directory, exit code, timestamp, tested snapshot
-and durable output location. Include baseline failures and unexecuted checks.
+Record structural validation and persistence/readback evidence for this planning
+revision. Future implementation commands are not execution evidence.
 
 ## Reviews
-Record spec and quality review against the exact snapshot, reviewer independence,
-findings and resolutions. Identify self-review as such. No blanket pass claims.
-
-## Visual evidence
-Link authorized, persistent screenshots/artifacts when applicable. Do not expose
-private data or assume these files must be committed.
+Record fidelity then quality review against the exact package revision, reviewer
+mode, findings and dispositions. Identify self-review as such.
 
 ## Delivery
-List commits only if authorized and created. Record remaining approval needs,
-runtime/harness limitations, and whether archive/publication was authorized.
+Record destination, readback receipt, remaining planning work and limitations.
+Link the canonical `taskManager` projection from `planning-manifest.json`; do not
+call all delivered contracts currently executable when precedence or blockers remain.
+If implementation was requested, state that the original objective remains for a
+caller-selected consumer. Publication and installation remain separately authorized.
