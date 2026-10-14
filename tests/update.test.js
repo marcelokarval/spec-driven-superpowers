@@ -11,7 +11,8 @@ const root=fileURLToPath(new URL('../',import.meta.url)),cli=path.join(root,'scr
 const childEnv=Object.fromEntries(['PATH','HOME','TMPDIR','TEMP','TMP'].filter(key=>process.env[key]!==undefined).map(key=>[key,process.env[key]]));
 const spawnChecked=(command,args,options)=>{const result=spawnSync(command,args,options);assert.ifError(result.error);return result;};
 const hash = data => createHash('sha256').update(data).digest('hex');
-const ownership = file => ({path:file,sha256:hash(fs.readFileSync(file)),mode:fs.statSync(file).mode & 0o777,type:'file',nlinkPolicy:'exactly-one'});
+const fileMode = file => process.platform === 'win32' ? ((fs.statSync(file).mode & 0o200) ? 0o644 : 0o444) : (fs.statSync(file).mode & 0o777);
+const ownership = file => ({path:file,sha256:hash(fs.readFileSync(file)),mode:fileMode(file),type:'file',nlinkPolicy:'exactly-one'});
 const writeHistoricalTombstone = file => { fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,'owned old payload\n');fs.chmodSync(file,0o644); };
 const updateTemporaries = root => fs.readdirSync(root,{recursive:true}).filter(name=>path.basename(name).startsWith('.asds-update-'));
 function oldInstall(t) {

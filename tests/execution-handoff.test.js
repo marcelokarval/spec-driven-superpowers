@@ -21,7 +21,7 @@ const task = (id, dependsOn = []) => ({
 function makePackage(options = {}) {
   const { partial = false, blockers } = options;
   const usableTasks = Object.hasOwn(options, 'usableTasks') ? options.usableTasks : partial ? ['0001'] : ['0001', '0002', '0003'];
-  const root = mkdtempSync(join(tmpdir(), 'asds-handoff-'));
+  const root = realpathSync(mkdtempSync(join(tmpdir(), 'asds-handoff-')));
   mkdirSync(join(root, 'tasks'));
   mkdirSync(join(root, '.git'));
   const tasks = [

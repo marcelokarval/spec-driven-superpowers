@@ -29,7 +29,7 @@ test('CLI consumes original plan, preserves unresolved sibling, explains next/pa
 });
 
 test('official consumer CLI fails closed without creating parent directories and status has explicit exit/output',t=>{
- const root=fs.mkdtempSync(path.join(os.tmpdir(),'asds-consumer-cli-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-consumer-cli-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  const absentParent=path.join(root,'absent'),state=path.join(absentParent,'journal.json');
  const invalid=path.join(root,'invalid.json');fs.writeFileSync(invalid,'{}\n');
  let result=spawnSync(process.execPath,['scripts/consume.mjs','init','--state',state,'--handoff',invalid,'--current',invalid,'--source',invalid,'--profile',invalid],{encoding:'utf8',env:{PATH:process.env.PATH}});
@@ -39,7 +39,7 @@ test('official consumer CLI fails closed without creating parent directories and
 });
 
 test('legacy CLI cannot mutate officially bound v3 journals and consumer status rejects post-cancel events',t=>{
- const root=fs.mkdtempSync(path.join(os.tmpdir(),'asds-bound-cli-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-bound-cli-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  const body=['Outcome','Inputs','Acceptance','Verification','Definition of done'].map(h=>`## ${h}\nConcrete.\n`).join('');
  const task={id:'A',dependsOn:[],write:['A.js'],resources:[],scenarios:['works'],verification:['test'],kind:'implementation',openDecisions:[],body,contractRevision:'c-A',owner:'worker',orchestration:{complexity:'bounded',uncertainty:'bounded',risk:'bounded',rationale:'bounded',skills:['tdd'],references:['task'],claims:[]}};
  const profile={version:1,tiers:Object.fromEntries(['bounded','medium','high'].map(tier=>[tier,{executor:{model:'e',effort:'high'},reviewer:{model:'r',effort:'medium'}}]))};

@@ -28,7 +28,7 @@ const workspaceBinding=(handoff,writeScope=['A.js'])=>({
 
 function officialRun(t) {
   const now='2026-10-09T12:00:00.000Z',sha=value=>createHash('sha256').update(String(value)).digest('hex');
-  const root=fs.mkdtempSync(path.join(os.tmpdir(),'asds-consumer-unit-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+  const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-consumer-unit-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
   fs.mkdirSync(path.join(root,'tasks'));fs.mkdirSync(path.join(root,'.git'));
   const leaf={...task('A'),title:'A',nodeType:'task',boundary:{change:'Implement A',target:'A.js',exclusions:['No installation'],review:{verdict:'ready',source:'fixture-review'}},dependencyDetails:[],requirements:['R-A'],decisionInputs:[],resolvesDecisions:[]};
   const manager=projectTaskManager([leaf]),index=`# Tasks\n- [ ] [Task A](tasks/task-A.md): A\n\n- Onda 1: A\n`,contract=`---\n${JSON.stringify(leaf)}\n---\n# Task A: A\n\n## Scope and dependencies\nBounded.\n`,review='# Review\nCurrent.\n';
