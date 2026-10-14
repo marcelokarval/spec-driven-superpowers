@@ -88,6 +88,12 @@ confirms that session stopped. No spawn capability leaves the automated dispatch
 blocked; the pre-existing sequential/manual workflow remains available without
 pretending independent review occurred.
 
+For reviewer dispatch in journal protocol v2, capabilities also carry a
+host-enforced `reviewIsolation` with `enforced:true`, mode `read-only` or
+`disposable-copy`, provider, projectScope and the exact targetRevision. The fresh
+context carries a host-owned `reviewSnapshot` (`revision`, `changedFiles`,
+`scopeFingerprint`). Prompt instructions alone never satisfy this boundary.
+
 Exact write paths reserve overlapping paths and ancestors exclusively for both
 roles. Existing `resources` are exclusive. Additional `claims` distinguish
 read/write/exclusive and roles; read/read may overlap. Reviewer commands that
@@ -104,12 +110,17 @@ must account for external actors and verify actual isolation before dispatch;
    validates applicable user authorization; `executionAuthorized: false` in the
    packet explicitly prevents treating this library as an authority issuer.
 2. Executor delivery includes the existing revision-bound receipt and stopped
-   confirmation. It cannot self-promote to reviewed or integrated.
+   confirmation. Evidence keeps the declared `command` and separately records
+   `observed.invocation`, `scope` (`declared`, `broader`, `full-suite` or
+   `unknown`), targets and observation source. It cannot self-promote to reviewed
+   or integrated.
 3. A new reviewer session receives the contract, candidate revision, read boundary,
    relevant sources and skills. It does not receive executor narrative/evidence
    in the first packet. Inspect independently and record findings before requesting
-   that evidence from the coordinator. Fresh context is not clean filesystem or
-   environment; host/tool observations must establish those separately.
+   that evidence from the coordinator. The packet includes the canonical candidate
+   base, revision and changed paths, not executor narrative. Fresh context is not
+   clean filesystem or environment; the host enforces the review boundary and
+   re-observes the same snapshot after the worker stops. Drift invalidates review.
 4. Passing candidate review allows `beginIntegration`, which reserves the union
    of declared executor/reviewer resources for the coordinator before mutation.
    `integrate` records `integrationRevision` and passing `integrationEvidence`,
@@ -122,6 +133,17 @@ must account for external actors and verify actual isolation before dispatch;
    plus limitations and rationale. Root verifies the claimed evidence; strings and
    green tests do not authenticate it. Rework clears current receipt/reviews but
    the journal preserves their history. Only acceptance releases dependents.
+6. After every task/package is accepted, a distinct verifier still verifies the original objective.
+   `objectiveSnapshot` supplies the revision to dispatch it. In journal v3,
+   `hostCompleteVerifier` must observe its completed stop, obtain the verifier
+   result through a host-owned observation bound to the active session and objective
+   revision, confirm unchanged snapshot and workspace, then persist a closed
+   host-owned receipt before deriving the `verifyObjective` event through the
+   bridge-only append capability; root prose, a caller result or a generic direct
+   event cannot complete it.
+   Pass requires original-request, coverage, integrated-behavior and authority
+   checks, evidence, limitations and no remaining work. Only then does `next`
+   return `objectiveComplete:true` and `complete`.
 
 No universal additional human approval is inserted. Preserve prior authorization;
 a new decision is needed only for a material scope/authority change. A person's
@@ -166,6 +188,8 @@ node scripts/orchestrate.mjs event --state /evidence/run.json --change /project/
   --event /evidence/event.json --expected-sequence 0
 node scripts/orchestrate.mjs packet --state /evidence/run.json --change /project/openspec/changes/example --task 0001
 node scripts/orchestrate.mjs status --state /evidence/run.json
+node scripts/orchestrate.mjs reconcile --state /evidence/run.json --projection /evidence/projection.json \
+  --change /project/openspec/changes/example --task 0001 --request /evidence/equivalence.json
 ```
 
 Context JSON requires `coordinator`, `readScope` (string array) and `authorization`
@@ -176,7 +200,10 @@ project references as additional context fields. They remain authoritative;
 recording a source does not establish that a user granted it.
 
 Event types: `dispatch`, `deliver`, `reviewResult`, `integrate`, `decide`, `block`,
-`beginIntegration`, `unblock`, `stop`, `reopen`, `replan`. Every task event has `taskId`. See the executable tests
+`beginIntegration`, `unblock`, `stop`, `reopen`, `replan` and global
+`verifyObjective`. Journal v3 reserves objective completion for the host bridge;
+direct events require the closed attestation schema and are not the public consumer
+completion API. Every task event has `taskId`. See the executable tests
 and exported `appendEvent` API for the complete examples. CLI dispatch/delivery/
 review/integration/decision also requires current source contracts matching the
 accepted plan. Hosts using the library call `assertCurrentPlan` before those
@@ -188,6 +215,23 @@ owned locks/temporaries; a process crash can leave them. Do not remove a lock ba
 on age alone: verify its process/consumers stopped and inspect recoverable data.
 No distributed locking, hostile-writer defense or power-loss durability is claimed.
 Library hosts may instead persist the JSON journal through their own storage.
+`hostCompleteReview` obtains stop proof and the post-review snapshot from the host
+before appending a result. Journals v1 remain replayable as historical evidence;
+they do not retroactively assert v2 isolation or observed-command metadata.
+
+Projection and canonical task loaders intentionally produce different contract
+identities. Use `reconcile` after accepted projection work: it validates the
+journal and current projection, then emits a canonical receipt with both revisions
+and journal provenance. If any non-derived contract field differs, `--request`
+must supply a current independent `asds.contract-equivalence/1` review bound to
+both revisions, both full contract digests, the exact changed-field list and a
+field-by-field evidence mapping. Identity, title, executable kind, body/acceptance,
+boundary/requirements, decision/dependency metadata, open decisions, orchestration
+claims, dependencies, writes, resources, scenarios, commands and approval criteria are
+irreconcilable: change them through replan/re-execution instead. Never replace
+`contractRevision` manually or relax validation to accept either identity. The
+reconciliation allowlist is fail-closed: only `owner` metadata can currently be
+reviewed as equivalent; `parentId` and unknown fields are irreconcilable by default.
 
 ## Next boundary
 

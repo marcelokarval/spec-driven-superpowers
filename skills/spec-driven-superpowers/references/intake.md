@@ -11,6 +11,16 @@ ask questions already answered. Check contradictions and only investigate missin
 facts relevant to the next step. Correct an inconsistent classification with a
 concrete explanation. ASDS remains independently usable without Accelerate.
 
+An empty or understated `risks` list is received context, not proof of low risk.
+Before acceptance, compare the requested behavior with the cited project/provider
+authority. Login, credential acceptance, recovery, MFA and authorization remain
+materially sensitive even when phrased as a button, frontend or one-line change.
+A visual request does not authorize changing the credential policy accepted by the
+server or provider. Never infer that signup or password-change requirements also
+govern sign-in or legacy credentials. Record a contradiction as a material decision
+or gap and keep implementation stopped; do not repair the packet by silently
+choosing a policy.
+
 ## Compatible input
 `lib/handoff.mjs:receiveHandoff` accepts Accelerate v1.0.0's seven fields unchanged:
 `objective` and `project` are nonempty strings; `scope` is a nonempty string array;
@@ -61,10 +71,20 @@ check does not prove evidence authenticity, integration, deployment or runtime h
 Use the delivery/closure checks separately.
 
 `createPlanningReturn` is the planning-only v2 return. Delivered status requires
-verified persistence evidence, releases ASDS ownership and distinguishes the planning
-contribution from the original requested product. If implementation was originally
-requested, it remains `not_fulfilled` for a caller-selected consumer. Accelerate may
-present this return without adding another planning review.
+a current `asds.planning-store-receipt/1` verified against destination bytes,
+manifest, index, file inventory, hashes, readback and lifecycle. A caller-supplied
+`storeVerified` boolean has no authority. Missing or invalid review domains fail
+closed, and protected domains cannot be downgraded to `ordinary-low`. Sensitive
+planning also requires a durable `asds.independent-review-receipt/1` revalidated
+by a qualified host-private or signed durable trust root; otherwise the return is
+non-delivered and ASDS retains ownership. The public source API cannot create that
+authority from a JavaScript adapter. Serialized receipts, JSON and digests cannot
+replace private host readback.
+Ordinary planning reports only manifest-structure review assurance, never semantic
+certification. Only a delivered return releases ASDS ownership and distinguishes the
+planning contribution from the original requested product. If implementation was
+originally requested, it remains `not_fulfilled` for a caller-selected consumer.
+Accelerate may present this return without adding another planning review.
 
 ## Verification
 `node scripts/check-accelerate-handoff.mjs --accelerate /existing/accelerate`

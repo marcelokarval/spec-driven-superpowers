@@ -1,0 +1,6 @@
+{
+  "sequence": 2,
+  "eventTypes": ["block", "unblock"],
+  "stateSha256": "d9c069a71b20c28b408ef71743af98e8d0aece32c91628f1248113ae6f35d9ad",
+  "semanticDigest": "cbce056cbb01cc3067825c873068a8ded5670f7624e1c2cee1e6c2a7c0aa42c7"
+}

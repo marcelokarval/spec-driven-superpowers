@@ -1,0 +1,91 @@
+name: superpowers-bridge
+version: 1
+description: Autonomous Spec-Driven Superpowers workflow with Master-Detail tasks, TDD micro-contracts, and Evidence Ledger.
+artifacts:
+  - id: proposal
+    generates: proposal.md
+    description: Initial proposal document outlining the change and capabilities
+    template: proposal.md
+    instruction: |
+      Create the proposal document that establishes WHY this change is needed.
+
+      Sections:
+      - **Why**: 1-2 sentences on the problem or opportunity. What problem does this solve? Why now?
+      - **What Changes**: Bullet list of changes. Be specific about new capabilities, modifications, or removals. Mark breaking changes with **BREAKING**.
+      - **Capabilities**: Identify which specs will be created or modified (New Capabilities / Modified Capabilities).
+      - **Impact**: Affected code, APIs, dependencies, or systems.
+    requires: []
+
+  - id: specs
+    generates: "specs/**/*.md"
+    description: Detailed behavioral specifications with BDD scenarios
+    template: spec.md
+    instruction: |
+      Create specification files that define WHAT the system should do.
+      Use RFC 2119 keywords (SHALL / MUST).
+      Format requirements with `### Requirement: <name>` and scenarios with `#### Scenario: <name>`.
+      Every requirement MUST have at least one scenario.
+      Changes use ADDED/MODIFIED/REMOVED/RENAMED Requirements delta sections, not main-spec Requirements.
+    requires:
+      - proposal
+
+  - id: design
+    generates: design.md
+    description: Technical architecture and design decisions
+    template: design.md
+    instruction: |
+      Document the technical architecture and "HOW" behind decisions.
+      Include context, goals, non-goals, architecture choices, and security considerations.
+    requires:
+      - proposal
+
+  - id: microcontracts
+    generates: "tasks/task-*.md"
+    description: Executable task contracts with readiness and scenario traceability
+    template: task-template.md
+    instruction: |
+      Decompose the approved design into tasks with one observable outcome each.
+      Use exact file paths, dependencies, shared resources and scenario references.
+      Fill Outcome, Inputs, Acceptance, Verification and Definition of done sections.
+      Declare kind and openDecisions. Unresolved material decisions block implementation;
+      use a bounded investigation task to answer them before scheduling dependent work.
+      Keep interfaces and decision ownership explicit. Do not split solely by file count.
+      Do not copy sample paths or commands without inspecting the project.
+      Validate all contracts, not just the first glob match, with the ASDS validator.
+    requires: [specs, design]
+
+  - id: tasks
+    generates: tasks.md
+    description: Sole completion index linking every microcontract
+    template: tasks.md
+    instruction: |
+      Index every tasks/task-ID.md as - [ ] [Task ID](tasks/task-ID.md): Title.
+      Dependencies remain in the contracts. Waves are scheduling hints, not concurrency mandates.
+      Validate index/contract bijection, readiness and scenario coverage before execution.
+      Only the coordinator marks integrated tasks with matching integration receipts.
+      Do not generate another plan or progress checklist under docs/superpowers.
+    requires: [microcontracts]
+
+  - id: summary
+    generates: summary.md
+    description: Evidence Ledger consolidating revisions, test proofs, review status and visual verification
+    template: summary.md
+    instruction: |
+      Consolidate the final Evidence Ledger prior to archiving the change.
+      Record approved base and delivered/integrated revisions (or dirty fingerprints), commands,
+      exit codes, review status, visual evidence, baseline failures and unresolved limitations.
+      Include commits only when authorized and created. Do not fabricate complete verification.
+    requires:
+      - tasks
+
+apply:
+  requires: [tasks]
+  tracks: tasks.md
+  instruction: |
+    Follow microcontracts and Superpowers TDD. Use isolated workers only when current
+    capabilities, budget, disjoint writes and resources allow it; otherwise work sequentially.
+    Check base-to-delivery Git scope plus dirty/untracked files. Bind evidence and reviews
+    to the delivered snapshot. Only the coordinator checks off integrated, verified tasks.
+    Commits, publication and archive require authorization. After at most three failed
+    recoveries, defer the blocker and dependent tasks and continue independent work.
+

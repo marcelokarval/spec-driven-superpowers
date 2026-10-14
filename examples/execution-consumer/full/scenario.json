@@ -1,0 +1,542 @@
+{
+  "schemaVersion": "asds.execution-consumer-example/1",
+  "synthetic": true,
+  "production": false,
+  "description": "Synthetic valid full journal with external objective proof.",
+  "capabilities": {
+    "spawn": true,
+    "isolatedWrites": true,
+    "maxAgents": 3,
+    "externalActive": 0,
+    "models": [
+      {
+        "model": "synthetic-executor",
+        "efforts": [
+          "high"
+        ]
+      },
+      {
+        "model": "synthetic-reviewer",
+        "efforts": [
+          "medium"
+        ]
+      }
+    ]
+  },
+  "journal": {
+    "version": 3,
+    "plan": {
+      "version": 1,
+      "tasks": [
+        {
+          "id": "EC-DEMO-01",
+          "title": "Synthetic EC-DEMO-01",
+          "dependsOn": [],
+          "dependencyDetails": [],
+          "write": [
+            "EC-DEMO-01.js"
+          ],
+          "resources": [],
+          "scenarios": [
+            "synthetic behavior"
+          ],
+          "verification": [
+            "synthetic test"
+          ],
+          "kind": "implementation",
+          "openDecisions": [],
+          "decisionInputs": [],
+          "resolvesDecisions": [],
+          "body": "## Outcome\nSynthetic example contract.\n## Inputs\nSynthetic example contract.\n## Acceptance\nSynthetic example contract.\n## Verification\nSynthetic example contract.\n## Definition of done\nSynthetic example contract.\n",
+          "contractRevision": "contract-EC-DEMO-01",
+          "owner": "synthetic-worker",
+          "orchestration": {
+            "complexity": "bounded",
+            "uncertainty": "bounded",
+            "risk": "bounded",
+            "rationale": "synthetic bounded example",
+            "skills": [
+              "tdd"
+            ],
+            "references": [
+              "synthetic fixture"
+            ],
+            "claims": []
+          },
+          "tier": "bounded"
+        }
+      ],
+      "profile": {
+        "version": 1,
+        "tiers": {
+          "bounded": {
+            "executor": {
+              "model": "synthetic-executor",
+              "effort": "high"
+            },
+            "reviewer": {
+              "model": "synthetic-reviewer",
+              "effort": "medium"
+            }
+          },
+          "medium": {
+            "executor": {
+              "model": "synthetic-executor",
+              "effort": "high"
+            },
+            "reviewer": {
+              "model": "synthetic-reviewer",
+              "effort": "medium"
+            }
+          },
+          "high": {
+            "executor": {
+              "model": "synthetic-executor",
+              "effort": "high"
+            },
+            "reviewer": {
+              "model": "synthetic-reviewer",
+              "effort": "medium"
+            }
+          }
+        }
+      },
+      "revision": "b4a20e58f38ca5e763dc69ab86d84aaf7189e672ba9bdf22065a40ed1ec67e1f"
+    },
+    "context": {
+      "coordinator": "synthetic-coordinator",
+      "authorization": {
+        "source": "synthetic-non-authority",
+        "scope": "synthetic-fixture"
+      },
+      "readScope": [
+        "synthetic-fixture"
+      ],
+      "executionScope": {
+        "consumableTaskIds": [
+          "EC-DEMO-01"
+        ],
+        "excludedTaskIds": []
+      }
+    },
+    "digest": "c1c8315bce36508093fc616a8a3d806abf31f4d0bbaf07990c3875165db9b6ef",
+    "events": [
+      {
+        "sequence": 1,
+        "previous": "c1c8315bce36508093fc616a8a3d806abf31f4d0bbaf07990c3875165db9b6ef",
+        "event": {
+          "type": "dispatch",
+          "taskId": "EC-DEMO-01",
+          "role": "executor",
+          "session": "synthetic-executor-session",
+          "capabilities": {
+            "spawn": true,
+            "isolatedWrites": true,
+            "maxAgents": 3,
+            "externalActive": 0,
+            "models": [
+              {
+                "model": "synthetic-executor",
+                "efforts": [
+                  "high"
+                ]
+              },
+              {
+                "model": "synthetic-reviewer",
+                "efforts": [
+                  "medium"
+                ]
+              }
+            ]
+          },
+          "context": {
+            "fresh": true,
+            "inheritedHistory": false,
+            "source": "synthetic-host"
+          }
+        },
+        "digest": "98e4a9fb693deefca7a47fd455c809e5ea98e02d08a57c211b9574199948d386"
+      },
+      {
+        "sequence": 2,
+        "previous": "98e4a9fb693deefca7a47fd455c809e5ea98e02d08a57c211b9574199948d386",
+        "event": {
+          "type": "deliver",
+          "taskId": "EC-DEMO-01",
+          "session": "synthetic-executor-session",
+          "stopped": true,
+          "receipt": {
+            "status": "delivered",
+            "contractRevision": "contract-EC-DEMO-01",
+            "baseRevision": "synthetic-base",
+            "revision": "synthetic-candidate",
+            "changedFiles": [
+              "EC-DEMO-01.js"
+            ],
+            "evidence": [
+              {
+                "command": "synthetic test",
+                "exitCode": 0,
+                "revision": "synthetic-candidate",
+                "observed": {
+                  "invocation": "synthetic test",
+                  "scope": "declared",
+                  "targets": [
+                    "synthetic-fixture"
+                  ],
+                  "source": "synthetic-host"
+                }
+              }
+            ]
+          }
+        },
+        "digest": "132abb0018c2aaded1698be8a8d11fb583e753f29b1afd68a83645b5f2bc9648"
+      },
+      {
+        "sequence": 3,
+        "previous": "132abb0018c2aaded1698be8a8d11fb583e753f29b1afd68a83645b5f2bc9648",
+        "event": {
+          "type": "dispatch",
+          "taskId": "EC-DEMO-01",
+          "role": "reviewer",
+          "session": "synthetic-candidate-reviewer",
+          "capabilities": {
+            "spawn": true,
+            "isolatedWrites": true,
+            "maxAgents": 3,
+            "externalActive": 0,
+            "models": [
+              {
+                "model": "synthetic-executor",
+                "efforts": [
+                  "high"
+                ]
+              },
+              {
+                "model": "synthetic-reviewer",
+                "efforts": [
+                  "medium"
+                ]
+              }
+            ],
+            "reviewIsolation": {
+              "enforced": true,
+              "mode": "read-only",
+              "provider": "synthetic-host",
+              "projectScope": "synthetic-fixture",
+              "targetRevision": "synthetic-candidate"
+            }
+          },
+          "context": {
+            "fresh": true,
+            "inheritedHistory": false,
+            "source": "synthetic-host",
+            "reviewSnapshot": {
+              "revision": "synthetic-candidate",
+              "changedFiles": [
+                "EC-DEMO-01.js"
+              ],
+              "scopeFingerprint": "synthetic-candidate-synthetic-scope"
+            }
+          }
+        },
+        "digest": "24bfd75f43db93cb6506e060db25f1d8c28a6dab59a8519c789eff805bf32369"
+      },
+      {
+        "sequence": 4,
+        "previous": "24bfd75f43db93cb6506e060db25f1d8c28a6dab59a8519c789eff805bf32369",
+        "event": {
+          "type": "review",
+          "taskId": "EC-DEMO-01",
+          "session": "synthetic-candidate-reviewer",
+          "revision": "synthetic-candidate",
+          "verdict": "pass",
+          "findings": [],
+          "evidence": [
+            "synthetic candidate review"
+          ],
+          "snapshotAfter": {
+            "revision": "synthetic-candidate",
+            "changedFiles": [
+              "EC-DEMO-01.js"
+            ],
+            "scopeFingerprint": "synthetic-candidate-synthetic-scope"
+          },
+          "stopped": true
+        },
+        "digest": "f5005227811da9f37a3088dc88297a91efe17392e81400e3fa11f81277cf1e5a"
+      },
+      {
+        "sequence": 5,
+        "previous": "f5005227811da9f37a3088dc88297a91efe17392e81400e3fa11f81277cf1e5a",
+        "event": {
+          "type": "dispatch",
+          "taskId": "EC-DEMO-01",
+          "role": "integrator",
+          "session": "synthetic-integrator",
+          "capabilities": {
+            "spawn": true,
+            "isolatedWrites": true,
+            "maxAgents": 3,
+            "externalActive": 0,
+            "models": [
+              {
+                "model": "synthetic-executor",
+                "efforts": [
+                  "high"
+                ]
+              },
+              {
+                "model": "synthetic-reviewer",
+                "efforts": [
+                  "medium"
+                ]
+              }
+            ]
+          },
+          "context": {
+            "fresh": true,
+            "inheritedHistory": false,
+            "source": "synthetic-host"
+          }
+        },
+        "digest": "a0d339e3a92695ffb009fa65facfebd4af7598b7810547e2fc762b2bbe2fbfe3"
+      },
+      {
+        "sequence": 6,
+        "previous": "a0d339e3a92695ffb009fa65facfebd4af7598b7810547e2fc762b2bbe2fbfe3",
+        "event": {
+          "type": "integrate",
+          "taskId": "EC-DEMO-01",
+          "session": "synthetic-integrator",
+          "stopped": true,
+          "integrationRevision": "synthetic-integrated",
+          "integrationEvidence": [
+            {
+              "command": "synthetic test",
+              "exitCode": 0,
+              "revision": "synthetic-integrated",
+              "observed": {
+                "invocation": "synthetic test",
+                "scope": "declared",
+                "targets": [
+                  "synthetic-fixture"
+                ],
+                "source": "synthetic-host"
+              }
+            }
+          ]
+        },
+        "digest": "37efdd39b5578a90284ac46f0fd24d8a3ae1218d40881d220e09b2bea5ca9bea"
+      },
+      {
+        "sequence": 7,
+        "previous": "37efdd39b5578a90284ac46f0fd24d8a3ae1218d40881d220e09b2bea5ca9bea",
+        "event": {
+          "type": "dispatch",
+          "taskId": "EC-DEMO-01",
+          "role": "reviewer",
+          "session": "synthetic-integration-reviewer",
+          "capabilities": {
+            "spawn": true,
+            "isolatedWrites": true,
+            "maxAgents": 3,
+            "externalActive": 0,
+            "models": [
+              {
+                "model": "synthetic-executor",
+                "efforts": [
+                  "high"
+                ]
+              },
+              {
+                "model": "synthetic-reviewer",
+                "efforts": [
+                  "medium"
+                ]
+              }
+            ],
+            "reviewIsolation": {
+              "enforced": true,
+              "mode": "read-only",
+              "provider": "synthetic-host",
+              "projectScope": "synthetic-fixture",
+              "targetRevision": "synthetic-integrated"
+            }
+          },
+          "context": {
+            "fresh": true,
+            "inheritedHistory": false,
+            "source": "synthetic-host",
+            "reviewSnapshot": {
+              "revision": "synthetic-integrated",
+              "changedFiles": [
+                "EC-DEMO-01.js"
+              ],
+              "scopeFingerprint": "synthetic-integrated-synthetic-scope"
+            }
+          }
+        },
+        "digest": "6f4460e439501d0b8e72993c5a3582dd3cac9b9703f037bc6ae28bcb82a5f958"
+      },
+      {
+        "sequence": 8,
+        "previous": "6f4460e439501d0b8e72993c5a3582dd3cac9b9703f037bc6ae28bcb82a5f958",
+        "event": {
+          "type": "review",
+          "taskId": "EC-DEMO-01",
+          "session": "synthetic-integration-reviewer",
+          "revision": "synthetic-integrated",
+          "verdict": "pass",
+          "findings": [],
+          "evidence": [
+            "synthetic integration review"
+          ],
+          "snapshotAfter": {
+            "revision": "synthetic-integrated",
+            "changedFiles": [
+              "EC-DEMO-01.js"
+            ],
+            "scopeFingerprint": "synthetic-integrated-synthetic-scope"
+          },
+          "stopped": true
+        },
+        "digest": "ac44ae508dee1fa5c8c142bf72673e820fd77b351ecbff2467bd97e820b5768a"
+      },
+      {
+        "sequence": 9,
+        "previous": "ac44ae508dee1fa5c8c142bf72673e820fd77b351ecbff2467bd97e820b5768a",
+        "event": {
+          "type": "decide",
+          "taskId": "EC-DEMO-01",
+          "disposition": "accepted",
+          "reason": "synthetic evidence accepted",
+          "checks": {
+            "scope": "ok",
+            "behavior": "ok",
+            "independence": "ok",
+            "integration": "ok",
+            "authority": "synthetic-only"
+          },
+          "limitations": [
+            "synthetic non-production example"
+          ]
+        },
+        "digest": "1353128c8ef79802fdec740b55c16ea90807958c309ce3d8808e6fe1154b78b4"
+      },
+      {
+        "sequence": 10,
+        "previous": "1353128c8ef79802fdec740b55c16ea90807958c309ce3d8808e6fe1154b78b4",
+        "event": {
+          "type": "progressRequested",
+          "taskId": "EC-DEMO-01",
+          "planningRevision": "b4a20e58f38ca5e763dc69ab86d84aaf7189e672ba9bdf22065a40ed1ec67e1f",
+          "contractRevision": "contract-EC-DEMO-01",
+          "integrationRevision": "synthetic-integrated",
+          "receiptDigest": "3a7876c8ff1f09f21208686f276ba824b5928da230b0a26691ab3eea50b90e90",
+          "indexBeforeHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expectedChange": {
+            "from": "[ ]",
+            "to": "[x]"
+          }
+        },
+        "digest": "ad7dad16d10ae3d74c2096bf677054d1d0fe6010bc1ad33ae20c96f7c93a997b"
+      },
+      {
+        "sequence": 11,
+        "previous": "ad7dad16d10ae3d74c2096bf677054d1d0fe6010bc1ad33ae20c96f7c93a997b",
+        "event": {
+          "type": "progressCommitted",
+          "taskId": "EC-DEMO-01",
+          "receiptDigest": "3a7876c8ff1f09f21208686f276ba824b5928da230b0a26691ab3eea50b90e90",
+          "indexBeforeHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "indexAfterHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "digest": "66ce3c3f99349a0e574e2c54eba6b8e5a7241022a81042dad0a503bc2f48d5ab"
+      },
+      {
+        "sequence": 12,
+        "previous": "66ce3c3f99349a0e574e2c54eba6b8e5a7241022a81042dad0a503bc2f48d5ab",
+        "event": {
+          "type": "dispatch",
+          "role": "verifier",
+          "session": "synthetic-objective-verifier",
+          "capabilities": {
+            "spawn": true,
+            "isolatedWrites": true,
+            "maxAgents": 3,
+            "externalActive": 0,
+            "models": [
+              {
+                "model": "synthetic-executor",
+                "efforts": [
+                  "high"
+                ]
+              },
+              {
+                "model": "synthetic-reviewer",
+                "efforts": [
+                  "medium"
+                ]
+              }
+            ]
+          },
+      "context": {
+        "fresh": true,
+        "inheritedHistory": false,
+        "source": "synthetic-host",
+        "reservedActor": "synthetic-objective-verifier-role"
+      },
+      "objectiveRevision": "cb0b567aeee197a872595ea83d17eb4e7de65a2f9aa7a7200620b1fceff1fc53"
+    },
+    "digest": "6009fe9f9e6a0c340ede09cf524bb632ec76c994ae3e7d87c7afd20acf40570a"
+  },
+  {
+    "sequence": 13,
+    "previous": "6009fe9f9e6a0c340ede09cf524bb632ec76c994ae3e7d87c7afd20acf40570a",
+    "event": {
+          "type": "verifyObjective",
+          "session": "synthetic-objective-verifier",
+          "stopped": true,
+      "objectiveRevision": "cb0b567aeee197a872595ea83d17eb4e7de65a2f9aa7a7200620b1fceff1fc53",
+          "verdict": "pass",
+          "outcome": "Synthetic objective completed.",
+          "checks": {
+            "originalRequest": "matched",
+            "taskCoverage": "all",
+            "integratedBehavior": "synthetically verified",
+            "authority": "synthetic-only"
+          },
+          "evidence": [
+            "synthetic objective proof"
+          ],
+          "limitations": [
+            "synthetic non-production example"
+          ],
+      "remainingWork": [],
+      "attestation": {
+        "schemaVersion": "asds.objective-verification-receipt/1",
+        "status": "closed",
+        "kind": "objective-verification",
+        "token": "synthetic-host-receipt",
+        "source": "synthetic-host",
+        "actor": "synthetic-objective-verifier-role",
+        "session": "synthetic-objective-verifier",
+        "role": "verifier",
+        "objectiveRevision": "cb0b567aeee197a872595ea83d17eb4e7de65a2f9aa7a7200620b1fceff1fc53",
+        "journalSequence": 12,
+        "resultDigest": "0066b03d059a2f6dcdc59b146e343d998ab533ea45839625c8886544c0f805cb",
+        "resultObservationDigest": "5555555555555555555555555555555555555555555555555555555555555555",
+        "evidenceDigest": "59a5b1c8cdecf3f3cb9d082bdf3f126adbca237163dd2ef95079b70b52e85e31",
+        "stopDigest": "1111111111111111111111111111111111111111111111111111111111111111",
+        "workspaceDigest": "2222222222222222222222222222222222222222222222222222222222222222",
+        "snapshotDigest": "3333333333333333333333333333333333333333333333333333333333333333",
+        "priorSnapshotDigest": "4444444444444444444444444444444444444444444444444444444444444444"
+      }
+    },
+      "digest": "ff7b3d84b0acf3f19cdf28158f385fd8ac99edd211f42641ee5c8620b8affcc1"
+  }
+    ]
+  },
+  "expectedDisposition": "await_host_reobservation"
+}

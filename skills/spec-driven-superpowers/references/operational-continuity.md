@@ -79,8 +79,10 @@ Compute source.sha256 with `projectionSourceDigest(text, isCanonicalIndex)` from
 lib/plan-projection.mjs. For the canonical index only, Markdown task checkbox
 state is normalized to unchecked; descriptions, IDs and ordering remain material.
 Use anchors without mutable checkbox state. This prevents checking off an accepted
-task from invalidating every contract. Supported progress markers are top-level
-`-`, `*`, `+`, numbered `1.`/`1)` lists with up to three spaces indentation outside
+task from invalidating every contract. Only entries that contain a declared task
+anchor (or the canonical task-shaped syntax when no anchors are supplied) are
+normalized; unrelated approval/security checkboxes remain material. Supported
+progress markers are top-level `-`, `*`, `+`, numbered `1.`/`1)` lists with up to three spaces indentation outside
 fenced code. Indented code and quoted lines remain material. An index
 containing HTML block starts, YAML frontmatter or a list-prefixed code fence
 is conservatively hashed exactly: its checkbox changes
@@ -92,6 +94,11 @@ it cannot automatically prove no task or approval was omitted. Declare missing
 requirements as openDecisions instead of inventing them. Do not copy completion
 checkboxes into an unverified journal or maintain another progress authority.
 Source drift refuses admission; reconcile the projection, review and replan.
+The planning manifest uses the same canonical checkbox normalization only for its
+`role:index` tasks.md reference. Titles, IDs, ordering, waves and prose remain
+material. After execution through a projection, translate an accepted receipt with
+the explicit reconciliation API/CLI; its provenance retains projection revision,
+canonical task revision, plan revision, sequence and final journal digest.
 
 ## Approval fidelity
 
@@ -108,7 +115,7 @@ comparison occurred or discover an omitted requirement.
 
 ## Host bridge and qualification
 
-`lib/host-bridge.mjs` exports `hostDispatch`. Supply trusted store read/append,
+`lib/host-bridge.mjs` exports `hostDispatch` and `hostCompleteReview`. Supply trusted store read/append,
 current source loader, and host capabilities/authorize/prepare/start methods.
 Prepare creates at most a standby session without project work. Recheck grants,
 source, readiness and live capacities after preparation; then journal reservation
@@ -116,7 +123,8 @@ precedes start. Count the prepared session as the dispatch being admitted, not
 also as an unrelated external actor. The host must cancel unused standby sessions
 on admission failure. Uncertain start retains the reservation until stopped proof.
 Start returns the matching session and concrete toolCall evidence. A host assertion
-is not self-authenticating. There is no automatic provider CLI invocation here.
+is not self-authenticating. Reviewer completion also requires a matching stopped
+session and a post-review canonical snapshot. There is no automatic provider CLI invocation here.
 
 Codex can prepare a fresh agent instructed to remain in standby, then persist its
 session assignment before sending the generated packet. Agy needs an adapter with

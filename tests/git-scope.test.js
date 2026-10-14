@@ -4,7 +4,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { collectGitScope } from '../lib/git-scope.mjs';
+import { collectGitScope, captureGitBaseline, collectGitDelta, reconcileProgressDelta } from '../lib/git-scope.mjs';
+import { commitTaskIndexProgress } from '../lib/task-index-progress.mjs';
+import { createHash } from 'node:crypto';
 
 // Git accepts NUL on Windows, but not Node's \\.\nul device namespace spelling.
 const gitNull = process.platform === 'win32' ? 'NUL' : os.devNull;
@@ -203,4 +205,32 @@ test('configured filters, external diff, textconv and fsmonitor are not executed
   const scope = collectGitScope(root, base);
   assert.ok(scope.changedFiles.includes('tracked.txt'));
   assert.equal(fs.existsSync(marker), false);
+});
+
+test('progress ledger separates the authorized checkbox mutation from executor scope', t => {
+  const { root, base, write } = fixture(t);
+  const source='- [ ] [Task A](tasks/task-A.md): A\n- Wave 1: A\n';
+  write('tasks.md',source);
+  write('preexisting.txt', 'preexisting\n');
+  const baseline = captureGitBaseline(root, base);
+  const progressRequested={type:'progressRequested',taskId:'A',planningRevision:'p',contractRevision:'c',integrationRevision:'i',receiptDigest:'r',indexBeforeHash:createHash('sha256').update(source).digest('hex'),expectedChange:{from:'[ ]',to:'[x]'}};
+  const progress=commitTaskIndexProgress({root,indexPath:'tasks.md',task:{id:'A',title:'A',wave:1},progressRequested});
+  write('executor.txt', 'executor\n');
+  const delta = collectGitDelta(root, baseline);
+  const mutation={owner:'progress-broker',indexPath:'tasks.md',task:{id:'A',title:'A',wave:1},progressRequested,progressCommitted:progress.event};
+  const ledger = reconcileProgressDelta(root,baseline,delta,mutation);
+  assert.deepEqual(ledger.progressChangedFiles, ['tasks.md']);
+  assert.deepEqual(ledger.changedFiles, ['executor.txt']);
+  assert.ok(ledger.preexistingChangedFiles.includes('preexisting.txt'));
+  assert.ok(ledger.preexistingChangedFiles.includes('tasks.md'),'pre-existing dirty attribution survives later progress');
+  assert.throws(() => reconcileProgressDelta(root,baseline,delta,{...mutation,indexPath:'../tasks.md'}), /path/i);
+  assert.throws(() => reconcileProgressDelta(root,baseline,delta,{...mutation,owner:'executor'}), /owner/i);
+  assert.throws(() => reconcileProgressDelta(root,baseline,delta,{...mutation,indexPath:'executor.txt'}), /tasks\.md/i);
+  assert.throws(() => reconcileProgressDelta(root,baseline,delta,{...mutation,progressCommitted:{...progress.event,indexAfterHash:'b'.repeat(64)}}), /hash|readback/i);
+  assert.throws(() => reconcileProgressDelta(root,baseline,{...delta,changedFiles:['executor.txt']},mutation), /stale|delta|missing/i);
+  assert.throws(() => reconcileProgressDelta(root,baseline,{...delta,preexistingUnchangedFiles:[]},mutation), /stale|delta|incomplete/i);
+  assert.throws(() => reconcileProgressDelta(root,baseline,{...delta,futureField:true},mutation), /stale|delta|incomplete/i);
+  write('tasks.md',fs.readFileSync(path.join(root,'tasks.md'),'utf8').replace('Wave 1','Wave 2'));
+  const drift=collectGitDelta(root,baseline),afterHash=createHash('sha256').update(fs.readFileSync(path.join(root,'tasks.md'))).digest('hex');
+  assert.throws(()=>reconcileProgressDelta(root,baseline,drift,{...mutation,progressCommitted:{...progress.event,indexAfterHash:afterHash}}),/checkbox|wave|bytes|exclusive/i);
 });

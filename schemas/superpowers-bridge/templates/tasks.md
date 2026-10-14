@@ -1,7 +1,8 @@
 # Tasks: <!-- Change title -->
 
-ASDS owns this planning index until the package is delivered. A new delivered plan
-keeps implementation checkboxes open. Dependencies live in each linked contract;
+ASDS owns this planning index until the package is delivered. At initial delivery,
+implementation checkboxes are open; afterwards they record consumer progress.
+Dependencies live in each linked contract;
 waves are recommendations for a later consumer and never trigger concurrency.
 
 ## Ordered task inventory

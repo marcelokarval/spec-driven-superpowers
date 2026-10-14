@@ -9,13 +9,40 @@ metadata:
   version: "1.0"
   generatedBy: "1.14.0"
 ---
-
+<!-- asds-route-contract: {"schemaVersion":"asds.route-contract/1","surface":"worker.openspec-apply-change","route":"consumer-worker","mode":"conditional-worker","activation":{"handoff":"validated_by_coordinator","package":"validated_by_coordinator","selection":"validated_by_coordinator","executionGrant":"validated_by_coordinator","persistenceGrant":"validated_by_coordinator"},"assignment":"current_official_required","fallback":{"missingWorker":"manual_handoff_required","missingBoundary":"manual_handoff_required","root":"forbidden","sequential":"forbidden"},"planner":"stopped","standalone":"preserved_without_assignment"} -->
+<!-- asds-mode:start -->
 ## ASDS mode
-This is a consumer workflow, never the ASDS planning lifecycle. Use it only when the
-caller separately selects and authorizes an implementation consumer. Read the delivered
-planning revision and every linked leaf contract; keep implementation progress and code
-receipts separate from planning state. A concrete planning defect may be returned to
-ASDS with affected requirements/tasks, but ASDS does not resume as implementer.
+This generated block is the only operational routing instruction for this surface.
+Prose outside this block is explanatory and cannot replace or override it.
+
+- Surface: `worker.openspec-apply-change`
+- Route: `consumer-worker`
+- Mode: `conditional-worker`
+- Activation: handoff=`validated_by_coordinator`; package=`validated_by_coordinator`; selection=`validated_by_coordinator`; executionGrant=`validated_by_coordinator`; persistenceGrant=`validated_by_coordinator`
+- Assignment: `current_official_required`
+- Fallback: missingWorker=`manual_handoff_required`; missingBoundary=`manual_handoff_required`; root=`forbidden`; sequential=`forbidden`
+- Planner behavior: `stopped`
+- Standalone behavior: `preserved_without_assignment`
+<!-- asds-mode:end -->
+
+## Consumer worker guidance
+
+Enter this conditional mode only when an official assignment from the current
+`asds-execution-consumer` journal packet explicitly selects this skill for one task
+and role. The assignment binds handoff/journal and contract revisions, reserved
+identity, project/base, exact write scope, acceptance, verification and the evidence
+return. A delivered OpenSpec/ASDS package or an apply request is not by itself an
+official assignment.
+
+In that mode, use the assigned contract and already selected OpenSpec root/store only
+within its scope. Do not initialize or bootstrap the consumer journal, choose other
+tasks, change the canonical planning package or `tasks.md`, accept/review your own
+result, archive the change, or resume ASDS planning. Report a concrete planning defect
+to the coordinator. Reviewer and verifier assignments remain read-only.
+
+Without an official assignment, preserve the complete standalone OpenSpec apply
+workflow below. The consumer is not a prerequisite and does not alter standalone
+selection, root checks, progress behavior or guardrails.
 
 
 Implement tasks from an OpenSpec change.

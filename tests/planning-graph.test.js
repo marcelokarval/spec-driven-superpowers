@@ -81,6 +81,28 @@ test('task-manager exposes conflicts to simple queues without inventing preceden
  assert.deepEqual(projection.tasks.find(task=>task.id==='B').serializesWith,['A']);
  assert.deepEqual(projection.tasks.find(task=>task.id==='B').waitingOn,[]);
 });
+test('planning projection stays deterministic and preserves all scheduling relations',()=>{
+ const tasks=[
+  node('B',{title:'Second',owner:'Team B',dependsOn:['A'],write:['shared.ts'],decisionInputs:['D1'],resolvesDecisions:[]}),
+  node('A',{title:'First',owner:'Team A',write:['shared.ts'],decisionInputs:[],resolvesDecisions:['D1']}),
+  node('C',{title:'Independent',owner:'Team C',write:['c.ts'],decisionInputs:[],resolvesDecisions:[]}),
+ ];
+ const forward=projectTaskManager(tasks), reverse=projectTaskManager([...tasks].reverse());
+ assert.deepEqual(reverse,forward);
+ assert.equal(forward.version,'asds.task-manager-projection/1');
+ assert.deepEqual(forward.tasks.find(task=>task.id==='A').blocks,['B']);
+ assert.deepEqual(forward.tasks.find(task=>task.id==='B').waitingOn,['A']);
+ assert.deepEqual(forward.tasks.find(task=>task.id==='A').serializesWith,['B']);
+ assert.deepEqual(forward.tasks.find(task=>task.id==='B').decisionInputs,['D1']);
+ assert.deepEqual(forward.tasks.find(task=>task.id==='A').resolvesDecisions,['D1']);
+ assert.deepEqual(forward.plannedWaves,[['A','C'],['B']]);
+});
+test('planning projection canonicalizes decision relation order without deduplicating invalid input',()=>{
+ const projection=projectTaskManager([node('A',{decisionInputs:['D2','D1'],resolvesDecisions:['D4','D3']})]);
+ assert.deepEqual(projection.tasks[0].decisionInputs,['D1','D2']);
+ assert.deepEqual(projection.tasks[0].resolvesDecisions,['D3','D4']);
+ for(const decisionInputs of [['D1','D1'],['bad/id'],['D1',42]]) assert.throws(()=>projectTaskManager([node('A',{decisionInputs})]),/decisionInputs/);
+});
 test('auth decisions split into parallel resolvers before client, server, integration and reconciliation',()=>{
  const decisions=['D1','D2','D3'].map(id=>({id,material:true,status:'proposed'}));
  const make=(id,extra)=>node(id,{owner:'Auth team',decisionInputs:[],resolvesDecisions:[],...extra});

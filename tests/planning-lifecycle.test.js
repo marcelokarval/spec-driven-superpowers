@@ -6,6 +6,7 @@ const fixture = kind => JSON.parse(readFileSync(new URL(`../examples/planning-de
 const intake = { received: true, planningAccepted: true };
 function candidate() {
   const m = fixture('complete'); m.state = 'draft'; m.synthetic = false; m.author = 'author';
+  m.reviewPolicy.domains = ['general'];
   m.authority.destination = '/authorized/plan'; m.readback = null;
   m.layers.C15 = { status: 'blocked', reason: 'Awaiting store readback', references: [] };
   m.tasks = m.tasks.map(t => ({ ...t, write: [] }));

@@ -40,6 +40,38 @@ test('schema apply gate tracks the master task index and requires its reviewed p
   ]);
 });
 
+test('execution consumer ships a self-contained entry and every local reference resolves', () => {
+  const base = 'skills/asds-execution-consumer';
+  const skill = fs.readFileSync(path.join(root, base, 'SKILL.md'), 'utf8');
+  assert.match(skill, /asds-execution-consumer/);
+  assert.match(skill, /manual_handoff_required/);
+  assert.deepEqual(validateLocalLinks(root, [
+    `${base}/SKILL.md`,
+    ...fs.readdirSync(path.join(root, base, 'references'))
+      .filter(name => name.endsWith('.md')).map(name => `${base}/references/${name}`),
+  ]), []);
+});
+
+test('planner and consumer remain independent entrypoints with one-way handoff links', () => {
+  const plannerPath = 'skills/spec-driven-superpowers/SKILL.md';
+  const boundaryPath = 'skills/spec-driven-superpowers/references/consumer-boundary.md';
+  const protocolPath = 'skills/spec-driven-superpowers/references/protocol.md';
+  const planner = fs.readFileSync(path.join(root, plannerPath), 'utf8');
+  const boundary = fs.readFileSync(path.join(root, boundaryPath), 'utf8');
+  const protocol = fs.readFileSync(path.join(root, protocolPath), 'utf8');
+  assert.match(planner, /planning-only|planning product/i);
+  assert.match(boundary, /asds-execution-consumer/);
+  assert.match(boundary, /does not (?:load|activate)/i);
+  assert.match(protocol, /createExecutionHandoff/);
+  for (const source of [planner, protocol]) {
+    assert.doesNotMatch(source, /skills\/asds-execution-consumer\/SKILL\.md/,
+      'planning authorities must describe the envelope without importing the consumer entry');
+    assert.doesNotMatch(source, /initExecutionConsumer|scripts\/consume\.mjs/,
+      'planning authorities must stop before consumer initialization');
+  }
+  assert.deepEqual(validateLocalLinks(root, [plannerPath, boundaryPath, protocolPath]), []);
+});
+
 test('project documentation links and prepared eval scenarios remain valid', () => {
   assert.deepEqual(validateLocalLinks(root, ['README.md', 'docs/architecture.md', 'docs/provenance.md']), []);
   const scenarios = JSON.parse(fs.readFileSync(path.join(root, 'skills/spec-driven-superpowers/evals/evals.json'), 'utf8'));

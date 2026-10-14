@@ -103,6 +103,35 @@ task contracts and directory-based task-manager projections.
 - **THEN** the waves declared in `tasks.md` exactly match the deterministic projection
 - **AND** stable task IDs are not renumbered to imitate execution order
 
+#### Scenario: Post-handoff progress remains authoritative
+- **GIVEN** a delivered plan whose initial future-work checkboxes were open
+- **WHEN** a consumer records valid completion as `[x]` in `tasks.md`
+- **THEN** canonical planning and review identity MUST normalize that checkbox progress
+- **AND** the delivered manifest/hash MUST NOT be treated as contrary progress evidence
+- **AND** ASDS MUST NOT reopen the task without the explicit consumer reopen protocol
+  and matching receipt/journal evidence or another concrete contradiction
+
+### Requirement: Existing Package Resolution Before Review Preflight
+ASDS MUST resolve and assess an existing package before treating reviewer availability
+as a gate.
+
+#### Scenario: Reuse handoff has no lineage locator
+- **GIVEN** the handoff explicitly requires reuse of an existing plan but supplies no locator
+- **WHEN** ASDS performs bounded read-only discovery under `openspec/changes`
+- **THEN** exactly one direct canonical package MUST be inspected
+- **AND** zero or multiple matches MUST return a precise `locator-required` result
+- **AND** missing lineage MUST NOT authorize package creation or mutation
+
+#### Scenario: Existing delivered package has no material plan change
+- **WHEN** the located delivered package is unchanged or contains only canonical task progress
+- **THEN** ASDS MUST recognize the existing delivery without requesting fresh review
+- **AND** reviewer runtime availability MUST NOT block read-only inspection or that recognition
+
+#### Scenario: Located package requires material revision
+- **WHEN** assessment or an authorized revision produces a materially new candidate
+- **THEN** ASDS MUST perform reviewer preflight after that assessment
+- **AND** unavailable reviewer runtime MUST block fresh review and delivery of that candidate
+
 ### Requirement: OpenSpec Delta Compatibility
 An OpenSpec-backed planning package MUST pass the structural delta contract before
 ASDS claims delivery.
@@ -127,6 +156,21 @@ revision, source inventory and task inventory.
 - **WHEN** a review references another revision, omits sources/tasks or passes with
   an open material finding
 - **THEN** planning promotion is rejected
+
+#### Scenario: Exact restoration after proved corruption preserves delivered review
+- **GIVEN** corruption has been independently established
+- **WHEN** the candidate, references, manifest and reviews are restored byte-for-byte
+  to the previously delivered snapshot
+- **THEN** ASDS MUST report `restored existing delivered state`
+- **AND** it MUST preserve the prior review instead of requiring a new reviewer
+- **AND** it MUST NOT use restoration to erase valid post-handoff progress
+- **AND** byte equality alone MUST report `existing package bytes unchanged` and MUST
+  NOT substitute for qualified evidence of prior delivery and intervening corruption
+
+#### Scenario: Material alteration requires a new review sequence
+- **WHEN** a repair materially changes the candidate
+- **THEN** the result is a new candidate
+- **AND** fresh fidelity then quality review MUST pass before delivery
 
 ### Requirement: Equivalent Output With or Without OpenSpec
 OpenSpec availability or refusal MUST NOT change the required planning quality.

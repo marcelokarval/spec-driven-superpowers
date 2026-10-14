@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { createJournal, compilePlan } from '../lib/orchestration.mjs';
+import { createJournal, createSuccessorJournal, compilePlan, digest } from '../lib/orchestration.mjs';
 import { initializeStore, readStore, updateStore } from '../lib/orchestration-store.mjs';
 const body=['Outcome','Inputs','Acceptance','Verification','Definition of done'].map(h=>`## ${h}\nConcrete check.\n`).join('\n');
 const task={id:'01',dependsOn:[],write:['a'],resources:[],scenarios:['x/y'],verification:['test'],openDecisions:[],body,contractRevision:'c',orchestration:{complexity:'bounded',uncertainty:'bounded',risk:'bounded',rationale:'local',skills:['review'],references:['spec.md'],claims:[]}};
@@ -12,7 +12,7 @@ const profile={version:1,tiers:Object.fromEntries(['bounded','medium','high'].ma
 const journal=()=>createJournal(compilePlan([task],profile),{coordinator:'root',authorization:{source:'user',scope:'demo'},readScope:['project']});
 function fixture(t){const dir=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-store-test-')));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));return path.join(dir,'run.json');}
 test('store uses exclusive creation, sequence checks and leaves no lock/temp after normal operation',t=>{
- const file=fixture(t);initializeStore(file,journal());assert.throws(()=>initializeStore(file,journal()),/exist/i);
+ const file=fixture(t);initializeStore(file,journal());assert.equal(readStore(file).version,3);assert.throws(()=>initializeStore(file,journal()),/exist/i);
  updateStore(file,{type:'block',taskId:'01',owner:'root',reason:'missing input'},0);
  assert.equal(readStore(file).events.length,1);
  assert.throws(()=>updateStore(file,{type:'unblock',taskId:'01',reason:'resolved'},0),/sequence/);
@@ -23,6 +23,14 @@ test('existing lock and symlink paths refuse mutation',t=>{
  assert.throws(()=>updateStore(file,{type:'block',taskId:'01',owner:'root',reason:'x'},0),/lock/i);
  fs.unlinkSync(`${file}.lock`);
  if(process.platform!=='win32') {const link=path.join(path.dirname(file),'link.json');fs.symlinkSync(file,link);assert.throws(()=>readStore(link),/symlink/);}
+});
+test('legacy state resumes in a separately initialized v3 successor store',t=>{
+ const legacyFile=fixture(t),legacy=createJournal(compilePlan([task],profile),{coordinator:'root',authorization:{source:'user',scope:'legacy'},readScope:['project']},{version:2});
+ initializeStore(legacyFile,legacy);
+ const successor=createSuccessorJournal(readStore(legacyFile),{coordinator:'next-root',authorization:{source:'user',scope:'resume'},readScope:['project']});
+ const successorFile=path.join(path.dirname(legacyFile),'successor.json');initializeStore(successorFile,successor);
+ assert.equal(readStore(legacyFile).version,2);assert.equal(readStore(successorFile).version,3);
+ assert.equal(readStore(successorFile).predecessor.digest,legacy.digest);
 });
 test('CLI restores state and renders DAG without executing contract commands',t=>{
  const file=fixture(t);initializeStore(file,journal());
@@ -51,16 +59,22 @@ test('real CLI init, dispatch, review, integration, acceptance and stale-source 
  const ctx={fresh:true,inheritedHistory:false,source:'simulated host fixture'};
  apply({type:'dispatch',role:'executor',session:'e',capabilities:caps,context:ctx});
  const packet=run('packet',['--change',change,'--task','0001']);assert.equal(packet.status,0,packet.stderr);assert.equal(JSON.parse(packet.stdout).assignment.session,'e');
- const evidence=revision=>compiled.verification.map(command=>({command,exitCode:0,revision}));
+ const evidence=revision=>compiled.verification.map(command=>({command,exitCode:0,revision,observed:{invocation:command,scope:'declared',targets:['fixture'],source:'simulated host fixture'}}));
+ const snapshot=revision=>({revision,changedFiles:compiled.write,scopeFingerprint:`${revision}-scope`});
+ const review=(revision)=>({capabilities:{...caps,reviewIsolation:{enforced:true,mode:'read-only',provider:'simulated-host',projectScope:'fixture',targetRevision:revision}},context:{...ctx,reviewSnapshot:snapshot(revision)}});
  apply({type:'deliver',session:'e',stopped:true,receipt:{status:'delivered',contractRevision:compiled.contractRevision,baseRevision:'fixture-base',revision:'D',changedFiles:compiled.write,evidence:evidence('D')}});
- apply({type:'dispatch',role:'reviewer',session:'r',capabilities:caps,context:ctx});
- apply({type:'reviewResult',session:'r',stopped:true,revision:'D',verdict:'pass',findings:[],evidence:['fixture candidate review']});
- apply({type:'beginIntegration',capabilities:caps});
- apply({type:'integrate',integrationRevision:'I',integrationEvidence:evidence('I')});
- apply({type:'dispatch',role:'reviewer',session:'ir',capabilities:caps,context:ctx});
- apply({type:'reviewResult',session:'ir',stopped:true,revision:'I',verdict:'pass',findings:[],evidence:['fixture integrated review']});
+ apply({type:'dispatch',role:'reviewer',session:'r',...review('D')});
+ apply({type:'reviewResult',session:'r',stopped:true,revision:'D',verdict:'pass',findings:[],evidence:['fixture candidate review'],snapshotAfter:snapshot('D')});
+ apply({type:'dispatch',role:'integrator',session:'i',capabilities:caps,context:ctx});
+ apply({type:'integrate',session:'i',stopped:true,integrationRevision:'I',integrationEvidence:evidence('I')});
+ apply({type:'dispatch',role:'reviewer',session:'ir',...review('I')});
+ apply({type:'reviewResult',session:'ir',stopped:true,revision:'I',verdict:'pass',findings:[],evidence:['fixture integrated review'],snapshotAfter:snapshot('I')});
  const final=apply({type:'decide',disposition:'accepted',reason:'fixture protocol exercised',checks:{scope:'fixture',behavior:'fixture',independence:'fixture',integration:'fixture',authority:'fixture'},limitations:['Simulated host; no agent or command execution']});
  assert.equal(final.tasks['0001'].status,'accepted');
+ const receiptDigest=digest(final.tasks['0001'].receipt);
+ apply({type:'progressRequested',planningRevision:final.plan.revision,contractRevision:compiled.contractRevision,integrationRevision:'I',receiptDigest,indexBeforeHash:'before',expectedChange:{from:'[ ]',to:'[x]'}});
+ const progressed=apply({type:'progressCommitted',receiptDigest,indexBeforeHash:'before',indexAfterHash:'after'});
+ assert.equal(progressed.tasks['0001'].status,'completed');
  fs.appendFileSync(contract,'\nA changed source invalidates the plan.\n');
  const stale=run('wave',['--change',change,'--capabilities',write('caps',caps)]);
  assert.notEqual(stale.status,0);assert.match(stale.stderr,/replan/);
