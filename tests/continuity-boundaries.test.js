@@ -37,7 +37,7 @@ test('pause persisted after dispatch but before start retains reservation withou
 });
 test('canonical checkbox progress preserves projected contracts; changed wording invalidates',async t=>{
  const fs=await import('node:fs');const os=await import('node:os');const path=await import('node:path');const {createHash}=await import('node:crypto');const {loadProjection}=await import('../lib/plan-projection.mjs');
- const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-progress-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const root=fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(),'asds-progress-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  const source='- [ ] a — deliver\n';const index=path.join(root,'TASKS.md');fs.writeFileSync(index,source);
  const file=path.join(root,'projection.json');fs.writeFileSync(file,JSON.stringify({version:1,root,canonicalIndex:'TASKS.md',sources:[{path:'TASKS.md',sha256:createHash('sha256').update(source).digest('hex')}],tasks:[{...task,source:{path:'TASKS.md',anchor:'a — deliver'}}]}));
  const revision=loadProjection(file)[0].contractRevision;
@@ -84,7 +84,7 @@ test('progress normalization preserves code literals and supports declared list 
 test('new Node processes resolve integration and real checkbox progress from the reopened journal and host ledgers',async t=>{
  const fs=await import('node:fs'),os=await import('node:os'),path=await import('node:path'),{spawnSync}=await import('node:child_process');
  const {initializeStore,readStore,updateStore}=await import('../lib/orchestration-store.mjs');
- const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-integration-restart-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const root=fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(),'asds-integration-restart-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  const journalFile=path.join(root,'journal.json'),ledgerFile=path.join(root,'host-ledger.json'),reviewTask={...task,write:['a.js']};
  let live={...workspace,writeScope:['a.js'],toolCalls:[]},proof;
  let journal=createJournal(compilePlan([reviewTask],profile),{coordinator:'root',readScope:['project'],authorization:{source:'user',scope:'work'},workspaceBinding:live});
@@ -166,7 +166,7 @@ test('new Node processes resolve integration and real checkbox progress from the
 test('retained lease mutation during a progress gate leaves real canonical checkbox bytes untouched after reopen',async t=>{
  const fs=await import('node:fs'),os=await import('node:os'),path=await import('node:path'),{createHash}=await import('node:crypto');
  const {commitTaskIndexProgress}=await import('../lib/task-index-progress.mjs');
- const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-progress-lease-gate-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const root=fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(),'asds-progress-lease-gate-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  const index=path.join(root,'tasks.md'),ledger=path.join(root,'host-ledger.json'),source='- [ ] [Task a](tasks/task-a.md): deliver\n\nWave 1: a\n';fs.writeFileSync(index,source);
  const indexBeforeHash=createHash('sha256').update(source).digest('hex'),progressRequested={type:'progressRequested',taskId:'a',planningRevision:'plan',contractRevision:'contract',integrationRevision:'I',receiptDigest:'receipt',indexBeforeHash,expectedChange:{from:'[ ]',to:'[x]'}};
  const request={root,indexPath:'tasks.md',canonicalIndex:'tasks.md',taskId:'a',task:{id:'a',title:'deliver',wave:1},indexBeforeHash,progressRequested};

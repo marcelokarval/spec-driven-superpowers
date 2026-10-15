@@ -12,7 +12,7 @@ import { createHash } from 'node:crypto';
 const gitNull = process.platform === 'win32' ? 'NUL' : os.devNull;
 
 function fixture(t) {
-  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'asds-git-scope-')));
+  const root = fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(), 'asds-git-scope-')));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('GIT_')));
   Object.assign(env, {

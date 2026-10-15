@@ -293,11 +293,11 @@ test('supervisor state must be trusted, private and disjoint from model-visible 
   fs.mkdirSync(stateRoot, { mode: 0o700 });
   const nestedBootstrap = claimBootstrap(api, { projectRoot, stateRoot });
   assert.throws(() => api.createAgyReviewSupervisor(nestedBootstrap), /must be disjoint/);
-  const publicState = temp(t, 'asds-supervisor-public-');
-  fs.chmodSync(publicState, 0o755);
-  const publicBootstrap = claimBootstrap(api, { projectRoot, stateRoot: publicState });
-  assert.throws(() => api.createAgyReviewSupervisor(publicBootstrap), /owner-only/);
   if (process.platform !== 'win32') {
+    const publicState = temp(t, 'asds-supervisor-public-');
+    fs.chmodSync(publicState, 0o755);
+    const publicBootstrap = claimBootstrap(api, { projectRoot, stateRoot: publicState });
+    assert.throws(() => api.createAgyReviewSupervisor(publicBootstrap), /owner-only/);
     const realState = temp(t, 'asds-supervisor-real-state-');
     const linkedState = path.join(path.dirname(realState), `${path.basename(realState)}-link`);
     fs.symlinkSync(realState, linkedState);
@@ -340,7 +340,7 @@ test('supervisor validates the closed schema and current bytes of the full insta
   const api = await installedApi(projectRoot);
   const manifestPath = path.join(projectRoot, '.asds/install-manifest.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-  const unrelated = manifest.files.find(entry => entry.path.endsWith('/LICENSE'));
+  const unrelated = manifest.files.find(entry => entry.path.split(path.sep).join('/').endsWith('/LICENSE'));
   fs.appendFileSync(unrelated.path, '\nfull-inventory-drift\n');
   const bootstrap = claimBootstrap(api, { projectRoot, stateRoot });
   assert.throws(() => api.createAgyReviewSupervisor(bootstrap), /full manifest ownership drifted/);
@@ -365,7 +365,7 @@ test('supervisor validates the closed schema and current bytes of the full insta
     '/.agents/skills/asds-execution-consumer/lib/agy-review-supervisor.mjs',
   ];
   incompleteManifest.files = incompleteManifest.files.filter(entry =>
-    requiredSuffixes.some(suffix => entry.path.endsWith(suffix)));
+    requiredSuffixes.some(suffix => entry.path.split(path.sep).join('/').endsWith(suffix)));
   fs.writeFileSync(incompleteManifestPath, `${JSON.stringify(incompleteManifest, null, 2)}\n`);
   const incompleteBootstrap = claimBootstrap(incompleteApi, { projectRoot: incompleteProject, stateRoot: incompleteState });
   assert.throws(() => incompleteApi.createAgyReviewSupervisor(incompleteBootstrap), /inventory is incomplete/);

@@ -71,7 +71,8 @@ test('preview performs no writes; apply installs skills and OpenSpec schema', as
     assert.equal(path.relative(target, entry.path).startsWith('..'), false);
     assert.equal(entry.type, 'file');
     assert.equal(entry.nlinkPolicy, 'exactly-one');
-    assert.equal(entry.mode, fs.statSync(entry.path).mode & 0o777);
+    const actualMode = process.platform === 'win32' && (fs.statSync(entry.path).mode & 0o777) === 0o666 ? 0o644 : (fs.statSync(entry.path).mode & 0o777);
+    assert.equal(entry.mode, actualMode);
     assert.equal(entry.sha256, createHash('sha256').update(fs.readFileSync(entry.path)).digest('hex'));
   }
 });

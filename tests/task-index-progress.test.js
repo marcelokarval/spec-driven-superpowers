@@ -12,7 +12,7 @@ const sha256 = value => createHash('sha256').update(value).digest('hex');
 const source = '# Tasks\n- [ ] [Task A](tasks/task-A.md): First\n- [ ] [Task B](tasks/task-B.md): Second\n- Wave 1: A\n- Wave 2: B\n';
 
 function fixture(t) {
-  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'asds-task-progress-')));
+  const root = fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(), 'asds-task-progress-')));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   fs.writeFileSync(path.join(root, 'tasks.md'), source);
   return root;
@@ -84,7 +84,7 @@ test('rejects symlinked index, symlinked ancestors and hardlinks', { skip: proce
   fs.unlinkSync(index); fs.linkSync(target, index);
   assert.throws(() => commitTaskIndexProgress(request(root)), /hardlink/i);
   fs.unlinkSync(index); fs.mkdirSync(path.join(root, 'nested')); fs.writeFileSync(path.join(root, 'nested', 'tasks.md'), source);
-  const outside = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'asds-progress-outside-')));
+  const outside = fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(), 'asds-progress-outside-')));
   t.after(() => fs.rmSync(outside, { recursive: true, force: true }));
   fs.renameSync(path.join(root, 'nested'), path.join(outside, 'nested'));
   fs.symlinkSync(path.join(outside, 'nested'), path.join(root, 'nested'));
@@ -163,7 +163,7 @@ test('concurrent prose drift during the final CAS is preserved and emits no comm
 });
 
 test('ancestor swap cannot redirect the broker outside the canonical root', {skip:process.platform==='win32'},t=>{
-  const root=fixture(t),outside=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-progress-swap-')));
+  const root=fixture(t),outside=fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(),'asds-progress-swap-')));
   t.after(()=>fs.rmSync(outside,{recursive:true,force:true}));
   fs.writeFileSync(path.join(outside,'tasks.md'),source.replace('# Tasks','# Outside'));
   const parked=`${root}-parked`,originalRename=fs.renameSync;let raced=false;

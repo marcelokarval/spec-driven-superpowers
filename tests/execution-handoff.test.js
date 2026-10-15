@@ -21,7 +21,7 @@ const task = (id, dependsOn = []) => ({
 function makePackage(options = {}) {
   const { partial = false, blockers } = options;
   const usableTasks = Object.hasOwn(options, 'usableTasks') ? options.usableTasks : partial ? ['0001'] : ['0001', '0002', '0003'];
-  const root = realpathSync(mkdtempSync(join(tmpdir(), 'asds-handoff-')));
+  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'asds-handoff-')));
   mkdirSync(join(root, 'tasks'));
   mkdirSync(join(root, '.git'));
   const tasks = [
@@ -68,7 +68,7 @@ function makePackage(options = {}) {
 }
 
 function input(root, overrides = {}) {
-  const projectRoot = realpathSync(root);
+  const projectRoot = realpathSync.native(root);
   const inspected = inspectExecutionPackage(root);
   const binding = { requestId: 'request-1', packageId: inspected.packageId, planningRevision: inspected.planningRevision, planningFingerprint: inspected.planningFingerprint, consumableTaskIds: inspected.executionScope.consumableTaskIds };
   return {
@@ -95,7 +95,7 @@ test('creates a valid full handoff from package bytes and caller-owned authority
   assert.equal(envelope.schemaVersion, 'asds.execution-handoff/1');
   assert.equal(envelope.packageId, 'full-package');
   assert.equal(envelope.planningRevision, 'full-r1');
-  assert.equal(envelope.packageRootRealpath, realpathSync(root));
+  assert.equal(envelope.packageRootRealpath, realpathSync.native(root));
   assert.equal(envelope.canonicalIndex.path, 'tasks.md');
   assert.deepEqual(envelope.executionScope.consumableTaskIds, ['0001', '0002', '0003']);
   assert.deepEqual(envelope.executionScope.excludedTaskIds, []);
