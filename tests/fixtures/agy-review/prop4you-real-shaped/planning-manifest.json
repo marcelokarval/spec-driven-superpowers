@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "asds.planning-delivery/1",
+  "revision": "login-access-recovery-r5",
+  "packageId": "align-login-submission-readiness",
+  "originalRequestedProduct": {
+    "kind": "implementation",
+    "status": "not_fulfilled"
+  },
+  "authority": {
+    "destination": "openspec/changes/align-login-submission-readiness",
+    "authorization": "fixture-only"
+  },
+  "tasks": [
+    {
+      "id": "0001",
+      "nodeType": "task",
+      "parentId": null,
+      "dependsOn": [],
+      "requirements": ["R01"],
+      "implementationStatus": "not_started"
+    }
+  ],
+  "decisions": [],
+  "blockers": [],
+  "coverage": {},
+  "references": [
+    {
+      "id": "proposal",
+      "path": "proposal.md",
+      "role": "source",
+      "sha256": "40412be00317b62fbafc0849cab321fa2d8a88030ab0dd9f3b5436b889f3d7bb"
+    },
+    {
+      "id": "design",
+      "path": "design.md",
+      "role": "source",
+      "sha256": "d4219c11b144c3af7fc79eceeef76df99932d942cbf9f6d992d210a944098d4c"
+    },
+    {
+      "id": "spec",
+      "path": "specs/identity/login-submission-readiness/spec.md",
+      "role": "specification",
+      "sha256": "c6fab8c1ab874ce6f7c73c5473bb4364f0fe945f3b1fe7b8d45658e09c28525c"
+    },
+    {
+      "id": "task-0001",
+      "path": "tasks/task-0001.md",
+      "role": "contract",
+      "sha256": "8fe1ed4b3615dc53060275c31a43a72c9e8debb5c46eaacda6324b73f2668415"
+    },
+    {
+      "id": "tasks",
+      "path": "tasks.md",
+      "role": "index",
+      "sha256": "053d553d3f509abfba0100d8a3a3af806507eb986921605ef1e933cd61b3eb3b"
+    },
+    {
+      "id": "source-inventory",
+      "path": "source-inventory.md",
+      "role": "source",
+      "sha256": "241f7b4977d8cce3d672e094bc62a183e47a2149198fd3ee7c5c3f35b9e67417"
+    },
+    {
+      "id": "independent-review",
+      "path": "reviews/independent-review.md",
+      "role": "review",
+      "sha256": "d70e4967576f3509259698d50d8e4a0e7bfd4a0867f4a7795625ad68038b826d"
+    },
+    {
+      "id": "reviewer-envelope-input",
+      "path": "reviews/reviewer-envelope-input.json",
+      "role": "review",
+      "sha256": "99f01d016431284a9a2fd97bd5afb57ada4bc8944fcd8a7c7ba7cfd418654f32"
+    }
+  ]
+}

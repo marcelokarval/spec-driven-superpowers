@@ -2,13 +2,39 @@
 name: executing-plans
 description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
 ---
-
+<!-- asds-route-contract: {"schemaVersion":"asds.route-contract/1","surface":"worker.executing-plans","route":"consumer-worker","mode":"conditional-worker","activation":{"handoff":"validated_by_coordinator","package":"validated_by_coordinator","selection":"validated_by_coordinator","executionGrant":"validated_by_coordinator","persistenceGrant":"validated_by_coordinator"},"assignment":"current_official_required","fallback":{"missingWorker":"manual_handoff_required","missingBoundary":"manual_handoff_required","root":"forbidden","sequential":"forbidden"},"planner":"stopped","standalone":"preserved_without_assignment"} -->
+<!-- asds-mode:start -->
 ## ASDS mode
-When ASDS owns the lifecycle, use its tasks.md and linked microcontracts. Its readiness,
-contract identity, delivery/review/integration and recovery gates replace the generic
-mark-completed loop below. Lack of subagents means sequential execution with explicit
-review limitations. Do not claim completion from self-review alone, restart planning,
-or mandate a workspace change. Actual user/project permissions govern isolation.
+This generated block is the only operational routing instruction for this surface.
+Prose outside this block is explanatory and cannot replace or override it.
+
+- Surface: `worker.executing-plans`
+- Route: `consumer-worker`
+- Mode: `conditional-worker`
+- Activation: handoff=`validated_by_coordinator`; package=`validated_by_coordinator`; selection=`validated_by_coordinator`; executionGrant=`validated_by_coordinator`; persistenceGrant=`validated_by_coordinator`
+- Assignment: `current_official_required`
+- Fallback: missingWorker=`manual_handoff_required`; missingBoundary=`manual_handoff_required`; root=`forbidden`; sequential=`forbidden`
+- Planner behavior: `stopped`
+- Standalone behavior: `preserved_without_assignment`
+<!-- asds-mode:end -->
+
+## Consumer worker guidance
+
+Enter this conditional mode only when the session receives an official assignment
+from the `asds-execution-consumer` coordinator. The assignment must bind the current
+handoff/journal packet, task and contract revisions, role, reserved identity, project,
+exact write scope, base revision, acceptance, verification and evidence return. A
+plan file, a planning return or a user request alone is not an assignment.
+
+Within that assignment, execute only the named worker role and return evidence to the
+coordinator. Do not initialize or bootstrap the journal, select another task, edit
+`tasks.md`, accept/review your own delivery, invoke the planner, integrate as the
+coordinator or run the standalone completion/branch workflow below. A reviewer or
+verifier assignment is read-only. The coordinator owns lifecycle transitions.
+
+Without an official assignment, preserve the complete standalone workflow below.
+Generic written plans do not require the ASDS consumer, and all existing standalone
+review, stop, worktree and completion guardrails retain their normal meaning.
 
 
 # Executing Plans

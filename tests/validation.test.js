@@ -5,9 +5,11 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { parseFrontmatter, validateSchema, validateChange, validateChangeSpecs, validateTaskIndex, loadTasks } from '../lib/validation.mjs';
-import { collectGitScope } from '../lib/git-scope.mjs';
+import { createHash } from 'node:crypto';
+import { parseFrontmatter, validateSchema, validateChange, validateChangeSpecs, validateTaskIndex, loadTasks, validateExecutionProjections, validateTaskIndexProgress } from '../lib/validation.mjs';
+import { collectGitScope, captureGitBaseline, collectGitDelta } from '../lib/git-scope.mjs';
 import { projectTaskManager } from '../lib/planning-graph.mjs';
+import { projectRuntimeProjection } from '../lib/plan-projection.mjs';
 
 function fixture(t) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-validation-'));
@@ -119,6 +121,70 @@ test('planning delivery compares tasks.md wave declarations with the determinist
   write(dir,'tasks.md','# Tasks\n- [ ] [Task 0001](tasks/task-0001.md): Example\n- Wave 1: 0001\n');
   assert.ok(!validateChange(dir).some(error=>error.includes('tasks.md waves differ')||error.includes('must declare the projected waves')));
 });
+test('planning manifest treats only task checkbox state as mutable progress', t => {
+  const dir=changeFixture(t), loaded=loadTasks(dir);
+  const fields=['id','title','owner','nodeType','parentId','requirements','dependsOn','dependencyDetails','decisionInputs','resolvesDecisions','decisionBundleReason','write','resources','scenarios','verification'];
+  const tasks=loaded.map(task=>Object.fromEntries(fields.filter(field=>task[field]!==undefined).map(field=>[field,task[field]])));
+  const source='# Tasks\n- [ ] [Task 0001](tasks/task-0001.md): Example\n- Wave 1: 0001\n';
+  write(dir,'tasks.md',source);
+  const manifest={state:'ready',tasks,decisions:[],blockers:[],taskManager:projectTaskManager(tasks),references:[{
+    id:'task-index',role:'index',path:'tasks.md',sha256:createHash('sha256').update(source).digest('hex'),
+  }],reviewPolicy:{domains:['frontend'],risk:'ordinary-low',independentRequired:false}};
+  write(dir,'planning-manifest.json',JSON.stringify(manifest));
+  write(dir,'tasks.md',source.replace('[ ]','[x]'));
+  const revision='candidate';
+  const receipt={status:'integrated',contractRevision:loaded[0].contractRevision,baseRevision:'base',revision,
+    changedFiles:loaded[0].write,evidence:[{command:'npm test',exitCode:0,revision}],
+    reviews:{spec:revision,quality:revision,independent:true},integrationRevision:revision,
+    integrationEvidence:[{command:'npm test',exitCode:0,revision}],
+    integrationReviews:{spec:revision,quality:revision,independent:true}};
+  const errors=validateChange(dir,{receipts:{'0001':receipt}});
+  assert.ok(!errors.some(error=>error.includes('reference hash mismatch tasks.md')));
+  assert.deepEqual(manifest.taskManager.completedTaskIds,[], 'delivered planning projection does not become a progress authority');
+  write(dir,'tasks.md',source.replace('Example','Changed title'));
+  assert.ok(validateChange(dir).some(error=>error.includes('reference hash mismatch tasks.md')));
+});
+test('planning manifest keeps non-index and conservative HTML task references exact',t=>{
+  const dir=changeFixture(t),source='# Tasks\n- [ ] [Task 0001](tasks/task-0001.md): Example\n- Wave 1: 0001\n';
+  write(dir,'tasks.md',source);const loaded=loadTasks(dir);
+  const fields=['id','title','owner','nodeType','parentId','requirements','dependsOn','dependencyDetails','decisionInputs','resolvesDecisions','decisionBundleReason','write','resources','scenarios','verification'];
+  const tasks=loaded.map(task=>Object.fromEntries(fields.filter(field=>task[field]!==undefined).map(field=>[field,task[field]])));
+  const manifest={state:'ready',tasks,decisions:[],blockers:[],taskManager:projectTaskManager(tasks),references:[{
+    id:'supporting-copy',role:'supporting',path:'tasks.md',sha256:createHash('sha256').update(source).digest('hex'),
+  }],reviewPolicy:{domains:['frontend'],risk:'ordinary-low',independentRequired:false}};
+  write(dir,'planning-manifest.json',JSON.stringify(manifest));write(dir,'tasks.md',source.replace('[ ]','[x]'));
+  assert.ok(validateChange(dir).some(error=>error.includes('reference hash mismatch tasks.md')));
+  const html='<section>contract</section>\n'+source;write(dir,'tasks.md',html);
+  manifest.references=[{id:'task-index',role:'index',path:'tasks.md',sha256:createHash('sha256').update(html).digest('hex')}];
+  write(dir,'planning-manifest.json',JSON.stringify(manifest));write(dir,'tasks.md',html.replace('[ ]','[x]'));
+  assert.ok(validateChange(dir).some(error=>error.includes('reference hash mismatch tasks.md')));
+});
+test('execution projection validation rejects planning/runtime divergence',()=>{
+  const tasks=[{id:'A',title:'A',owner:'owner',nodeType:'task',dependsOn:[],dependencyDetails:[],write:['a.js'],resources:[],scenarios:['s'],requirements:['r'],verification:['v'],decisionInputs:[],resolvesDecisions:[]}];
+  const request={sequence:1,type:'progressRequested',taskId:'A',planningRevision:'plan',contractRevision:'contract',integrationRevision:'integration',receiptDigest:'r',indexBeforeHash:'a'.repeat(64),expectedChange:{from:'[ ]',to:'[x]'}};
+  const planning=projectTaskManager(tasks),journal={version:3,events:[request]};
+  const runtime=projectRuntimeProjection(planning,journal);
+  assert.deepEqual(validateExecutionProjections({tasks,planningProjection:planning,runtimeProjection:runtime,journal}),[]);
+  assert.ok(validateExecutionProjections({tasks,planningProjection:{...planning,readyTaskIds:[]},runtimeProjection:runtime,journal}).some(error=>error.includes('planning projection')));
+  assert.ok(validateExecutionProjections({tasks,planningProjection:planning,runtimeProjection:{...runtime,completedTaskIds:['A']},journal}).some(error=>error.includes('runtime projection')));
+  for(const field of ['planningRevision','contractRevision','integrationRevision','receiptDigest','indexBeforeHash','expectedChange']) {
+    const invalid={...request};delete invalid[field];
+    const invalidJournal={version:3,events:[invalid]};
+    assert.ok(validateExecutionProjections({tasks,planningProjection:planning,runtimeProjection:runtime,journal:invalidJournal}).some(error=>error.includes('progressRequested')));
+  }
+  const extraJournal={version:3,events:[{...request,unexpected:true}]};
+  assert.ok(validateExecutionProjections({tasks,planningProjection:planning,runtimeProjection:runtime,journal:extraJournal}).some(error=>error.includes('unknown')));
+  const committed={sequence:2,type:'progressCommitted',taskId:'A',receiptDigest:'r',indexBeforeHash:'a'.repeat(64),indexAfterHash:'b'.repeat(64)};
+  const committedJournal={version:3,events:[request,committed]},committedRuntime=projectRuntimeProjection(planning,committedJournal);
+  assert.deepEqual(validateExecutionProjections({tasks,planningProjection:planning,runtimeProjection:committedRuntime,journal:committedJournal}),[]);
+  const incompleteCommit={...committed};delete incompleteCommit.indexAfterHash;
+  assert.ok(validateExecutionProjections({tasks,planningProjection:planning,runtimeProjection:committedRuntime,journal:{version:3,events:[request,incompleteCommit]}}).some(error=>error.includes('progressCommitted')));
+  const partialTasks=[...tasks,{...tasks[0],id:'B',title:'B',owner:'owner-b',dependsOn:['A'],dependencyDetails:[{id:'A',reason:'required',requiredOutput:'output'}],write:['b.js']}];
+  const fullPartial=projectTaskManager(partialTasks),scope={consumableTaskIds:['A'],excludedTaskIds:['B']};
+  const partial={...structuredClone(fullPartial),tasks:fullPartial.tasks.map(item=>item.id==='B'?{...item,status:'excluded',waitingOn:[],blockedBy:[],exclusionProvenance:[{kind:'blocker',id:'PB1'}]}:item),readyTaskIds:['A'],waitingTaskIds:[],blockedTaskIds:[],completedTaskIds:[],excludedTaskIds:['B'],plannedWaves:[['A']]};
+  const partialRuntime=projectRuntimeProjection(partial,{version:3,events:[]},scope);
+  assert.deepEqual(validateExecutionProjections({tasks:partialTasks,planningProjection:partial,runtimeProjection:partialRuntime,journal:{version:3,events:[]},executionScope:scope}),[]);
+});
 test('present planning manifest is part of change validation and fails closed', t => {
   const dir = changeFixture(t);
   write(dir, 'planning-manifest.json', JSON.stringify({ state:'delivered', tasks:[], reviewPolicy:{risk:'ordinary-low',independentRequired:false} }));
@@ -151,6 +217,31 @@ test('Git scope includes committed, staged, unstaged, deleted and untracked path
   assert.match(scope.revision, /worktree:/);
   write(dir, 'new.txt', 'changed again');
   assert.notEqual(collectGitScope(dir, base).revision, scope.revision);
+});
+test('Git baseline attributes unchanged dirt separately from candidate changes',t=>{
+  const dir=fixture(t);
+  const git=(...args)=>execFileSync('git',['-c',`core.hooksPath=${process.platform==='win32'?'NUL':os.devNull}`,'-c','commit.gpgSign=false',
+    '-c','user.email=fixture@example.invalid','-c','user.name=Fixture',...args],{cwd:dir,encoding:'utf8'}).trim();
+  git('init');write(dir,'kept.txt','base');write(dir,'changed-again.txt','base');git('add','.');git('commit','-m','base');
+  const base=git('rev-parse','HEAD');
+  write(dir,'kept.txt','pre-existing');write(dir,'changed-again.txt','pre-existing');
+  const baseline=captureGitBaseline(dir,base);
+  write(dir,'changed-again.txt','candidate');write(dir,'new.txt','candidate');
+  const delta=collectGitDelta(dir,baseline);
+  assert.deepEqual(delta.changedFiles,['changed-again.txt','new.txt']);
+  assert.deepEqual(delta.preexistingChangedFiles,['changed-again.txt','kept.txt']);
+  assert.deepEqual(delta.preexistingUnchangedFiles,['kept.txt']);
+  write(dir,'kept.txt','candidate too');
+  assert.deepEqual(collectGitDelta(dir,baseline).changedFiles,['changed-again.txt','kept.txt','new.txt']);
+});
+
+test('task-index progress validation permits only the exact canonical checkbox transition',()=>{
+  const before='# Tasks\n- [ ] [Task A](tasks/task-A.md): First\n- Wave 1: A\n';
+  const after=before.replace('[ ]','[x]');
+  assert.deepEqual(validateTaskIndexProgress({before,after,task:{id:'A',title:'First',wave:1}}),[]);
+  assert.ok(validateTaskIndexProgress({before,after:after.replace('First','Changed'),task:{id:'A',title:'First',wave:1}}).length);
+  assert.ok(validateTaskIndexProgress({before,after:before.replace('Wave 1','Wave 2').replace('[ ]','[x]'),task:{id:'A',title:'First',wave:1}}).length);
+  assert.ok(validateTaskIndexProgress({before,after:before.replaceAll('[ ]','[x]'),task:{id:'A',title:'Wrong',wave:1}}).length);
 });
 
 test('delivery CLI checks real scope and stale snapshots without executing contract commands', t => {

@@ -6,7 +6,9 @@ assigned IDs survive revisions, and index titles exactly equal contract titles.
 Its `Wave N: ID, ID` declarations exactly match the manifest projection.
 `planning-manifest.json` identifies the package
 revision, sources, layers, decisions, reviews, destination and readback; it does not
-duplicate task content or track future implementation progress.
+duplicate task content or become a second future-progress ledger. Its delivered
+`taskManager.completedTaskIds` describes the planning snapshot. Later checkbox
+progress in `tasks.md` is normalized out of planning/reference/review identity.
 
 Each linked `tasks/task-ID.md` has YAML frontmatter with stable `id`, stable `title`, `nodeType`,
 optional `parentId`, `requirements`, `dependsOn`, dependency explanations, exact
@@ -41,14 +43,69 @@ requiring a task manager to interpret prose.
 
 Open material decisions localize blockers. Structural validation cannot certify
 semantic quality. Fidelity review precedes quality review and both bind the same
-candidate, sources and task inventory. New delivered plans keep checkboxes open.
+candidate, sources and task inventory. Checkboxes are open in the initial planning
+delivery; after handoff they are mutable consumer progress, not an eternal prose claim.
+The planner must not reset valid `[x]` entries. Reopening belongs to the consumer's
+explicit reopen protocol and requires its matching receipt/journal evidence or other
+concrete proof that completion is contradictory; a manifest hash of normalized-open
+checkboxes is not that proof.
+
+If actual corruption is proved, exact restoration of all candidate, reference,
+manifest and review bytes to a previously delivered snapshot preserves the earlier
+review and is reported as `restored existing delivered state`; it is not a new
+candidate. This recovery rule never authorizes erasing valid post-handoff progress.
+A material byte or contract change produces a new candidate and invalidates prior
+review until fresh fidelity and quality pass. A closed filesystem snapshot comparison
+may prove byte equality, but it does not authenticate a database, signature, reviewer
+or host authority. Equality alone is reported as `existing package bytes unchanged`;
+only separate qualified evidence of both prior delivery and intervening corruption can
+support the restoration status.
+
+Package lineage is an identifier, not write authority. When an accepted reuse handoff
+lacks a locator, bounded read-only discovery may inspect direct children of
+`openspec/changes`. Exactly one regular package may be selected; zero or multiple
+matches return `locator-required`. The located index, manifest and references are read
+before reviewer preflight. A currently delivered package whose material binding is
+unchanged, including canonical checkbox progress, retains its existing review. Only a
+materially new candidate requires fresh review availability. The filesystem comparator
+reports progress only as `existing package state with updated progress` and leaves
+`freshReviewRequired` null; declared state or caller naming is not delivery proof.
 
 Planning persistence uses `lib/planning-store.mjs`; ordinary errors roll back bytes
 in memory and clean operation temporaries. Delivery requires a matching readback.
-`createPlanningReturn` emits protocol v2 and releases ASDS ownership. The legacy v1
+The store returns an `asds.planning-store-receipt/1` inventory that binds revision,
+absolute destination, manifest, index, every declared file and SHA-256. A planning
+return reopens that destination and compares the current bytes, manifest references,
+readback envelope and lifecycle gate. `storeVerified` is not an authority signal.
+Sensitive packages additionally require an `asds.independent-review-receipt/1`
+from a qualified host-private or signed durable trust root. No such root exists in
+this public source payload: `createPlanningReviewAuthority` and
+`hostCompletePlanningReview` therefore fail closed, and a JavaScript adapter cannot
+mint or revalidate delivery authority. Fake adapters validate shapes only. Sensitive
+returns remain non-delivered with ASDS ownership until a separately deployed host
+can bind reviewer identity/session, current manifest and the complete file inventory
+without exposing its authority to model-visible code.
+
+`createPlanningReturn` emits protocol v2 and releases ASDS ownership only after
+those current checks produce `delivered`. Drift, missing sensitive review evidence
+or any other downgrade keeps `owner: asds`, leaves `nextOwner` empty and returns
+non-delivered planning with explicit remaining work. The legacy v1
 return and code delivery receipts remain readable compatibility APIs, not proof of
 planning delivery.
 
-When `planning-manifest.json` exists, `npm run validate -- --change <root>` validates
-its lifecycle gate, exact contract inventory, reference hashes, review policy and
-task-manager projection. OpenSpec validation alone is insufficient.
+When `planning-manifest.json` exists, `npm run validate -- --change <root>` (or
+`node <skill-dir>/scripts/validate.mjs --change <root>`) validates its lifecycle
+gate, exact contract inventory, reference hashes, review policy and task-manager
+projection. For pre-review candidates (`state: "draft" | "reviewing"`,
+`boundary.review.verdict: "pending"`, and routed `openDecisions`), run
+`node <skill-dir>/scripts/validate.mjs --change <root> --candidate` to validate
+100% of structural, DAG, scenario, decision-routing, wave, and SHA-256 reference
+parity before independent review.
+
+To compile or synchronize `tasks.md` (with `Planned Waves`), `dag.mmd`,
+`dag-status.md` (Live DAG Status View), and `planning-manifest.json` (with exact
+15-field task projection, `taskManager`, and SHA-256 `references`) in one pass without
+ad-hoc generator scripts, run:
+`node <skill-dir>/scripts/build-package.mjs --change <root> [--spec <spec.json>] --candidate`.
+The role:index tasks.md hash normalizes only supported checkbox state; all other
+bytes and references remain exact. OpenSpec validation alone is insufficient.

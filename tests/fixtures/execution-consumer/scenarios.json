@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "asds.execution-consumer-integration-fixture/1",
+  "synthetic": true,
+  "tasks": [
+    { "id": "A", "title": "Independent A", "dependsOn": [], "write": ["src/shared.js", "src/a-extra.js"] },
+    { "id": "B", "title": "Independent B", "dependsOn": [], "write": ["src/b.js"] },
+    { "id": "C", "title": "Dependent C", "dependsOn": ["A", "B"], "write": ["src/c.js"] },
+    { "id": "D", "title": "Serialized D", "dependsOn": [], "write": ["src/shared.js"] }
+  ]
+}

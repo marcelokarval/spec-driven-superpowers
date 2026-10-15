@@ -1,5 +1,37 @@
 # Changelog
 
+## 2.1.0 — Atomic package builder, DAG status projection and execution consumer hardening, 2026-10-14
+
+Tracked by GitHub issue #7.
+
+Add the atomic planning package builder (`lib/package-builder.mjs`,
+`scripts/build-package.mjs`), OpenChamber-style ASCII + Mermaid DAG status
+projection (`lib/dag-status-view.mjs`, `validate.mjs --print-dag`), bottom-up
+package hierarchy reconciliation, atomic review recording, Plane projection
+payload export, and the durable ASDS execution consumer (`lib/execution-consumer.mjs`).
+
+- Add `buildPlanningPackage`, `reconcileExistingPackage`,
+  `reconcilePackageHierarchy`, `recordPlanningReviews`, and
+  `exportPlaneProjectionPayloads` (`scripts/build-package.mjs` with `--spec`,
+  `--reconcile`, `--record-review`, `--export-plane`, and `--print-dag`) to
+  compute topological waves, `serializesWith`, `taskManager` projection, and
+  SHA-256 reference/readback hashes in one pass.
+- Add `buildDagStatusView` (`lib/dag-status-view.mjs`) and `validate.mjs
+  --print-dag` to render the ASCII tree + convergence brackets (`[A + B]`),
+  status table, counts, Plane issue tags (`issueMap`), and next-frontier summary
+  directly from either task records or full `planning-manifest.json` payloads.
+- Allow uncompleted tasks with `openDecisions` when explicitly listed in
+  `blockedTaskIds` across `draft`, `reviewing`, `blocked`, and `partial`
+  manifests, and treat `blocked` manifests as valid candidate states during
+  `--candidate` validation.
+- Ship the durable `asds-execution-consumer` (`lib/execution-consumer.mjs`,
+  `lib/execution-handoff.mjs`, `scripts/consume.mjs`), AGY review protocol and
+  headless capture supervisor (`lib/agy-review-protocol.mjs`,
+  `lib/agy-review-supervisor.mjs`), post-handoff checkbox progress
+  normalization, and preview-first format-1 install receipt migration.
+- Expose root skill wrapper (`SKILL.md`, `references/`, `evals/`) so global
+  `~/.agents/skills/spec-driven-superpowers` symlinks resolve directly.
+
 ## 2.0.0 — self-contained planning product, 2026-10-08
 
 Tracked by GitHub issue #5.

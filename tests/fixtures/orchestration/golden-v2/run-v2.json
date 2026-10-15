@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "plan": {
+    "version": 1,
+    "tasks": [{
+      "id": "golden", "dependsOn": [], "write": ["src/golden.js"], "resources": [],
+      "scenarios": ["golden/replay"], "verification": ["test"], "kind": "implementation",
+      "openDecisions": [],
+      "body": "## Outcome\nGolden v2 fixture.\n\n## Inputs\nGolden v2 fixture.\n\n## Acceptance\nGolden v2 fixture.\n\n## Verification\nGolden v2 fixture.\n\n## Definition of done\nGolden v2 fixture.\n",
+      "contractRevision": "contract-golden",
+      "orchestration": {"complexity":"bounded","uncertainty":"bounded","risk":"bounded","rationale":"Golden replay fixture.","skills":["test-driven-development"],"references":["spec.md"],"claims":[]},
+      "tier": "bounded"
+    }],
+    "profile": {"version":1,"tiers":{"bounded":{"executor":{"model":"executor","effort":"high"},"reviewer":{"model":"reviewer","effort":"medium"}},"medium":{"executor":{"model":"executor","effort":"high"},"reviewer":{"model":"reviewer","effort":"medium"}},"high":{"executor":{"model":"executor","effort":"high"},"reviewer":{"model":"reviewer","effort":"medium"}}}},
+    "revision": "ca414e7c6f0d5cc75c441d03a950529b4c2690c6792bb8a78ee023a3029e9909"
+  },
+  "context": {"coordinator":"fixture-root","authorization":{"source":"fixture","scope":"golden replay"},"readScope":["fixture"]},
+  "digest": "f85edd7e4aeda53b82689d4c85660f2c6ff31c8e750d85fc6b31946d44a6a25a",
+  "events": [
+    {"sequence":1,"previous":"f85edd7e4aeda53b82689d4c85660f2c6ff31c8e750d85fc6b31946d44a6a25a","event":{"type":"block","taskId":"golden","owner":"fixture-owner","reason":"waiting for fixture input"},"digest":"8cc482bdbb06ca59075c96bd4f5059f13b4fb6f14d09a6fd33c80e8236d63d7c"},
+    {"sequence":2,"previous":"8cc482bdbb06ca59075c96bd4f5059f13b4fb6f14d09a6fd33c80e8236d63d7c","event":{"type":"unblock","taskId":"golden","reason":"fixture input supplied"},"digest":"0158de102a42bc151090b6664ebbc56af968d5eb3b79dbee401f00ebceed7eb7"}
+  ]
+}

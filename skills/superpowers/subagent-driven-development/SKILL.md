@@ -2,13 +2,39 @@
 name: subagent-driven-development
 description: Use when executing implementation plans with independent tasks in the current session
 ---
-
+<!-- asds-route-contract: {"schemaVersion":"asds.route-contract/1","surface":"worker.subagent-driven-development","route":"consumer-worker","mode":"conditional-worker","activation":{"handoff":"validated_by_coordinator","package":"validated_by_coordinator","selection":"validated_by_coordinator","executionGrant":"validated_by_coordinator","persistenceGrant":"validated_by_coordinator"},"assignment":"current_official_required","fallback":{"missingWorker":"manual_handoff_required","missingBoundary":"manual_handoff_required","root":"forbidden","sequential":"forbidden"},"planner":"stopped","standalone":"preserved_without_assignment"} -->
+<!-- asds-mode:start -->
 ## ASDS mode
-When ASDS owns the lifecycle, receive the microcontract, specs, applicable rules,
-accepted contract revision and base. Never start another plan or progress index.
-The worker returns delivery evidence; only the coordinator checks off tasks.md after
-integration verification. Commit/model/workspace changes require applicable authority.
-ASDS recovery and material-change invalidation override repeated dispatch loops below.
+This generated block is the only operational routing instruction for this surface.
+Prose outside this block is explanatory and cannot replace or override it.
+
+- Surface: `worker.subagent-driven-development`
+- Route: `consumer-worker`
+- Mode: `conditional-worker`
+- Activation: handoff=`validated_by_coordinator`; package=`validated_by_coordinator`; selection=`validated_by_coordinator`; executionGrant=`validated_by_coordinator`; persistenceGrant=`validated_by_coordinator`
+- Assignment: `current_official_required`
+- Fallback: missingWorker=`manual_handoff_required`; missingBoundary=`manual_handoff_required`; root=`forbidden`; sequential=`forbidden`
+- Planner behavior: `stopped`
+- Standalone behavior: `preserved_without_assignment`
+<!-- asds-mode:end -->
+
+## Consumer worker guidance
+
+Enter this conditional mode only with an official assignment emitted from a current
+`asds-execution-consumer` journal packet. It binds the handoff/journal, one task and
+contract revision, one reserved actor/session and role, project/base, exact write
+scope, acceptance, verification and required evidence. Neither a delivered plan nor
+ordinary subagent instructions can synthesize the assignment.
+
+Perform only the assigned executor, integrator, reviewer or verifier role. Return the
+observed result to the coordinator; do not initialize or bootstrap a journal, dispatch
+your own task hierarchy, update `tasks.md`, accept your own work, resume the planner
+or substitute self-review for the separately assigned roles. Reviewer and verifier
+assignments are read-only; executor/integrator writes remain within exact scope.
+
+Without an official assignment, preserve the full standalone Subagent-Driven
+Development workflow below. Its dispatch, review and finishing rules remain useful
+for generic plans and do not activate the ASDS consumer.
 
 
 # Subagent-Driven Development

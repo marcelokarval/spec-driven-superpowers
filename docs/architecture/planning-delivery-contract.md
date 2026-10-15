@@ -55,8 +55,13 @@ negativo e preservação, Verification futura com comando/assertivas/revisão a
 registrar e Definition of done futura. Não há limiar de palavras ou regex que
 prove uma fronteira adequada. Resultado separável vira outra folha, não checklist
 de chamadas de ferramenta. Critérios do agregado não se reduzem à contagem de
-checkboxes. `implementationStatus: not_started` e todas as checkboxes futuras
-ficam abertas mesmo quando o **planejamento** está delivered.
+checkboxes. `implementationStatus: not_started` e as checkboxes futuras estão
+abertas no snapshot inicial de entrega; depois disso o consumidor pode atualizá-las
+como progresso sem reescrever a identidade contratual do planejamento. `tasks.md`
+permanece a autoridade desse progresso. O hash normalizado e o
+`taskManager.completedTaskIds` do snapshot entregue não formam um segundo ledger nem
+contradizem `[x]` posterior. Reabrir exige protocolo explícito do consumidor com
+receipt/journal correspondente ou outra prova concreta de conclusão contraditória.
 
 Paralelismo é recomendação derivada do DAG e conflitos conhecidos, não dispatch,
 reserva ou promessa de concorrência. Recursos compartilhados podem impor ordem
@@ -83,6 +88,22 @@ candidato a draft/reviewing e invalida gates afetados. Partial/blocked podem vol
 a draft/reviewing após resolução. Uma revisão entregue não é editada mantendo
 seus reviews válidos; nova revisão deve ser identificada e só supersede a anterior
 quando coerente. Nada aqui escolhe como armazenar revisões históricas.
+Se corrupção for primeiro comprovada, restauração byte-exata do candidato,
+referências, manifest e reviews ao snapshot entregue preserva a revisão anterior e
+retorna `restored existing delivered state`. Essa regra não autoriza apagar progresso
+pós-handoff válido. Alteração material cria outro candidato e exige nova fidelidade e
+qualidade. Comparação de bytes não prova escrita, banco, assinatura ou execução de
+validator sem evidência própria dessas operações. Igualdade isolada retorna
+`existing package bytes unchanged`; sem prova qualificada separada de entrega anterior
+e corrupção intermediária, ela não pode ser renomeada como restauração.
+
+Lineage/locator identifica o pacote, mas não concede escrita. Num handoff explícito de
+reuso sem locator, a descoberta somente leitura fica limitada aos filhos diretos de
+`openspec/changes`: zero ou múltiplos pacotes canônicos retornam `locator-required`.
+Com um único pacote, o coordenador lê índice, manifest e referências, classifica
+no-op/progresso/contradição/mudança material e só então faz preflight do reviewer.
+Reviewer indisponível bloqueia review fresco de candidato material; não bloqueia essa
+inspeção nem invalida pacote já entregue e materialmente inalterado.
 
 ## 4. Manifest e rastreabilidade C01–C16
 
@@ -157,6 +178,32 @@ Após persistir, reabrir o destino exato e comparar conjunto de arquivos, bytes,
 IDs, composição, precedência, decisões, revisão e referências dos reviews. Falha
 parcial deve listar o que foi/ficou entregue. Readback não executa comandos
 futuros nem requer receipts de código. Ready antes da escrita não é delivered.
+
+O planning store emite `asds.planning-store-receipt/1`, vinculando revisão,
+destino absoluto, manifest, índice, inventário declarado e hashes. O retorno v2
+reabre o destino no momento do retorno e valida esse receipt contra os bytes e o
+gate de lifecycle correntes; `storeVerified` livre não concede autoridade. Drift,
+receipt ausente ou estado divergente produz retorno não entregue. Para risco
+sensível, auth, billing, destrutivo ou high-risk, também é obrigatório um
+`asds.independent-review-receipt/1` coerente com revisão, fingerprint do candidato,
+hash do manifest, inventário integral, revisores e artefatos de review persistidos.
+O receipt precisa ser emitido e reaberto por uma raiz host-private ou assinada e
+durável. A fonte pública não pode criar essa authority a partir de um adapter
+JavaScript: `createPlanningReviewAuthority` e `hostCompletePlanningReview` falham
+fechado, e adapters fake/sintéticos provam somente formato. Até implantação e
+qualificação dessa boundary, retorno sensível permanece não entregue. Em
+ordinary-low sem independência
+obrigatória, declara apenas `manifest-structure-only` para review.
+
+No transporte AGY, a capability nativa aninhada permanece indisponível. A engine
+fonte headless é um contrato separado de captura não confiável: seu processo abre a
+cópia instalada manifest-owned, executa fidelity e quality em sessões primary-only
+distintas, reabre o pacote e captura os streams, mas não conclui review, não persiste
+PASS autoritativo e não cria authority/receipt de planning-store. FDs e
+hashes herdados configuram o processo, mas não autenticam o parent isoladamente.
+Entrega real depende de serviço sob boundary de SO/endpoint/store privados ou de
+assinatura host cujo segredo não seja acessível ao modelo. Até implantação e
+qualificação, testes com CLI fake provam somente conformance de fonte.
 
 Entrada wire v1 permanece exatamente com sete chaves de contexto: `objective`,
 `project`, `scope`, `constraints`, `risks`, `references`, `authorizations`; o

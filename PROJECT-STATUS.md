@@ -1,6 +1,6 @@
 # Estado evolutivo do ASDS
 
-Atualizado em **2026-10-08**. Leia este documento antes de demandar ou evoluir o
+Atualizado em **2026-10-14**. Leia este documento antes de demandar ou evoluir o
 projeto. Confirme o checkout antes de usar os hashes abaixo como estado corrente.
 
 ## Direção definida
@@ -12,8 +12,16 @@ o trabalho descrito nas tasks pertence a um consumidor posterior.
 
 ## Release publicado
 
+- [ASDS v2.1.0](https://github.com/marcelokarval/spec-driven-superpowers/releases/tag/v2.1.0),
+  publicado em 2026-10-14. Inclui o construtor/reconciliador atômico de pacotes
+  (`scripts/build-package.mjs`), projeção visual ASCII + Mermaid da DAG de tasks
+  (`lib/dag-status-view.mjs`, `validate.mjs --print-dag`), reconciliação bottom-up
+  de nós `package`, gravação atômica de reviews (`--record-review`), exportação de
+  payloads para Plane (`--export-plane`), suporte a `openDecisions` em tasks
+  bloqueadas (`blockedTaskIds`), consumidor durável `asds-execution-consumer`,
+  protocolo/supervisor AGY e migração preview-first de receipts format 1.
 - [ASDS v2.0.0](https://github.com/marcelokarval/spec-driven-superpowers/releases/tag/v2.0.0),
-  publicado em 2026-10-08. Esta é a primeira release cuja fronteira principal é
+  publicado em 2026-10-08. Primeira release cuja fronteira principal é
   planejamento revisado e persistido; implementação futura pertence a um consumidor.
 - O release anterior [v1.2.0](https://github.com/marcelokarval/spec-driven-superpowers/releases/tag/v1.2.0)
   permanece como registro imutável da fase de coordenação de execução.
@@ -22,7 +30,7 @@ o trabalho descrito nas tasks pertence a um consumidor posterior.
 
 ## Evolução local
 
-- A branch de publicação é `v2.0.0`; o tag imutável identifica a fonte publicada.
+- A branch de publicação atual é `v2.1.0`; o tag imutável identifica a fonte publicada.
 - A decomposição adaptativa anterior foi incorporada e ampliada para composição
   recursiva separada da DAG de precedência.
 - Pesquisa e experimentos delimitados que sustentam a fronteira de produto estão
@@ -44,6 +52,106 @@ o trabalho descrito nas tasks pertence a um consumidor posterior.
   e a skill distingue ausência no PATH do executável OpenSpec fixado no checkout
   ASDS antes de declarar a dependência indisponível. A instalação de projeto deve
   ser atualizada pelo instalador oficial existente, sem cópia paralela de runtime.
+- A pilha de execução experimental recebeu hardening local após o piloto 0007 →
+  0005: progresso de tasks por checkbox não invalida o manifesto, receipts de
+  projeção agora têm reconciliação explícita com contratos canônicos, baseline separa sujeira
+  preexistente, journals v2 exigem isolamento/snapshots host-owned e escopo de
+  comando observado, e o objetivo só termina após `verifyObjective`. O journal v1
+  do piloto foi sanitizado e persistido como fixture de compatibilidade; isto não
+  publica nem instala a evolução.
+- O fechamento do verifier da pilha experimental agora também é host-owned:
+  `hostCompleteVerifier` observa o stop, revalida workspace e snapshot, obtém o
+  resultado do verifier por uma observação host-owned vinculada à sessão e revisão
+  objetiva correntes e persiste uma receipt fechada antes de derivar
+  `verifyObjective`. Resultado arbitrário do caller e append genérico são rejeitados.
+  Replay puro agora trata esse evento apenas como histórico `structural_only`; a
+  conclusão autoritativa vive numa associação não serializável do bridge com o
+  adapter host e o journal exatos. Após restart, somente a reobservação da receipt
+  durável pelo host reidrata essa autoridade. O store recebe bytes, não a função de
+  derivação/capability. Isto continua evolução local, sem instalação ou publicação.
+- O retorno planning-only recebeu hardening C4 local: `createPlanningReturn` não
+  aceita mais `storeVerified` como autoridade, reabre o destino de um receipt
+  versionado do planning store e confere revisão, manifest, índice, inventário e
+  hashes atuais. Drift e divergência de estado retornam não entregue. Domínios
+  sensíveis exigem receipt de uma raiz host-private ou assinada e durável. Como essa
+  raiz ainda não existe, `createPlanningReviewAuthority` e
+  `hostCompletePlanningReview` falham fechado; nenhum adapter JavaScript, receipt
+  serializável ou fake host libera `delivered`. Domínios ausentes,
+  inválidos ou protegidos rebaixados para `ordinary-low` falham fechados. Qualquer
+  falha mantém ownership no ASDS
+  e não seleciona consumidor; somente `delivered` libera o próximo owner.
+  `ordinary-low` limita explicitamente a alegação de review à estrutura do manifest.
+  O instalador autocontido também inclui `lib/handoff.mjs` e imports transitivos.
+  Isto preserva C1-C3 e os artefatos de observação existentes; não publica nem instala.
+- O adapter de fonte para AGY inclui os TypeNames exatos
+  `spec-driven-superpowers` (coordenador planning-only) e
+  `spec-driven-superpowers-reviewer` (revisor fresco e zero-write). O builder abre o
+  package root canônico, recusa symlink, hardlink, zero-byte, drift e race de leitura
+  e deriva revisão, candidate e inventários dos bytes atuais de
+  `planning-manifest.json` + `tasks.md`. Referências `review` são hash-validadas para
+  integridade, mas não entram nos inventários frescos. A validação pura do envelope
+  rejeita binding stale e PASS com limitação; ela não prova independência nem autoriza
+  entrega.
+- A limitação externa é explícita: AGY 1.3.3 não oferece autoridade privada e durável
+  nem identidade do parent. O `PostToolUse` observado inclui metadados `toolCall`,
+  mas não o output aninhado, a identidade do parent ou autoridade durável necessários
+  para vincular o resultado. Portanto as APIs públicas
+  `createAgyReviewDispatchAuthority`, `attestAgyReviewDispatch` e
+  `parseAgyReviewResponse` falham fechado e não emitem nem aceitam authority/receipt
+  fornecidos pelo caller. Fidelity não pode ser consumida e quality não pode ser
+  autorizada por este adapter de fonte; nenhuma alegação operacional de review
+  independente é feita.
+- O contrato instalado `.asds/agy-review-dispatch-contract.json` é somente discovery:
+  fixa os paths e hashes oficiais de coordinator, reviewer e protocol, declara
+  `runtimeHostStatus: unavailable`, e seu inspector exige ownership dos quatro
+  payloads pelo manifest v3 exato do perfil oficial. O instalador autocontido projeta
+  os agentes apenas nos perfis AGY oficiais de projeto e usuário, inclui seus bytes no
+  manifest, faz readback integral e mantém update/uninstall fail-closed. Esta é
+  evolução de fonte; nenhuma instalação real, inicialização OpenSpec, sessão AGY ou
+  publicação foi feita.
+- Uma camada fonte separada de supervisor AGY headless foi adicionada sem promover o
+  hook nativo. Ela projeta um reviewer primary-only zero-write e contrato próprio,
+  valida o manifest fechado, a bijeção com o inventário integral produzido pelo
+  payload oficial e todos os bytes declarados, executa fidelity e quality
+  em streams frescos, captura evidência privada e recusa replay/drift. Os resultados
+  são captura não confiável: completion falha fechado e a fonte não cria authority ou
+  receipt de planning-store. O bootstrap por FD é
+  apenas configuração, não autenticação do parent; produção ainda exige um serviço
+  sob boundary de SO e endpoint/store privados, ou assinatura equivalente cujo
+  segredo não esteja acessível ao modelo. Só fake CLI foi usado; nenhum serviço,
+  daemon ou turno AGY real foi iniciado.
+- O transporte de captura foi alinhado ao stream headless observado no AGY 1.3.3:
+  input `event: "user"`, `init` único vinculado a conversation/agent/cwd/model/tools/
+  `request-review`, `step_update` fechado somente para leitura e `result` SUCCESS
+  terminal na mesma conversation. Schema antigo por `type`, IDs divergentes,
+  ferramentas de escrita/comando, subagent/delegação/background/permissão, ACTIVE
+  sem terminal, resultado não-SUCCESS, evento posterior e campos desconhecidos são
+  recusados. `runtimeHostStatus`, authority e completion continuam `unavailable`;
+  o supervisor permanece somente captura não confiável e não foi instalado nem
+  executado contra uma sessão real.
+- A correção pós-rodada AGY distingue a entrega inicial, cujas caixas futuras nascem
+  abertas, do progresso pós-handoff válido em `tasks.md`. O planner não pode transformar
+  o hash/manifest normalizado em ordem para apagar `[x]`; reopen exige protocolo do
+  consumidor e receipt/journal correspondente ou contradição concreta. O inventário
+  de review agora normaliza o mesmo progresso canônico. Restauração byte-exata só se
+  aplica após corrupção provada e preserva a revisão entregue; alteração material
+  cria candidato novo e exige fidelity/quality frescas. Ao alcançar o preflight de
+  review num runtime AGY unavailable, o coordenador encerra esse caminho uma vez antes
+  do reviewer e não inventa escrita, validação, banco, assinatura, receipt ou review.
+  Isto é evolução local de fonte;
+  não instala, publica nem modifica projeto-alvo.
+  O comparador público retorna `existing package bytes unchanged` para igualdade e
+  rejeita regressão de checkbox sem receipt de reopen; ele não fabrica prova de entrega
+  ou corrupção e, sozinho, não autoriza o status de restauração.
+- A correção round7 muda a ordem do gate AGY: locator/lineage é resolvido primeiro e
+  a descoberta somente leitura, limitada a `openspec/changes/*`, retorna
+  `locator-required` para zero ou múltiplos pacotes. O único pacote é inspecionado e
+  classificado como no-op/progresso/contradição/material antes do preflight de review.
+  `runtimeHostStatus: unavailable` bloqueia somente review fresco de candidato material;
+  não impede leitura/validação nem invalida uma entrega existente sem mudança material.
+  Ausência de lineage não concede qualquer escrita. O comparador de progresso é neutro
+  (`existing package state with updated progress`, review indeterminado); somente
+  lifecycle/readback validado permite reconhecer o baseline como entregue.
 
 ## Evidências e limites
 
@@ -65,6 +173,45 @@ o trabalho descrito nas tasks pertence a um consumidor posterior.
   `git diff --check` passaram. A primeira tentativa restrita do gate Accelerate
   parou apenas no socket de browser monitoring; a repetição autorizada fora dessa
   restrição passou integralmente. Isso prova os gates locais, não publicação/release.
+- Gates locais desta pilha de hardening em 2026-10-09: todos os arquivos de teste
+  selecionados em `tests/*.test.js` passaram em sequência, além de `npm run check`,
+  `npm run validate` e `git diff --check`. A regressão no pacote Prop4You observado
+  confirmou a correção do hash de `tasks.md`; a reconciliação formal de 0007/0005
+  permanece rejeitada até nova revisão independente mapear critérios canônicos
+  omitidos pela projeção. Os receipts históricos que apenas trocaram a revisão não
+  têm a nova proveniência e não são tratados como prova. Não houve nova execução
+  funcional do produto nem prova de deploy.
+- Em 2026-10-10, os gates reais desta árvore passaram: bateria focal
+  reviewer/protocolo/installer/update/workflow `91/91`; suíte oficial descoberta
+  somente em `tests/*.test.js` `559/559`; `npm run check`; `npm run validate`; e
+  `git diff --check`. Os testes focais cobrem o fail-closed das três APIs públicas,
+  validação pura sem autoridade, package Prop4You real-shaped, paths oficiais exatos,
+  manifest v3/ownership, drift/link, install/update/uninstall, migração e crash
+  recovery. Isto comprova a fonte e as fixtures locais, não um hook nativo AGY. Sem a
+  capacidade privada/durável ausente no AGY 1.3.3, o runtime continua indisponível e
+  nenhuma sessão de reviewer foi qualificada.
+- Após a correção de progresso pós-handoff, a bateria focal final de
+  AGY protocol/agent/validation/workflow passou `55/55`, o supervisor passou `35/35`
+  e a suíte oficial completa passou `599/599`; `npm run check`, `npm run validate` e
+  `git diff --check` também passaram. Esses gates provam a fonte/testes locais e a
+  normalização de progresso; não provam instalação, sessão AGY, banco, assinatura,
+  reviewer real ou alteração no projeto-alvo.
+- Receipts históricos format 1 agora têm migração local explícita e preview-first,
+  vinculada ao SHA-256 exato do próprio receipt. A adoção valida identidade, paths
+  canônicos únicos, raízes oficiais estreitas, arquivos regulares sem hardlink e
+  hashes antes de reconciliar o payload e emitir/readback do manifest atual. Cada
+  path também precisa pertencer ao payload oficial atual ou a um tombstone exato
+  versionado na fonte; sibling skills, extensões de schema, paths estrangeiros e
+  ownership ambíguo de `AGENTS.md`/config são rejeitados; não há
+  backup nem runtime paralelo. O apply exige o digest canônico exibido pelo preview;
+  um journal CAS-bound liga opções, features e receipts irmãos exatos e permite
+  retomada após SIGKILL sem aceitar artefato desconhecido. Um journal ativo bloqueia
+  install/update/uninstall comum; temporários forward e reverse de replace usam
+  uma identidade journal-bound e só são recuperados pelas imagens old/new com
+  bytes/modo exatos. Instalações user sem
+  sibling podem atualizar o payload compartilhado histórico; com siblings exigem
+  reconciliação explícita em preview, apply e resume. Nenhum target ou home foi
+  migrado por esta mudança.
 - [Qualificação Codex/Agy](docs/qualification/2026-10-03-harness/report.md): entrada
   natural das skills observada em casos delimitados; fidelidade a requisito no Agy
   permaneceu parcial. Não comprova o fluxo em qualquer projeto.
@@ -76,7 +223,8 @@ o trabalho descrito nas tasks pertence a um consumidor posterior.
   estrutural não prova qualidade; hierarquia recursiva é rejeitada pelo núcleo.
 - **A leitura natural deste estado evolutivo por uma sessão nova ainda não foi
   comprovada.** O AGENTS da raiz exige a leitura; isso não equivale a uma prova de carga.
-- Projeção fiel em Plane e novos mecanismos de entrega/revisão não foram implementados.
+- Projeção fiel em Plane permanece não implementada; o hardening local não prova
+  adaptação universal de todos os harnesses aos novos contratos de revisão v2.
 
 ## Pendências e próximos passos
 

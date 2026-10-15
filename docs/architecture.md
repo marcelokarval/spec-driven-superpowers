@@ -50,7 +50,8 @@ Future execution belongs to a separately selected consumer.
 - `lib/validation.mjs`: real YAML parsing, schema/templates, linked contracts and
   scenario coverage; a present planning manifest is also lifecycle-, hash-,
   decision-route- and task-manager-validated.
-- `lib/git-scope.mjs`: base-to-HEAD scope plus staged, unstaged and untracked state.
+- `lib/git-scope.mjs`: base-to-HEAD scope plus staged, unstaged and untracked state;
+  workspace baselines separate unchanged pre-existing dirt from candidate changes.
 - `scripts/validate.mjs`: package/change validation and optional Git-backed receipts.
 
 No validator executes user-provided verification command strings. Consistency
@@ -60,7 +61,8 @@ The supplied base must come from the coordinator, not an untrusted receipt.
 
 ## Consumer compatibility
 Planning states are draft, reviewing, ready, delivered, partial, blocked and
-superseded. New future-work checkboxes stay open. Snapshot changes invalidate
+superseded. New future-work checkboxes start open; a consumer may later update
+them as progress without invalidating the planning contract. Other snapshot changes invalidate
 planning reviews/readback. Parallelism is only a recommendation in the plan.
 Task-manager state is a separate consumer projection: `ready` means executable at
 the initial frontier, `waiting` names incomplete prerequisites, `blocked` names

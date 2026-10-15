@@ -80,7 +80,9 @@ artifacts:
       After the ordered inventory, declare each projected wave once as
       `- Wave N: ID, ID`; these declarations must exactly match taskManager.plannedWaves.
       Validate index/contract bijection, planning readiness and scenario coverage before delivery.
-      Deliver a new plan with implementation checkboxes open. A later consumer owns progress.
+      Deliver a new plan with implementation checkboxes open. After handoff those
+      checkboxes record later-consumer progress; do not add prose that claims they
+      remain perpetually open.
       Do not generate another plan or progress checklist under docs/superpowers.
     requires: [microcontracts]
 

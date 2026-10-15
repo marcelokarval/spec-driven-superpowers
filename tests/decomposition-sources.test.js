@@ -28,7 +28,7 @@ test('CLI compiles same-scope decomposition from real contracts and rejects stal
  writeTask(root,'0001',{orchestration:metadata,nodeType:'package'});writeTask(root,'A',{nodeType:'task',parentId:'0001',boundary,orchestration:metadata});
  fs.appendFileSync(path.join(root,'tasks.md'),'\n- [ ] [Task A](tasks/task-A.md): Delimited child\n');
  const proposed=compilePlan(loadTasks(root),profile,{allowUnready:true});
- const event={type:'decompose',taskId:'0001',plan:proposed,reason:'split broad work',authorization:{source:'existing user grant',scope:'approved example'}};
+ const event={type:'decompose',taskId:'0001',plan:proposed,executionScope:{consumableTaskIds:proposed.tasks.filter(task=>task.nodeType!=='package').map(task=>task.id),excludedTaskIds:[]},reason:'split broad work',authorization:{source:'existing user grant',scope:'approved example'}};
  const f=save('event.json',event);let result=run('event',['--event',f,'--expected-sequence','0']);assert.equal(result.status,0,result.stderr);
  assert.equal(JSON.parse(result.stdout).plan.version,3);
  fs.appendFileSync(path.join(root,'tasks/task-A.md'),'\nSource drift.\n');

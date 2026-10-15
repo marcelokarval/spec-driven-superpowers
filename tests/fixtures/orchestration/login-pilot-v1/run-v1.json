@@ -1,0 +1,1201 @@
+{
+  "version": 1,
+  "plan": {
+    "version": 3,
+    "tasks": [
+      {
+        "id": "0005",
+        "title": "Integrar actions de login e recovery no servidor",
+        "nodeType": "task",
+        "source": {
+          "path": "openspec/changes/align-login-submission-readiness/tasks/task-0005.md",
+          "anchor": "# Task 0005: Integrar actions de login e recovery no servidor"
+        },
+        "kind": "implementation",
+        "openDecisions": [],
+        "dependsOn": [
+          "0007"
+        ],
+        "write": [
+          "apps/web/src/app/auth/actions.ts",
+          "apps/web/src/app/auth/actions.test.ts"
+        ],
+        "resources": [],
+        "scenarios": [
+          "identity/login-submission-readiness/Credencial antiga",
+          "identity/login-submission-readiness/Resposta não enumerativa",
+          "identity/login-submission-readiness/Prova de recovery",
+          "identity/login-submission-readiness/Conclusão e falha parcial",
+          "identity/login-submission-readiness/Tentativas repetidas",
+          "identity/login-submission-readiness/Preservação de autoridade"
+        ],
+        "verification": [
+          "pnpm --filter @prop4you/web test -- src/app/auth/actions.test.ts",
+          "pnpm --filter @prop4you/web typecheck"
+        ],
+        "boundary": {
+          "change": "align-login-submission-readiness",
+          "target": "Integrar login, pedido e troca de senha sem duplicar a autoridade dos helpers/provider.",
+          "exclusions": [
+            "execução antes da aceitação integrada de 0007",
+            "folhas fora do piloto sequencial 0007 → 0005",
+            "contas, serviços e bancos reais",
+            "instalação, backup, novo runtime ou worktree, commit, push, release e deploy",
+            "qualquer alteração fora do write scope"
+          ],
+          "review": {
+            "verdict": "ready",
+            "source": "Coordenador reconciliou a autorização explícita do usuário com o contrato planejado e os hashes das fontes"
+          }
+        },
+        "orchestration": {
+          "complexity": "high",
+          "uncertainty": "medium",
+          "risk": "high",
+          "rationale": "Actions de autenticação e recovery combinam compatibilidade, resposta não enumerativa, prova recente e efeito parcial de logout; uma regressão pode enfraquecer autoridade ou bloquear acesso.",
+          "skills": [
+            "test-driven-development",
+            "systematic-debugging",
+            "verification-before-completion"
+          ],
+          "references": [
+            "openspec/changes/align-login-submission-readiness/tasks/task-0005.md",
+            "openspec/changes/align-login-submission-readiness/design.md",
+            "openspec/changes/align-login-submission-readiness/specs/identity/login-submission-readiness/spec.md",
+            "docs/sdd/0002-authentication.md",
+            "docs/sdd/0007-auth-security-and-operations.md"
+          ],
+          "claims": [
+            {
+              "name": "auth-unit-test-runtime",
+              "mode": "exclusive",
+              "roles": [
+                "executor",
+                "reviewer"
+              ]
+            }
+          ]
+        },
+        "body": "## Outcome\nIntegrar login, pedido e troca de senha sem duplicar a autoridade dos helpers/provider.\n\n## Inputs\nConsumir a task 0005 canônica e somente o receipt integrado e aceito de 0007, além das fontes vinculadas por hash nesta projeção. A autorização vem da mensagem do usuário que aprovou o piloto 0007 → 0005.\n\n## Acceptance\nPreservar senha literal no login e normalizar somente email; manter resposta pública não enumerativa; revalidar prova recovery antes de updateUser; representar falha parcial de logout sem repetir mudança de senha; preservar seletivamente PKCE em erro; não criar lookup administrativo nem nova autoridade.\n\n## Verification\nExecutar os dois comandos declarados, registrar exit status e conferir que o diff permanece nos dois caminhos permitidos.\n\n## Definition of done\nCandidato entregue com snapshot, testes observados e limitações; revisão e aceitação pertencem a sessões posteriores e ao coordenador.",
+        "contractRevision": "4c5dfb43839c3aaa2d3c4b6389e431f435a1429637dbd5e12d4b4f81f87c3474",
+        "planningSource": {
+          "kind": "projection",
+          "root": "/fixture/project",
+          "canonicalIndex": "openspec/changes/align-login-submission-readiness/tasks.md"
+        },
+        "tier": "high",
+        "readinessErrors": []
+      },
+      {
+        "id": "0007",
+        "title": "Endurecer prova recovery e preservação PKCE",
+        "nodeType": "task",
+        "source": {
+          "path": "openspec/changes/align-login-submission-readiness/tasks/task-0007.md",
+          "anchor": "# Task 0007: Endurecer prova recovery e preservação PKCE"
+        },
+        "kind": "implementation",
+        "openDecisions": [],
+        "dependsOn": [],
+        "write": [
+          "apps/web/src/lib/auth/recovery.ts",
+          "apps/web/src/lib/auth/recovery.test.ts",
+          "apps/web/src/lib/supabase/server.ts",
+          "apps/web/src/lib/supabase/server.test.ts"
+        ],
+        "resources": [],
+        "scenarios": [
+          "identity/login-submission-readiness/Prova de recovery",
+          "identity/login-submission-readiness/Tentativas repetidas",
+          "identity/login-submission-readiness/Preservação de autoridade"
+        ],
+        "verification": [
+          "pnpm --filter @prop4you/web test -- src/lib/auth/recovery.test.ts src/lib/supabase/server.test.ts",
+          "pnpm --filter @prop4you/web typecheck"
+        ],
+        "boundary": {
+          "change": "align-login-submission-readiness",
+          "target": "Fornecer helpers únicos para prova nativa recente e recuperação dos verificadores PKCE.",
+          "exclusions": [
+            "folhas fora do piloto sequencial 0007 → 0005",
+            "contas, serviços e bancos reais",
+            "instalação, backup, novo runtime ou worktree, commit, push, release e deploy",
+            "qualquer alteração fora do write scope"
+          ],
+          "review": {
+            "verdict": "ready",
+            "source": "Coordenador reconciliou a autorização explícita do usuário com o contrato planejado e os hashes das fontes"
+          }
+        },
+        "orchestration": {
+          "complexity": "medium",
+          "uncertainty": "medium",
+          "risk": "high",
+          "rationale": "Helpers server-side de prova recovery e preservação seletiva de PKCE têm escopo delimitado, mas uma regressão pode autorizar reset indevido ou destruir continuidade legítima.",
+          "skills": [
+            "test-driven-development",
+            "systematic-debugging",
+            "verification-before-completion"
+          ],
+          "references": [
+            "openspec/changes/align-login-submission-readiness/tasks/task-0007.md",
+            "openspec/changes/align-login-submission-readiness/design.md",
+            "openspec/changes/align-login-submission-readiness/specs/identity/login-submission-readiness/spec.md",
+            "docs/sdd/0002-authentication.md",
+            "docs/sdd/0007-auth-security-and-operations.md"
+          ],
+          "claims": [
+            {
+              "name": "auth-unit-test-runtime",
+              "mode": "exclusive",
+              "roles": [
+                "executor",
+                "reviewer"
+              ]
+            }
+          ]
+        },
+        "body": "## Outcome\nFornecer helpers únicos para prova nativa recente e recuperação dos verificadores PKCE.\n\n## Inputs\nConsumir a task 0007 canônica, proposal, design, spec Identity/Auth, AGENTS.md, DESIGN.md e SDDs vinculados por hash nesta projeção. A autorização de execução vem da mensagem do usuário que aprovou o piloto 0007 → 0005 neste worktree, não do pacote histórico de planejamento.\n\n## Acceptance\nNegar prova recovery em erro, ausência, subject divergente, session_id ausente, AMR não recovery, idade superior a 600 segundos, futuro além da tolerância e entrada forjada. Preservar apenas verificadores PKCE anteriores em erro/cooldown; sucesso conserva o novo verifier. Manter helpers server-side e nunca aceitar browser, query, cookie ou JWT decodificado pelo app como autoridade.\n\n## Verification\nExecutar os dois comandos declarados, registrar exit status e conferir que o diff permanece nos quatro caminhos permitidos.\n\n## Definition of done\nCandidato entregue com snapshot, testes observados e limitações; revisão e aceitação pertencem a sessões posteriores e ao coordenador.",
+        "contractRevision": "4c5dfb43839c3aaa2d3c4b6389e431f435a1429637dbd5e12d4b4f81f87c3474",
+        "planningSource": {
+          "kind": "projection",
+          "root": "/fixture/project",
+          "canonicalIndex": "openspec/changes/align-login-submission-readiness/tasks.md"
+        },
+        "tier": "high",
+        "readinessErrors": []
+      }
+    ],
+    "profile": {
+      "version": 1,
+      "tiers": {
+        "bounded": {
+          "executor": {
+            "model": "gpt-6.1-sol",
+            "effort": "high"
+          },
+          "reviewer": {
+            "model": "gemini-3.1-pro-high",
+            "effort": "high"
+          }
+        },
+        "medium": {
+          "executor": {
+            "model": "gpt-6.1-sol",
+            "effort": "high"
+          },
+          "reviewer": {
+            "model": "gemini-3.1-pro-high",
+            "effort": "high"
+          }
+        },
+        "high": {
+          "executor": {
+            "model": "gpt-6.1-sol",
+            "effort": "high"
+          },
+          "reviewer": {
+            "model": "gemini-3.1-pro-high",
+            "effort": "high"
+          }
+        }
+      }
+    },
+    "revision": "f4e3227b8fa5a3af9c08fe587c8cbf5d2aa691eb06678b195d64a4964317f47a"
+  },
+  "context": {
+    "coordinator": "fixture-coordinator",
+    "readScope": [
+      "/fixture/project",
+      "/fixture/skills",
+      "/fixture/asds"
+    ],
+    "authorization": {
+      "source": "Fixture authorization for a bounded two-task execution pilot",
+      "scope": "Local fixture execution only; no publication, installation, deployment or external services"
+    },
+    "constraints": [
+      "One active writer in the shared worktree",
+      "Only the coordinator updates tasks.md",
+      "Codex executor and fresh AGY reviewer are explicitly approved for this pilot",
+      "Preserve all pre-existing dirty and untracked state"
+    ]
+  },
+  "digest": "23300cc91b5e115d0a2ec5ecbea6bddaa05a68b7d8c2a3d85b1814bf01644999",
+  "events": [
+    {
+      "sequence": 1,
+      "previous": "23300cc91b5e115d0a2ec5ecbea6bddaa05a68b7d8c2a3d85b1814bf01644999",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "executor",
+        "session": "fixture-executor-0007-a",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "collaboration.spawn_agent with fork_turns none; standby confirmed before packet delivery"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "5d9f2b0eb8a5b95a9745b99226d3e4d2e50231b5ad0b7f1ef28192322b2f85b5"
+    },
+    {
+      "sequence": 2,
+      "previous": "5d9f2b0eb8a5b95a9745b99226d3e4d2e50231b5ad0b7f1ef28192322b2f85b5",
+      "event": {
+        "type": "stop",
+        "taskId": "0007",
+        "session": "fixture-executor-0007-a",
+        "reason": "Execution gate blocked before edits: the authorized worktree has no project dependencies, so Vitest and TypeScript resolution fail. TDD cannot treat tooling ENOENT as a behavioral RED; installation, symlink, alternate runtime, or worktree mutation outside the four reserved paths was not authorized.",
+        "stopped": true
+      },
+      "digest": "ec7e9a698c46b0d9982bdc779eee6f51cd0dc270b4a24fe712beb42662b401c9"
+    },
+    {
+      "sequence": 3,
+      "previous": "ec7e9a698c46b0d9982bdc779eee6f51cd0dc270b4a24fe712beb42662b401c9",
+      "event": {
+        "type": "unblock",
+        "taskId": "0007",
+        "reason": "User explicitly authorized the official project installation in the existing worktree. pnpm install --frozen-lockfile completed successfully; Vitest 4.1.11 and TypeScript 5.9.3 resolve locally, Node 24.20.0 and pnpm 10.18.3 match project requirements, core.hooksPath remains .githooks, and git status contains only the preserved pre-existing changes."
+      },
+      "digest": "5cb0ecf8d71ff73697b4ef0b34136cf9217e5eb63463f655d29280de5e4f4cd1"
+    },
+    {
+      "sequence": 4,
+      "previous": "5cb0ecf8d71ff73697b4ef0b34136cf9217e5eb63463f655d29280de5e4f4cd1",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "executor",
+        "session": "fixture-executor-0007-a_retry",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "collaboration.spawn_agent with fork_turns none after dependency unblock; standby confirmed before packet delivery"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "87ebf4aa3fca469ba1dbb130415f008ef7536dd1edce95ca7e52327bc020eb6f"
+    },
+    {
+      "sequence": 5,
+      "previous": "87ebf4aa3fca469ba1dbb130415f008ef7536dd1edce95ca7e52327bc020eb6f",
+      "event": {
+        "type": "deliver",
+        "taskId": "0007",
+        "session": "fixture-executor-0007-a_retry",
+        "stopped": true,
+        "receipt": {
+          "status": "delivered",
+          "contractRevision": "4c5dfb43839c3aaa2d3c4b6389e431f435a1429637dbd5e12d4b4f81f87c3474",
+          "baseRevision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+worktree:aa57d02b3df53a127f970b6e4e4967c50475dc59675f2544c55f32d3f0331498",
+          "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5",
+          "changedFiles": [
+            "apps/web/src/lib/auth/recovery.test.ts",
+            "apps/web/src/lib/auth/recovery.ts",
+            "apps/web/src/lib/supabase/server.test.ts"
+          ],
+          "evidence": [
+            {
+              "command": "pnpm --filter @prop4you/web test -- src/lib/auth/recovery.test.ts src/lib/supabase/server.test.ts",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5",
+              "observation": "Coordinator rerun: 13 files and 77 tests passed"
+            },
+            {
+              "command": "pnpm --filter @prop4you/web typecheck",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5",
+              "observation": "Coordinator rerun completed successfully"
+            },
+            {
+              "command": "git diff --check",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5"
+            }
+          ],
+          "scopeObservation": "Candidate revision is the SHA-256 of git diff --binary limited to the four reserved task paths. The repository-wide worktree fingerprint cannot be used as the candidate identity because unrelated authorized dirty state predates this task; the baseline fingerprint remains recorded separately.",
+          "limitations": [
+            "Unit and type verification only; browser, live provider, replay, one-time-token semantics, and real limiter behavior remain outside this task."
+          ]
+        }
+      },
+      "digest": "6ff0f851af020eac165a95fc089a2bde9429c8993ed4ed721fc33afb39c44014"
+    },
+    {
+      "sequence": 6,
+      "previous": "6ff0f851af020eac165a95fc089a2bde9429c8993ed4ed721fc33afb39c44014",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "reviewer",
+        "session": "fixture-reviewer-0007-a",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "fresh agy --print process; no continuation and no executor narrative or evidence supplied"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "9f4572cd0b8172a1f4ff944db393cfbf17ed0fb4a487962f55bd8987c66998ea"
+    },
+    {
+      "sequence": 7,
+      "previous": "9f4572cd0b8172a1f4ff944db393cfbf17ed0fb4a487962f55bd8987c66998ea",
+      "event": {
+        "type": "reviewResult",
+        "taskId": "0007",
+        "session": "fixture-reviewer-0007-a",
+        "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5",
+        "verdict": "fail",
+        "findings": [
+          "Reviewer attributed apps/web/src/app/auth/login/login-form.tsx and apps/web/src/components/auth-submit.tsx to candidate 0007 and classified them as write-scope escapes; requested reverting them"
+        ],
+        "evidence": [
+          "Fresh AGY gemini-3.1-pro-high review output; read-only session reported no edits",
+          "Coordinator comparison against the pre-dispatch baseline shows both cited paths already modified before task 0007; the finding is not attributable to candidate revision and its requested revert would destroy pre-existing user work"
+        ],
+        "stopped": true
+      },
+      "digest": "97b4f3eb8ae0e62ca1af380d91c4daff7518955facaeb8079305e22ba834488d"
+    },
+    {
+      "sequence": 8,
+      "previous": "97b4f3eb8ae0e62ca1af380d91c4daff7518955facaeb8079305e22ba834488d",
+      "event": {
+        "type": "decide",
+        "taskId": "0007",
+        "disposition": "rework",
+        "reason": "The candidate review failed because the reviewer packet did not provide an independently verifiable dirty-worktree baseline and AGY attributed pre-existing login changes to task 0007. Re-deliver the unchanged bounded candidate with coordinator-owned baseline attribution, then obtain a new fresh review. Do not revert or modify the pre-existing login files."
+      },
+      "digest": "3524681007c0d566f44e5716b1321b7ebbb1c48d33bcb51f6ab9a93e9257c859"
+    },
+    {
+      "sequence": 9,
+      "previous": "3524681007c0d566f44e5716b1321b7ebbb1c48d33bcb51f6ab9a93e9257c859",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "executor",
+        "session": "fixture-executor-0007-c",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "collaboration.spawn_agent with fork_turns none after reviewer scope-attribution failure; standby confirmed before packet"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "ffb80d317ffe2322e7ce9c975ae32537eb2444ae54bd218f39e9258d01d7647f"
+    },
+    {
+      "sequence": 10,
+      "previous": "ffb80d317ffe2322e7ce9c975ae32537eb2444ae54bd218f39e9258d01d7647f",
+      "event": {
+        "type": "deliver",
+        "taskId": "0007",
+        "session": "fixture-executor-0007-c",
+        "stopped": true,
+        "receipt": {
+          "status": "delivered",
+          "contractRevision": "4c5dfb43839c3aaa2d3c4b6389e431f435a1429637dbd5e12d4b4f81f87c3474",
+          "baseRevision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+worktree:aa57d02b3df53a127f970b6e4e4967c50475dc59675f2544c55f32d3f0331498",
+          "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5",
+          "changedFiles": [
+            "apps/web/src/lib/auth/recovery.test.ts",
+            "apps/web/src/lib/auth/recovery.ts",
+            "apps/web/src/lib/supabase/server.test.ts"
+          ],
+          "evidence": [
+            {
+              "command": "pnpm --filter @prop4you/web test -- src/lib/auth/recovery.test.ts src/lib/supabase/server.test.ts",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5",
+              "observation": "Fresh redelivery executor: 13 files and 77 tests passed"
+            },
+            {
+              "command": "pnpm --filter @prop4you/web typecheck",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5"
+            },
+            {
+              "command": "git diff --check",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5"
+            }
+          ],
+          "baselineAttribution": {
+            "authority": "openspec/changes/align-login-submission-readiness/source-inventory.md and tasks/task-0002.md",
+            "preExistingPaths": {
+              "apps/web/src/app/auth/login/login-form.tsx": "a1edc79f52bac42d14bb72ec5a89f8552046eaa1f140b4a9ac99b5ba17a2c2ff",
+              "apps/web/src/components/auth-submit.tsx": "5e32564104f54302fb44ffecb77e61d8163c35d30674c9b68f084f8e15498e1b",
+              "apps/web/src/app/auth/login/login-form.test.ts": "be3ab7226257c63467d23937bf68756e7c4a6a0066b6e11524d4f2dc194bd93d"
+            }
+          },
+          "limitations": [
+            "Unit, type, and static verification only; browser, live provider, token replay, one-time-token semantics, and real limiter behavior remain outside this task."
+          ]
+        }
+      },
+      "digest": "3f9184aae5890b73d681abf0b9cb20f5e8b22ed2411d8e168eda0c7bec17c51b"
+    },
+    {
+      "sequence": 11,
+      "previous": "3f9184aae5890b73d681abf0b9cb20f5e8b22ed2411d8e168eda0c7bec17c51b",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "reviewer",
+        "session": "fixture-reviewer-0007-b",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "fresh agy --print process after redelivery; candidate contract plus coordinator-owned dirty baseline authority, no executor narrative"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "348ef2a460987f951c0a89c2ee60ec1fa4b5c74402ba3b523dd5a2f3f5b6c75c"
+    },
+    {
+      "sequence": 12,
+      "previous": "348ef2a460987f951c0a89c2ee60ec1fa4b5c74402ba3b523dd5a2f3f5b6c75c",
+      "event": {
+        "type": "reviewResult",
+        "taskId": "0007",
+        "session": "fixture-reviewer-0007-b",
+        "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:7d10450930102363887eb918e39209692f9d81d7fefb41a3e672f210530177f5",
+        "verdict": "pass",
+        "findings": [],
+        "evidence": [
+          "Fresh AGY gemini-3.1-pro-high independently verified the three canonical pre-existing login hashes and the bounded candidate diff SHA-256",
+          "Reviewer inspected recovery authority, AMR time window, malformed/forged inputs, PKCE restoration on error/cooldown/throw, success preservation, tests, and typecheck",
+          "Reviewer confirmed read-only completion with no edits, commit, or tasks.md update"
+        ],
+        "stopped": true
+      },
+      "digest": "7b01f9d3cb194b48be55594e77778a2647d0fc8c320e3c4d40c78e57668bd871"
+    },
+    {
+      "sequence": 13,
+      "previous": "7b01f9d3cb194b48be55594e77778a2647d0fc8c320e3c4d40c78e57668bd871",
+      "event": {
+        "type": "beginIntegration",
+        "taskId": "0007",
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "a4e6d7983649ada940f8ebc1d7ebe8db1420063fd86cdfed12480e7bcc42d0b6"
+    },
+    {
+      "sequence": 14,
+      "previous": "a4e6d7983649ada940f8ebc1d7ebe8db1420063fd86cdfed12480e7bcc42d0b6",
+      "event": {
+        "type": "stop",
+        "taskId": "0007",
+        "session": "fixture-coordinator",
+        "reason": "Integrated snapshot drifted after candidate review: apps/web/src/lib/auth/recovery.test.ts reverted to its HEAD hash 8afaf6c5 instead of reviewed candidate hash 32b706ad, changing the bounded diff from 7d104509 to c79fec52 and reducing the prescribed suite from the reviewed candidate. Typecheck also hit sandbox EROFS while updating the pre-existing ignored tsbuildinfo cache, so no passing integration evidence can be recorded.",
+        "stopped": true
+      },
+      "digest": "98ce835de0c8259929b36d7042f0ba258ed4b30756659c724618b05f8abdfee9"
+    },
+    {
+      "sequence": 15,
+      "previous": "98ce835de0c8259929b36d7042f0ba258ed4b30756659c724618b05f8abdfee9",
+      "event": {
+        "type": "decide",
+        "taskId": "0007",
+        "disposition": "rework",
+        "reason": "Reconstruct recovery.test.ts inside the authorized task scope from the contract using TDD, obtain a new candidate revision, and repeat independent candidate and integration reviews. Do not reuse the stale 7d104509 revision or claim the prior passing review for the drifted snapshot."
+      },
+      "digest": "ad1f7ea138dd2e8a258088b5620658caf65bc46edd7a47cb01db63a537bb5118"
+    },
+    {
+      "sequence": 16,
+      "previous": "ad1f7ea138dd2e8a258088b5620658caf65bc46edd7a47cb01db63a537bb5118",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "executor",
+        "session": "fixture-executor-0007-d",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "collaboration.spawn_agent with fork_turns none after integration snapshot drift; standby confirmed before packet"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "3949e8aa3939e0008e1e9d540ceed3f703ef52c128e1ddfcd7b1be09c369f5e3"
+    },
+    {
+      "sequence": 17,
+      "previous": "3949e8aa3939e0008e1e9d540ceed3f703ef52c128e1ddfcd7b1be09c369f5e3",
+      "event": {
+        "type": "deliver",
+        "taskId": "0007",
+        "session": "fixture-executor-0007-d",
+        "stopped": true,
+        "receipt": {
+          "status": "delivered",
+          "contractRevision": "4c5dfb43839c3aaa2d3c4b6389e431f435a1429637dbd5e12d4b4f81f87c3474",
+          "baseRevision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+worktree:aa57d02b3df53a127f970b6e4e4967c50475dc59675f2544c55f32d3f0331498",
+          "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+          "changedFiles": [
+            "apps/web/src/lib/auth/recovery.test.ts",
+            "apps/web/src/lib/auth/recovery.ts",
+            "apps/web/src/lib/supabase/server.test.ts"
+          ],
+          "evidence": [
+            {
+              "command": "pnpm --filter @prop4you/web test -- src/lib/auth/recovery.test.ts src/lib/supabase/server.test.ts",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+              "observation": "Coordinator rerun: 13 files and 103 tests passed"
+            },
+            {
+              "command": "pnpm --filter @prop4you/web typecheck",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+              "observation": "Coordinator rerun outside restricted sandbox only to update ignored tsbuildinfo cache"
+            },
+            {
+              "command": "git diff --check",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576"
+            }
+          ],
+          "baselineAttribution": {
+            "authority": "openspec/changes/align-login-submission-readiness/source-inventory.md and tasks/task-0002.md",
+            "preExistingPaths": {
+              "apps/web/src/app/auth/login/login-form.tsx": "a1edc79f52bac42d14bb72ec5a89f8552046eaa1f140b4a9ac99b5ba17a2c2ff",
+              "apps/web/src/components/auth-submit.tsx": "5e32564104f54302fb44ffecb77e61d8163c35d30674c9b68f084f8e15498e1b",
+              "apps/web/src/app/auth/login/login-form.test.ts": "be3ab7226257c63467d23937bf68756e7c4a6a0066b6e11524d4f2dc194bd93d"
+            }
+          },
+          "limitations": [
+            "Local unit, type, and static evidence only; no browser, live provider, replay, one-time-token, real limiter, commit, or deployment proof."
+          ]
+        }
+      },
+      "digest": "5fdf7dde0ff7b812831cf2ab184eccc412a722289db3405c50047b3c3b94d59f"
+    },
+    {
+      "sequence": 18,
+      "previous": "5fdf7dde0ff7b812831cf2ab184eccc412a722289db3405c50047b3c3b94d59f",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "reviewer",
+        "session": "fixture-reviewer-0007-c",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "fresh agy --print process for reconstructed candidate; canonical dirty baseline supplied, no executor narrative"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "661ad47dba1e35b14f85f9e7f4d72935bbbfaefd5f65927eb8e093335c7b576c"
+    },
+    {
+      "sequence": 19,
+      "previous": "661ad47dba1e35b14f85f9e7f4d72935bbbfaefd5f65927eb8e093335c7b576c",
+      "event": {
+        "type": "reviewResult",
+        "taskId": "0007",
+        "session": "fixture-reviewer-0007-c",
+        "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+        "verdict": "pass",
+        "findings": [],
+        "evidence": [
+          "Fresh AGY gemini-3.1-pro-high independently matched candidate diff hash 01c69e55 and all three canonical pre-existing login hashes",
+          "Reviewer inspected provider authority, recovery time bounds, malformed inputs, PKCE rollback isolation, success behavior, and adversarial tests",
+          "Reviewer listed explicit unit/local limitations and confirmed zero-byte read-only completion; coordinator immediately rechecked the candidate hash unchanged"
+        ],
+        "stopped": true
+      },
+      "digest": "800d661172ce3b3b065d07cfb9bc71e9f94e0323f293050e9f070560866e21ac"
+    },
+    {
+      "sequence": 20,
+      "previous": "800d661172ce3b3b065d07cfb9bc71e9f94e0323f293050e9f070560866e21ac",
+      "event": {
+        "type": "beginIntegration",
+        "taskId": "0007",
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "3663fd20b6c2e6227ebfcf3ac478ebc6e3a42bbe695da3a9133cbcfea7d2d2f8"
+    },
+    {
+      "sequence": 21,
+      "previous": "3663fd20b6c2e6227ebfcf3ac478ebc6e3a42bbe695da3a9133cbcfea7d2d2f8",
+      "event": {
+        "type": "integrate",
+        "taskId": "0007",
+        "integrationRevision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+        "integrationEvidence": [
+          {
+            "command": "pnpm --filter @prop4you/web test -- src/lib/auth/recovery.test.ts src/lib/supabase/server.test.ts",
+            "exitCode": 0,
+            "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+            "observation": "Integrated snapshot: 13 files and 103 tests passed"
+          },
+          {
+            "command": "pnpm --filter @prop4you/web typecheck",
+            "exitCode": 0,
+            "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576"
+          },
+          {
+            "command": "git diff --check",
+            "exitCode": 0,
+            "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576"
+          }
+        ]
+      },
+      "digest": "29c93fd339fa9ca57f8f1069d32fc8bf34a2f18c5a8882000b27f4abc9366859"
+    },
+    {
+      "sequence": 22,
+      "previous": "29c93fd339fa9ca57f8f1069d32fc8bf34a2f18c5a8882000b27f4abc9366859",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0007",
+        "role": "reviewer",
+        "session": "fixture-reviewer-0007-d",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "fresh agy --print process for integrated snapshot; canonical baseline and revision supplied, no candidate-review narrative"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "533b8c83550f8f9c3b0d02e4501432e1f6c96cb6199ad90dd3002ea4ac4b1c21"
+    },
+    {
+      "sequence": 23,
+      "previous": "533b8c83550f8f9c3b0d02e4501432e1f6c96cb6199ad90dd3002ea4ac4b1c21",
+      "event": {
+        "type": "reviewResult",
+        "taskId": "0007",
+        "session": "fixture-reviewer-0007-d",
+        "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+        "verdict": "pass",
+        "findings": [],
+        "evidence": [
+          "Fresh AGY forensic integration review independently matched integrated diff hash 01c69e55 and canonical dirty baseline hashes",
+          "Reviewer re-evaluated provider authority, fail-closed recovery proof, [-30,600] window, malformed inputs, PKCE-only rollback, session preservation, success behavior, and test adequacy",
+          "Reviewer documented browser, live-provider, replay/one-time, limiter, and deploy limits and confirmed zero-byte read-only completion; coordinator immediately rechecked hash unchanged"
+        ],
+        "stopped": true
+      },
+      "digest": "8331e216f52cb569efaea925367c37c0539ba5bccb5039e5355c3bb95b53f4fd"
+    },
+    {
+      "sequence": 24,
+      "previous": "8331e216f52cb569efaea925367c37c0539ba5bccb5039e5355c3bb95b53f4fd",
+      "event": {
+        "type": "decide",
+        "taskId": "0007",
+        "disposition": "accepted",
+        "reason": "The reconstructed candidate remained stable through integration, passed the two declared verification commands and diff check, and received distinct fresh AGY passes for candidate and integrated snapshots with canonical dirty-baseline attribution.",
+        "checks": {
+          "scope": "Bounded diff hash 01c69e55 changes only recovery.ts, recovery.test.ts, and server.test.ts within the four declared paths; canonical hashes prove login UI changes predate task 0007.",
+          "behavior": "103 web tests and typecheck pass; adversarial cases cover SDK errors/rejections, user/claims/session/AMR/time bounds and forged hints, plus PKCE failure/cooldown/throw/success behavior.",
+          "independence": "Candidate and integrated snapshots were reviewed by separate fresh AGY processes with no inherited executor narrative; both independently recomputed the bounded revision and baseline hashes.",
+          "integration": "Coordinator reserved integration, reran declared tests and typecheck on revision 01c69e55, recorded passing evidence, and verified no post-review drift.",
+          "authority": "Only provider-validated getUser/getClaims can establish recovery proof; application-decoded/browser/query/cookie hints remain non-authoritative and no new authority was introduced."
+        },
+        "limitations": [
+          "Local unit/type/static proof does not certify browser cookie behavior, a live Supabase provider, replay or one-time token enforcement, real limiter buckets, production build, deployment, or release.",
+          "The project test script forwards arguments such that the full web suite runs; the observed integrated result was 13 files and 103 tests rather than only the two requested files.",
+          "Vite emitted its existing future native-loader compatibility warning; it did not fail the suite."
+        ]
+      },
+      "digest": "40d29f72c461395932c8bb9d7a44e69e1f8ca22f0c2cfbe4e397fb67726d467d"
+    },
+    {
+      "sequence": 25,
+      "previous": "40d29f72c461395932c8bb9d7a44e69e1f8ca22f0c2cfbe4e397fb67726d467d",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0005",
+        "role": "executor",
+        "session": "fixture-executor-0005-a",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "collaboration.spawn_agent with fork_turns none after integrated acceptance of dependency 0007; standby confirmed before packet"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "6057e3b623ceff9ba1c4020f89a90042db7bf3a61d4dfbcddcc658f96a2fc564"
+    },
+    {
+      "sequence": 26,
+      "previous": "6057e3b623ceff9ba1c4020f89a90042db7bf3a61d4dfbcddcc658f96a2fc564",
+      "event": {
+        "type": "deliver",
+        "taskId": "0005",
+        "session": "fixture-executor-0005-a",
+        "stopped": true,
+        "receipt": {
+          "status": "delivered",
+          "contractRevision": "4c5dfb43839c3aaa2d3c4b6389e431f435a1429637dbd5e12d4b4f81f87c3474",
+          "baseRevision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0007:01c69e55067a88f08c7a50250370067324685f8c837407147cb8adf66ff58576",
+          "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5",
+          "changedFiles": [
+            "apps/web/src/app/auth/actions.test.ts",
+            "apps/web/src/app/auth/actions.ts"
+          ],
+          "evidence": [
+            {
+              "command": "pnpm --filter @prop4you/web test -- src/app/auth/actions.test.ts",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5",
+              "observation": "Coordinator rerun: 13 files and 144 tests passed"
+            },
+            {
+              "command": "pnpm --filter @prop4you/web typecheck",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5"
+            },
+            {
+              "command": "git diff --check",
+              "exitCode": 0,
+              "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5"
+            }
+          ],
+          "limitations": [
+            "Local unit, type, and static proof with provider mocks; no HTTP browser, live provider, real limiter, production build, deploy, or release evidence."
+          ]
+        }
+      },
+      "digest": "3f6917742af9b4d323ad397fa6f82b8f9c27771a3dafba4ea8515e702544c6ef"
+    },
+    {
+      "sequence": 27,
+      "previous": "3f6917742af9b4d323ad397fa6f82b8f9c27771a3dafba4ea8515e702544c6ef",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0005",
+        "role": "reviewer",
+        "session": "fixture-reviewer-0005-a",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "fresh agy --print process for task 0005 candidate; accepted 0007 receipt and bounded baseline supplied, no executor narrative"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "9cc7b1ded801947f7c6c42e5381968d8f4e9977b2eb3f52b486f7bada74926bf"
+    },
+    {
+      "sequence": 28,
+      "previous": "9cc7b1ded801947f7c6c42e5381968d8f4e9977b2eb3f52b486f7bada74926bf",
+      "event": {
+        "type": "reviewResult",
+        "taskId": "0005",
+        "session": "fixture-reviewer-0005-a",
+        "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5",
+        "verdict": "pass",
+        "findings": [],
+        "evidence": [
+          "Fresh AGY gemini-3.1-pro-high independently matched the bounded candidate hash and inspected actions plus integrated 0007 helpers",
+          "Reviewer found no leakage or authority bypass across literal-password login, generic recovery, provider proof, password mutation, and partial logout failure",
+          "Reviewer documented browser cookie, WAF/limiter, redirect headers, clock skew, live provider state, and deploy limitations and claimed read-only completion; coordinator immediately rechecked candidate hashes unchanged"
+        ],
+        "stopped": true
+      },
+      "digest": "853ae651066757b9982b3b7670449486f428b6c3987cbb95385fa2cfec16fe4b"
+    },
+    {
+      "sequence": 29,
+      "previous": "853ae651066757b9982b3b7670449486f428b6c3987cbb95385fa2cfec16fe4b",
+      "event": {
+        "type": "beginIntegration",
+        "taskId": "0005",
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "d97b27336fd4668b38f3d06d7464f85b2da28010b1594fa9ef0cd7414f88b35e"
+    },
+    {
+      "sequence": 30,
+      "previous": "d97b27336fd4668b38f3d06d7464f85b2da28010b1594fa9ef0cd7414f88b35e",
+      "event": {
+        "type": "integrate",
+        "taskId": "0005",
+        "integrationRevision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5",
+        "integrationEvidence": [
+          {
+            "command": "pnpm --filter @prop4you/web test -- src/app/auth/actions.test.ts",
+            "exitCode": 0,
+            "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5",
+            "observation": "Integrated snapshot: 13 files and 144 tests passed"
+          },
+          {
+            "command": "pnpm --filter @prop4you/web typecheck",
+            "exitCode": 0,
+            "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5"
+          },
+          {
+            "command": "git diff --check",
+            "exitCode": 0,
+            "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5"
+          }
+        ]
+      },
+      "digest": "97600261e1e19b8b0f189e48eb5396663a6958bd3f99e208a06251e9aa120e3b"
+    },
+    {
+      "sequence": 31,
+      "previous": "97600261e1e19b8b0f189e48eb5396663a6958bd3f99e208a06251e9aa120e3b",
+      "event": {
+        "type": "dispatch",
+        "taskId": "0005",
+        "role": "reviewer",
+        "session": "fixture-reviewer-0005-b",
+        "context": {
+          "fresh": true,
+          "inheritedHistory": false,
+          "source": "fresh agy --print process for integrated task 0005 snapshot; bounded revision and accepted 0007 dependency supplied, no prior review narrative"
+        },
+        "capabilities": {
+          "spawn": true,
+          "isolatedWrites": false,
+          "maxAgents": 2,
+          "externalActive": 0,
+          "externalReservations": [],
+          "models": [
+            {
+              "model": "gpt-6.1-sol",
+              "efforts": [
+                "high",
+                "xhigh"
+              ]
+            },
+            {
+              "model": "gemini-3.1-pro-high",
+              "efforts": [
+                "high"
+              ]
+            }
+          ]
+        }
+      },
+      "digest": "78b8c8d8751598dff9807a10d5bb26e9f4a5f65869cf3b56bc0f9958eaa76832"
+    },
+    {
+      "sequence": 32,
+      "previous": "78b8c8d8751598dff9807a10d5bb26e9f4a5f65869cf3b56bc0f9958eaa76832",
+      "event": {
+        "type": "reviewResult",
+        "taskId": "0005",
+        "session": "fixture-reviewer-0005-b",
+        "revision": "fe4d8b5ff8a7bb69d5147abc94ea802c5e29c58f+task-0005:46049424ea126ae9b05e3a0e56e8cec9a1d6208bdd8a4feb70bb484787703da5",
+        "verdict": "pass",
+        "findings": [],
+        "evidence": [
+          "Fresh AGY forensic reviewer independently matched task 0005 hash 46049424 and dependency 0007 hash 01c69e55",
+          "Reviewer re-evaluated literal credentials, non-enumerative failure surfaces, real helper use, provider proof ordering, partial logout state, telemetry, redirects, and authority boundaries",
+          "Reviewer documented HTTP/browser, cookie, live provider, limiter, time/replay, and build/deploy limits and confirmed read-only completion; coordinator immediately rechecked both hashes unchanged"
+        ],
+        "stopped": true
+      },
+      "digest": "4619cb1cc3208073a3694bd111c6da653e573d8acc348a4d59434fdca9f59e53"
+    },
+    {
+      "sequence": 33,
+      "previous": "4619cb1cc3208073a3694bd111c6da653e573d8acc348a4d59434fdca9f59e53",
+      "event": {
+        "type": "decide",
+        "taskId": "0005",
+        "disposition": "accepted",
+        "reason": "Task 0005 consumed accepted dependency 0007, remained stable through integration, passed declared tests and typecheck, and received distinct fresh AGY passes for candidate and integrated snapshots without findings.",
+        "checks": {
+          "scope": "Bounded hash 46049424 changes only actions.ts and actions.test.ts; dependency 0007 remains at accepted hash 01c69e55 and pre-existing UI/planning state was preserved.",
+          "behavior": "144 web tests and typecheck pass; cases cover literal passwords, normalized email, generic login/recovery failures, real PKCE helper behavior, provider proof, update failure, and partial logout failure without retry.",
+          "independence": "Candidate and integrated states were reviewed by separate fresh AGY processes with no inherited executor narrative; both independently computed task and dependency hashes.",
+          "integration": "Coordinator reserved integration, reran declared tests/typecheck and diff check on 46049424, recorded passing evidence, and verified no post-review drift.",
+          "authority": "Provider getUser/getClaims and current Supabase client remain authoritative; no admin lookup, local JWT authority, browser hint authority, or parallel recovery boundary was introduced."
+        },
+        "limitations": [
+          "Local unit/type/static proof with mocks does not certify HTTP browser redirects, real cookie attributes/chunking, a live Supabase/SMTP provider, infrastructure limiter behavior, clock skew/replay, production build, deployment, or release.",
+          "The project test script ran the full web suite: 13 files and 144 tests.",
+          "Vite emitted its existing future native-loader compatibility warning; it did not fail the suite."
+        ]
+      },
+      "digest": "c77ea9790fbd3742934740c1f5a62f4be987f0dca0de3fa16ab3b0da475b7db2"
+    }
+  ]
+}

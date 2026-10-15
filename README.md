@@ -14,6 +14,13 @@ schema, templates, validators, installer and provenance live here. Exact Node an
 OpenSpec CLI dependencies remain declared external executables; no sibling source
 checkout supplies required ASDS behavior.
 
+The AGY source payload describes two distinct review transports. Native nested
+review remains fail-closed on AGY 1.3.3. A separate headless capture engine and
+primary-only zero-write reviewer are source-tested with a fake CLI, but are not a
+deployed service and cannot complete review or mint planning authority. Production
+review still requires a private OS/service boundary unavailable to the model/thin
+client; only that boundary may retain planning-store authority.
+
 This fork separates a portable protocol, harness-specific adapters and an opt-in
 project profile. See [architecture](docs/architecture.md) and
 [upstream provenance](docs/provenance.md).
@@ -113,7 +120,71 @@ node scripts/install.mjs --scope project --target /absolute/project \
 
 `--skills-dir` is relative to `--target`, with the same conflict/symlink checks.
 Antigravity's documented user layout can be selected explicitly with
-`--skills-dir .gemini/config/skills`. No whole-tree aliases are created.
+`--skills-dir .gemini/config/skills`. For native AGY profiles, the installer also
+owns three planning-only custom agents: project installs `.agents/skills` with
+coordinator `.agents/agents/spec-driven-superpowers.md`, nested zero-write reviewer
+`.agents/agents/spec-driven-superpowers-reviewer.md`, and headless primary-only
+zero-write reviewer `.agents/agents/spec-driven-superpowers-reviewer-primary.md`;
+user installs place the same trio under `.gemini/config/agents`. Other skill roots
+receive no custom agents by inference. The exact native TypeNames and roles are:
+`spec-driven-superpowers`, a planning-only coordinator subagent;
+`spec-driven-superpowers-reviewer`, a nested zero-write reviewer subagent; and
+`spec-driven-superpowers-reviewer-primary`, a primary-only zero-write headless
+capture reviewer. All explicitly load the installed workspace skill. The coordinator
+may delegate only closed fidelity or quality requests to the nested reviewer; both reviewers have read-only discovery tools and
+never persists findings. It also disables inherited customizations and default
+components so each invocation starts from the explicit ASDS skill and read-only
+tool set. No whole-tree aliases are created.
+Each native AGY installation also publishes the ASDS-owned capability marker
+`.asds/accelerate-handoff-capability.json`. Its versioned schema records the exact
+TypeName, agent-relative path and agent hash together with the ASDS version and
+the planning-only/no-application-code/no-future-task guarantees. The coordinator,
+reviewer and marker are manifest-owned and read back; the marker advertises a source
+capability, not a successful invocation, permission grant, or independent review.
+The same profile publishes two review contracts:
+`.asds/agy-review-dispatch-contract.json` and
+`.asds/agy-review-supervisor-transport.json`. The first declares
+the exact host hook contract for reviewer TypeName, role, byte-identical prompt,
+one-use freshness and a bound dispatch receipt, and hash-binds the exact installed
+coordinator, reviewer and protocol paths. Inspection also requires those exact paths
+to be owned by the exact official manifest v3. This static file is discovery only and
+currently records `runtimeHostStatus: unavailable`: AGY 1.3.3 exposes no private
+durable host authority or parent identity. Its observed `PostToolUse` payload includes
+`toolCall` metadata but not the nested tool output, parent identity or durable
+authority needed to bind a reviewer result. Generic
+`invoke_subagent` does not prove enforcement. The public
+`createAgyReviewDispatchAuthority`, `attestAgyReviewDispatch`, and
+`parseAgyReviewResponse` exports therefore fail closed and cannot mint or accept
+caller-supplied authority or receipts. No operational independent-review claim is
+made until a future native host integration supplies those missing guarantees.
+Reviewer availability is not a package-discovery gate. An exact safe locator is used
+when supplied; an explicit reuse handoff with null lineage performs bounded read-only
+discovery among direct children of `openspec/changes`, returning `locator-required`
+for zero or multiple matches. The coordinator reads the single package's `tasks.md`,
+manifest and bound references and distinguishes delivered no-op/progress from a
+material candidate before reviewer preflight. Missing lineage never authorizes a write.
+A coordinator that then needs fresh review reads the dispatch contract once; if it
+observes unavailable status, it stops that review path immediately, reports the
+precise block once, and does not attempt a reviewer or another transport. Read-only
+inspection and structural validation remain allowed. The
+second binds the primary-only capture reviewer, protocol, supervisor module and the
+complete release-owned manifest inventory; it explicitly records unavailable
+authority/completion and untrusted capture output.
+The capture supervisor speaks the observed AGY 1.3.3 headless protocol: one
+`event: "user"` input followed by a unique closed `init`, closed `step_update`
+events and one terminal successful `result`. It binds conversation identity,
+primary reviewer, canonical cwd, model, exact read-only tools and
+`request-review`; write/command, permission, delegation, background and subagent
+steps fail closed. This is transport validation only and does not promote capture
+to review authority.
+The filesystem-backed builder hashes current canonical package bytes and derives
+revision, candidate and inventories from the manifest and `tasks.md`; canonical task
+checkboxes are progress-normalized while all material bytes remain exact. Quality
+would require a byte-exact host-consumed fidelity PASS over that same binding. Pure
+response-envelope validation rejects stale bindings or a PASS with limitations but
+does not establish independence, consume fidelity, or authorize delivery. References with role `review`
+are integrity-checked but excluded from both fresh inventories; quality receives
+prior review evidence only as the exact host-consumed fidelity output.
 Read the [adapter catalog](skills/spec-driven-superpowers/SKILL.md) for session
 capabilities, sequential fallback and review limitations.
 
@@ -130,8 +201,17 @@ capabilities, sequential fallback and review limitations.
 - On ordinary apply errors, newly created files/directories are removed; explicit
   updates also restore replaced bytes from memory. This is not crash recovery or
   a defense against a hostile concurrent writer.
-- No uninstall, provider/auth changes, service restarts, commits, push or automatic
-  archive. Do not run concurrent installers against the same destination.
+- `--uninstall` is preview-first and removes only unchanged files in the selected
+  versioned manifest with an exact official payload inventory. It preserves shared
+  schema/license/provenance bytes owned by
+  another installed profile and refuses modified, linked or unreceipted content.
+  Receipt paths and their hash/mode/type/link-policy metadata must exactly match the
+  current source payload or a source-registered versioned tombstone. An older/v2
+  receipt that does not match the current inventory fails closed; run an explicit,
+  verified `--update` first rather than treating that receipt as deletion authority.
+  It creates no backup or alternate installation. There are no provider/auth
+  changes, service restarts, commits, pushes or automatic archives. Do not run
+  concurrent installers against the same destination.
 
 ## Planning package and evidence
 
@@ -139,6 +219,10 @@ capabilities, sequential fallback and review limitations.
 Directory projections consume that index and reject unindexed/orphaned contracts,
 title drift and non-monotonic numeric IDs. Execution waves are declared separately
 and checked against the manifest; they never renumber task identities.
+Initial delivery has open future-work checkboxes. After handoff, `[x]` is consumer
+progress and does not contradict the progress-normalized delivered manifest/hash.
+The planner must not reopen it without the consumer's explicit reopen protocol and
+matching receipt/journal evidence or another concrete contradiction.
 Each `tasks/task-ID.md` has YAML frontmatter for ID/title, owner, kind, decision
 inputs/resolution, dependencies with exact required outputs, write paths, shared
 resources, scenarios and verification commands. Readiness also requires Outcome,
@@ -256,6 +340,60 @@ receipts together. Any stale profile refuses the whole plan. Review the preview,
 then add `--apply` separately; ordinary rollback covers the shared files and receipts.
 Without this flag, `--update` remains fail-closed and cannot silently invalidate
 another manifest.
+
+Format-1 receipts require an explicit adoption step because they contain hashes
+but no mode/type/link ownership metadata. First compute the SHA-256 of the exact
+legacy receipt bytes and preview the migration; apply only by repeating the same
+identity and hash with `--apply` plus the canonical plan digest printed by the
+preview:
+
+```bash
+sha256sum /absolute/project/.asds/install-manifest.json
+node scripts/install.mjs --scope project --target /absolute/project --update \
+  --adopt-legacy-manifest-sha256 EXACT_LOWERCASE_SHA256
+# inspect the complete preview and copy its Plan SHA-256, then:
+node scripts/install.mjs --scope project --target /absolute/project --update \
+  --adopt-legacy-manifest-sha256 EXACT_LOWERCASE_SHA256 --apply \
+  --expect-plan-sha256 EXACT_PREVIEW_PLAN_SHA256
+```
+
+Adoption is limited to the historical default `.agents/skills` profile. It checks
+the exact scope, target and schema root, unique canonical absolute paths, regular
+single-link files, and hashes of every legacy entry. Every entry must be a path
+in the current official payload or an exact source-controlled versioned tombstone;
+merely residing beneath a skill or schema root grants no ownership. Foreign paths,
+sibling skills, schema extensions, and ambiguous legacy `AGENTS.md` or
+`openspec/config.yaml` ownership fail closed. Only exact registered tombstones may be removed;
+new payload receives current manifest metadata and full readback. No backup,
+parallel runtime or implicit adoption is created. The plan digest binds the
+ordered actions, paths, before/after hashes and modes, feature flags, shared
+reconciliation choice, sibling receipts, and migration-journal identity; direct
+apply or state/options drift requires a new preview. A migration journal
+provides CAS-bound recovery from interruption, accepts only exact old or
+published official artifacts, and is removed only after payload and all sibling
+receipts pass readback. User installations with no sibling profile may migrate
+historically changed shared schema directly; installations with siblings require
+the same explicit `--reconcile-shared` option in preview, apply, and resume. While
+that journal exists, fresh install, ordinary update, and uninstall all fail closed;
+only the exact adoption resume may proceed. Forward and compensating rollback
+replaces share one deterministic journal-bound temporary identity and are recovered
+only when their bytes and mode match the journal's exact old/new action images;
+drifted or unknown `.asds-update-*` artifacts block the resume, and successful
+readback removes both the journal and its proven temporary residue.
+
+Use the same identity arguments with `--uninstall` to preview exact removals, then
+repeat with `--apply` only after reviewing that plan:
+
+```bash
+node scripts/install.mjs --scope project --target /absolute/project --uninstall
+node scripts/install.mjs --scope project --target /absolute/project --uninstall --apply
+```
+
+For the AGY user profile, include the original `--data-home` and
+`--skills-dir .gemini/config/skills`. Uninstall validates every owned byte, mode,
+file type and single-link invariant before its first mutation, performs a final
+absence readback, and restores removals from memory on ordinary failure. It does
+not remove content merely found under a customization directory.
 
 Use a quiescent directory. A manifest records ownership, not human authorization.
 

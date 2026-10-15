@@ -6,23 +6,26 @@ import { fileURLToPath } from 'node:url';
 import { validatePackage, validateChange, loadTasks } from '../lib/validation.mjs';
 import { safePath, validateDelivery } from '../lib/contracts.mjs';
 import { collectGitScope } from '../lib/git-scope.mjs';
+import { formatDagStatusMarkdown } from '../lib/dag-status-view.mjs';
 
 try {
   const { values } = parseArgs({ options: {
     change: { type: 'string' }, delivery: { type: 'string' }, task: { type: 'string' },
     repo: { type: 'string' }, base: { type: 'string' }, help: { type: 'boolean' },
-    receipts: { type: 'string' },
+    receipts: { type: 'string' }, candidate: { type: 'boolean' }, 'print-dag': { type: 'boolean' },
     'delivery-revision': { type: 'string' }, 'integration-repo': { type: 'string' },
     'integration-base': { type: 'string' }, 'integration-scope': { type: 'string' },
   } });
   if (values.help) {
-    console.log('Usage: npm run validate [-- --change DIR [--receipts MAP_JSON] [--delivery JSON --task ID --repo REPO_ROOT --base APPROVED_BASE [--delivery-revision COMMIT] [--integration-repo REPO --integration-base APPROVED_BASE --integration-scope PATHS_JSON]]]\nIntegrated receipts require independently approved integration base/scope. Delivery checks current state unless an explicit historical commit is selected. No verification command execution.');
+    console.log('Usage: npm run validate [-- --change DIR [--candidate] [--print-dag] [--receipts MAP_JSON] [--delivery JSON --task ID --repo REPO_ROOT --base APPROVED_BASE [--delivery-revision COMMIT] [--integration-repo REPO --integration-base APPROVED_BASE --integration-scope PATHS_JSON]]]\nIntegrated receipts require independently approved integration base/scope. Delivery checks current state unless an explicit historical commit is selected. No verification command execution.');
   } else {
     if ((values.repo || values.task || values.base) && !values.delivery) throw new Error('--repo, --task and --base require --delivery');
     if (['delivery-revision', 'integration-repo', 'integration-base', 'integration-scope'].some(key => values[key]) && !values.delivery) throw new Error('Revision/integration options require --delivery');
     if (values.receipts && !values.change) throw new Error('--receipts requires --change');
+    if (values.candidate && !values.change) throw new Error('--candidate requires --change');
+    if (values['print-dag'] && !values.change) throw new Error('--print-dag requires --change');
     const receipts = values.receipts ? JSON.parse(fs.readFileSync(values.receipts, 'utf8')) : {};
-    const errors = values.change ? validateChange(path.resolve(values.change), { receipts }) : validatePackage(fileURLToPath(new URL('../', import.meta.url)));
+    const errors = values.change ? validateChange(path.resolve(values.change), { receipts, candidate: Boolean(values.candidate) }) : validatePackage(fileURLToPath(new URL('../', import.meta.url)));
     if (values.delivery) {
       if (!values.change || !values.task || !values.repo || !values.base) throw new Error('Delivery requires --change, --task, --repo and independently approved --base');
       const task = loadTasks(path.resolve(values.change)).find(task => task.id === values.task);
@@ -42,6 +45,14 @@ try {
       } else if (['integration-repo', 'integration-base', 'integration-scope'].some(key => values[key])) {
         throw new Error('Integration options require an integrated receipt');
       }
+    }
+    if (values['print-dag'] && values.change) {
+      const changeDir = path.resolve(values.change);
+      const manifestPath = path.join(changeDir, 'planning-manifest.json');
+      const input = fs.existsSync(manifestPath)
+        ? JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+        : loadTasks(changeDir);
+      console.log(formatDagStatusMarkdown(input).trimEnd());
     }
     if (errors.length) {
       for (const error of errors) console.error(error);
