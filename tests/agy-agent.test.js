@@ -155,7 +155,8 @@ test('project AGY profile installs, owns, reads back, updates, and uninstalls it
   const owned = manifest.files.find(entry => entry.path === agent);
   assert.ok(owned);
   assert.equal(owned.sha256, digest(agent));
-  assert.equal(owned.mode, fs.statSync(agent).mode & 0o777);
+  const actualMode = process.platform === 'win32' && (fs.statSync(agent).mode & 0o777) === 0o666 ? 0o644 : (fs.statSync(agent).mode & 0o777);
+  assert.equal(owned.mode, actualMode);
   assert.ok(manifest.files.some(entry => entry.path === reviewer && entry.sha256 === digest(reviewer)));
   const capability = JSON.parse(fs.readFileSync(marker));
   assert.deepEqual(capability, {
