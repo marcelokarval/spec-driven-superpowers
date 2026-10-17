@@ -1,7 +1,51 @@
 # Estado evolutivo do ASDS
 
-Atualizado em **2026-10-14**. Leia este documento antes de demandar ou evoluir o
+Atualizado em **2026-10-15**. Leia este documento antes de demandar ou evoluir o
 projeto. Confirme o checkout antes de usar os hashes abaixo como estado corrente.
+
+## Estado atual — C9/C10 demonstrados; C11 documental, aceite ROOT pendente
+
+Fonte passiva local, não publicada/instalada nesta operação. As três correções do
+oracle (readiness persistida, resync planning, paridade do schema), snapshot aprovado
+pelo humano e a correção adicional autor ≠ coordenador passaram 589/589 e checks.
+ROOT ainda deve revisar/aceitar as correções, inclusive a adicional, no oracle
+`ses_ebfe922c2ffe0EpfJccvkv2HSf`; suíte não substitui esse aceite.
+
+C10 foi executado pela ROOT em domínio sintético com fidelity/quality nativas reais,
+registradas em sessões distintas. Pacote canônico `/tmp/opencode/asds-passive-c10-native/package`
+está delivered; receipt matched em Node novo e retorno planning-delivered foram
+reconferidos deterministicamente em C11. F-001/Q-001 nonmaterial/open permanecem;
+Q extra não canônico e retry F rejeitado são registrados, não ocultados.
+
+**Não demonstrado:** execução de produto, alvo real, grants/enforcement ou admissão
+operacional Stage-3. O retorno de planejamento não é execution-handoff operacional.
+Status original in_progress e motivo C16 pré-publicação foram preservados como
+bookkeeping congelado, embora a entrega/retorno sejam posteriores. Não há claim
+de ausência de gaps, autenticação contra host hostil ou aprovação final do oracle.
+
+Ver [relatório final](docs/research/2026-10-14-opencode-review-authority/PASSIVE-FINAL-REPORT.md),
+[worklog](docs/research/2026-10-14-opencode-review-authority/PASSIVE-CORRECTION-WORKLOG.md)
+e evidência selecionada. Cadeia C11 pós-documentação: **589/589**, check/validate/
+diff-check exit 0; log e hashes nesses artefatos para conferência independente.
+Nenhum código/teste/SKILL foi alterado na consolidação C11.
+
+## Histórico da correção C0 — estado antes de C9/C10 (2026-10-15)
+
+A candidata de authority/daemon foi supersedida pelo mandato humano C0. Os testes
+anteriores não aprovam o novo produto. ASDS é passivo/determinístico: o harness
+conduz raciocínio e reviewers nativos; registros por etapa usam
+`asds.harness-planning-review/1`. Sem qualificação nativa nesta implementação.
+Fonte local não publicada; ROOT mantém revisão e prova C10 após congelamento.
+Ver [worklog](docs/research/2026-10-14-opencode-review-authority/PASSIVE-CORRECTION-WORKLOG.md).
+Snapshots de superfícies ativas aguardam revisão independente; hashes esperados
+não serão atualizados pelo implementador. Stage-3/journals preservados; driver
+legado host-bridge isolado, não distribuído no payload passivo.
+
+## Registro evolutivo anterior — histórico, não instrução operacional
+
+As seções seguintes preservam releases, observações e limites anteriores. Onde
+descrevem authority/daemon/supervisor, estão supersedidas pelo mandato C0 acima.
+Não representam instalação ou qualificação autorizadas.
 
 ## Direção definida
 
@@ -154,6 +198,30 @@ o trabalho descrito nas tasks pertence a um consumidor posterior.
   lifecycle/readback validado permite reconhecer o baseline como entregue.
 
 ## Evidências e limites
+
+- Continuação positiva OpenCode /2 implementou candidato de fonte:
+  binding com autor/política/contexto, core causal, store fsync single-writer,
+  cliente de perfil protegido fixo, publicação/readback, admission sobre snapshot
+  imutável e harness. Conformance sintética passou; factory produção continua
+  recusando roots/callbacks caller. Worker/default plugin usam container V2 real e
+  model Ref `id`; init/next/pause/cancel são continuidade administrativa de admissão,
+  com identidade canônica independente do actionID. Execução de produto não foi
+  fornecida nem ligada a esse registro; verify/progress/reconcile são UNSUPPORTED.
+  Canais exigem GIDs/diretórios separados, consumer UID efetivo, ACLs sem extensões
+  e isolamento concreto da API geral. Provas de progresso/objetivo continuam gates
+  do host de execução, não booleanos caller. **Aceitação independente/grants pendentes;
+  não declarar runtime/consumer qualificado.**
+  [Estado/gates e inputs exatos](docs/research/2026-10-14-opencode-review-authority/POSITIVE-REPORT.md).
+
+- Em 2026-10-14, correção delimitada OpenCode adicionou somente códigos/stages aos
+  diagnósticos do planning store, preservando authority/completion/verification
+  fail-closed. Receipt sintético coerente alcança a rejeição final; bindings alterados,
+  fake callbacks e reobservação em Node fresco não promovem entrega. Isso é prova
+  negativa estrutural, não review autêntico, E2E ou consumer revalidado. APIs V2
+  oficiais não demonstram boundary externa; CLI v2.0.28 não prova servidor.
+  Receipt /1 ainda presume ator/sessão únicos para ambos os reviews; candidate hash
+  ainda exclui autor/política. Ver [relatório e gates](docs/research/2026-10-14-opencode-review-authority/REPORT.md).
+  Qualificação permanece bloqueada, sem instalação, ativação ou publicação.
 
 - [Rodada Prop4You login/recovery de 2026-10-08](docs/experiments/2026-10-08-login-readiness-round2.md):
   novo Codex sem histórico conversacional, no worktree autorizado existente. Ativação

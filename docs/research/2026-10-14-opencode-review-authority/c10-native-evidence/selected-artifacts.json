@@ -1,0 +1,151 @@
+{
+  "purpose": "Authorized durable historical audit evidence, NOT alternate runtime/install/backup deployment",
+  "canonicalDestinationUnmodified": "/tmp/opencode/asds-passive-c10-native/package",
+  "copiedExactArtifacts": [
+    {
+      "auditPath": "package/planning-manifest.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/planning-manifest.json",
+      "sha256": "367c3bcae20e2792871791212dc93027ba40c4c78b681bc0c2508f77d6cd4207",
+      "bytes": 29047
+    },
+    {
+      "auditPath": "package/proposal.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/proposal.md",
+      "sha256": "a2574ee34ecf7d4c7d7b7ae86040c153e32816477b8c004b05b2004b86d0654b",
+      "bytes": 3412
+    },
+    {
+      "auditPath": "package/design.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/design.md",
+      "sha256": "7dc7ae03fa35504567f9cb15067e4b855ecdbecf416c720ea034d50bb3f76271",
+      "bytes": 6270
+    },
+    {
+      "auditPath": "package/specs/csv-export/spec.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/specs/csv-export/spec.md",
+      "sha256": "b519ea145148036362eac7330834255888088001f81d01ee578a1ca4cf008906",
+      "bytes": 4138
+    },
+    {
+      "auditPath": "package/tasks.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/tasks.md",
+      "sha256": "de6e25d6c8245e95455c4ae974d7620557ccd5672d2388481c169658b852f4fe",
+      "bytes": 404
+    },
+    {
+      "auditPath": "package/dag.mmd",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/dag.mmd",
+      "sha256": "a6515bfa0f511112a2467d63841730db6a70eb0e2f904d4d6b510ff8a0a92f9c",
+      "bytes": 319
+    },
+    {
+      "auditPath": "package/dag-status.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/dag-status.md",
+      "sha256": "c7df333ebd0867e676765a67311af2687e9902c55867022973328b32ce23b077",
+      "bytes": 1047
+    },
+    {
+      "auditPath": "package/original-request.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/original-request.md",
+      "sha256": "7529a7b96e9cfaaf3bd5c66596c793bcee88398ffbaa84ce4057e9db8bc408ea",
+      "bytes": 2010
+    },
+    {
+      "auditPath": "package/tasks/task-0001.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/tasks/task-0001.md",
+      "sha256": "81e05617b8636e2fe2c7ae5fdd0e45a7980fc3fde191113d3c22356ae3429a43",
+      "bytes": 3413
+    },
+    {
+      "auditPath": "package/tasks/task-0002.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/tasks/task-0002.md",
+      "sha256": "4c297daf53a42cb916b2dcada02e0cb702d414a3fa82f5b156314400c8c03c6d",
+      "bytes": 3550
+    },
+    {
+      "auditPath": "package/tasks/task-0003.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/tasks/task-0003.md",
+      "sha256": "72bd7447b4e008f94f1337271acc53f47f248d80b9930842a2057e3a3c8611b1",
+      "bytes": 3331
+    },
+    {
+      "auditPath": "package/tasks/task-0004.md",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/tasks/task-0004.md",
+      "sha256": "2349386a9057ba870f35c4c1c5811efdd6c4b6cd69c4fa6c12c9647915dfd0b2",
+      "bytes": 3985
+    },
+    {
+      "auditPath": "package/reviews/fidelity-r1.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/reviews/fidelity-r1.json",
+      "sha256": "ac34c287b44be090fa619bac557cc1511114fad8797eb91d6fc6546794663663",
+      "bytes": 3216
+    },
+    {
+      "auditPath": "package/evidence/fidelity.txt",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/evidence/fidelity.txt",
+      "sha256": "8f3ba4d71c4e543210f890621685887c98a64af2c7e3853d868a1094fad602c7",
+      "bytes": 2464
+    },
+    {
+      "auditPath": "package/reviews/quality-r1.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/reviews/quality-r1.json",
+      "sha256": "80c8aaeb7c0486bc557ae601adb2264844e70b995929037dccb38e873c4f2e37",
+      "bytes": 3559
+    },
+    {
+      "auditPath": "package/evidence/quality.txt",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/package/evidence/quality.txt",
+      "sha256": "bbe9b5575e804496f45153fd8b2ac631b44747e272c09ccf984ee862ad873b27",
+      "bytes": 2812
+    },
+    {
+      "auditPath": "persistence-receipt.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/persistence-receipt.json",
+      "sha256": "c243d0c680bffdc86e0758c6c4ded33ec56bf1d97f6eea46cd563f7eca488489",
+      "bytes": 2662
+    },
+    {
+      "auditPath": "planning-return.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/planning-return.json",
+      "sha256": "83787f0578cb5b43add7b42ba24e263583e68c2df8723fe52cf9dd3c5f93381d",
+      "bytes": 1287
+    },
+    {
+      "auditPath": "intake-handoff.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/intake-handoff.json",
+      "sha256": "7c5be159d3959da20d335e40b71b599ae5bd72518f0693f1e406351535ef393a",
+      "bytes": 1194
+    },
+    {
+      "auditPath": "binding.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/binding.json",
+      "sha256": "329fd77bff0b8176da3714a7188dd15535cb8104b8791b6afaac6c06f3dfd2b9",
+      "bytes": 905
+    },
+    {
+      "auditPath": "ready-binding.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/ready-binding.json",
+      "sha256": "23547d7873a4bdb2653d98ea2e67a1cdb7acaaba6ae1eac9e545009c63b00f62",
+      "bytes": 849
+    },
+    {
+      "auditPath": "observed-layer-assessments.json",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/observed-layer-assessments.json",
+      "sha256": "4ef8a487298939cea45e78cec0f5897942e64f28e2f11e50442abee567413de9",
+      "bytes": 1431
+    },
+    {
+      "auditPath": "F-request.txt",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/F-request.txt",
+      "sha256": "21a0ef094acd9997e3fca4524b6ae78cd35c2c69173e8eb5572b6170976e5869",
+      "bytes": 1988
+    },
+    {
+      "auditPath": "Q-request.txt",
+      "canonicalSource": "/tmp/opencode/asds-passive-c10-native/Q-request.txt",
+      "sha256": "b1cdf7f73b4dc86137ab3389c7185ae54dd94aabfbad6dd87f8861c8a9596fda",
+      "bytes": 1829
+    }
+  ],
+  "rawSessionExportsCopied": false
+}

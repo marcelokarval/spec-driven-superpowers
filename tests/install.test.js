@@ -60,7 +60,7 @@ test('preview performs no writes; apply installs skills and OpenSpec schema', as
   assert.equal(manifest.skillsDir, '.agents/skills');
   const installed = manifest.files.find(file => file.path.endsWith(`${path.sep}asds-execution-consumer${path.sep}lib${path.sep}execution-consumer.mjs`));
   assert.ok(installed);
-  assert.ok(manifest.files.some(file => file.path.endsWith(`${path.sep}asds-execution-consumer${path.sep}lib${path.sep}host-bridge.mjs`)));
+  assert.equal(manifest.files.some(file => file.path.endsWith(`${path.sep}asds-execution-consumer${path.sep}lib${path.sep}host-bridge.mjs`)),false);
   assert.ok(manifest.files.some(file => file.path.endsWith(`${path.sep}asds-execution-consumer${path.sep}lib${path.sep}execution-handoff.mjs`)));
   assert.ok(manifest.files.some(file => file.path.endsWith(`${path.sep}asds-execution-consumer${path.sep}lib${path.sep}handoff.mjs`)));
   assert.ok(manifest.files.some(file => file.path.endsWith(`${path.sep}asds-execution-consumer${path.sep}lib${path.sep}planning-store.mjs`)));

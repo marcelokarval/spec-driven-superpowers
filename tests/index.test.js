@@ -73,6 +73,8 @@ test('planner and consumer remain independent entrypoints with one-way handoff l
 });
 
 test('project documentation links and prepared eval scenarios remain valid', () => {
+  const visualHelper=fs.readFileSync(path.join(root,'skills/superpowers/brainstorming/scripts/helper.js'),'utf8');
+  assert.doesNotMatch(visualHelper,/WebSocket|fetch\(|XMLHttpRequest|\.listen\(/);
   assert.deepEqual(validateLocalLinks(root, ['README.md', 'docs/architecture.md', 'docs/provenance.md']), []);
   const scenarios = JSON.parse(fs.readFileSync(path.join(root, 'skills/spec-driven-superpowers/evals/evals.json'), 'utf8'));
   assert.equal(scenarios.execution_status, 'prepared_not_run');
@@ -86,6 +88,10 @@ test('project documentation links and prepared eval scenarios remain valid', () 
   assert.ok(provenance.files.length > 0);
   for (const entry of provenance.files) {
     if (entry.path === 'skills/superpowers/spec-driven-superpowers/SKILL.md') continue;
+    if (entry.disposition === 'removed-passive-C0') {
+      assert.ok(['server.cjs','start-server.sh','stop-server.sh'].some(name=>entry.path===`skills/superpowers/brainstorming/scripts/${name}`));
+      assert.equal(fs.existsSync(path.join(root,entry.path)),false);continue;
+    }
     assert.ok(fs.existsSync(path.join(root, entry.path)), `Missing captured resource: ${entry.path}`);
   }
 });

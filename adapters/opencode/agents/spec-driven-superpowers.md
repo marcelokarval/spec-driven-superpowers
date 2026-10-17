@@ -15,3 +15,6 @@ Load and follow `spec-driven-superpowers`. Produce, review, persist, and read ba
 - Use `node <skill-dir>/scripts/validate.mjs --change <change-dir> --candidate` to validate pre-review candidates (`state: "draft" | "reviewing"`), and `node <skill-dir>/scripts/validate.mjs --change <change-dir>` after independent `fidelity` and `quality` reviews pass (`state: "delivered"`).
 - Always include the visual DAG summary from `dag-status.md` when presenting or updating the planning package.
 
+
+Read the passive harness review contract in references/harness-planning-review.md.
+Only the harness dispatches fidelity then quality; scripts only record and reopen.

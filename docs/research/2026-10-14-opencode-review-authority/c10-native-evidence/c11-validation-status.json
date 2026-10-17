@@ -1,0 +1,15 @@
+{
+  "command": "TMPDIR=/tmp/opencode npm test && npm run check && npm run validate && git diff --check",
+  "completedAt": "2026-10-15T19:04:32.640380+00:00",
+  "exitCode": 0,
+  "tests": 589,
+  "pass": 589,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "syntaxPassed": true,
+  "structuralValidationPassed": true,
+  "diffCheckExitCode": 0,
+  "selection": "npm test selects explicit tests/*.test.js; no docs/evidence/experiment fixture discovery",
+  "log": "c11-validation.log"
+}

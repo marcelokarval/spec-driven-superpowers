@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "asds.harness-planning-review/1",
+  "kind": "REPLACE_fidelity_OR_quality",
+  "author": { "actorId": "REPLACE_actual_author_actor", "sessionId": "REPLACE_actual_C" },
+  "reviewer": { "actorId": "REPLACE_actual_reviewer_instance", "sessionId": "REPLACE_actual_F_OR_Q", "agentRole": "REPLACE_observed_native_role", "parentSessionId": "REPLACE_actual_C" },
+  "assignment": { "id": "REPLACE_real_assignment", "requestedBySessionId": "REPLACE_actual_C", "kind": "REPLACE_fidelity_OR_quality", "candidateSha256": "REPLACE_current_binding_hash", "scopeTaskIds": ["0001", "0002", "0003", "0004"] },
+  "priorReviewDigest": "REPLACE_null_for_F_OR_exact_registered_F_digest_for_Q",
+  "verdict": "REPLACE_observed_pass_fail_OR_blocked",
+  "findings": [],
+  "limitations": [],
+  "evidence": { "harness": "REPLACE_observed_harness", "sessionId": "REPLACE_actual_F_OR_Q", "messageIds": ["REPLACE_actual_terminal_message"], "requestDigest": "REPLACE_sha256_actual_request_bytes", "resultDigest": "REPLACE_sha256_actual_saved_response_bytes", "persistedResultPath": "REPLACE_evidence/fidelity.txt_OR_evidence/quality.txt", "observedBySessionId": "REPLACE_actual_C" }
+}

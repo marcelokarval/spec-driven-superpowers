@@ -1,0 +1,69 @@
+{
+  "observedAt": "2026-10-15T18:59:45.758Z",
+  "method": "Fresh Node process; verifyPlanningReceipt then deterministic createPlanningReturn readback against canonical /tmp destination",
+  "canonicalDestination": "/tmp/opencode/asds-passive-c10-native/package",
+  "matched": true,
+  "errors": [],
+  "reviewMatched": true,
+  "proofLevel": "harness-record-consistency-and-current-store-bytes",
+  "authorityLimit": "Authorized harness is operationally trusted; no authentication of a malicious host or semantic certification.",
+  "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+  "manifestSha256": "367c3bcae20e2792871791212dc93027ba40c4c78b681bc0c2508f77d6cd4207",
+  "canonicalState": "delivered",
+  "originalRequestedProduct": {
+    "kind": "planning",
+    "status": "in_progress",
+    "text": "Plan CSV export of authenticated users own orders only, using existing auth; preserve CSV columns/escaping/formula defenses/header-only and UI states; no foreign records, PII, order mutations or installation; four bounded future tasks and DAG; no implementation in C10.",
+    "source": "Current human C10 authorization supplied by ROOT in session ses_ec3692bb6ffeW2ypMeuSN2v8Ug; preparation assigned to ses_ec355f101ffeug9mfrO0v161eh (this conversation; no fabricated message/issue ID). Full requirements: bound original-request.md."
+  },
+  "planningReturnRecreatedExactly": true,
+  "returnStatus": "delivered",
+  "returnOwner": null,
+  "returnOriginalRequest": {
+    "product": "planning",
+    "status": "fulfilled"
+  },
+  "readback": {
+    "status": "matched",
+    "revision": "r1",
+    "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+    "readbackSha256": "324aa8a88e5f82e88f8a5701f36fb8e28a60e10441dd9b9ea26e1a3f06a41035",
+    "destination": "/tmp/opencode/asds-passive-c10-native/package",
+    "synthetic": false,
+    "executionEvidence": false,
+    "verifiedBy": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+    "evidence": "Deterministic inventory readback before final-state publication",
+    "referenceIds": [
+      "proposal",
+      "design",
+      "spec:csv-export",
+      "tasks-index",
+      "dag",
+      "dag-status",
+      "original-request",
+      "task:0001",
+      "task:0002",
+      "task:0003",
+      "task:0004",
+      "review:fidelity",
+      "evidence:fidelity",
+      "review:quality",
+      "evidence:quality"
+    ],
+    "taskIds": [
+      "0001",
+      "0002",
+      "0003",
+      "0004"
+    ],
+    "checks": {
+      "bytes": true,
+      "files": true,
+      "ids": true,
+      "relations": true,
+      "decisions": true,
+      "reviews": true
+    }
+  },
+  "stage3OperationalAdmissionProven": false
+}

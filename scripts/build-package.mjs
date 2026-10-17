@@ -49,8 +49,8 @@ try {
       const reviewArg = values['record-review'];
       const reviewSpec = fs.existsSync(path.resolve(reviewArg))
         ? JSON.parse(fs.readFileSync(path.resolve(reviewArg), 'utf8'))
-        : { reviewer: reviewArg };
-      result = recordPlanningReviews(changeDir, { ...mergedOptions, ...reviewSpec });
+        : JSON.parse(reviewArg);
+      result = recordPlanningReviews(changeDir, reviewSpec);
     } else {
       result = syncPlanningPackage(changeDir, mergedOptions);
     }

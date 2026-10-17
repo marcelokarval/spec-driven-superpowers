@@ -1,0 +1,32 @@
+{
+  "protocolVersion": 2,
+  "owner": null,
+  "contribution": "planning",
+  "status": "delivered",
+  "outcome": "Native fidelity and quality observed, registered, package published and independently reopened",
+  "revision": "r1",
+  "manifest": "planning-manifest.json",
+  "evidence": [
+    "/tmp/opencode/asds-passive-c10-native/persistence-receipt.json",
+    "/tmp/opencode/asds-passive-c10-native/package/reviews/fidelity-r1.json",
+    "/tmp/opencode/asds-passive-c10-native/package/reviews/quality-r1.json"
+  ],
+  "remainingPlanningWork": [],
+  "limitations": [
+    "Synthetic target only; no product implementation or real-target runtime verification",
+    "F-001/Q-001 nonmaterial wording follow-ups retained",
+    "Stage-3 admission requires actual target, explicit grants and enforced boundary; not claimed"
+  ],
+  "verification": {
+    "persistence": "current-store-bytes-matched",
+    "review": "harness-review-records-matched",
+    "semanticCertification": false,
+    "proofLevel": "harness-record-consistency-and-current-store-bytes",
+    "authorityLimit": "Authorized harness is operationally trusted; no authentication of a malicious host or semantic certification."
+  },
+  "originalRequest": {
+    "product": "planning",
+    "status": "fulfilled"
+  },
+  "nextOwner": null
+}

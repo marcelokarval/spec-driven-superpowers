@@ -102,17 +102,23 @@
     {
       "path": "skills/superpowers/brainstorming/scripts/server.cjs",
       "gitBlob": "562c17f8933a39e1973737617bad8637529fe018",
-      "mode": "100644"
+      "mode": "100644",
+      "disposition": "removed-passive-C0",
+      "dispositionReason": "Human-approved passive toolkit: remove server/listener launchers; original upstream identity retained as history."
     },
     {
       "path": "skills/superpowers/brainstorming/scripts/start-server.sh",
       "gitBlob": "9ef6dcb991547a28e2b555d6fd08e97b8ea27400",
-      "mode": "100644"
+      "mode": "100644",
+      "disposition": "removed-passive-C0",
+      "dispositionReason": "Human-approved passive toolkit: remove server/listener launchers; original upstream identity retained as history."
     },
     {
       "path": "skills/superpowers/brainstorming/scripts/stop-server.sh",
       "gitBlob": "a6b94e6532b7006c7cb05898475e9f71c53c173e",
-      "mode": "100644"
+      "mode": "100644",
+      "disposition": "removed-passive-C0",
+      "dispositionReason": "Human-approved passive toolkit: remove server/listener launchers; original upstream identity retained as history."
     },
     {
       "path": "skills/superpowers/brainstorming/spec-document-reviewer-prompt.md",

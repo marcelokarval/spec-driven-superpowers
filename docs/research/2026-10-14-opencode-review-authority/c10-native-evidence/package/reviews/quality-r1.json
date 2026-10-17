@@ -1,0 +1,85 @@
+{
+  "packageId": "csv-own-orders-native-c10",
+  "revision": "r1",
+  "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+  "author": {
+    "actorId": "ses_ec355f101ffeug9mfrO0v161eh",
+    "sessionId": "ses_ec355f101ffeug9mfrO0v161eh"
+  },
+  "policyDigest": "618d45c58b28c1e49800acfcbacffb6ccdb3c111a420f5598263c48ef22ecd88",
+  "inventoryDigest": "d364cdfe118dd1ca07dd7c435e4b526db8f8f6f3d18aa943db799b96342068ce",
+  "taskIds": [
+    "0001",
+    "0002",
+    "0003",
+    "0004"
+  ],
+  "sourceReferenceIds": [
+    "original-request",
+    "proposal",
+    "design",
+    "spec:csv-export",
+    "tasks-index",
+    "dag",
+    "dag-status",
+    "task:0001",
+    "task:0002",
+    "task:0003",
+    "task:0004"
+  ],
+  "schemaVersion": "asds.harness-planning-review/1",
+  "reviewer": {
+    "actorId": "ses_ebf16bee0ffe0gNbD0qgz2SUUG",
+    "sessionId": "ses_ebf16bee0ffe0gNbD0qgz2SUUG",
+    "agentRole": "spec-driven-superpowers-reviewer",
+    "parentSessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+  },
+  "assignment": {
+    "id": "msg_140e9414b001bvp5K505t8WDAB",
+    "requestedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+    "kind": "quality",
+    "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+    "scopeTaskIds": [
+      "0001",
+      "0002",
+      "0003",
+      "0004"
+    ]
+  },
+  "kind": "quality",
+  "priorReviewDigest": "14983fc6ba1e6795b19a264edee6933cfc1d5011a32626326fb51d98a15c6397",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "Q-001",
+      "severity": "non-material",
+      "status": "open",
+      "evidence": "design.md:60-61 enumerates idle/error/success as origins for export(), omitting empty/denied, while design.md:65,90-93 requires every terminal state to restore enabled controls. tasks/task-0003.md:55 tests restoration but does not explicitly test reactivation from empty/denied.",
+      "expectedCorrection": "Clarify that export() is accepted from every non-loading phase and add reactivation assertions after empty and denied outcomes.",
+      "disposition": "Nonblocking state-transition clarification: the explicit only-loading-is-disabled invariant already supplies the intended behavior; decomposition, ownership and dependency contracts remain implementable."
+    }
+  ],
+  "limitations": [
+    {
+      "description": "Candidate, inventory and policy digests were read as supplied bindings, not independently recomputed. The manifest records fidelity PASS with the exact supplied priorReviewDigest for this candidate; its narrative was not used as semantic quality evidence.",
+      "blocksCoverage": false
+    },
+    {
+      "description": "Review covers the complete synthetic planning material only. No actual application, transport adapter, DOM accessibility, implementation or test execution was inspected or verified. Actual-target inspection and separate execution authorization remain explicit prerequisites.",
+      "blocksCoverage": false
+    }
+  ],
+  "evidence": {
+    "harness": "OpenCode + omo-slim",
+    "sessionId": "ses_ebf16bee0ffe0gNbD0qgz2SUUG",
+    "messageIds": [
+      "msg_140e9414b001bvp5K505t8WDAB",
+      "msg_140e98dc5001pRtq0YOArJtNVo"
+    ],
+    "requestDigest": "b1cdf7f73b4dc86137ab3389c7185ae54dd94aabfbad6dd87f8861c8a9596fda",
+    "resultDigest": "bbe9b5575e804496f45153fd8b2ac631b44747e272c09ccf984ee862ad873b27",
+    "persistedResultPath": "evidence/quality.txt",
+    "observedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+  },
+  "envelopeDigest": "600900dcf9995e043978f30d771960ba2b76eeb0955f52e5071d4d2018cc33f4"
+}

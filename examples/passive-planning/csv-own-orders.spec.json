@@ -1,0 +1,370 @@
+{
+  "packageId": "csv-own-orders",
+  "revision": "r1",
+  "state": "reviewing",
+  "author": {
+    "actorId": "REPLACE_actual_author_actor",
+    "sessionId": "REPLACE_actual_C"
+  },
+  "destination": "/tmp/opencode/asds-passive-c10/package",
+  "persistenceGranted": false,
+  "authorization": "REPLACE_actual_human_planning_persistence_grant",
+  "reviewPolicy": {
+    "risk": "elevated",
+    "domains": [
+      "authorization",
+      "sensitive-data"
+    ],
+    "independentRequired": true
+  },
+  "originalRequestedProduct": {
+    "kind": "implementation",
+    "status": "not_fulfilled",
+    "text": "Export CSV of authenticated users own orders only; never export another users orders. Plan only in Stage-2, do not implement.",
+    "source": "REPLACE_actual_user_request_reference"
+  },
+  "proposal": "# CSV own orders\n\nPlan export of authenticated users own orders. Authentication is existing context, never supplied userId. No orders mutation, cross-user access, bulk admin export, auth redesign or installation. Planning only.\n",
+  "design": "# Design\n\nA read-only CSV handler uses the existing authenticated principal and repository authorization filter before serialization. Output columns: order_id, created_at, status, total_minor, currency. Escape quotes/newlines and neutralize spreadsheet formulas. No customer email/address/payment credentials. Empty own results produce header-only CSV. Missing principal denies. Authorization is mandatory even with caller query overrides. UI downloads authenticated own export, reports failures accessibly. Tests cover two distinct owners and negative attempts.\n",
+  "tasks": [
+    {
+      "id": "0001",
+      "title": "CSV contract and fixture design",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "dependsOn": [],
+      "dependencyDetails": [],
+      "write": [
+        "docs/csv-contract.md",
+        "tests/fixtures/own-orders.json"
+      ],
+      "resources": [],
+      "requirements": [
+        "R-OWNERSHIP",
+        "R-CSV"
+      ],
+      "scenarios": [
+        "S-OWN",
+        "S-FOREIGN",
+        "S-UNAUTH",
+        "S-CSV"
+      ],
+      "verification": [
+        "node --test tests/csv-contract.test.mjs"
+      ],
+      "outcome": "Freeze column order, UTF-8 encoding, CSV quoting and formula-injection neutralization; define only-own-orders requirements and two-owner fixtures.",
+      "acceptance": "Contract lists all columns, empty header-only behavior, formula-leading and quoted/multiline values; fixtures distinguish A and B without personal data.",
+      "inputs": "Original request, existing authentication and ownership rules, design; predecessor outputs where declared. Inspect target APIs before implementation; do not add auth semantics.",
+      "scopeAndDependencies": "Only declared write paths; no installation, auth redesign, order mutations or cross-user export. Dependencies supply the approved contract or integrated behavior.",
+      "boundary": {
+        "change": "Freeze column order, UTF-8 encoding, CSV quoting and formula-injection neutralization; define only-own-orders requirements and two-owner fixtures.",
+        "target": "docs/csv-contract.md, tests/fixtures/own-orders.json",
+        "exclusions": [
+          "No other-user export",
+          "No credentials or customer PII",
+          "No installation or order mutation"
+        ],
+        "review": {
+          "verdict": "ready",
+          "source": "Fixture author boundary assessment before native F/Q; ROOT must confirm"
+        }
+      }
+    },
+    {
+      "id": "0002",
+      "title": "Read-only own-orders CSV handler",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "dependsOn": [
+        "0001"
+      ],
+      "dependencyDetails": [
+        {
+          "id": "0001",
+          "reason": "required",
+          "requiredOutput": "Approved CSV contract and two-owner fixtures"
+        }
+      ],
+      "write": [
+        "src/export-own-orders.mjs",
+        "tests/export-own-orders.test.mjs"
+      ],
+      "resources": [],
+      "requirements": [
+        "R-OWNERSHIP",
+        "R-CSV"
+      ],
+      "scenarios": [
+        "S-OWN",
+        "S-FOREIGN",
+        "S-UNAUTH",
+        "S-CSV"
+      ],
+      "verification": [
+        "node --test tests/export-own-orders.test.mjs"
+      ],
+      "outcome": "Implement future handler using existing authenticated principal; filter ownership at data access, not after pagination or after serialization. Reject absent principal and ignore/reject caller owner override.",
+      "acceptance": "A receives only A orders; B only B; unauthenticated denied; owner override cannot reveal B; no persistence mutation; escaping follows approved contract.",
+      "inputs": "Original request, existing authentication and ownership rules, design; predecessor outputs where declared. Inspect target APIs before implementation; do not add auth semantics.",
+      "scopeAndDependencies": "Only declared write paths; no installation, auth redesign, order mutations or cross-user export. Dependencies supply the approved contract or integrated behavior.",
+      "boundary": {
+        "change": "Implement future handler using existing authenticated principal; filter ownership at data access, not after pagination or after serialization. Reject absent principal and ignore/reject caller owner override.",
+        "target": "src/export-own-orders.mjs, tests/export-own-orders.test.mjs",
+        "exclusions": [
+          "No other-user export",
+          "No credentials or customer PII",
+          "No installation or order mutation"
+        ],
+        "review": {
+          "verdict": "ready",
+          "source": "Fixture author boundary assessment before native F/Q; ROOT must confirm"
+        }
+      }
+    },
+    {
+      "id": "0003",
+      "title": "Accessible authenticated CSV download UI",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "dependsOn": [
+        "0001"
+      ],
+      "dependencyDetails": [
+        {
+          "id": "0001",
+          "reason": "required",
+          "requiredOutput": "Approved CSV contract and two-owner fixtures"
+        }
+      ],
+      "write": [
+        "src/order-export-ui.mjs",
+        "tests/order-export-ui.test.mjs"
+      ],
+      "resources": [],
+      "requirements": [
+        "R-UI"
+      ],
+      "scenarios": [
+        "S-UI"
+      ],
+      "verification": [
+        "node --test tests/order-export-ui.test.mjs"
+      ],
+      "outcome": "Implement future UI action against authenticated export; loading, disabled double submit, empty success, denied/error and accessible feedback. Do not expose owner selection.",
+      "acceptance": "Download preserves filename/content-type; loading prevents duplicate request; denied/error shows accessible failure; no arbitrary owner control or personal data in telemetry.",
+      "inputs": "Original request, existing authentication and ownership rules, design; predecessor outputs where declared. Inspect target APIs before implementation; do not add auth semantics.",
+      "scopeAndDependencies": "Only declared write paths; no installation, auth redesign, order mutations or cross-user export. Dependencies supply the approved contract or integrated behavior.",
+      "boundary": {
+        "change": "Implement future UI action against authenticated export; loading, disabled double submit, empty success, denied/error and accessible feedback. Do not expose owner selection.",
+        "target": "src/order-export-ui.mjs, tests/order-export-ui.test.mjs",
+        "exclusions": [
+          "No other-user export",
+          "No credentials or customer PII",
+          "No installation or order mutation"
+        ],
+        "review": {
+          "verdict": "ready",
+          "source": "Fixture author boundary assessment before native F/Q; ROOT must confirm"
+        }
+      }
+    },
+    {
+      "id": "0004",
+      "title": "Ownership integration and regression acceptance",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "dependsOn": [
+        "0002",
+        "0003"
+      ],
+      "dependencyDetails": [
+        {
+          "id": "0002",
+          "reason": "required",
+          "requiredOutput": "Tested authenticated ownership-filtered CSV handler"
+        },
+        {
+          "id": "0003",
+          "reason": "required",
+          "requiredOutput": "Tested accessible authenticated download UI"
+        }
+      ],
+      "write": [
+        "tests/csv-own-orders.integration.test.mjs",
+        "docs/csv-export-acceptance.md"
+      ],
+      "resources": [],
+      "requirements": [
+        "R-OWNERSHIP",
+        "R-CSV"
+      ],
+      "scenarios": [
+        "S-OWN",
+        "S-FOREIGN",
+        "S-UNAUTH",
+        "S-CSV"
+      ],
+      "verification": [
+        "node --test tests/csv-own-orders.integration.test.mjs"
+      ],
+      "outcome": "Exercise handler and UI together against two-owner fixtures; validate negative ownership/auth cases and CSV bytes without modifying production records.",
+      "acceptance": "Authenticated A export never includes B IDs; owner query override denied/ineffective; unauthenticated no download; header-only empty export; escaping and formula defenses correct; existing listing behavior unchanged.",
+      "inputs": "Original request, existing authentication and ownership rules, design; predecessor outputs where declared. Inspect target APIs before implementation; do not add auth semantics.",
+      "scopeAndDependencies": "Only declared write paths; no installation, auth redesign, order mutations or cross-user export. Dependencies supply the approved contract or integrated behavior.",
+      "boundary": {
+        "change": "Exercise handler and UI together against two-owner fixtures; validate negative ownership/auth cases and CSV bytes without modifying production records.",
+        "target": "tests/csv-own-orders.integration.test.mjs, docs/csv-export-acceptance.md",
+        "exclusions": [
+          "No other-user export",
+          "No credentials or customer PII",
+          "No installation or order mutation"
+        ],
+        "review": {
+          "verdict": "ready",
+          "source": "Fixture author boundary assessment before native F/Q; ROOT must confirm"
+        }
+      }
+    }
+  ],
+  "layers": {
+    "C01": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C02": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C03": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C04": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C05": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C06": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C07": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C08": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C09": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C10": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C11": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C12": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C13": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C14": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    },
+    "C15": {
+      "status": "blocked",
+      "reason": "Publication/readback has not occurred",
+      "references": []
+    },
+    "C16": {
+      "status": "satisfied",
+      "reason": "Example explicit author assessment: ROOT must confirm this layer against original request, contracts and declared limits before freeze. Not native review evidence.",
+      "references": [
+        "proposal",
+        "design",
+        "tasks-index"
+      ]
+    }
+  }
+}

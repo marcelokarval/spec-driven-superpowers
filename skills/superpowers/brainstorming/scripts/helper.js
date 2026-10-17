@@ -1,35 +1,7 @@
 (function() {
-  const WS_URL = 'ws://' + window.location.host;
-  let ws = null;
-  let eventQueue = [];
-
-  function connect() {
-    ws = new WebSocket(WS_URL);
-
-    ws.onopen = () => {
-      eventQueue.forEach(e => ws.send(JSON.stringify(e)));
-      eventQueue = [];
-    };
-
-    ws.onmessage = (msg) => {
-      const data = JSON.parse(msg.data);
-      if (data.type === 'reload') {
-        window.location.reload();
-      }
-    };
-
-    ws.onclose = () => {
-      setTimeout(connect, 1000);
-    };
-  }
-
+  // Static artifact only. Choice stays in this page; no network or persistence.
   function sendEvent(event) {
-    event.timestamp = Date.now();
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify(event));
-    } else {
-      eventQueue.push(event);
-    }
+    window.brainstormLastEvent = { ...event };
   }
 
   // Capture clicks on choice elements
@@ -84,5 +56,4 @@
     choice: (value, metadata = {}) => sendEvent({ type: 'choice', value, ...metadata })
   };
 
-  connect();
 })();

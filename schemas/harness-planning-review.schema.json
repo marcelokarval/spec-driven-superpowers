@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "asds.harness-planning-review/1",
+  "title": "Explicit operationally trusted harness planning review",
+  "description": "assignment.requestedBySessionId and evidence.observedBySessionId identify the same actual harness coordinator, who may differ from author. Coordinator is consistent across fidelity/quality; reviewers are distinct from author, coordinator and each other. Cross-field relations are checked by the executable validator, not inferred identities.",
+  "type": "object",
+  "required": ["schemaVersion","packageId","revision","candidateSha256","inventoryDigest","policyDigest","author","reviewer","assignment","kind","priorReviewDigest","verdict","findings","limitations","sourceReferenceIds","taskIds","evidence","envelopeDigest"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {"const":"asds.harness-planning-review/1"},
+    "packageId": {"$ref":"#/$defs/text"}, "revision": {"$ref":"#/$defs/text"},
+    "candidateSha256": {"$ref":"#/$defs/digest"}, "inventoryDigest": {"$ref":"#/$defs/digest"}, "policyDigest": {"$ref":"#/$defs/digest"},
+    "author": {"$ref":"#/$defs/identity"},
+    "reviewer": {"type":"object","additionalProperties":false,"required":["actorId","sessionId","agentRole"],"properties":{"actorId":{"$ref":"#/$defs/text"},"sessionId":{"$ref":"#/$defs/text"},"agentRole":{"$ref":"#/$defs/text"},"parentSessionId":{"$ref":"#/$defs/text"}}},
+    "assignment": {"type":"object","additionalProperties":false,"required":["id","requestedBySessionId","kind","candidateSha256","scopeTaskIds"],"properties":{"id":{"$ref":"#/$defs/text"},"requestedBySessionId":{"$ref":"#/$defs/text"},"kind":{"enum":["fidelity","quality"]},"candidateSha256":{"$ref":"#/$defs/digest"},"scopeTaskIds":{"$ref":"#/$defs/ids"}}},
+    "kind": {"enum":["fidelity","quality"]},
+    "priorReviewDigest": {"anyOf":[{"type":"null"},{"$ref":"#/$defs/digest"}]},
+    "verdict": {"enum":["pass","fail","blocked"]},
+    "findings": {"type":"array","items":{"type":"object","additionalProperties":false,"required":["id","severity","status","evidence","expectedCorrection","disposition"],"properties":{"id":{"$ref":"#/$defs/text"},"severity":{"enum":["material","non-material"]},"status":{"enum":["open","resolved","rejected"]},"evidence":{"$ref":"#/$defs/text"},"expectedCorrection":{"$ref":"#/$defs/text"},"disposition":{"$ref":"#/$defs/text"}}}},
+    "limitations": {"type":"array","items":{"type":"object","additionalProperties":false,"required":["description","blocksCoverage"],"properties":{"description":{"$ref":"#/$defs/text"},"blocksCoverage":{"type":"boolean"}}}},
+    "sourceReferenceIds": {"$ref":"#/$defs/ids"}, "taskIds": {"$ref":"#/$defs/ids"},
+    "evidence": {"type":"object","additionalProperties":false,"required":["harness","sessionId","messageIds","requestDigest","resultDigest","persistedResultPath","observedBySessionId"],"properties":{"harness":{"$ref":"#/$defs/text"},"sessionId":{"$ref":"#/$defs/text"},"messageIds":{"$ref":"#/$defs/ids"},"requestDigest":{"$ref":"#/$defs/digest"},"resultDigest":{"$ref":"#/$defs/digest"},"persistedResultPath":{"$ref":"#/$defs/text"},"observedBySessionId":{"$ref":"#/$defs/text"}}},
+    "envelopeDigest": {"$ref":"#/$defs/digest"}
+  },
+  "$defs": {
+    "text": {"type":"string","minLength":1,"pattern":"\\S"},
+    "digest": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "ids": {"type":"array","minItems":1,"uniqueItems":true,"items":{"$ref":"#/$defs/text"}},
+    "identity": {"type":"object","additionalProperties":false,"required":["actorId","sessionId"],"properties":{"actorId":{"$ref":"#/$defs/text"},"sessionId":{"$ref":"#/$defs/text"}}}
+  }
+}

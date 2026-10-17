@@ -1,0 +1,34 @@
+{
+  "packageId": "csv-own-orders-native-c10",
+  "revision": "r1",
+  "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+  "author": {
+    "actorId": "ses_ec355f101ffeug9mfrO0v161eh",
+    "sessionId": "ses_ec355f101ffeug9mfrO0v161eh"
+  },
+  "policyDigest": "618d45c58b28c1e49800acfcbacffb6ccdb3c111a420f5598263c48ef22ecd88",
+  "inventoryDigest": "d364cdfe118dd1ca07dd7c435e4b526db8f8f6f3d18aa943db799b96342068ce",
+  "taskIds": [
+    "0001",
+    "0002",
+    "0003",
+    "0004"
+  ],
+  "sourceReferenceIds": [
+    "proposal",
+    "design",
+    "spec:csv-export",
+    "tasks-index",
+    "dag",
+    "dag-status",
+    "original-request",
+    "task:0001",
+    "task:0002",
+    "task:0003",
+    "task:0004"
+  ],
+  "manifestSha256": "4a6290cf76c7b1dc901c74db3e8917b78da8d173785d29f36d57d7852d1131c0",
+  "reviewErrors": [
+    "explicit ordered fidelity and quality required"
+  ]
+}

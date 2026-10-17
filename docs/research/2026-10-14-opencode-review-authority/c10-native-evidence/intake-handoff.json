@@ -1,0 +1,34 @@
+{
+  "objective": "C10 synthetic planning proof: reviewed CSV own-orders package, no implementation",
+  "project": "/tmp/opencode/asds-passive-c10-native/package",
+  "scope": [
+    "Planning CSV own orders, four contracts and DAG",
+    "Native F/Q and deterministic persistence/readback only"
+  ],
+  "constraints": [
+    "No product execution, installation or production access",
+    "No fabricated execution grants or enforced host boundary"
+  ],
+  "risks": [
+    "Synthetic application; real target not inspected",
+    "Nonmaterial F-001/Q-001 remain recorded"
+  ],
+  "references": [
+    "/tmp/opencode/asds-passive-c10-native/package/original-request.md",
+    "/tmp/opencode/asds-passive-c10-native/package/planning-manifest.json"
+  ],
+  "authorizations": [
+    {
+      "action": "planning persistence and native review",
+      "decision": "granted",
+      "scope": "/tmp/opencode/asds-passive-c10-native/package",
+      "source": "Current human C10 authorization in coordinator ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+    },
+    {
+      "action": "product implementation",
+      "decision": "denied",
+      "scope": "CSV future target",
+      "source": "Explicit planning-only boundary"
+    }
+  ]
+}
