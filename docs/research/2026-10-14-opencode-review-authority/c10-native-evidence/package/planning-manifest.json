@@ -1,0 +1,861 @@
+{
+  "schemaVersion": "asds.planning-delivery/1",
+  "returnVersion": "asds.planning-return/2",
+  "packageId": "csv-own-orders-native-c10",
+  "revision": "r1",
+  "state": "delivered",
+  "author": {
+    "actorId": "ses_ec355f101ffeug9mfrO0v161eh",
+    "sessionId": "ses_ec355f101ffeug9mfrO0v161eh"
+  },
+  "context": {
+    "nature": "synthetic future target; not an existing application repository",
+    "humanAuthorizationSource": "Current human C10 authorization supplied by ROOT in session ses_ec3692bb6ffeW2ypMeuSN2v8Ug; preparation assigned to ses_ec355f101ffeug9mfrO0v161eh (this conversation; no fabricated message/issue ID).",
+    "preparerActorId": "ses_ec355f101ffeug9mfrO0v161eh",
+    "preparerSessionId": "ses_ec355f101ffeug9mfrO0v161eh",
+    "coordinatorObserverSessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+    "reviewerSeparation": "Native fidelity and quality actors/sessions must differ from each other, preparer AND ROOT coordinator; no native review performed during author preparation.",
+    "futureTarget": "No target repo/workspace/host baseline exists or is claimed; separate execution scope and actual API inspection required later."
+  },
+  "attendanceOutcome": "planning_delivered",
+  "synthetic": false,
+  "originalRequestedProduct": {
+    "kind": "planning",
+    "status": "in_progress",
+    "text": "Plan CSV export of authenticated users own orders only, using existing auth; preserve CSV columns/escaping/formula defenses/header-only and UI states; no foreign records, PII, order mutations or installation; four bounded future tasks and DAG; no implementation in C10.",
+    "source": "Current human C10 authorization supplied by ROOT in session ses_ec3692bb6ffeW2ypMeuSN2v8Ug; preparation assigned to ses_ec355f101ffeug9mfrO0v161eh (this conversation; no fabricated message/issue ID). Full requirements: bound original-request.md."
+  },
+  "planningContribution": {
+    "product": "reviewed-planning-package",
+    "executionPerformed": false,
+    "usableTasks": [
+      "0001",
+      "0002",
+      "0003",
+      "0004"
+    ]
+  },
+  "authority": {
+    "persistenceGranted": true,
+    "destination": "/tmp/opencode/asds-passive-c10-native/package",
+    "authorization": "Current human C10 authorization supplied by ROOT in session ses_ec3692bb6ffeW2ypMeuSN2v8Ug; preparation assigned to ses_ec355f101ffeug9mfrO0v161eh (this conversation; no fabricated message/issue ID). Explicit grant: synthetic planning persistence/review/eventual publication here only; no product implementation or production Stage-3.",
+    "scope": "openspec-change-only"
+  },
+  "reviewPolicy": {
+    "risk": "elevated",
+    "domains": [
+      "authorization",
+      "sensitive-data"
+    ],
+    "independentRequired": true
+  },
+  "layers": {
+    "C01": {
+      "status": "satisfied",
+      "reason": "Original product is planning only, current human authorization and real preparer/ROOT identities preserved; destination is this explicitly authorized synthetic package, no implementation grant inferred.",
+      "references": [
+        "original-request",
+        "proposal"
+      ]
+    },
+    "C02": {
+      "status": "satisfied",
+      "reason": "Onboarding bounded to the source example and this synthetic contract: no real app repo/API/baseline claimed. design.md names future target inspection and stop-on-incompatibility.",
+      "references": [
+        "original-request",
+        "design"
+      ]
+    },
+    "C03": {
+      "status": "satisfied",
+      "reason": "Briefing maps R-OWNERSHIP/R-CSV/R-UI/R-PRESERVE and all exclusions/scenarios to four leaves; columns, auth consumption and privacy constraints are explicit.",
+      "references": [
+        "original-request",
+        "proposal"
+      ]
+    },
+    "C04": {
+      "status": "satisfied",
+      "reason": "No unanswered material choice for this synthetic planning case: ownership override rejection, response shape, serialization and UI mock interface are fixed in design. Real-target API uncertainty is future pre-execution inspection, not invented current evidence.",
+      "references": [
+        "proposal",
+        "design"
+      ]
+    },
+    "C05": {
+      "status": "satisfied",
+      "reason": "No external factual claim is needed: synthetic data/interface design is explicit. Existing auth/API availability is not asserted; actual integration facts must be inspected before execution under new grants.",
+      "references": [
+        "original-request",
+        "design"
+      ]
+    },
+    "C06": {
+      "status": "satisfied",
+      "reason": "Alternatives resolved for this fixture: reject owner override rather than silently ignore; quote all cells and apostrophe-prefix formula-like text; backend/UI parallelism uses fixed mocks rather than running service. No exploratory interview/research loop warranted.",
+      "references": [
+        "design"
+      ]
+    },
+    "C07": {
+      "status": "satisfied",
+      "reason": "Requirement/scenario table covers positive own exports and negative foreign/unauth/invalid/error paths, header-only/CSV safety/UI and no-mutation preservation; task 0004 integrates all routes.",
+      "references": [
+        "proposal",
+        "design",
+        "task:0004",
+        "spec:csv-export"
+      ]
+    },
+    "C08": {
+      "status": "satisfied",
+      "reason": "I-EXPORT-1 fixes trusted principal/read adapter, status/headers/body, byte-level CSV rules and UI injected callbacks/states; known synthetic/actual-target boundary is explicit.",
+      "references": [
+        "design"
+      ]
+    },
+    "C09": {
+      "status": "satisfied",
+      "reason": "Four independent bounded leaf outcomes: declarative contract/fixtures/tests, handler/serializer, mockable UI controller, integrated acceptance. Flat decomposition sufficient; task 0001 test path included in writes.",
+      "references": [
+        "proposal",
+        "task:0001",
+        "task:0002",
+        "task:0003",
+        "task:0004"
+      ]
+    },
+    "C10": {
+      "status": "satisfied",
+      "reason": "DAG 0001 -> {0002,0003} -> 0004; backend and UI share read-only contract inputs but no write overlap, so recommended parallel wave is justified. No unresolved current decision or implied precedence between 0002 and 0003.",
+      "references": [
+        "tasks-index",
+        "dag",
+        "dag-status"
+      ]
+    },
+    "C11": {
+      "status": "satisfied",
+      "reason": "All four contracts carry inputs, exact write/exclusion scope, required dependency outputs, outcome, acceptance/scenarios, future verification and DoD; author boundary assessment is explicit, not native review.",
+      "references": [
+        "task:0001",
+        "task:0002",
+        "task:0003",
+        "task:0004"
+      ]
+    },
+    "C12": {
+      "status": "satisfied",
+      "reason": "Native fidelity ses_ebf19f63affe52X2mitA2QWLYi observed terminal PASS and registered exact result; F-001 retained as nonmaterial wording inconsistency, binding unchanged.",
+      "references": [
+        "review:fidelity",
+        "evidence:fidelity"
+      ]
+    },
+    "C13": {
+      "status": "satisfied",
+      "reason": "Distinct native quality ses_ebf16bee0ffe0gNbD0qgz2SUUG observed terminal PASS and registered linked to exact fidelity digest; Q-001 retained.",
+      "references": [
+        "review:quality",
+        "evidence:quality"
+      ]
+    },
+    "C14": {
+      "status": "satisfied",
+      "reason": "Coordinator reconciled F-001 against design explicit 400 rejection and Q-001 against all terminal controls enabled invariant; both nonmaterial with dispositions preserved. No material findings open. No candidate edits to conceal findings; wording follow-ups explicitly remain nonblocking.",
+      "references": [
+        "review:fidelity",
+        "review:quality",
+        "design"
+      ]
+    },
+    "C15": {
+      "status": "satisfied",
+      "reason": "Published and reopened exact package inventory",
+      "references": [
+        "proposal",
+        "design",
+        "spec:csv-export",
+        "tasks-index",
+        "dag",
+        "dag-status",
+        "original-request",
+        "task:0001",
+        "task:0002",
+        "task:0003",
+        "task:0004",
+        "review:fidelity",
+        "evidence:fidelity",
+        "review:quality",
+        "evidence:quality"
+      ]
+    },
+    "C16": {
+      "status": "satisfied",
+      "reason": "Planning ready for delivery only: native results and limitations preserved; actual application/implementation not tested, separate execution grant and target inspection required. C15 publication/readback still pending; no delivery claimed yet.",
+      "references": [
+        "review:fidelity",
+        "review:quality",
+        "original-request"
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "packageId": "csv-own-orders-native-c10",
+      "revision": "r1",
+      "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+      "author": {
+        "actorId": "ses_ec355f101ffeug9mfrO0v161eh",
+        "sessionId": "ses_ec355f101ffeug9mfrO0v161eh"
+      },
+      "policyDigest": "618d45c58b28c1e49800acfcbacffb6ccdb3c111a420f5598263c48ef22ecd88",
+      "inventoryDigest": "d364cdfe118dd1ca07dd7c435e4b526db8f8f6f3d18aa943db799b96342068ce",
+      "taskIds": [
+        "0001",
+        "0002",
+        "0003",
+        "0004"
+      ],
+      "sourceReferenceIds": [
+        "proposal",
+        "design",
+        "spec:csv-export",
+        "tasks-index",
+        "dag",
+        "dag-status",
+        "original-request",
+        "task:0001",
+        "task:0002",
+        "task:0003",
+        "task:0004"
+      ],
+      "kind": "fidelity",
+      "priorReviewDigest": null,
+      "verdict": "pass",
+      "findings": [
+        {
+          "id": "F-001",
+          "severity": "non-material",
+          "status": "open",
+          "evidence": "tasks/task-0002.md:35,50 says 'ignore/reject caller owner override', while its acceptance at line 59 and design.md:17-19 explicitly require rejection with 400 before reading.",
+          "expectedCorrection": "Align the outcome and boundary summary with the explicit rejection requirement; remove 'ignore/'.",
+          "disposition": "Nonblocking wording inconsistency: the mandatory acceptance and shared interface unambiguously require rejection, and neither interpretation permits foreign-order export."
+        }
+      ],
+      "limitations": [
+        {
+          "description": "Candidate and inventory digests are supplied bindings read from binding.json and the manifest, not independently recomputed. This verdict assesses the complete text inspected, not cryptographic integrity.",
+          "blocksCoverage": false
+        },
+        {
+          "description": "No actual application APIs, implementation, tests or runtime were inspected or executed. These are explicitly future, separately authorized activities and do not limit this synthetic planning fidelity review.",
+          "blocksCoverage": false
+        }
+      ],
+      "schemaVersion": "asds.harness-planning-review/1",
+      "reviewer": {
+        "actorId": "ses_ebf19f63affe52X2mitA2QWLYi",
+        "sessionId": "ses_ebf19f63affe52X2mitA2QWLYi",
+        "agentRole": "spec-driven-superpowers-reviewer",
+        "parentSessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+      },
+      "assignment": {
+        "id": "msg_140e609f6001Ndohhv3jMLAcK2",
+        "requestedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+        "kind": "fidelity",
+        "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+        "scopeTaskIds": [
+          "0001",
+          "0002",
+          "0003",
+          "0004"
+        ]
+      },
+      "evidence": {
+        "harness": "OpenCode + omo-slim",
+        "sessionId": "ses_ebf19f63affe52X2mitA2QWLYi",
+        "messageIds": [
+          "msg_140e609f6001Ndohhv3jMLAcK2",
+          "msg_140e745a20019kf3hxGv4h7aED"
+        ],
+        "requestDigest": "21a0ef094acd9997e3fca4524b6ae78cd35c2c69173e8eb5572b6170976e5869",
+        "resultDigest": "8f3ba4d71c4e543210f890621685887c98a64af2c7e3853d868a1094fad602c7",
+        "persistedResultPath": "evidence/fidelity.txt",
+        "observedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+      },
+      "envelopeDigest": "14983fc6ba1e6795b19a264edee6933cfc1d5011a32626326fb51d98a15c6397"
+    },
+    {
+      "packageId": "csv-own-orders-native-c10",
+      "revision": "r1",
+      "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+      "author": {
+        "actorId": "ses_ec355f101ffeug9mfrO0v161eh",
+        "sessionId": "ses_ec355f101ffeug9mfrO0v161eh"
+      },
+      "policyDigest": "618d45c58b28c1e49800acfcbacffb6ccdb3c111a420f5598263c48ef22ecd88",
+      "inventoryDigest": "d364cdfe118dd1ca07dd7c435e4b526db8f8f6f3d18aa943db799b96342068ce",
+      "taskIds": [
+        "0001",
+        "0002",
+        "0003",
+        "0004"
+      ],
+      "sourceReferenceIds": [
+        "original-request",
+        "proposal",
+        "design",
+        "spec:csv-export",
+        "tasks-index",
+        "dag",
+        "dag-status",
+        "task:0001",
+        "task:0002",
+        "task:0003",
+        "task:0004"
+      ],
+      "schemaVersion": "asds.harness-planning-review/1",
+      "reviewer": {
+        "actorId": "ses_ebf16bee0ffe0gNbD0qgz2SUUG",
+        "sessionId": "ses_ebf16bee0ffe0gNbD0qgz2SUUG",
+        "agentRole": "spec-driven-superpowers-reviewer",
+        "parentSessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+      },
+      "assignment": {
+        "id": "msg_140e9414b001bvp5K505t8WDAB",
+        "requestedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+        "kind": "quality",
+        "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+        "scopeTaskIds": [
+          "0001",
+          "0002",
+          "0003",
+          "0004"
+        ]
+      },
+      "kind": "quality",
+      "priorReviewDigest": "14983fc6ba1e6795b19a264edee6933cfc1d5011a32626326fb51d98a15c6397",
+      "verdict": "pass",
+      "findings": [
+        {
+          "id": "Q-001",
+          "severity": "non-material",
+          "status": "open",
+          "evidence": "design.md:60-61 enumerates idle/error/success as origins for export(), omitting empty/denied, while design.md:65,90-93 requires every terminal state to restore enabled controls. tasks/task-0003.md:55 tests restoration but does not explicitly test reactivation from empty/denied.",
+          "expectedCorrection": "Clarify that export() is accepted from every non-loading phase and add reactivation assertions after empty and denied outcomes.",
+          "disposition": "Nonblocking state-transition clarification: the explicit only-loading-is-disabled invariant already supplies the intended behavior; decomposition, ownership and dependency contracts remain implementable."
+        }
+      ],
+      "limitations": [
+        {
+          "description": "Candidate, inventory and policy digests were read as supplied bindings, not independently recomputed. The manifest records fidelity PASS with the exact supplied priorReviewDigest for this candidate; its narrative was not used as semantic quality evidence.",
+          "blocksCoverage": false
+        },
+        {
+          "description": "Review covers the complete synthetic planning material only. No actual application, transport adapter, DOM accessibility, implementation or test execution was inspected or verified. Actual-target inspection and separate execution authorization remain explicit prerequisites.",
+          "blocksCoverage": false
+        }
+      ],
+      "evidence": {
+        "harness": "OpenCode + omo-slim",
+        "sessionId": "ses_ebf16bee0ffe0gNbD0qgz2SUUG",
+        "messageIds": [
+          "msg_140e9414b001bvp5K505t8WDAB",
+          "msg_140e98dc5001pRtq0YOArJtNVo"
+        ],
+        "requestDigest": "b1cdf7f73b4dc86137ab3389c7185ae54dd94aabfbad6dd87f8861c8a9596fda",
+        "resultDigest": "bbe9b5575e804496f45153fd8b2ac631b44747e272c09ccf984ee862ad873b27",
+        "persistedResultPath": "evidence/quality.txt",
+        "observedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+      },
+      "envelopeDigest": "600900dcf9995e043978f30d771960ba2b76eeb0955f52e5071d4d2018cc33f4"
+    }
+  ],
+  "blockers": [],
+  "decisions": [],
+  "tasks": [
+    {
+      "id": "0001",
+      "title": "CSV contract and fixture design",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "parentId": null,
+      "requirements": [
+        "R-OWNERSHIP",
+        "R-CSV",
+        "R-UI",
+        "R-PRESERVE"
+      ],
+      "dependsOn": [],
+      "dependencyDetails": [],
+      "decisionInputs": [],
+      "resolvesDecisions": [],
+      "decisionBundleReason": null,
+      "write": [
+        "docs/csv-contract.md",
+        "tests/fixtures/own-orders.json",
+        "tests/csv-contract.test.mjs"
+      ],
+      "resources": [],
+      "scenarios": [
+        "csv-export/S-OWN",
+        "csv-export/S-FOREIGN",
+        "csv-export/S-UNAUTH",
+        "csv-export/S-CSV",
+        "csv-export/S-EMPTY",
+        "csv-export/S-MINIMIZE",
+        "csv-export/S-UI",
+        "csv-export/S-ERROR",
+        "csv-export/S-NOMUTATE"
+      ],
+      "verification": [
+        "node --test tests/csv-contract.test.mjs"
+      ]
+    },
+    {
+      "id": "0002",
+      "title": "Read-only own-orders CSV handler",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "parentId": null,
+      "requirements": [
+        "R-OWNERSHIP",
+        "R-CSV",
+        "R-PRESERVE"
+      ],
+      "dependsOn": [
+        "0001"
+      ],
+      "dependencyDetails": [
+        {
+          "id": "0001",
+          "reason": "required",
+          "requiredOutput": "Approved CSV contract and two-owner fixtures"
+        }
+      ],
+      "decisionInputs": [],
+      "resolvesDecisions": [],
+      "decisionBundleReason": null,
+      "write": [
+        "src/export-own-orders.mjs",
+        "tests/export-own-orders.test.mjs"
+      ],
+      "resources": [],
+      "scenarios": [
+        "csv-export/S-OWN",
+        "csv-export/S-FOREIGN",
+        "csv-export/S-UNAUTH",
+        "csv-export/S-CSV",
+        "csv-export/S-EMPTY",
+        "csv-export/S-MINIMIZE",
+        "csv-export/S-NOMUTATE"
+      ],
+      "verification": [
+        "node --test tests/export-own-orders.test.mjs"
+      ]
+    },
+    {
+      "id": "0003",
+      "title": "Accessible authenticated CSV download UI",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "parentId": null,
+      "requirements": [
+        "R-UI",
+        "R-PRESERVE"
+      ],
+      "dependsOn": [
+        "0001"
+      ],
+      "dependencyDetails": [
+        {
+          "id": "0001",
+          "reason": "required",
+          "requiredOutput": "Approved CSV contract and two-owner fixtures"
+        }
+      ],
+      "decisionInputs": [],
+      "resolvesDecisions": [],
+      "decisionBundleReason": null,
+      "write": [
+        "src/order-export-ui.mjs",
+        "tests/order-export-ui.test.mjs"
+      ],
+      "resources": [],
+      "scenarios": [
+        "csv-export/S-UI",
+        "csv-export/S-EMPTY",
+        "csv-export/S-ERROR",
+        "csv-export/S-NOMUTATE"
+      ],
+      "verification": [
+        "node --test tests/order-export-ui.test.mjs"
+      ]
+    },
+    {
+      "id": "0004",
+      "title": "Ownership integration and regression acceptance",
+      "owner": "future-implementation-consumer",
+      "nodeType": "task",
+      "parentId": null,
+      "requirements": [
+        "R-OWNERSHIP",
+        "R-CSV",
+        "R-UI",
+        "R-PRESERVE"
+      ],
+      "dependsOn": [
+        "0002",
+        "0003"
+      ],
+      "dependencyDetails": [
+        {
+          "id": "0002",
+          "reason": "required",
+          "requiredOutput": "Tested authenticated ownership-filtered CSV handler"
+        },
+        {
+          "id": "0003",
+          "reason": "required",
+          "requiredOutput": "Tested accessible authenticated download UI"
+        }
+      ],
+      "decisionInputs": [],
+      "resolvesDecisions": [],
+      "decisionBundleReason": null,
+      "write": [
+        "tests/csv-own-orders.integration.test.mjs",
+        "docs/csv-export-acceptance.md"
+      ],
+      "resources": [],
+      "scenarios": [
+        "csv-export/S-OWN",
+        "csv-export/S-FOREIGN",
+        "csv-export/S-UNAUTH",
+        "csv-export/S-CSV",
+        "csv-export/S-EMPTY",
+        "csv-export/S-MINIMIZE",
+        "csv-export/S-UI",
+        "csv-export/S-ERROR",
+        "csv-export/S-NOMUTATE"
+      ],
+      "verification": [
+        "node --test tests/csv-contract.test.mjs tests/export-own-orders.test.mjs tests/order-export-ui.test.mjs tests/csv-own-orders.integration.test.mjs"
+      ]
+    }
+  ],
+  "taskManager": {
+    "version": "asds.task-manager-projection/1",
+    "tasks": [
+      {
+        "id": "0001",
+        "title": "CSV contract and fixture design",
+        "owner": "future-implementation-consumer",
+        "status": "ready",
+        "wave": 1,
+        "waitingOn": [],
+        "blockedBy": [],
+        "blocks": [
+          "0002",
+          "0003"
+        ],
+        "parallelWith": [],
+        "serializesWith": [],
+        "decisionInputs": [],
+        "resolvesDecisions": [],
+        "write": [
+          "docs/csv-contract.md",
+          "tests/fixtures/own-orders.json",
+          "tests/csv-contract.test.mjs"
+        ],
+        "resources": [],
+        "scenarios": [
+          "csv-export/S-OWN",
+          "csv-export/S-FOREIGN",
+          "csv-export/S-UNAUTH",
+          "csv-export/S-CSV",
+          "csv-export/S-EMPTY",
+          "csv-export/S-MINIMIZE",
+          "csv-export/S-UI",
+          "csv-export/S-ERROR",
+          "csv-export/S-NOMUTATE"
+        ],
+        "verification": [
+          "node --test tests/csv-contract.test.mjs"
+        ]
+      },
+      {
+        "id": "0002",
+        "title": "Read-only own-orders CSV handler",
+        "owner": "future-implementation-consumer",
+        "status": "waiting",
+        "wave": 2,
+        "waitingOn": [
+          "0001"
+        ],
+        "blockedBy": [],
+        "blocks": [
+          "0004"
+        ],
+        "parallelWith": [
+          "0003"
+        ],
+        "serializesWith": [],
+        "decisionInputs": [],
+        "resolvesDecisions": [],
+        "write": [
+          "src/export-own-orders.mjs",
+          "tests/export-own-orders.test.mjs"
+        ],
+        "resources": [],
+        "scenarios": [
+          "csv-export/S-OWN",
+          "csv-export/S-FOREIGN",
+          "csv-export/S-UNAUTH",
+          "csv-export/S-CSV",
+          "csv-export/S-EMPTY",
+          "csv-export/S-MINIMIZE",
+          "csv-export/S-NOMUTATE"
+        ],
+        "verification": [
+          "node --test tests/export-own-orders.test.mjs"
+        ]
+      },
+      {
+        "id": "0003",
+        "title": "Accessible authenticated CSV download UI",
+        "owner": "future-implementation-consumer",
+        "status": "waiting",
+        "wave": 2,
+        "waitingOn": [
+          "0001"
+        ],
+        "blockedBy": [],
+        "blocks": [
+          "0004"
+        ],
+        "parallelWith": [
+          "0002"
+        ],
+        "serializesWith": [],
+        "decisionInputs": [],
+        "resolvesDecisions": [],
+        "write": [
+          "src/order-export-ui.mjs",
+          "tests/order-export-ui.test.mjs"
+        ],
+        "resources": [],
+        "scenarios": [
+          "csv-export/S-UI",
+          "csv-export/S-EMPTY",
+          "csv-export/S-ERROR",
+          "csv-export/S-NOMUTATE"
+        ],
+        "verification": [
+          "node --test tests/order-export-ui.test.mjs"
+        ]
+      },
+      {
+        "id": "0004",
+        "title": "Ownership integration and regression acceptance",
+        "owner": "future-implementation-consumer",
+        "status": "waiting",
+        "wave": 3,
+        "waitingOn": [
+          "0002",
+          "0003"
+        ],
+        "blockedBy": [],
+        "blocks": [],
+        "parallelWith": [],
+        "serializesWith": [],
+        "decisionInputs": [],
+        "resolvesDecisions": [],
+        "write": [
+          "tests/csv-own-orders.integration.test.mjs",
+          "docs/csv-export-acceptance.md"
+        ],
+        "resources": [],
+        "scenarios": [
+          "csv-export/S-OWN",
+          "csv-export/S-FOREIGN",
+          "csv-export/S-UNAUTH",
+          "csv-export/S-CSV",
+          "csv-export/S-EMPTY",
+          "csv-export/S-MINIMIZE",
+          "csv-export/S-UI",
+          "csv-export/S-ERROR",
+          "csv-export/S-NOMUTATE"
+        ],
+        "verification": [
+          "node --test tests/csv-contract.test.mjs tests/export-own-orders.test.mjs tests/order-export-ui.test.mjs tests/csv-own-orders.integration.test.mjs"
+        ]
+      }
+    ],
+    "readyTaskIds": [
+      "0001"
+    ],
+    "waitingTaskIds": [
+      "0002",
+      "0003",
+      "0004"
+    ],
+    "blockedTaskIds": [],
+    "completedTaskIds": [],
+    "plannedWaves": [
+      [
+        "0001"
+      ],
+      [
+        "0002",
+        "0003"
+      ],
+      [
+        "0004"
+      ]
+    ],
+    "conflicts": []
+  },
+  "usableTasks": [
+    "0001",
+    "0002",
+    "0003",
+    "0004"
+  ],
+  "references": [
+    {
+      "id": "proposal",
+      "path": "proposal.md",
+      "role": "proposal",
+      "sha256": "a2574ee34ecf7d4c7d7b7ae86040c153e32816477b8c004b05b2004b86d0654b"
+    },
+    {
+      "id": "design",
+      "path": "design.md",
+      "role": "design",
+      "sha256": "7dc7ae03fa35504567f9cb15067e4b855ecdbecf416c720ea034d50bb3f76271"
+    },
+    {
+      "id": "spec:csv-export",
+      "path": "specs/csv-export/spec.md",
+      "role": "specification",
+      "sha256": "b519ea145148036362eac7330834255888088001f81d01ee578a1ca4cf008906"
+    },
+    {
+      "id": "tasks-index",
+      "path": "tasks.md",
+      "role": "index",
+      "sha256": "de6e25d6c8245e95455c4ae974d7620557ccd5672d2388481c169658b852f4fe"
+    },
+    {
+      "id": "dag",
+      "path": "dag.mmd",
+      "role": "graph",
+      "sha256": "a6515bfa0f511112a2467d63841730db6a70eb0e2f904d4d6b510ff8a0a92f9c"
+    },
+    {
+      "id": "dag-status",
+      "path": "dag-status.md",
+      "role": "status-view",
+      "sha256": "c7df333ebd0867e676765a67311af2687e9902c55867022973328b32ce23b077"
+    },
+    {
+      "id": "original-request",
+      "path": "original-request.md",
+      "role": "source",
+      "sha256": "7529a7b96e9cfaaf3bd5c66596c793bcee88398ffbaa84ce4057e9db8bc408ea"
+    },
+    {
+      "id": "task:0001",
+      "path": "tasks/task-0001.md",
+      "role": "contract",
+      "sha256": "81e05617b8636e2fe2c7ae5fdd0e45a7980fc3fde191113d3c22356ae3429a43"
+    },
+    {
+      "id": "task:0002",
+      "path": "tasks/task-0002.md",
+      "role": "contract",
+      "sha256": "4c297daf53a42cb916b2dcada02e0cb702d414a3fa82f5b156314400c8c03c6d"
+    },
+    {
+      "id": "task:0003",
+      "path": "tasks/task-0003.md",
+      "role": "contract",
+      "sha256": "72bd7447b4e008f94f1337271acc53f47f248d80b9930842a2057e3a3c8611b1"
+    },
+    {
+      "id": "task:0004",
+      "path": "tasks/task-0004.md",
+      "role": "contract",
+      "sha256": "2349386a9057ba870f35c4c1c5811efdd6c4b6cd69c4fa6c12c9647915dfd0b2"
+    },
+    {
+      "id": "review:fidelity",
+      "path": "reviews/fidelity-r1.json",
+      "role": "review",
+      "sha256": "ac34c287b44be090fa619bac557cc1511114fad8797eb91d6fc6546794663663"
+    },
+    {
+      "id": "evidence:fidelity",
+      "path": "evidence/fidelity.txt",
+      "role": "review-evidence",
+      "sha256": "8f3ba4d71c4e543210f890621685887c98a64af2c7e3853d868a1094fad602c7"
+    },
+    {
+      "id": "review:quality",
+      "path": "reviews/quality-r1.json",
+      "role": "review",
+      "sha256": "80c8aaeb7c0486bc557ae601adb2264844e70b995929037dccb38e873c4f2e37"
+    },
+    {
+      "id": "evidence:quality",
+      "path": "evidence/quality.txt",
+      "role": "review-evidence",
+      "sha256": "bbe9b5575e804496f45153fd8b2ac631b44747e272c09ccf984ee862ad873b27"
+    }
+  ],
+  "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+  "readback": {
+    "status": "matched",
+    "revision": "r1",
+    "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+    "readbackSha256": "324aa8a88e5f82e88f8a5701f36fb8e28a60e10441dd9b9ea26e1a3f06a41035",
+    "destination": "/tmp/opencode/asds-passive-c10-native/package",
+    "synthetic": false,
+    "executionEvidence": false,
+    "verifiedBy": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+    "evidence": "Deterministic inventory readback before final-state publication",
+    "referenceIds": [
+      "proposal",
+      "design",
+      "spec:csv-export",
+      "tasks-index",
+      "dag",
+      "dag-status",
+      "original-request",
+      "task:0001",
+      "task:0002",
+      "task:0003",
+      "task:0004",
+      "review:fidelity",
+      "evidence:fidelity",
+      "review:quality",
+      "evidence:quality"
+    ],
+    "taskIds": [
+      "0001",
+      "0002",
+      "0003",
+      "0004"
+    ],
+    "checks": {
+      "bytes": true,
+      "files": true,
+      "ids": true,
+      "relations": true,
+      "decisions": true,
+      "reviews": true
+    }
+  }
+}

@@ -115,6 +115,12 @@ comparison occurred or discover an omitted requirement.
 
 ## Host bridge and qualification
 
+The following bridge is a repository-only legacy/native integration surface, NOT
+shipped in the passive planner or consumer payload. Do not import a missing bridge
+from another checkout or launch a provider. The authorized harness performs native
+dispatch; distributed ASDS only supplies deterministic packets, journals and gates.
+This compatibility description does not qualify or activate a host integration.
+
 `lib/host-bridge.mjs` exports `hostDispatch` and `hostCompleteReview`. Supply trusted store read/append,
 current source loader, and host capabilities/authorize/prepare/start methods.
 Prepare creates at most a standby session without project work. Recheck grants,

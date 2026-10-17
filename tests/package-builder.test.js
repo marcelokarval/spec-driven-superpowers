@@ -20,6 +20,7 @@ test('buildPlanningPackage compiles canonical tasks, index waves, dag-status and
       packageId: 'sample-change',
       revision: 'r1',
       state: 'reviewing',
+      reviewPolicy: {risk:'elevated',domains:['architecture'],independentRequired:true},
       proposal: '# Proposal\n\nDeliver sample change.\n',
       design: '# Design\n\nArchitecture design.\n',
       specs: {
@@ -148,14 +149,10 @@ test('buildPlanningPackage compiles canonical tasks, index waves, dag-status and
 
     // Record independent reviews atomically -> transitions to partial (since B1 blocker is active)
     // and passes strict non-candidate validateChange even with openDecisions on blocked leaf 0003!
-    const reviewed = recordPlanningReviews(changeDir, {
-      reviewer: 'ses_independent_reviewer',
-    });
-    assert.equal(reviewed.manifest.state, 'partial');
-    assert.equal(reviewed.manifest.reviews.length, 2);
-    assert.deepEqual(validateChange(changeDir, { candidate: false }), []);
+    assert.throws(() => recordPlanningReviews(changeDir, { reviewer:'reviewer-1' }), /explicit harness review schema/);
+    const errors = validateChange(changeDir, { candidate:true });
+    assert.deepEqual(errors, []);
 
-    // Export Plane projection payloads for leaf tasks
     const plane = exportPlaneProjectionPayloads(changeDir, { parentIssueId: 'epic-uuid-1' });
     assert.equal(plane.counts.totalLeafIssues, 2);
     assert.equal(plane.counts.ready, 1);
@@ -168,21 +165,12 @@ test('buildPlanningPackage compiles canonical tasks, index waves, dag-status and
   }
 });
 
-test('validateChange with candidate: true passes on real OpenChamber packages p4y478-ui-acceptance-followup and workspace-delegation-authority-pilot', () => {
-  const p4y478 = '/home/marcelo-karval/Backup/Projetos/prop4you/prop4you-inertia/openspec/changes/p4y478-ui-acceptance-followup';
-  if (fs.existsSync(p4y478)) {
-    assert.deepEqual(validateChange(p4y478, { candidate: true }), []);
-  }
-  const pilot = '/home/marcelo-karval/Backup/Projetos/prop4you/prop4you-inertia/openspec/changes/workspace-delegation-authority-pilot';
-  if (fs.existsSync(pilot)) {
-    assert.deepEqual(validateChange(pilot, { candidate: true }), []);
-  }
-});
-
-test('spec-driven-superpowers is installed exclusively globally and not duplicated in prop4you-inertia/.agents/skills', () => {
-  const projectCopy = '/home/marcelo-karval/Backup/Projetos/prop4you/prop4you-inertia/.agents/skills/spec-driven-superpowers';
-  if (fs.existsSync(projectCopy)) {
-    fs.rmSync(projectCopy, { recursive: true, force: true });
-  }
-  assert.equal(fs.existsSync(projectCopy), false);
+test('package-builder tests use isolated fixtures, never machine-specific projects or installation cleanup', () => {
+  // Installation behavior is covered by isolated fixtures in install.test.js.
+  // Inspect only this repository file; never probe a user's project or home.
+  const source = fs.readFileSync(new URL('./package-builder.test.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /\/(?:home|Users)\//);
+  const removals = [...source.matchAll(/\bfs\.rmSync\s*\(([^\n]*)/g)];
+  assert.equal(removals.length, 1);
+  assert.equal(removals[0][1], 'tmpDir, { recursive: true, force: true });');
 });

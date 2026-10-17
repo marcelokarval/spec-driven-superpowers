@@ -5,8 +5,10 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { planningCandidateSha256, planningReadbackSha256 } from '../lib/planning-lifecycle.mjs';
-import { publishPlanningBundle, REVIEW_RECEIPT_VERSION, createPlanningReviewAuthority, hostCompletePlanningReview } from '../lib/planning-store.mjs';
+import { publishPlanningBundle, verifyPlanningReceipt, REVIEW_RECEIPT_VERSION, createPlanningReviewAuthority, hostCompletePlanningReview } from '../lib/planning-store.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -81,6 +83,7 @@ test('structural handoff preserves understated risks while semantic intake stays
 });
 
 function persistedPlan(t, { sensitive = false, domains = ['general'], risk = null, independentRequired = null } = {}) {
+  // Synthetic test data: non-synthetic flags exercise structure, not live provenance.
   const destination = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-return-'));
   t.after(() => fs.rmSync(destination, { recursive: true, force: true }));
   const fixtureRoot = path.join(root, 'examples/planning-delivery/complete');
@@ -133,19 +136,11 @@ const planningResult = persisted => ({ status: 'delivered', outcome: 'Planning p
   remainingPlanningWork: [], limitations: [], persistenceReceipt: persisted.persistenceReceipt,
   reviewReceipt: persisted.reviewReceipt, originalRequest: { product: 'implementation', status: 'not_fulfilled' } });
 
-test('planning return v2 releases ownership only after current store readback', async t => {
-  const accepted = acceptWork(receiveHandoff(packet()));
-  const persisted = persistedPlan(t);
-  const result = await createPlanningReturn(accepted, planningResult(persisted));
-  assert.equal(result.protocolVersion, 2);
-  assert.equal(result.status, 'delivered', result.limitations.join('; '));
-  assert.equal(result.owner, null);
-  assert.equal(result.nextOwner, 'caller-selects-consumer');
-  assert.deepEqual(result.verification, { persistence: 'current-store-bytes-matched', review: 'manifest-structure-only', semanticCertification: false,
-    proofLevel: 'store-bytes-and-manifest-structure',
-    authorityLimit: 'Persistence and manifest structure are verified; reviewer identity and semantic quality are not certified.' });
-  await assert.rejects(createPlanningReturn(accepted, { ...result, owner: null, nextOwner: null,
-    persistenceReceipt: persisted.persistenceReceipt, originalRequest: { product: 'implementation', status: 'fulfilled' } }), /cannot fulfill/);
+test('legacy review is not silently promoted to a native harness delivery', async t => {
+  const accepted=acceptWork(receiveHandoff(packet()));
+  const result=await createPlanningReturn(accepted,planningResult(persistedPlan(t)));
+  assert.equal(result.status,'blocked'); assert.equal(result.owner,'asds');
+  assert.match(result.limitations.join('; '), /explicit harness reconciliation/);
 });
 
 test('storeVerified boolean has no authority and current byte drift returns non-delivered', async t => {
@@ -167,19 +162,19 @@ test('storeVerified boolean has no authority and current byte drift returns non-
   assert.match(wrongState.limitations.join('\n'), /manifest state differs from planning return/);
 });
 
-test('sensitive planning remains blocked until a qualified private review trust root exists', async t => {
+test('sensitive planning remains blocked without explicit new harness review', async t => {
   const accepted = acceptWork(receiveHandoff(packet()));
   const persisted = persistedPlan(t, { sensitive: true });
   const absent = await createPlanningReturn(accepted, { ...planningResult(persisted), reviewReceipt: null });
   assert.equal(absent.status, 'blocked');
   assert.equal(absent.owner, 'asds');
   assert.equal(absent.nextOwner, null);
-  assert.match(absent.limitations.join('\n'), /independent review receipt/);
-  await assert.rejects(createPlanningReviewAuthority(fakeReviewHost()), /authority unavailable.*trust root/);
+  assert.match(absent.limitations.join('\n'), /explicit harness reconciliation/);
+  await assert.rejects(createPlanningReviewAuthority(fakeReviewHost()), /authority API retired/);
   await assert.rejects(hostCompletePlanningReview({ reviewAuthority: {}, assignment: {},
-    persistenceReceipt: persisted.persistenceReceipt }), /completion unavailable.*trust root/);
-  assert.equal(absent.verification.proofLevel, 'unavailable-sensitive-review-authority');
-  assert.match(absent.verification.authorityLimit, /host-private or signed durable trust root/i);
+    persistenceReceipt: persisted.persistenceReceipt }), /explicit harness review registration/);
+  assert.equal(absent.verification.proofLevel, 'harness-record-consistency-and-current-store-bytes');
+  assert.match(absent.verification.authorityLimit, /operationally trusted/i);
 });
 
 test('review domains fail closed when omitted or when protected policy is downgraded', async t => {
@@ -189,7 +184,7 @@ test('review domains fail closed when omitted or when protected policy is downgr
   assert.equal(missingResult.status, 'blocked');
   assert.equal(missingResult.owner, 'asds');
   assert.equal(missingResult.nextOwner, null);
-  assert.equal(missingResult.verification.review, 'independent-receipt-required');
+  assert.equal(missingResult.verification.review, 'not-delivered');
   assert.match(missingResult.limitations.join('\n'), /domains.*nonempty/i);
 
   const downgraded = persistedPlan(t, { domains: ['authentication'], risk: 'ordinary-low', independentRequired: false });
@@ -197,7 +192,7 @@ test('review domains fail closed when omitted or when protected policy is downgr
   assert.equal(downgradedResult.status, 'blocked');
   assert.equal(downgradedResult.owner, 'asds');
   assert.equal(downgradedResult.nextOwner, null);
-  assert.equal(downgradedResult.verification.review, 'independent-receipt-required');
+  assert.equal(downgradedResult.verification.review, 'not-delivered');
   assert.match(downgradedResult.limitations.join('\n'), /protected domains require non-ordinary risk and independent review/i);
 });
 
@@ -213,17 +208,92 @@ test('caller-authored, tampered, stale and non-independent review evidence fails
   };
   const forged = await createPlanningReturn(accepted, { ...planningResult(persisted), reviewReceipt: fabricated }, { reviewAuthority: {} });
   assert.equal(forged.status, 'blocked');
-  assert.match(forged.limitations.join('\n'), /adapter-attested/i);
+  assert.match(forged.limitations.join('\n'), /explicit harness reconciliation/i);
   assert.equal(forged.owner, 'asds');
-  await assert.rejects(createPlanningReviewAuthority(fakeReviewHost()), /authority unavailable.*trust root/);
+  await assert.rejects(createPlanningReviewAuthority(fakeReviewHost()), /authority API retired/);
 });
 
 test('shape-valid JavaScript host cannot mint sensitive review authority or receipts', async t => {
   const persisted = persistedPlan(t, { sensitive: true });
   const host = fakeReviewHost();
-  await assert.rejects(createPlanningReviewAuthority(host), /authority unavailable.*trust root/);
+  await assert.rejects(createPlanningReviewAuthority(host), /authority API retired/);
   await assert.rejects(hostCompletePlanningReview({ reviewAuthority: Object.freeze({}),
     assignment: { actor: 'independent-reviewer', session: 'review-session-42', role: 'reviewer',
       author: persisted.manifest.author, writeScope: [] }, persistenceReceipt: persisted.persistenceReceipt }),
-  /completion unavailable.*trust root/);
+  /explicit harness review registration/);
+});
+
+test('retired authority entrypoints direct callers to the explicit passive API', async () => {
+  await assert.rejects(createPlanningReviewAuthority(), e=>e.code==='PLANNING_REVIEW_API_RETIRED');
+  await assert.rejects(hostCompletePlanningReview(), e=>e.code==='PLANNING_REVIEW_API_RETIRED');
+});
+
+function coherentForgedReview(persisted) {
+  const inventory = persisted.persistenceReceipt.files.map(file => [file.path, file.sha256])
+    .sort(([left], [right]) => left.localeCompare(right));
+  return {
+    schemaVersion: REVIEW_RECEIPT_VERSION, status: 'closed', token: 'forged', authorityGeneration: 'fake',
+    actor: 'independent-reviewer', session: 'review-session-42', role: 'reviewer',
+    author: persisted.manifest.author, writeScope: [], source: 'host', revision: persisted.manifest.revision,
+    candidateSha256: planningCandidateSha256(persisted.manifest),
+    manifestSha256: persisted.persistenceReceipt.manifest.sha256,
+    filesSha256: createHash('sha256').update(JSON.stringify(inventory)).digest('hex'),
+    verdict: 'pass', evidence: 'synthetic forged evidence',
+    reviews: persisted.manifest.reviews.map(review => ({ kind: review.kind, mode: review.mode,
+      reviewer: review.reviewer, reference: review.reference,
+      sha256: persisted.manifest.references.find(reference => reference.id === review.reference).sha256 })),
+  };
+}
+
+test('coherent synthetic receipt reaches final unavailable authority without invoking fake callbacks', async t => {
+  const persisted = persistedPlan(t, { sensitive: true });
+  const reviewReceipt = coherentForgedReview(persisted);
+  let calls = 0;
+  const host = Object.fromEntries(Object.keys(fakeReviewHost()).map(operation => [operation, async () => { calls++; return true; }]));
+  const unavailable = 'historical review requires explicit harness reconciliation/review';
+  const observed = await verifyPlanningReceipt(persisted.persistenceReceipt, { status: 'delivered', reviewReceipt, reviewAuthority: host });
+  assert.deepEqual(observed.errors, [unavailable]); // All preceding structural checks passed.
+  assert.equal(observed.matched, false);
+  assert.equal(observed.reviewMatched, false);
+  assert.equal(observed.code, undefined);
+  assert.equal(observed.stage, undefined);
+  await assert.rejects(createPlanningReviewAuthority(host), /authority API retired/);
+  await assert.rejects(hostCompletePlanningReview({ reviewAuthority: host, assignment: reviewReceipt,
+    persistenceReceipt: persisted.persistenceReceipt }), /explicit harness review registration/);
+  assert.equal(calls, 0);
+  const accepted = acceptWork(receiveHandoff(packet()));
+  const result = await createPlanningReturn(accepted, { ...planningResult(persisted), reviewReceipt }, { reviewAuthority: host });
+  assert.equal(result.status, 'blocked');
+  assert.equal(result.owner, 'asds');
+  assert.equal(result.nextOwner, null);
+  assert.deepEqual(result.limitations, [unavailable]);
+  assert.equal(calls, 0);
+
+  const moduleUrl = new URL('../lib/planning-store.mjs', import.meta.url).href;
+  const fresh = spawnSync(process.execPath, ['--input-type=module', '-e', `
+    import { verifyPlanningReceipt } from ${JSON.stringify(moduleUrl)};
+    let input = ''; for await (const chunk of process.stdin) input += chunk;
+    const { receipt, reviewReceipt } = JSON.parse(input);
+    const result = await verifyPlanningReceipt(receipt, { status: 'delivered', reviewReceipt, reviewAuthority: true });
+    console.log(JSON.stringify({ matched: result.matched, errors: result.errors, code: result.code, stage: result.stage }));
+  `], { input: JSON.stringify({ receipt: persisted.persistenceReceipt, reviewReceipt }), encoding: 'utf8' });
+  assert.equal(fresh.status, 0, fresh.stderr);
+  assert.deepEqual(JSON.parse(fresh.stdout), { matched: false, errors: [unavailable] });
+});
+
+test('synthetic kind, session, stale, inventory and caller variations reject before authority', async t => {
+  const persisted = persistedPlan(t, { sensitive: true });
+  const coherent = coherentForgedReview(persisted);
+  const swapped = structuredClone(coherent);
+  [swapped.reviews[0].kind, swapped.reviews[1].kind] = [swapped.reviews[1].kind, swapped.reviews[0].kind];
+  for (const reviewReceipt of [swapped, { ...coherent, session: 'other-session' },
+    { ...coherent, revision: 'stale' }, { ...coherent, candidateSha256: '0'.repeat(64) },
+    { ...coherent, filesSha256: '0'.repeat(64) }, { ...coherent, source: 'caller' }]) {
+    const observed = await verifyPlanningReceipt(persisted.persistenceReceipt, { reviewReceipt, reviewAuthority: true });
+    assert.equal(observed.matched, false);
+    assert.equal(observed.reviewMatched, false);
+    assert.equal(observed.errors.length, 1);
+    assert.match(observed.errors[0], /explicit harness reconciliation/);
+    assert.equal(observed.code, undefined); // Do not misdiagnose malformed binding as host unavailability.
+  }
 });

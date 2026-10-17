@@ -1,0 +1,85 @@
+{
+  "packageId": "csv-own-orders-native-c10",
+  "revision": "r1",
+  "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+  "author": {
+    "actorId": "ses_ec355f101ffeug9mfrO0v161eh",
+    "sessionId": "ses_ec355f101ffeug9mfrO0v161eh"
+  },
+  "policyDigest": "618d45c58b28c1e49800acfcbacffb6ccdb3c111a420f5598263c48ef22ecd88",
+  "inventoryDigest": "d364cdfe118dd1ca07dd7c435e4b526db8f8f6f3d18aa943db799b96342068ce",
+  "taskIds": [
+    "0001",
+    "0002",
+    "0003",
+    "0004"
+  ],
+  "sourceReferenceIds": [
+    "proposal",
+    "design",
+    "spec:csv-export",
+    "tasks-index",
+    "dag",
+    "dag-status",
+    "original-request",
+    "task:0001",
+    "task:0002",
+    "task:0003",
+    "task:0004"
+  ],
+  "kind": "fidelity",
+  "priorReviewDigest": null,
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "non-material",
+      "status": "open",
+      "evidence": "tasks/task-0002.md:35,50 says 'ignore/reject caller owner override', while its acceptance at line 59 and design.md:17-19 explicitly require rejection with 400 before reading.",
+      "expectedCorrection": "Align the outcome and boundary summary with the explicit rejection requirement; remove 'ignore/'.",
+      "disposition": "Nonblocking wording inconsistency: the mandatory acceptance and shared interface unambiguously require rejection, and neither interpretation permits foreign-order export."
+    }
+  ],
+  "limitations": [
+    {
+      "description": "Candidate and inventory digests are supplied bindings read from binding.json and the manifest, not independently recomputed. This verdict assesses the complete text inspected, not cryptographic integrity.",
+      "blocksCoverage": false
+    },
+    {
+      "description": "No actual application APIs, implementation, tests or runtime were inspected or executed. These are explicitly future, separately authorized activities and do not limit this synthetic planning fidelity review.",
+      "blocksCoverage": false
+    }
+  ],
+  "schemaVersion": "asds.harness-planning-review/1",
+  "reviewer": {
+    "actorId": "ses_ebf19f63affe52X2mitA2QWLYi",
+    "sessionId": "ses_ebf19f63affe52X2mitA2QWLYi",
+    "agentRole": "spec-driven-superpowers-reviewer",
+    "parentSessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+  },
+  "assignment": {
+    "id": "msg_140e609f6001Ndohhv3jMLAcK2",
+    "requestedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+    "kind": "fidelity",
+    "candidateSha256": "850fcb25cc5811b6cfba2f26862efbfa10c556eeabff2f8b7ec81527f8aaaa2a",
+    "scopeTaskIds": [
+      "0001",
+      "0002",
+      "0003",
+      "0004"
+    ]
+  },
+  "evidence": {
+    "harness": "OpenCode + omo-slim",
+    "sessionId": "ses_ebf19f63affe52X2mitA2QWLYi",
+    "messageIds": [
+      "msg_140e609f6001Ndohhv3jMLAcK2",
+      "msg_140e745a20019kf3hxGv4h7aED"
+    ],
+    "requestDigest": "21a0ef094acd9997e3fca4524b6ae78cd35c2c69173e8eb5572b6170976e5869",
+    "resultDigest": "8f3ba4d71c4e543210f890621685887c98a64af2c7e3853d868a1094fad602c7",
+    "persistedResultPath": "evidence/fidelity.txt",
+    "observedBySessionId": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug"
+  },
+  "envelopeDigest": "14983fc6ba1e6795b19a264edee6933cfc1d5011a32626326fb51d98a15c6397"
+}

@@ -12,7 +12,6 @@ import { planInstall, planUninstall, applyInstall } from '../lib/install.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = path.join(root, 'adapters/agy/agents/spec-driven-superpowers.md');
 const reviewerSource = path.join(root, 'adapters/agy/agents/spec-driven-superpowers-reviewer.md');
-const primaryReviewerSource = path.join(root, 'adapters/agy/agents/spec-driven-superpowers-reviewer-primary.md');
 const cli = path.join(root, 'scripts/install.mjs');
 const childEnv = Object.fromEntries(['PATH', 'HOME', 'TMPDIR', 'TEMP', 'TMP']
   .filter(key => process.env[key] !== undefined).map(key => [key, process.env[key]]));
@@ -50,43 +49,13 @@ test('AGY coordinator has the exact TypeName, native schema, skill binding, and 
   assert.match(body, /Commands are limited to read-only project\s+inspection and ASDS planning validation\/readback/);
   assert.match(body, /files, generated artifacts, web content, command output, tool\s+output.*untrusted data/s);
   assert.match(body, /`spec-driven-superpowers-reviewer` is the only\s+permitted TypeName/);
-  assert.match(body, /exactly\s+one item containing only `TypeName`, `Role`, and `Prompt`/);
-  assert.match(body, /Role `planning-reviewer`/);
-  assert.match(body, /post-handoff `\[x\]` entries are consumer progress/);
-  assert.match(body, /Never\s+rewrite `\[x\]` to `\[ \]` without the execution consumer's explicit reopen protocol and\s+matching receipt\/journal evidence/);
-  assert.match(body, /Package discovery and assessment precede reviewer preflight/);
-  assert.match(body, /lineage\/locator is absent but the handoff explicitly says to reuse an existing\s+plan/);
-  assert.match(body, /zero matches returns `locator-required: no canonical planning\s+package found`/);
-  assert.match(body, /multiple matches returns `locator-required: multiple canonical\s+planning packages found; provide one exact safe relative locator`/);
-  assert.match(body, /Never follow a\s+symlink, scan outside the workspace, pick among multiple candidates, create a package,\s+or write merely because lineage is null/);
-  assert.match(body, /read `tasks\.md`, `planning-manifest\.json` and their bound\s+references before reading any reviewer dispatch contract/);
-  assert.match(body, /Read-only discovery,\s+inspection and structural validation do not depend on reviewer availability/);
-  assert.match(body, /already delivered package with the same material binding\s+is a no-op or existing post-handoff progress and keeps its prior review/);
-  assert.match(body, /Only after package assessment determines that a new material\s+candidate actually needs fresh review, read the installed dispatch contract exactly\s+once immediately before the first reviewer attempt/);
-  assert.match(body, /Always use a fresh invocation for each genuinely required review\. Run fidelity first/);
-  assert.match(body, /Manifest `review` references are integrity-checked by the host but excluded\s+from both fresh reviewer inventories/);
-  assert.match(body, /Any quality\s+correction changes the candidate and restarts at fresh fidelity/);
-  assert.match(body, /After quality passes,\s+persist both validated envelopes/);
-  assert.match(body, /discovery of future requirements only, not runtime enforcement/);
-  assert.match(body, /currently records `runtimeHostStatus: unavailable`/);
-  assert.match(body, /public\s+`createAgyReviewDispatchAuthority`, `attestAgyReviewDispatch`, and\s+`parseAgyReviewResponse` exports deliberately fail closed/);
-  assert.match(body, /If `runtimeHostStatus` is\s+`unavailable`, stop that fresh-review path immediately and report that precise block\s+once\. Do not invoke the reviewer or a fallback transport/);
-  assert.match(body, /does not prohibit earlier read-only package discovery, inspection, or validation and\s+does not invalidate a coherent delivered package that needs no new review/);
-  assert.match(body, /Return exactly `restored\s+existing delivered state`/);
-  assert.match(body, /source comparator reports byte equality only as `existing package bytes unchanged`/);
-  assert.match(body, /requires separate qualified evidence for both facts/);
-  assert.match(body, /progress is likewise\s+reported neutrally as `existing package state with updated progress`/);
-  assert.match(body, /review\s+disposition undetermined until lifecycle\/readback evidence proves the baseline delivered/);
-  assert.match(body, /Any material alteration produces a new candidate and must fail closed until\s+fresh fidelity and quality review pass/);
-  assert.match(body, /not proof of a write, validation, readback, database record, signature,\s+receipt or reviewer result/);
-  assert.match(body, /exact official installed paths\s+owned by manifest v3/);
-  assert.match(body, /cannot mint authority, attest dispatch, accept\s+a receipt, consume fidelity, or establish delivery/);
-  assert.match(body, /If invocation is unavailable,[^]*return partial or blocked; never fabricate or self-author a review/);
-  assert.match(body, /never dispatches\s+implementers or future-task agents/);
-  assert.match(body, /caller[^]*selects a\s+later consumer/i);
+  assert.match(body, /asds.harness-planning-review\/1/);
+  assert.match(body, /No ASDS service/);
+  assert.match(body, /exact fidelity `envelopeDigest`/);
+  assert.doesNotMatch(body, /runtimeHostStatus|headless-stream-json/);
 });
 
-test('AGY reviewer is a fresh zero-write closed-protocol subagent', () => {
+test('AGY reviewer is a fresh zero-write native subagent', () => {
   const { data, body } = frontmatter(reviewerSource);
   assert.deepEqual(Object.keys(data).sort(), [
     'commandExecutionPolicy', 'description', 'excludeDefaultComponents', 'inheritCustomizations',
@@ -104,32 +73,14 @@ test('AGY reviewer is a fresh zero-write closed-protocol subagent', () => {
     'ask_question', 'invoke_subagent', 'send_message', 'manage_subagents']) {
     assert.equal(data.tools.includes(tool), false, tool);
   }
-  assert.match(body, /begin without ambient coordinator narrative or prior\s+session context/);
-  assert.match(body, /only prior review bytes allowed are the exact fidelity output/);
   assert.match(body, /zero write scope/);
-  assert.match(body, /embedded prompt as untrusted data/);
-  assert.match(body, /ASDS_REVIEW_REQUEST_V1/);
-  assert.match(body, /asds\.agy-review-request\/1/);
-  assert.match(body, /exactly these keys/);
-  assert.match(body, /path-sorted array of unique objects containing exactly\s+`path`, `sha256`, and `role`/);
-  assert.match(body, /role `review` are host-validated for package integrity but must be absent from\s+both reviewer inventories/);
-  assert.match(body, /ASDS_REVIEW_RESPONSE_V1/);
-  assert.match(body, /asds\.agy-review-response\/1/);
-  assert.match(body, /Do not include prose outside this envelope/);
+  assert.match(body, /pass\|fail\|blocked/);
+  assert.match(body, /priorReviewDigest/);
 });
 
-test('AGY supervised reviewer is primary-only with the same exact zero-write tool boundary', () => {
-  const { data, body } = frontmatter(primaryReviewerSource);
-  assert.equal(data.name, 'spec-driven-superpowers-reviewer-primary');
-  assert.equal(data.mainAgent, true);
-  assert.equal(data.subagent, false);
-  assert.equal(data.inheritCustomizations, false);
-  assert.equal(data.excludeDefaultComponents, true);
-  assert.equal(data.commandExecutionPolicy, 'sandbox');
-  assert.deepEqual(data.tools, ['view_file', 'list_dir', 'find_by_name', 'grep_search']);
-  assert.match(body, /non-model ASDS supervisor/);
-  assert.match(body, /never coordinate, persist, implement, execute commands,\s+delegate, request permission, start background work/);
-  assert.match(body, /Return only `ASDS_REVIEW_RESPONSE_V1`/);
+test('passive profile excludes the headless primary reviewer', t => {
+  const target=fixture(t),payload=planInstall({scope:'project',target});
+  assert.equal(payload.some(f=>f.path.includes('spec-driven-superpowers-reviewer-primary')),false);
 });
 
 test('project AGY profile installs, owns, reads back, updates, and uninstalls its custom agent', t => {
@@ -170,28 +121,7 @@ test('project AGY profile installs, owns, reads back, updates, and uninstalls it
     futureTaskExecution: false,
   });
   assert.ok(manifest.files.some(entry => entry.path === marker && entry.sha256 === digest(marker)));
-  assert.deepEqual(JSON.parse(fs.readFileSync(dispatchContract)), {
-    schema: 'asds.agy-review-dispatch-contract/1',
-    coordinatorTypeName: 'spec-driven-superpowers',
-    coordinatorRelativePath: '.agents/agents/spec-driven-superpowers.md',
-    coordinatorSha256: digest(agent),
-    reviewerTypeName: 'spec-driven-superpowers-reviewer',
-    reviewerRelativePath: '.agents/agents/spec-driven-superpowers-reviewer.md',
-    reviewerSha256: digest(reviewer),
-    protocolRelativePath: '.agents/skills/asds-execution-consumer/lib/agy-review-protocol.mjs',
-    protocolSha256: digest(path.join(target,
-      '.agents/skills/asds-execution-consumer/lib/agy-review-protocol.mjs')),
-    role: 'planning-reviewer', tool: 'invoke_subagent', itemKeys: ['TypeName', 'Role', 'Prompt'],
-    requestHeader: 'ASDS_REVIEW_REQUEST_V1', responseHeader: 'ASDS_REVIEW_RESPONSE_V1',
-    receiptSchema: 'asds.agy-review-dispatch-receipt/1', receiptSource: 'agy-host-hook',
-    hostAuthorityCapability: 'agy-review-dispatch',
-    hostApi: ['createAgyReviewDispatchAuthority', 'attestAgyReviewDispatch', 'parseAgyReviewResponse'],
-    receiptVisibility: 'host-private', runtimeHostStatus: 'unavailable',
-    timeoutDisposition: 'blocked', requiresArgumentRewrite: false,
-    exactPromptRequired: true,
-    oneUseFreshnessRequired: true, requiresHostEnforcement: true, planningOnly: true, reviewerWriteScope: [],
-  });
-  assert.ok(manifest.files.some(entry => entry.path === dispatchContract && entry.sha256 === digest(dispatchContract)));
+  assert.equal(fs.existsSync(dispatchContract), false);
 
   applyInstall(planInstall({ ...options, update: true }));
   assert.equal(digest(agent), digest(source));
@@ -221,7 +151,7 @@ test('update adds a newly released AGY agent and marker only when unreceipted ta
   fs.unlinkSync(agent);
   fs.unlinkSync(reviewer);
   fs.unlinkSync(marker);
-  fs.unlinkSync(dispatchContract);
+  assert.equal(fs.existsSync(dispatchContract), false);
   fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
   applyInstall(planInstall({ ...options, update: true }));
   assert.equal(digest(agent), digest(source));
@@ -230,7 +160,7 @@ test('update adds a newly released AGY agent and marker only when unreceipted ta
   assert.ok(updated.files.some(entry => entry.path === agent));
   assert.ok(updated.files.some(entry => entry.path === reviewer));
   assert.ok(updated.files.some(entry => entry.path === marker));
-  assert.ok(updated.files.some(entry => entry.path === dispatchContract));
+  assert.equal(updated.files.some(entry => entry.path === dispatchContract), false);
   assert.equal(JSON.parse(fs.readFileSync(marker)).agentSha256, digest(agent));
 
   const receipt = JSON.parse(fs.readFileSync(manifestPath));
@@ -271,7 +201,7 @@ test('user AGY profile uses the official global agent root and uninstall preserv
     futureTaskExecution: false,
   });
   assert.ok(profile.files.some(entry => entry.path === marker && entry.sha256 === digest(marker)));
-  assert.ok(profile.files.some(entry => entry.path === dispatchContract && entry.sha256 === digest(dispatchContract)));
+  assert.equal(profile.files.some(entry => entry.path === dispatchContract), false);
 
   applyInstall(planUninstall(agy));
   assert.equal(fs.existsSync(agent), false);
@@ -353,7 +283,7 @@ test('uninstall rejects a foreign entry injected into a sibling profile before p
 
 test('marker tamper and agent drift both block update and uninstall', t => {
   for (const changed of ['.asds/accelerate-handoff-capability.json', '.agents/agents/spec-driven-superpowers.md',
-    '.agents/agents/spec-driven-superpowers-reviewer.md', '.asds/agy-review-dispatch-contract.json']) {
+    '.agents/agents/spec-driven-superpowers-reviewer.md']) {
     const target = fixture(t), options = { scope: 'project', target };
     applyInstall(planInstall(options));
     const file = path.join(target, changed);
@@ -392,8 +322,7 @@ test('uninstall rejects self-consistent receipt tampering at official paths', { 
 
 test('dynamic agent and marker expectations reject replacement receipts until verified update', t => {
   for (const relative of ['.agents/agents/spec-driven-superpowers.md',
-    '.agents/agents/spec-driven-superpowers-reviewer.md', '.asds/accelerate-handoff-capability.json',
-    '.asds/agy-review-dispatch-contract.json']) {
+    '.agents/agents/spec-driven-superpowers-reviewer.md', '.asds/accelerate-handoff-capability.json']) {
     const target = fixture(t), options = { scope: 'project', target };
     applyInstall(planInstall(options));
     const file = path.join(target, relative);
@@ -425,7 +354,7 @@ test('older v2 inventory mismatch fails closed until a verified update migrates 
   fs.unlinkSync(agent);
   fs.unlinkSync(reviewer);
   fs.unlinkSync(marker);
-  fs.unlinkSync(dispatchContract);
+  assert.equal(fs.existsSync(dispatchContract), false);
   fs.writeFileSync(manifestPath, `${JSON.stringify(legacy, null, 2)}\n`);
   assert.throws(() => planUninstall(options), /missing official profile payload/);
 
@@ -435,7 +364,7 @@ test('older v2 inventory mismatch fails closed until a verified update migrates 
   assert.equal(migrated.files.some(entry => entry.path === agent), true);
   assert.equal(migrated.files.some(entry => entry.path === reviewer), true);
   assert.equal(migrated.files.some(entry => entry.path === marker), true);
-  assert.equal(migrated.files.some(entry => entry.path === dispatchContract), true);
+  assert.equal(migrated.files.some(entry => entry.path === dispatchContract), false);
   applyInstall(planUninstall(options));
   assert.equal(fs.existsSync(manifestPath), false);
 });
@@ -516,4 +445,3 @@ test('per-harness profiles (opencode, codex, claude) install, own, and uninstall
     assert.equal(fs.readdirSync(installedAgentsDir).length, 0, agentsDir);
   }
 });
-

@@ -1,0 +1,136 @@
+{
+  "scope": "Narrow metadata derived from existing local session exports, no new session call. Operationally trusted harness evidence, not authentication against a malicious host.",
+  "omitted": [
+    "reasoning content (including encrypted reasoning)",
+    "providerState",
+    "snapshots",
+    "tool call arguments/results/internal payloads",
+    "tokens/cost/other session metadata"
+  ],
+  "registeredRuntimeObservations": [
+    {
+      "kind": "fidelity",
+      "sourceExportPath": "/tmp/opencode/asds-passive-c10-native/F-session.json",
+      "sourceExportSha256": "7e5f53dddb7b94f92b1f29dd73d7f96b44077e127caefd85654ea3ecf4b8b4a5",
+      "session": {
+        "id": "ses_ebf19f63affe52X2mitA2QWLYi",
+        "parentID": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+        "agent": "spec-driven-superpowers-reviewer",
+        "model": {
+          "id": "gpt-6-astra",
+          "providerID": "openai",
+          "variant": "default"
+        },
+        "outcome": "succeeded",
+        "time": {
+          "created": 1792090180079,
+          "updated": 1792090282363,
+          "idle": 1792090282371
+        }
+      },
+      "request": {
+        "id": "msg_140e609f6001Ndohhv3jMLAcK2",
+        "type": "user",
+        "time": {
+          "created": 1792090180144
+        },
+        "textArtifact": "F-request.txt",
+        "sha256": "21a0ef094acd9997e3fca4524b6ae78cd35c2c69173e8eb5572b6170976e5869"
+      },
+      "final": {
+        "id": "msg_140e745a20019kf3hxGv4h7aED",
+        "type": "assistant",
+        "agent": "spec-driven-superpowers-reviewer",
+        "model": {
+          "id": "gpt-6-astra",
+          "providerID": "openai",
+          "variant": "default"
+        },
+        "finish": "stop",
+        "time": {
+          "created": 1792090260919,
+          "streamed": 1792090282342,
+          "completed": 1792090282363
+        },
+        "textArtifact": "package/evidence/fidelity.txt",
+        "sha256": "8f3ba4d71c4e543210f890621685887c98a64af2c7e3853d868a1094fad602c7"
+      },
+      "checks": {
+        "requestBytesEqualExportText": true,
+        "finalBytesEqualExportText": true,
+        "digestsEqualRegisteredEnvelope": true,
+        "sessionAndFinalModelAgree": true
+      }
+    },
+    {
+      "kind": "quality",
+      "sourceExportPath": "/tmp/opencode/asds-passive-c10-native/Q-session.json",
+      "sourceExportSha256": "3b499515fed5ddef56a68fe8e9e64e1384a8f0be66ecc2fb9a248d0cae9d02a5",
+      "session": {
+        "id": "ses_ebf16bee0ffe0gNbD0qgz2SUUG",
+        "parentID": "ses_ec3692bb6ffeW2ypMeuSN2v8Ug",
+        "agent": "spec-driven-superpowers-reviewer",
+        "model": {
+          "id": "gpt-6-astra",
+          "providerID": "openai",
+          "variant": "default"
+        },
+        "outcome": "succeeded",
+        "time": {
+          "created": 1792090390852,
+          "updated": 1792090437709,
+          "idle": 1792090437716
+        }
+      },
+      "request": {
+        "id": "msg_140e9414b001bvp5K505t8WDAB",
+        "type": "user",
+        "time": {
+          "created": 1792090390929
+        },
+        "textArtifact": "Q-request.txt",
+        "sha256": "b1cdf7f73b4dc86137ab3389c7185ae54dd94aabfbad6dd87f8861c8a9596fda"
+      },
+      "final": {
+        "id": "msg_140e98dc5001pRtq0YOArJtNVo",
+        "type": "assistant",
+        "agent": "spec-driven-superpowers-reviewer",
+        "model": {
+          "id": "gpt-6-astra",
+          "providerID": "openai",
+          "variant": "default"
+        },
+        "finish": "stop",
+        "time": {
+          "created": 1792090410461,
+          "streamed": 1792090437688,
+          "completed": 1792090437709
+        },
+        "textArtifact": "package/evidence/quality.txt",
+        "sha256": "bbe9b5575e804496f45153fd8b2ac631b44747e272c09ccf984ee862ad873b27"
+      },
+      "checks": {
+        "requestBytesEqualExportText": true,
+        "finalBytesEqualExportText": true,
+        "digestsEqualRegisteredEnvelope": true,
+        "sessionAndFinalModelAgree": true
+      }
+    }
+  ],
+  "rootReportedAnomalies": [
+    {
+      "kind": "extra-unregistered-quality",
+      "sessionId": "ses_ebf16cc0effenPI3ecvu5aYna2",
+      "reportedOutcome": "PASS",
+      "canonical": false,
+      "source": "Current human ROOT C11 report",
+      "limitation": "Not invoked/read/exported by this C11 worker. ROOT reports inadvertent second Q after restart/continuity confusion. Not used as canonical quality evidence."
+    },
+    {
+      "kind": "duplicate-fidelity-registration-retry",
+      "reportedOutcome": "Rejected EEXIST/already registered; evidence unchanged",
+      "source": "Current human ROOT C11 report",
+      "limitation": "Not retried in C11. Canonical package contains exactly one F; its exact saved evidence matches persisted session final text."
+    }
+  ]
+}

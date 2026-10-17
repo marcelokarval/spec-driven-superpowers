@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "asds.planning-store-receipt/1",
+  "status": "matched",
+  "revision": "r1",
+  "destination": "/tmp/opencode/asds-passive-c10-native/package",
+  "files": [
+    {
+      "path": "planning-manifest.json",
+      "sha256": "367c3bcae20e2792871791212dc93027ba40c4c78b681bc0c2508f77d6cd4207"
+    },
+    {
+      "path": "proposal.md",
+      "sha256": "a2574ee34ecf7d4c7d7b7ae86040c153e32816477b8c004b05b2004b86d0654b"
+    },
+    {
+      "path": "design.md",
+      "sha256": "7dc7ae03fa35504567f9cb15067e4b855ecdbecf416c720ea034d50bb3f76271"
+    },
+    {
+      "path": "specs/csv-export/spec.md",
+      "sha256": "b519ea145148036362eac7330834255888088001f81d01ee578a1ca4cf008906"
+    },
+    {
+      "path": "tasks.md",
+      "sha256": "de6e25d6c8245e95455c4ae974d7620557ccd5672d2388481c169658b852f4fe"
+    },
+    {
+      "path": "dag.mmd",
+      "sha256": "a6515bfa0f511112a2467d63841730db6a70eb0e2f904d4d6b510ff8a0a92f9c"
+    },
+    {
+      "path": "dag-status.md",
+      "sha256": "c7df333ebd0867e676765a67311af2687e9902c55867022973328b32ce23b077"
+    },
+    {
+      "path": "original-request.md",
+      "sha256": "7529a7b96e9cfaaf3bd5c66596c793bcee88398ffbaa84ce4057e9db8bc408ea"
+    },
+    {
+      "path": "tasks/task-0001.md",
+      "sha256": "81e05617b8636e2fe2c7ae5fdd0e45a7980fc3fde191113d3c22356ae3429a43"
+    },
+    {
+      "path": "tasks/task-0002.md",
+      "sha256": "4c297daf53a42cb916b2dcada02e0cb702d414a3fa82f5b156314400c8c03c6d"
+    },
+    {
+      "path": "tasks/task-0003.md",
+      "sha256": "72bd7447b4e008f94f1337271acc53f47f248d80b9930842a2057e3a3c8611b1"
+    },
+    {
+      "path": "tasks/task-0004.md",
+      "sha256": "2349386a9057ba870f35c4c1c5811efdd6c4b6cd69c4fa6c12c9647915dfd0b2"
+    },
+    {
+      "path": "reviews/fidelity-r1.json",
+      "sha256": "ac34c287b44be090fa619bac557cc1511114fad8797eb91d6fc6546794663663"
+    },
+    {
+      "path": "evidence/fidelity.txt",
+      "sha256": "8f3ba4d71c4e543210f890621685887c98a64af2c7e3853d868a1094fad602c7"
+    },
+    {
+      "path": "reviews/quality-r1.json",
+      "sha256": "80c8aaeb7c0486bc557ae601adb2264844e70b995929037dccb38e873c4f2e37"
+    },
+    {
+      "path": "evidence/quality.txt",
+      "sha256": "bbe9b5575e804496f45153fd8b2ac631b44747e272c09ccf984ee862ad873b27"
+    }
+  ],
+  "manifest": {
+    "path": "planning-manifest.json",
+    "sha256": "367c3bcae20e2792871791212dc93027ba40c4c78b681bc0c2508f77d6cd4207"
+  },
+  "index": {
+    "path": "tasks.md",
+    "sha256": "de6e25d6c8245e95455c4ae974d7620557ccd5672d2388481c169658b852f4fe"
+  },
+  "completedTaskIds": [],
+  "normalizedIndexSha256": "de6e25d6c8245e95455c4ae974d7620557ccd5672d2388481c169658b852f4fe"
+}

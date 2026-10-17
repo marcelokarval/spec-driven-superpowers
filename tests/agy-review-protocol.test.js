@@ -259,33 +259,26 @@ test('builder rejects drift, zero bytes, orphan contracts and symlinked artifact
     assert.throws(() => inspectAgyReviewPackage(hardlinked), /hardlink refused/);
   });
 
-test('dispatch contract inspection requires the exact official profile, unavailable runtime and manifest v3 ownership', t => {
+test('passive profile does not install a blocking dispatch contract', t => {
   const target = installedProfile(t);
-  const inspected = inspectAgyReviewDispatchContract({ target });
-  assert.equal(inspected.contract.runtimeHostStatus, 'unavailable');
-  assert.equal(inspected.manifestRelativePath, '.asds/install-manifest.json');
-
   const contractPath = path.join(target, '.asds/agy-review-dispatch-contract.json');
-  const contract = JSON.parse(fs.readFileSync(contractPath));
-  contract.runtimeHostStatus = 'qualified';
-  fs.writeFileSync(contractPath, `${JSON.stringify(contract, null, 2)}\n`);
-  assert.throws(() => inspectAgyReviewDispatchContract({ target }), /invalid closed.*contract/);
+  assert.equal(fs.existsSync(contractPath), false);
+  assert.throws(() => inspectAgyReviewDispatchContract({ target }), /ENOENT/);
 });
 
 test('dispatch contract inspection rejects non-official paths and missing manifest v3 ownership', t => {
   const wrongPath = installedProfile(t);
   const contractPath = path.join(wrongPath, '.asds/agy-review-dispatch-contract.json');
-  const contract = JSON.parse(fs.readFileSync(contractPath));
-  contract.reviewerRelativePath = '.agents/agents/reviewer-copy.md';
+  const contract = {schema:'synthetic-invalid-legacy-contract',reviewerRelativePath:'.agents/agents/reviewer-copy.md'};
   fs.writeFileSync(contractPath, `${JSON.stringify(contract, null, 2)}\n`);
-  assert.throws(() => inspectAgyReviewDispatchContract({ target: wrongPath }), /exact official profile/);
+  assert.throws(() => inspectAgyReviewDispatchContract({ target: wrongPath }), /invalid closed/);
 
   const unowned = installedProfile(t);
   const manifestPath = path.join(unowned, '.asds/install-manifest.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath));
   manifest.files = manifest.files.filter(entry => entry.path !== path.join(unowned, '.asds/agy-review-dispatch-contract.json'));
   fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-  assert.throws(() => inspectAgyReviewDispatchContract({ target: unowned }), /manifest v3 does not own/);
+  assert.throws(() => inspectAgyReviewDispatchContract({ target: unowned }), /ENOENT/);
 
   const legacy = installedProfile(t);
   const legacyManifestPath = path.join(legacy, '.asds/install-manifest.json');
@@ -293,7 +286,7 @@ test('dispatch contract inspection rejects non-official paths and missing manife
   legacyManifest.format = 2;
   delete legacyManifest.features;
   fs.writeFileSync(legacyManifestPath, `${JSON.stringify(legacyManifest, null, 2)}\n`);
-  assert.throws(() => inspectAgyReviewDispatchContract({ target: legacy }), /exact installation manifest v3/);
+  assert.throws(() => inspectAgyReviewDispatchContract({ target: legacy }), /ENOENT|exact installation manifest v3/);
 });
 
 test('dispatch contract inspection refuses symlinked installed payload', { skip: process.platform === 'win32' }, t => {
@@ -303,5 +296,6 @@ test('dispatch contract inspection refuses symlinked installed payload', { skip:
   fs.copyFileSync(reviewer, replacement);
   fs.unlinkSync(reviewer);
   fs.symlinkSync(replacement, reviewer);
+  fs.symlinkSync(replacement, path.join(target,'.asds/agy-review-dispatch-contract.json'));
   assert.throws(() => inspectAgyReviewDispatchContract({ target }), /symlink refused/);
 });

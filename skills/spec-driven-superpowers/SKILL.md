@@ -137,41 +137,51 @@ that observation alone cannot prove prior delivery or corruption and cannot be r
 as restoration without separate qualified evidence for both. Its progress result is
 `existing package state with updated progress`, not a delivery claim; review disposition
 remains undetermined until lifecycle/readback evidence proves the baseline delivered.
-On AGY, the installed planning coordinator may use only its native zero-write
-`spec-driven-superpowers-reviewer` adapter for independent fidelity and quality
-review. The host-side builder derives each fresh request from canonical current
-package bytes and binds a safe package path, revision, candidate hash,
-progress-normalized material inventories and one-use freshness. Quality requires the exact consumed fidelity
-PASS over the same binding. Manifest review references are integrity-checked but
-excluded from fresh reviewer inventories; quality receives only the exact
-host-consumed fidelity output. The coordinator persists validated envelopes and
-performs rework; the reviewer never writes or dispatches. The installed dispatch
-contract is discovery only: the runtime must enforce exact TypeName, role and prompt
-and privately attest the matching receipt through a process-local host capability.
-The contract hash-binds the installed coordinator, reviewer and protocol; the hook
-rechecks them before invocation and response and atomically rejects reused session
-identities across review kinds and rework in the host-issued generation, even if the
-adapter is rewrapped. Models never receive or reconstruct that
-authority. Missing hook, timeout,
-malformed/stale output, replay, limitations on PASS or non-independent invocation
-remains partial/blocked.
 
-Only after package assessment determines that a material candidate needs fresh review,
-read the installed dispatch contract once immediately before the first reviewer attempt.
-When `runtimeHostStatus` is `unavailable`, stop that fresh-review path immediately and
-report that precise review-runtime block once; do not try the reviewer or another
-transport. This does not block earlier read-only discovery, package inspection, or
-structural validation and does not invalidate an unchanged delivered package. Never
-claim a write, validation, readback, database
-record, signature, receipt or reviewer result without direct evidence of that exact
-operation. Byte comparison proves only the bytes compared, not database persistence,
-signature authority or a new review.
+# Passive planning review
 
-An external headless supervisor is a separate future transport, never a way to
-reinterpret the unavailable nested hook. Its non-model service must own the private
-store and planning-store authority, run fresh primary-only fidelity and quality
-sessions, and retain authority inside that boundary. The model and thin client
-receive no capability. Source/fake-CLI tests do not authenticate a service; until a
-separate OS identity/private endpoint or equivalent host signature is deployed and
-qualified, the source transport is untrusted capture only: completion fails closed,
-it mints no planning-store authority or receipt, and it cannot establish live delivery.
+ASDS is deterministic and passive. The authorized harness owns reasoning, native
+reviewer dispatch and operational provenance. ASDS never launches an LLM, daemon,
+socket or provider. No ASDS service, private signing key or extra account is required.
+It does not authenticate a malicious harness or certify semantic quality from hashes.
+
+1. Coordinator freezes sources, contracts, boundaries, author actor/session and policy.
+   Compile with `scripts/build-package.mjs --change DIR --spec SPEC.json`.
+2. Inspect binding with `scripts/planning-review.mjs inspect --change DIR`.
+3. Harness dispatches a read-only fidelity reviewer, reads its actual terminal session
+   and messages, and saves the observed result bytes inside the package.
+4. Record ONE explicit `asds.harness-planning-review/1` JSON using
+   `scripts/planning-review.mjs record --change DIR --input F.json`.
+5. Only after registered fidelity PASS, dispatch quality in a different reviewer
+   actor/session, using the exact fidelity `envelopeDigest`. Parent coordinator is
+   allowed; agent role is not execution identity. Both sessions differ from author.
+6. Save quality evidence and record Q.json. No name-only approval, fabricated session,
+   implicit verdict, fabricated grant or auto-edit of task boundaries is permitted.
+7. `scripts/planning-review.mjs ready --change DIR` checks both reviews and bytes.
+8. Inspect again for manifest CAS, then `publish --change DIR --observer SESSION_ID
+   --expected-manifest-sha256 HASH --output RECEIPT.json`. This requires the received
+   destination persistence grant. It reopens inventory, publishes final delivered
+   state and reopens again. `verify --receipt RECEIPT.json` works in a fresh Node.
+
+The envelope explicitly supplies package/revision/material/inventory/policy digests,
+author, reviewer, assignment, kind, exact priorReviewDigest (null for fidelity),
+verdict pass|fail|blocked, findings, limitations, task/source inventories and evidence
+{harness, sessionId, messageIds, requestDigest, resultDigest, persistedResultPath,
+observedBySessionId}. `envelopeDigest` hashes the JSON object without that field.
+Inputs are observed by the harness, not invented by the registrar. Evidence paths
+are safe relative files inside DIR; resultDigest hashes their exact bytes.
+
+Material changes invalidate both reviews. Only recognized canonical index checkbox
+progress is normalized; recompilation preserves `[x]`, not implementation proof.
+Review/evidence bytes remain bound in delivery readback. Findings and coverage-blocking
+limitations cannot become PASS. Fail/blocked need not invent a finding.
+
+Historical `/1` and `/2` authority receipts are not this schema: retain them as history
+and reconcile/review explicitly, never infer missing IDs. The Stage-3 consumer is a
+separate deterministic state machine. Handoff requires separate current selection,
+workspace observations and execution/persistence grants; planning delivery runs no task.
+Native/legacy host drivers in repository `lib/host-bridge.mjs` are isolated from the
+distributed planner/consumer payload and are not a planner runtime.
+
+Plane export is project-neutral JSON only. The harness may apply it to an existing
+authorized project and read it back; no project or issue is invented by ASDS.

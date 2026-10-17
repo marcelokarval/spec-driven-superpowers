@@ -14,12 +14,8 @@ schema, templates, validators, installer and provenance live here. Exact Node an
 OpenSpec CLI dependencies remain declared external executables; no sibling source
 checkout supplies required ASDS behavior.
 
-The AGY source payload describes two distinct review transports. Native nested
-review remains fail-closed on AGY 1.3.3. A separate headless capture engine and
-primary-only zero-write reviewer are source-tested with a fake CLI, but are not a
-deployed service and cannot complete review or mint planning authority. Production
-review still requires a private OS/service boundary unavailable to the model/thin
-client; only that boundary may retain planning-store authority.
+The harness dispatches native reviewers; ASDS only compiles, validates, records and
+reopens explicit results. No daemon or second inference host is supplied.
 
 This fork separates a portable protocol, harness-specific adapters and an opt-in
 project profile. See [architecture](docs/architecture.md) and
@@ -121,72 +117,60 @@ node scripts/install.mjs --scope project --target /absolute/project \
 `--skills-dir` is relative to `--target`, with the same conflict/symlink checks.
 Antigravity's documented user layout can be selected explicitly with
 `--skills-dir .gemini/config/skills`. For native AGY profiles, the installer also
-owns three planning-only custom agents: project installs `.agents/skills` with
+owns two planning-only custom agents: project installs `.agents/skills` with
 coordinator `.agents/agents/spec-driven-superpowers.md`, nested zero-write reviewer
-`.agents/agents/spec-driven-superpowers-reviewer.md`, and headless primary-only
-zero-write reviewer `.agents/agents/spec-driven-superpowers-reviewer-primary.md`;
-user installs place the same trio under `.gemini/config/agents`. Other skill roots
-receive no custom agents by inference. The exact native TypeNames and roles are:
-`spec-driven-superpowers`, a planning-only coordinator subagent;
-`spec-driven-superpowers-reviewer`, a nested zero-write reviewer subagent; and
-`spec-driven-superpowers-reviewer-primary`, a primary-only zero-write headless
-capture reviewer. All explicitly load the installed workspace skill. The coordinator
-may delegate only closed fidelity or quality requests to the nested reviewer; both reviewers have read-only discovery tools and
-never persists findings. It also disables inherited customizations and default
-components so each invocation starts from the explicit ASDS skill and read-only
-tool set. No whole-tree aliases are created.
-Each native AGY installation also publishes the ASDS-owned capability marker
-`.asds/accelerate-handoff-capability.json`. Its versioned schema records the exact
-TypeName, agent-relative path and agent hash together with the ASDS version and
-the planning-only/no-application-code/no-future-task guarantees. The coordinator,
-reviewer and marker are manifest-owned and read back; the marker advertises a source
-capability, not a successful invocation, permission grant, or independent review.
-The same profile publishes two review contracts:
-`.asds/agy-review-dispatch-contract.json` and
-`.asds/agy-review-supervisor-transport.json`. The first declares
-the exact host hook contract for reviewer TypeName, role, byte-identical prompt,
-one-use freshness and a bound dispatch receipt, and hash-binds the exact installed
-coordinator, reviewer and protocol paths. Inspection also requires those exact paths
-to be owned by the exact official manifest v3. This static file is discovery only and
-currently records `runtimeHostStatus: unavailable`: AGY 1.3.3 exposes no private
-durable host authority or parent identity. Its observed `PostToolUse` payload includes
-`toolCall` metadata but not the nested tool output, parent identity or durable
-authority needed to bind a reviewer result. Generic
-`invoke_subagent` does not prove enforcement. The public
-`createAgyReviewDispatchAuthority`, `attestAgyReviewDispatch`, and
-`parseAgyReviewResponse` exports therefore fail closed and cannot mint or accept
-caller-supplied authority or receipts. No operational independent-review claim is
-made until a future native host integration supplies those missing guarantees.
-Reviewer availability is not a package-discovery gate. An exact safe locator is used
-when supplied; an explicit reuse handoff with null lineage performs bounded read-only
-discovery among direct children of `openspec/changes`, returning `locator-required`
-for zero or multiple matches. The coordinator reads the single package's `tasks.md`,
-manifest and bound references and distinguishes delivered no-op/progress from a
-material candidate before reviewer preflight. Missing lineage never authorizes a write.
-A coordinator that then needs fresh review reads the dispatch contract once; if it
-observes unavailable status, it stops that review path immediately, reports the
-precise block once, and does not attempt a reviewer or another transport. Read-only
-inspection and structural validation remain allowed. The
-second binds the primary-only capture reviewer, protocol, supervisor module and the
-complete release-owned manifest inventory; it explicitly records unavailable
-authority/completion and untrusted capture output.
-The capture supervisor speaks the observed AGY 1.3.3 headless protocol: one
-`event: "user"` input followed by a unique closed `init`, closed `step_update`
-events and one terminal successful `result`. It binds conversation identity,
-primary reviewer, canonical cwd, model, exact read-only tools and
-`request-review`; write/command, permission, delegation, background and subagent
-steps fail closed. This is transport validation only and does not promote capture
-to review authority.
-The filesystem-backed builder hashes current canonical package bytes and derives
-revision, candidate and inventories from the manifest and `tasks.md`; canonical task
-checkboxes are progress-normalized while all material bytes remain exact. Quality
-would require a byte-exact host-consumed fidelity PASS over that same binding. Pure
-response-envelope validation rejects stale bindings or a PASS with limitations but
-does not establish independence, consume fidelity, or authorize delivery. References with role `review`
-are integrity-checked but excluded from both fresh inventories; quality receives
-prior review evidence only as the exact host-consumed fidelity output.
-Read the [adapter catalog](skills/spec-driven-superpowers/SKILL.md) for session
-capabilities, sequential fallback and review limitations.
+`.agents/agents/spec-driven-superpowers-reviewer.md`;
+user installs place the same pair under `.gemini/config/agents`. Other skill roots
+receive no custom agents by inference.
+
+# Passive planning review
+
+ASDS is deterministic and passive. The authorized harness owns reasoning, native
+reviewer dispatch and operational provenance. ASDS never launches an LLM, daemon,
+socket or provider. No ASDS service, private signing key or extra account is required.
+It does not authenticate a malicious harness or certify semantic quality from hashes.
+
+1. Coordinator freezes sources, contracts, boundaries, author actor/session and policy.
+   Compile with `scripts/build-package.mjs --change DIR --spec SPEC.json`.
+2. Inspect binding with `scripts/planning-review.mjs inspect --change DIR`.
+3. Harness dispatches a read-only fidelity reviewer, reads its actual terminal session
+   and messages, and saves the observed result bytes inside the package.
+4. Record ONE explicit `asds.harness-planning-review/1` JSON using
+   `scripts/planning-review.mjs record --change DIR --input F.json`.
+5. Only after registered fidelity PASS, dispatch quality in a different reviewer
+   actor/session, using the exact fidelity `envelopeDigest`. Parent coordinator is
+   allowed; agent role is not execution identity. Both sessions differ from author.
+6. Save quality evidence and record Q.json. No name-only approval, fabricated session,
+   implicit verdict, fabricated grant or auto-edit of task boundaries is permitted.
+7. `scripts/planning-review.mjs ready --change DIR` checks both reviews and bytes.
+8. Inspect again for manifest CAS, then `publish --change DIR --observer SESSION_ID
+   --expected-manifest-sha256 HASH --output RECEIPT.json`. This requires the received
+   destination persistence grant. It reopens inventory, publishes final delivered
+   state and reopens again. `verify --receipt RECEIPT.json` works in a fresh Node.
+
+The envelope explicitly supplies package/revision/material/inventory/policy digests,
+author, reviewer, assignment, kind, exact priorReviewDigest (null for fidelity),
+verdict pass|fail|blocked, findings, limitations, task/source inventories and evidence
+{harness, sessionId, messageIds, requestDigest, resultDigest, persistedResultPath,
+observedBySessionId}. `envelopeDigest` hashes the JSON object without that field.
+Inputs are observed by the harness, not invented by the registrar. Evidence paths
+are safe relative files inside DIR; resultDigest hashes their exact bytes.
+
+Material changes invalidate both reviews. Only recognized canonical index checkbox
+progress is normalized; recompilation preserves `[x]`, not implementation proof.
+Review/evidence bytes remain bound in delivery readback. Findings and coverage-blocking
+limitations cannot become PASS. Fail/blocked need not invent a finding.
+
+Historical `/1` and `/2` authority receipts are not this schema: retain them as history
+and reconcile/review explicitly, never infer missing IDs. The Stage-3 consumer is a
+separate deterministic state machine. Handoff requires separate current selection,
+workspace observations and execution/persistence grants; planning delivery runs no task.
+Native/legacy host drivers in repository `lib/host-bridge.mjs` are isolated from the
+distributed planner/consumer payload and are not a planner runtime.
+
+Plane export is project-neutral JSON only. The harness may apply it to an existing
+authorized project and read it back; no project or issue is invented by ASDS.
+
 
 ### Preservation and limits
 

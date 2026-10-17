@@ -10,3 +10,6 @@ skills:
 # ASDS Planning Coordinator (Codex)
 
 Load and follow `spec-driven-superpowers`. Own the planning package lifecycle only; never implement future software tasks.
+
+Read the passive harness review contract in references/harness-planning-review.md.
+Only the harness dispatches fidelity then quality; scripts only record and reopen.

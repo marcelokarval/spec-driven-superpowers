@@ -31,7 +31,8 @@ function legacyInstall(t, { stale = false } = {}) {
  const current=JSON.parse(fs.readFileSync(manifest));
  const skill=path.join(target,'.agents/skills/spec-driven-superpowers/SKILL.md');fs.writeFileSync(skill,'legacy owned bytes\n');
  const files=current.files.filter(entry=>![agent,reviewer,marker,dispatchContract].includes(entry.path)).map(entry=>({path:entry.path,sha256:entry.path===skill?hash(fs.readFileSync(skill)):entry.sha256}));
- fs.unlinkSync(agent);fs.unlinkSync(reviewer);fs.unlinkSync(marker);fs.unlinkSync(dispatchContract);
+ fs.unlinkSync(agent);fs.unlinkSync(reviewer);fs.unlinkSync(marker);
+ assert.equal(fs.existsSync(dispatchContract),false,'retired contract is never installed by current source');
  let staleFile;
  if(stale){staleFile=path.join(target,'.agents/skills/asds-execution-consumer/legacy/obsolete.mjs');writeHistoricalTombstone(staleFile);files.push({path:staleFile,sha256:hash(fs.readFileSync(staleFile))});}
  const legacy={format:1,scope:'project',target,schemaRoot:target,files};fs.writeFileSync(manifest,JSON.stringify(legacy,null,2)+'\n');
@@ -102,7 +103,7 @@ test('explicit SHA-bound legacy adoption is preview-only, migrates payload, remo
  applyInstall(preview);
  const migrated=JSON.parse(fs.readFileSync(legacy.manifest));assert.equal(migrated.format,3);
  assert.equal(fs.existsSync(legacy.agent),true);assert.equal(fs.existsSync(legacy.reviewer),true);
- assert.equal(fs.existsSync(legacy.marker),true);assert.equal(fs.existsSync(legacy.dispatchContract),true);
+ assert.equal(fs.existsSync(legacy.marker),true);assert.equal(fs.existsSync(legacy.dispatchContract),false);
  assert.equal(fs.existsSync(legacy.staleFile),false);assert.match(fs.readFileSync(legacy.skill,'utf8'),/Autonomous Spec/);
  assert.doesNotThrow(()=>planInstall({...legacy.opts,update:true}));
 });
@@ -172,7 +173,7 @@ test('legacy migration resumes every SIGKILL write boundary and cleans its journ
   const result=spawnChecked(process.execPath,['--input-type=module','--eval',child],{encoding:'utf8',cwd:root,env:childEnv});
   if(result.signal==='SIGKILL'){
    killed++;applyInstall(planInstall(options));assert.equal(JSON.parse(fs.readFileSync(legacy.manifest)).format,3);
-   assert.equal(fs.existsSync(legacy.reviewer),true);assert.equal(fs.existsSync(legacy.dispatchContract),true);
+   assert.equal(fs.existsSync(legacy.reviewer),true);assert.equal(fs.existsSync(legacy.dispatchContract),false);
    assert.equal(fs.existsSync(path.join(legacy.target,'.asds/install-migration.json')),false);
   }else{assert.equal(result.status,0,result.stderr);completed=true;break;}
  }
