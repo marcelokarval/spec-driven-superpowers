@@ -125,7 +125,7 @@ test('synthetic negative matrix rejects missing identity, wrong prior, reused se
   }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
 test('fresh synthetic project payload is self-contained, passive, and excludes removed launchers',()=>{
-  const root=fs.mkdtempSync(path.join(os.tmpdir(),'asds-passive-payload-'));
+  const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'asds-passive-payload-')));
   try {
     const payload=planInstall({scope:'project',target:root});
     for(const f of payload)assert.doesNotMatch(f.path,/review-authority|review-supervisor|host-bridge|server\.cjs|start-server\.sh|reviewer-primary/);

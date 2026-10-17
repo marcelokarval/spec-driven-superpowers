@@ -92,3 +92,57 @@ command output remains in the harness's ordinary shell-result storage outside th
 checkout. Recording these results changes this document only; a final diff check
 follows the documentation update. ROOT must independently review the successor
 test/document and run applicable final/CI gates before publication or merge.
+
+## macOS CI portability successor
+
+ROOT accepted the read-only diagnosis and authorized this bounded correction during
+the publication round. Public PR #9 CI run `38992815292`, HEAD
+`dbbc8e6abd6b81c40d993d2fa96a71477bd2edff`, passed its three Ubuntu jobs and Windows
+job. macOS Node 24 job `117278689281` failed with 587/588 tests passing:
+`tests/passive-correction.test.js:127` threw `symlink refused: /var` at the call to
+`planInstall` on line 130, before payload application or assertions.
+
+The new fixture passed the noncanonical path from `mkdtempSync(os.tmpdir())` to an
+installer whose existing security gate rejects symlink ancestors. The installer
+gate is unchanged from the publication base; this is a fixture-portability defect,
+not evidence of an infrastructure flake. The exact delta wraps only the temporary
+directory creation on line 128 in `fs.realpathSync`, matching existing installer-test
+fixtures. No installer relaxation, test skip, CI edit, real installation, external
+project access, backup or nested delegation is introduced.
+
+Historical manifests remain byte-identical. There are now exactly two intentional
+source-hash exceptions: the package-builder test identified above and
+`tests/passive-correction.test.js` identified below. Earlier acceptance does not
+automatically accept these successor bytes. The retained private/license-pending
+attachments and observations remain excluded; the historical broken link,
+F-001/Q-001 and Stage-2/Stage-3 limits above remain unchanged. ROOT owns independent
+review and final acceptance. macOS portability is not closed by Linux tests alone;
+it requires the next CI run on the successor commit.
+
+Successor SHA-256 for `tests/passive-correction.test.js`:
+
+```text
+094e1f59feaef210668a44b9cf0e0000af14040bdf1da50b268920d477df084b
+```
+
+Validation uses the single existing chain
+`sh_147973c9f001wwYGsu8VzYNMMX`, without duplicate execution or retries.
+`TMPDIR=/tmp/opencode node --test tests/passive-correction.test.js tests/install.test.js`
+completed with exit 0, 32/32 pass and zero failures/cancellations/skips/todos.
+The same chain completed with terminal marker `MACOS_SUCCESSOR_CHAIN_EXIT=0`:
+
+| Command | Exit | Actual result |
+|---|---:|---|
+| `TMPDIR=/tmp/opencode npm test` | 0 | 588/588 pass; zero failures, cancellations, skips or todos; explicit `tests/*.test.js` selection |
+| `npm run check` | 0 | JavaScript syntax checks passed |
+| `npm run validate` | 0 | Structural validation passed, not review-authenticity certification |
+| `git diff --check` | 0 | No whitespace errors |
+
+No duplicate test chain or CI rerun was requested. Integrity inspection found only
+the two authorized source-hash exceptions and all 35 historical artifact entries
+matching. The 20 retained untracked paths remain outside the publication. No
+repository log is created; terminal output remains in ordinary harness storage.
+The selective publication commit containing this section and the one-line fixture
+delta is the macOS CI successor to `dbbc8e6abd6b81c40d993d2fa96a71477bd2edff`;
+its commit identity is recorded in PR #9 rather than self-embedded here. A final
+diff check follows this documentary update. No merge is authorized or performed.
