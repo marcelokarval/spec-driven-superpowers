@@ -20,7 +20,10 @@ multi-decision leaf needs `decisionBundleReason` proving the decisions share own
 evidence boundary and inseparable output.
 
 Packages may contain packages or leaves at any justified depth. Packages are not
-executable. `parentId` is composition, not precedence. `dependsOn` is a separate DAG;
+executable. Their file/resource scope summarizes children, not package dispatch,
+write or resource-reservation authority. Their acceptance and DoD check coherent
+child outcomes and coverage, not package-level implementation or command execution.
+`parentId` is composition, not precedence. `dependsOn` is a separate DAG;
 each edge names its reason and required output. Sharing a path/resource recommends
 sequential consumption but does not merge independent outcomes.
 
@@ -28,7 +31,12 @@ Leaf bodies must let a consumer without conversation history understand the outc
 inputs, inclusions/exclusions, positive/negative/preservation acceptance, future
 verification with expected results and definition of future completion.
 Every dependency names an exact required output in frontmatter and repeats it in the
-body. The package exports a deterministic `taskManager` projection with `ready`,
+body. Identify its producer and consumer and the write owner of any connecting change;
+do not leave integration seams ownerless. A transitive prerequisite is valid without
+a redundant direct edge. Agreed ports can support earlier development, but integrated
+acceptance still requires the actual prerequisite outputs. Broad requirement coverage
+alone does not demonstrate that scenarios exercise each leaf's behavior.
+The package exports a deterministic `taskManager` projection with `ready`,
 `waiting`, `blocked` and `completed` states, `waitingOn`, `blockedBy`, reverse
 `blocks`, conflict-aware waves and parallel peers. Delivered does not mean every
 task is initially executable.
@@ -40,6 +48,13 @@ blocker. The blocker holds consumers and their dependents, never the resolver it
 Every consumer lists the decision in `decisionInputs` and depends transitively on
 the resolver. This makes decision ownership and unblock flow exportable without
 requiring a task manager to interpret prose.
+When the future decision is fully contracted and the complete plan passes current
+F/Q, its blocked execution consumers do not force partial planning. `ready` and
+`delivered` require at least one usable leaf and no incomplete planning layer.
+The delivered manifest, readback and new store receipts expose derived `usableTasks`
+and `blockedTaskIds`; handoff excludes blocked leaves and their blocked dependents.
+Partial remains the state for incomplete planning, not an unresolved future decision
+with a valid resolver/blocker contract.
 
 Open material decisions localize blockers. Structural validation cannot certify
 semantic quality. Fidelity review precedes quality review and both bind the same
@@ -77,38 +92,34 @@ The store returns an `asds.planning-store-receipt/1` inventory that binds revisi
 absolute destination, manifest, index, every declared file and SHA-256. A planning
 return reopens that destination and compares the current bytes, manifest references,
 readback envelope and lifecycle gate. `storeVerified` is not an authority signal.
-# Passive planning review
+
+## Passive planning review
 
 ASDS is deterministic and passive. The authorized harness owns reasoning, native
 reviewer dispatch and operational provenance. ASDS never launches an LLM, daemon,
 socket or provider. No ASDS service, private signing key or extra account is required.
 It does not authenticate a malicious harness or certify semantic quality from hashes.
 
-1. Coordinator freezes sources, contracts, boundaries, author actor/session and policy.
-   Compile with `scripts/build-package.mjs --change DIR --spec SPEC.json`.
-2. Inspect binding with `scripts/planning-review.mjs inspect --change DIR`.
-3. Harness dispatches a read-only fidelity reviewer, reads its actual terminal session
-   and messages, and saves the observed result bytes inside the package.
-4. Record ONE explicit `asds.harness-planning-review/1` JSON using
-   `scripts/planning-review.mjs record --change DIR --input F.json`.
-5. Only after registered fidelity PASS, dispatch quality in a different reviewer
-   actor/session, using the exact fidelity `envelopeDigest`. Parent coordinator is
-   allowed; agent role is not execution identity. Both sessions differ from author.
-6. Save quality evidence and record Q.json. No name-only approval, fabricated session,
-   implicit verdict, fabricated grant or auto-edit of task boundaries is permitted.
-7. `scripts/planning-review.mjs ready --change DIR` checks both reviews and bytes.
-8. Inspect again for manifest CAS, then `publish --change DIR --observer SESSION_ID
-   --expected-manifest-sha256 HASH --output RECEIPT.json`. This requires the received
-   destination persistence grant. It reopens inventory, publishes final delivered
-   state and reopens again. `verify --receipt RECEIPT.json` works in a fresh Node.
+Review is bound to the planning flow, relevant tasks, source inventory and candidate
+content: fidelity precedes quality, and a changed material candidate needs new review.
+The harness chooses how to provide and ensure reviewers; ASDS does not impose a
+universal subagent tool or session topology. A non-author coordinator can coordinate
+or review if applicable independence is met. Authorial approval is not independent
+review. See the [semantic F/Q checklist](planning.md#reviews-and-convergence).
 
-The envelope explicitly supplies package/revision/material/inventory/policy digests,
-author, reviewer, assignment, kind, exact priorReviewDigest (null for fidelity),
-verdict pass|fail|blocked, findings, limitations, task/source inventories and evidence
-{harness, sessionId, messageIds, requestDigest, resultDigest, persistedResultPath,
-observedBySessionId}. `envelopeDigest` hashes the JSON object without that field.
-Inputs are observed by the harness, not invented by the registrar. Evidence paths
-are safe relative files inside DIR; resultDigest hashes their exact bytes.
+The optional [current toolkit adapter](adapters/opencode.md) records one
+`asds.harness-planning-review/1` envelope at a time, with specific actor/session and
+observed-evidence fields. It permits a non-author assignment requester/coordinator
+as reviewer and requires different F/Q reviewer actors/sessions. A product-level arrangement is
+not automatically supported by this adapter; do not invent fields or identities to
+make it pass. Recording never rewrites boundaries: complete `change`, `target` and
+`exclusions` with verdict `pending` are accepted by package-scoped readiness only
+after valid current F/Q and persisted evidence verification. Detached leaf readiness
+remains fail-closed; incomplete boundaries cannot be approved by a package PASS.
+`ready` additionally checks planning layers and valid decision routing; contracted
+future execution blockers do not prevent `canReady`. `publish` requires `ready`
+and destination authorization. Do not mutate reviewed contracts and retain their
+old review binding as a workaround.
 
 Material changes invalidate both reviews. Only recognized canonical index checkbox
 progress is normalized; recompilation preserves `[x]`, not implementation proof.

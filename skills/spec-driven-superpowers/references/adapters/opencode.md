@@ -1,6 +1,16 @@
-# Native harness adapter
+# Optional current toolkit adapter
 
-# Passive planning review
+## Scope of this adapter
+
+The [product review requirement](../planning.md#reviews-and-convergence) is
+transport-neutral: the harness supplies and ensures actual review, bound to content,
+with fidelity before quality and applicable independence. It may use subagents,
+new/dedicated sessions, a non-author coordinator or another supported arrangement;
+ASDS does not universally mandate one tool or session topology. This document instead
+describes the narrower compatibility contract of the current optional Node toolkit.
+It does not claim that every product-level arrangement is supported by this adapter.
+
+## Passive planning review
 
 ASDS is deterministic and passive. The authorized harness owns reasoning, native
 reviewer dispatch and operational provenance. ASDS never launches an LLM, daemon,
@@ -15,15 +25,47 @@ It does not authenticate a malicious harness or certify semantic quality from ha
 4. Record ONE explicit `asds.harness-planning-review/1` JSON using
    `scripts/planning-review.mjs record --change DIR --input F.json`.
 5. Only after registered fidelity PASS, dispatch quality in a different reviewer
-   actor/session, using the exact fidelity `envelopeDigest`. Parent coordinator is
-   allowed; agent role is not execution identity. Both sessions differ from author.
+   actor/session, using the exact fidelity `envelopeDigest`. Both reviewer actors and
+   sessions must differ from the author. A non-author assignment requester/coordinator
+   may review; the same requester/observer remains bound across F/Q. A parent
+   relationship or role name alone neither grants nor denies eligibility.
 6. Save quality evidence and record Q.json. No name-only approval, fabricated session,
    implicit verdict, fabricated grant or auto-edit of task boundaries is permitted.
-7. `scripts/planning-review.mjs ready --change DIR` checks both reviews and bytes.
+7. `scripts/planning-review.mjs ready --change DIR` recompiles and checks contract
+   readiness, both reviews, their bytes and current lifecycle gates. Recording never
+   flips leaf `boundary.review.verdict` from `pending` to `ready`. Complete pending
+   boundaries are accepted in this verified package context, not by detached generic
+   readiness. Missing boundary fields still fail. Valid future decision blockers
+   restrict execution, not full planning delivery; incomplete planning layers or
+   zero usable leaves still prevent `canReady`.
 8. Inspect again for manifest CAS, then `publish --change DIR --observer SESSION_ID
    --expected-manifest-sha256 HASH --output RECEIPT.json`. This requires the received
-   destination persistence grant. It reopens inventory, publishes final delivered
-   state and reopens again. `verify --receipt RECEIPT.json` works in a fresh Node.
+   destination persistence grant and current `ready` state. It reopens inventory,
+   publishes final delivered state and reopens again. `verify --receipt RECEIPT.json`
+   works in a fresh Node.
+
+Each invocation of `record` registers one envelope, not an F/Q pair, and leaves the
+manifest `reviewing`; it does not publish partial, ready or delivered planning.
+The equivalent builder option is `scripts/build-package.mjs --change DIR
+--record-review REVIEW.json`, not a reviewer-name shortcut. `inspect` reports binding,
+manifest SHA-256 and review-file errors; it does not perform semantic review or
+establish readiness. `verify` compares the receipt with current persisted delivery;
+it does not supply missing review or publication authority.
+
+Freeze complete contract boundaries before review; verdict `pending` may remain in
+the reviewed bytes. If boundaries or other material
+content must change afterward, recompile and obtain fresh fidelity then quality for
+the new binding; never edit contracts after PASS and claim the old review still
+applies. An unmet gate is reported as a concrete blocker, not bypassed by manual
+state/boundary edits. A well-contracted future decision needs a resolver, responsible
+blocker and routed consumers/dependents. A complete reviewed plan can be delivered
+while these consumers wait; partial is reserved for incomplete planning. New
+manifest/readback/store receipts expose `usableTasks` and `blockedTaskIds`, and the
+execution handoff excludes blocked leaves. Receipt verification recomputes this scope
+and rejects disagreement. Existing receipts without the additive fields remain
+readable for legacy scope; a delivered package with future blocked leaves requires
+explicit scope in readback and receipt. No review field authenticates a hostile
+harness or manufactures semantic approval.
 
 The envelope explicitly supplies package/revision/material/inventory/policy digests,
 author, reviewer, assignment, kind, exact priorReviewDigest (null for fidelity),

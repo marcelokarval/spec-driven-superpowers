@@ -110,7 +110,7 @@ const CANONICAL_DOCUMENT_SHA256 = Object.freeze({
   'skills/asds-execution-consumer/references/protocol.md': '6824e4d7f12f9b905c7236256ab65db317c9cf95ff31a3f36df421c7bff02b88',
   'skills/asds-execution-consumer/references/recovery.md': 'f8670e1ed318292cd02480ca2eb208994dafcb8b67aaeb59917ea1c8630cfe72',
   'skills/superpowers/using-superpowers/SKILL.md': '7437d0871d249e2cce28394869fb311195592f09b9b54d2ac5e722b914cbbb8a',
-  'skills/spec-driven-superpowers/SKILL.md': '6b5e4ca01d499e9c661e8d33990b64c0769e4522f93164b7765e274d66670275',
+  'skills/spec-driven-superpowers/SKILL.md': '1aa7c6388b8dbbc6e493629db20fdca384827ec5921bb784c6e821f38d66bd69',
   'skills/spec-driven-superpowers/references/consumer-boundary.md': '16e0c38567da5b2d34a191716a3691d8b81a1aacade86fa5f5ded8e9b4aa2f34',
   'skills/spec-driven-superpowers/references/protocol.md': '00babb785f8c17e82e10bd2b82b174593b74a624b286cecf72ed0b62c20a0c9e',
   'skills/superpowers/executing-plans/SKILL.md': 'b769c8ba7ed5a5aba37d0354d3cf7e8032305f09266afd5d3e607495e3598437',
