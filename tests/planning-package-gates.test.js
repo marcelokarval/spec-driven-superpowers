@@ -3,6 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { createHarnessPlanningReview, HARNESS_REVIEW_VERSION, reviewDigest } from '../lib/harness-planning-review.mjs';
 import { validateReadiness } from '../lib/contracts.mjs';
@@ -94,7 +95,7 @@ function executionHandoff(root, withCurrent=false) {
   return withCurrent?{handoff,current:{packageRoot:root,workspace:input.workspace,now}}:handoff;
 }
 for (const future of [false, true]) test(`synthetic CLI pending-boundary delivery and execution exclusions (future=${future})`, () => {
-  const root = fs.mkdtempSync('/tmp/opencode/asds-package-gates-');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-package-gates-'));
   try {
     fixture(root, future);
     const tasks = loadTasks(root), frozen = tasks.map(t => fs.readFileSync(path.join(root, `tasks/task-${t.id}.md`), 'utf8'));
@@ -138,7 +139,7 @@ for (const future of [false, true]) test(`synthetic CLI pending-boundary deliver
 
 for (const defect of ['missing-Q', 'invalid-Q', 'stale-Q', 'evidence-drift', 'post-review-edit', 'missing-change', 'missing-target', 'missing-exclusions', 'unknown-open-decision', 'planning-layer', 'zero-usable']) {
   test(`synthetic package gate rejects ${defect} without rewriting reviewed contracts`, () => {
-    const root = fs.mkdtempSync('/tmp/opencode/asds-package-negative-');
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-package-negative-'));
     try {
       fixture(root);
       if (defect.startsWith('missing-') && !['missing-Q'].includes(defect)) {
@@ -177,7 +178,7 @@ for (const defect of ['missing-Q', 'invalid-Q', 'stale-Q', 'evidence-drift', 'po
 }
 
 test('synthetic CLI denies author review, Q before F and reused F/Q identity', () => {
-  const root=fs.mkdtempSync('/tmp/opencode/asds-package-review-negative-');
+  const root=fs.mkdtempSync(path.join(os.tmpdir(), 'asds-package-review-negative-'));
   try {
     fixture(root);
     assert.throws(()=>pair(root,(r,kind)=>{
@@ -196,7 +197,7 @@ test('synthetic CLI denies author review, Q before F and reused F/Q identity', (
 
 for (const missing of [null,'boundary','change','target','exclusions']) {
   test(`synthetic implicit root leaf requires complete boundary under package F/Q (missing=${missing})`, () => {
-    const root=fs.mkdtempSync('/tmp/opencode/asds-implicit-boundary-');
+    const root=fs.mkdtempSync(path.join(os.tmpdir(), 'asds-implicit-boundary-'));
     try {
       fixture(root);
       editTask(root,'1',fm=>{
@@ -227,7 +228,7 @@ for (const missing of [null,'boundary','change','target','exclusions']) {
 
 for(const state of ['ready','delivered','partial']) for(const evidence of ['missing','drift']) {
   test(`synthetic candidate flag cannot bypass ${state} review evidence (${evidence})`,()=>{
-    const root=fs.mkdtempSync('/tmp/opencode/asds-candidate-evidence-');
+    const root=fs.mkdtempSync(path.join(os.tmpdir(), 'asds-candidate-evidence-'));
     try {
       fixture(root);
       pair(root);
@@ -251,7 +252,7 @@ for(const state of ['ready','delivered','partial']) for(const evidence of ['miss
 }
 
 test('synthetic official consumer dispatches reviewed pending usable leaf, never detached or excluded tasks',()=>{
-  const root=fs.mkdtempSync('/tmp/opencode/asds-contextual-dispatch-');
+  const root=fs.mkdtempSync(path.join(os.tmpdir(), 'asds-contextual-dispatch-'));
   // Same isolated e/r profile shape as execution-consumer.test.js, not global configuration.
   const profile={version:1,tiers:Object.fromEntries(['bounded','medium','high'].map(tier=>[tier,{executor:{model:'e',effort:'high'},reviewer:{model:'r',effort:'medium'}}]))};
   const capabilities={spawn:true,isolatedWrites:true,maxAgents:3,externalActive:0,models:[{model:'e',efforts:['high']},{model:'r',efforts:['medium']}]};
@@ -286,7 +287,7 @@ test('synthetic official consumer dispatches reviewed pending usable leaf, never
 });
 
 test('synthetic package approval leaves missing execution metadata blocked',()=>{
-  const root=fs.mkdtempSync('/tmp/opencode/asds-contextual-metadata-');
+  const root=fs.mkdtempSync(path.join(os.tmpdir(), 'asds-contextual-metadata-'));
   const profile={version:1,tiers:Object.fromEntries(['bounded','medium','high'].map(tier=>[tier,{executor:{model:'e',effort:'high'},reviewer:{model:'r',effort:'medium'}}]))};
   const capabilities={spawn:true,isolatedWrites:true,maxAgents:3,externalActive:0,models:[{model:'e',efforts:['high']},{model:'r',efforts:['medium']}]};
   try {

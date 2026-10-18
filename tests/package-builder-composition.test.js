@@ -3,6 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { createHash } from 'node:crypto';
 import { parse, stringify } from 'yaml';
 import { buildPlanningPackage, syncPlanningPackage, reconcilePackageHierarchy, renderTaskContractMarkdown } from '../lib/package-builder.mjs';
@@ -13,7 +14,7 @@ function readContract(root, id) {
 }
 
 test('synthetic nested packages keep aggregated prose and YAML coherent through build and resync', () => {
-  const root = fs.mkdtempSync('/tmp/opencode/asds-composition-');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-composition-'));
   try {
     const result = buildPlanningPackage(root, { packageId: 'synthetic-composition', tasks: [
       { id: '1', title: 'Root composition', nodeType: 'package', verification: ['npm test'] },
@@ -57,7 +58,7 @@ test('synthetic nested packages keep aggregated prose and YAML coherent through 
 });
 
 test('legacy generated package defaults migrate while custom sections and leaf bytes survive', () => {
-  const root = fs.mkdtempSync('/tmp/opencode/asds-composition-legacy-');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-composition-legacy-'));
   try {
     fs.mkdirSync(path.join(root, 'tasks'));
     const legacy = renderTaskContractMarkdown({ id: '1', title: 'Legacy parent', nodeType: 'task' })
@@ -91,7 +92,7 @@ test('legacy generated package defaults migrate while custom sections and leaf b
 });
 
 test('existing reconciler compatibility promotes a parent with children, not unrelated leaves', () => {
-  const root = fs.mkdtempSync('/tmp/opencode/asds-composition-compat-');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-composition-compat-'));
   try {
     const result = buildPlanningPackage(root, { tasks: [
       { id: '1', title: 'Legacy implicit parent' },
@@ -115,7 +116,7 @@ test('leaf rendering retains executable contract semantics', () => {
 
 for (const fence of ['```', '~~~~']) {
   test(`custom fenced markers and headings stay byte-exact (${fence})`, () => {
-    const root = fs.mkdtempSync('/tmp/opencode/asds-composition-fence-');
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-composition-fence-'));
     try {
       const custom = ['Custom verification example:', `${fence}html`,
         '<!-- asds:package-composition -->', 'KEEP CUSTOM EXAMPLE',
@@ -144,7 +145,7 @@ for (const fence of ['```', '~~~~']) {
 }
 
 test('ambiguous unfenced regions fail closed without rewriting custom prose or persisted state', () => {
-  const root = fs.mkdtempSync('/tmp/opencode/asds-composition-ambiguous-');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'asds-composition-ambiguous-'));
   try {
     buildPlanningPackage(root, { tasks: [
       { id: '1', title: 'Parent', nodeType: 'package' },
