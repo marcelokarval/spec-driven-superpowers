@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { createHarnessPlanningReview, HARNESS_REVIEW_VERSION, reviewDigest } from '../lib/harness-planning-review.mjs';
 import { validateReadiness } from '../lib/contracts.mjs';
@@ -16,7 +17,7 @@ import { evaluatePlanningLifecycle, planningCandidateSha256 } from '../lib/plann
 import { syncPlanningPackage, collectCanonicalReferences } from '../lib/package-builder.mjs';
 import { parse, stringify } from 'yaml';
 
-const cliPath = name => new URL(`../scripts/${name}.mjs`, import.meta.url).pathname;
+const cliPath = name => fileURLToPath(new URL(`../scripts/${name}.mjs`, import.meta.url));
 function cli(name, args, ok = true) {
   const result = spawnSync(process.execPath, [cliPath(name), ...args], { encoding: 'utf8' });
   assert.equal(result.status, ok ? 0 : 1, result.stderr || result.stdout);
