@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "asds.harness-planning-review/1",
   "title": "Explicit operationally trusted harness planning review",
-  "description": "assignment.requestedBySessionId and evidence.observedBySessionId identify the same actual harness coordinator, who may differ from author. Coordinator is consistent across fidelity/quality; reviewers are distinct from author, coordinator and each other. Cross-field relations are checked by the executable validator, not inferred identities.",
+  "description": "assignment.requestedBySessionId and evidence.observedBySessionId identify the same actual harness coordinator, who may differ from author. Coordinator is consistent across fidelity/quality; a non-author coordinator may review. Reviewer actors/sessions are distinct from author and each other across fidelity/quality. Cross-field relations are checked by the executable validator, not inferred identities.",
   "type": "object",
   "required": ["schemaVersion","packageId","revision","candidateSha256","inventoryDigest","policyDigest","author","reviewer","assignment","kind","priorReviewDigest","verdict","findings","limitations","sourceReferenceIds","taskIds","evidence","envelopeDigest"],
   "additionalProperties": false,

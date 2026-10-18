@@ -58,14 +58,32 @@ Fidelity review checks loss, invention, authorization drift and source obligatio
 Quality review checks boundaries, feasibility, interfaces, dependency outputs and
 acceptance demonstrability. Both receive source material and artifacts, not the
 author's narrative alone. Correct material findings and review the changed revision.
+Use the following semantic checks, not just schema validity:
+
+- **Fidelity:** preserve negative and compatibility obligations; identify invented
+  exceptions or exemptions and their missing authority. Map scenarios to the actual
+  leaf behavior, not merely a broad requirement label. Material decisions must appear
+  in the decision/resolver/consumer relations, not only in prose.
+- **Quality:** every required output has an identified producer and consumer; interface
+  seams have a write owner for the connecting change. Integrated acceptance must wait
+  for its prerequisites. A valid transitive dependency need not become a direct edge;
+  development against agreed ports/contracts can precede integrated acceptance.
+  If an input or edge was omitted, report that planning omission rather than claiming
+  the scheduling algorithm failed to infer it.
+
 Authentication, authorization, credentials, security, financial, destructive and
 sensitive-data domains are never `ordinary-low`; they require an independent
-planning reviewer. The manifest declares its risk domains explicitly. Review
-completion is accepted only through the host-owned capability, from a distinct
-zero-write reviewer assignment whose live session, result and persisted receipt
-bind the current candidate, manifest and complete byte inventory. Caller-authored
-review objects and reconstructed receipts remain untrusted even when every digest
-is syntactically correct.
+planning reviewer. The manifest declares its risk domains explicitly. Review is a
+required part of the planning flow and its gate, bound to the relevant tasks, sources
+and candidate content, with fidelity before quality. The harness decides how to
+provide and ensure the reviewer: a subagent, new or dedicated session, coordinator,
+or another supported arrangement. No particular tool or session topology is a
+universal product requirement. A coordinator may coordinate or review when not the
+author and when applicable independence is met; authorial PASS is not independent
+review. Preserve actual review evidence, not invented identities or receipts.
+The optional [current toolkit adapter](adapters/opencode.md) has narrower identity,
+session and evidence fields; these are compatibility limits, not a host-owned
+capability or proof of semantic quality from hashes.
 After three non-progressing correction rounds, return partial/blocked; the limit
 never grants approval.
 
@@ -74,6 +92,12 @@ never grants approval.
 `ready` means the package can be persisted; `delivered` requires matching readback.
 Partial planning preserves ready independent leaves and names blockers/dependents,
 but ASDS retains ownership. Only a `delivered` return may select a later consumer.
+Partial describes incomplete planning, not a complete plan's well-contracted future
+decisions. Such decisions retain a resolver, accountable blocker and exact affected
+consumers/dependents; they block execution, not `ready`/`delivered` planning after
+current F/Q PASS. At least one usable leaf is required. Incomplete mandatory planning
+layers still prevent full delivery. The manifest, readback and receipt expose
+`usableTasks` and `blockedTaskIds`; consumers must exclude the latter from dispatch.
 Planning-ready contracts are not the execution frontier: export which leaves are
 ready now, which wait on prerequisite outputs, which are decision/policy blocked,
 what each leaf unblocks, and the conflict-aware planned waves.
@@ -89,6 +113,6 @@ releases ASDS ownership. Future implementation progress is outside this lifecycl
 
 - **One-pass package compilation and sync (`scripts/build-package.mjs`):** Never hand-compute SHA-256 reference digests, `Planned Waves`, bottom-up `package` parent unions (`write`, `resources`, `scenarios`, `requirements`), or repetitive YAML boilerplate across `tasks/task-XXXX.md`, `tasks.md`, `dag.mmd`, `dag-status.md`, and `planning-manifest.json`. Define `package-spec.json` (or author/update `tasks/task-XXXX.md`) and run `node <skill-dir>/scripts/build-package.mjs --change <change-dir>` to reconcile `nodeType: "package"` hierarchies, compile, and synchronize all artifacts in a single deterministic pass.
 - **Pre-review candidate validation (`scripts/validate.mjs --candidate`):** While a candidate is pre-review (`state: "draft" | "reviewing" | "blocked"`, `boundary.review.verdict: "pending"`, or routed `openDecisions`), validate structure and cross-links with `node <skill-dir>/scripts/validate.mjs --change <change-dir> --candidate`.
-- **Atomic post-review transition (`--record-review`):** Once independent `fidelity` and `quality` reviews pass, run `node <skill-dir>/scripts/build-package.mjs --change <change-dir> --record-review <reviewer-id-or-json>` to atomically flip leaf `boundary.review.verdict` to `"ready"`, bind `candidateSha256`, record both review envelopes, recompute `readbackSha256`, populate `usableTasks`, and transition `state` to `"partial"` (when active decision blockers remain) or `"ready"` / `"delivered"`.
+- **Review recording and delivery are separate:** `--record-review <review.json>` records ONE explicit harness envelope, fidelity first and then quality bound to the registered fidelity digest. It does not change leaf boundaries from `pending` to `ready`, record two reviews at once, or publish `partial`/`ready`/`delivered`. Use `planning-review.mjs inspect`, `record`, `ready`, `publish` and `verify` as described in the [toolkit adapter](adapters/opencode.md). Current F/Q PASS plus verified persisted evidence allows complete pending boundaries without editing task bytes; incomplete boundaries still fail. `ready` also checks planning layers and decision routing; a contracted future decision is not a planning defect. `publish` requires `ready` plus authorized destination persistence; `verify` checks the receipt and usable/blocked scope against current bytes. Material changes require recompilation and fresh fidelity then quality, never reuse of an old binding after contract edits.
 - **Plane issue projection (`--export-plane`):** When projecting leaf tasks to Plane, run `node <skill-dir>/scripts/build-package.mjs --change <change-dir> --export-plane <out.json>` to generate ready-to-submit Plane issue payloads (`P4Y-I · ` title prefix, wave/status/blocker metadata, and Markdown/HTML bodies) in one step.
 - **Visual DAG status (`dag-status.md` / `--print-dag`):** Present the generated `dag-status.md` visual dependency tree (or print it via `--print-dag`), fan-in groups, status table, and next executable frontier in the user-facing response whenever creating or evolving the task graph.

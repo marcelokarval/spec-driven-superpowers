@@ -311,7 +311,7 @@ for (const status of [undefined,null,'unknown','UNRESOLVED','Resolved','resolved
     }
   });
 }
-for (const status of ['pending','unresolved','proposed']) test(`material ${status} requires blocker and preserves localized partial delivery`,()=>{
+for (const status of ['pending','unresolved','proposed']) test(`material ${status} with valid future contract permits full planning delivery`,()=>{
   const m=ready();m.decisions.push({id:'D-choice',material:true,status,owner:'owner',source:'brief.md',reason:'format choice'});
   refreshDecisionEvidence(m);
   let e=evaluatePlanningLifecycle(m);
@@ -319,11 +319,18 @@ for (const status of ['pending','unresolved','proposed']) test(`material ${statu
   assert.equal(e.canReady,false);assert.equal(e.canDeliver,false);assert.equal(e.canPartial,false);
   assert.throws(()=>transitionPlanning(m,'delivered'),/readback\/review gate/);
   m.blockers=[{id:'B',decisionId:'D-choice',owner:'owner',question:'format?',consequence:'held',resolution:'choose',affectedTasks:['0002']}];
-  refreshDecisionEvidence(m,['0001']);const before=structuredClone(m);e=evaluatePlanningLifecycle(m);
-  assert.deepEqual(e.errors,[]);assert.equal(e.canReady,false);assert.equal(e.canDeliver,false);assert.equal(e.canPartial,true);
+  m.tasks.forEach(task=>{if(task.nodeType!=='package')task.owner='synthetic owner';});
+  m.tasks.find(task=>task.id==='0001').resolvesDecisions=['D-choice'];
+  m.tasks.find(task=>task.id==='0002').decisionInputs=['D-choice'];
+  m.tasks.find(task=>task.id==='0002').dependsOn=['0001'];
+  m.tasks.find(task=>task.id==='0002').dependencyDetails=[{id:'0001',reason:'Consumes future decision',requiredOutput:'Chosen format'}];
+  refreshDecisionEvidence(m);
+  m.readback.taskIds=['0001'];m.readback.usableTasks=['0001'];m.readback.blockedTaskIds=['0002','0003'];
+  const before=structuredClone(m);e=evaluatePlanningLifecycle(m);
+  assert.deepEqual(e.errors,[]);assert.equal(e.canReady,true);assert.equal(e.canDeliver,true);assert.equal(e.canPartial,false);
   assert.deepEqual(e.readyTaskIds,['0001']);assert.deepEqual(e.blockedTaskIds,['0002','0003']);
   assert.deepEqual(e.draftableTaskIds,['0001','0002','0003']);assert.equal(e.questions.length,1);
-  const partial=transitionPlanning(m,'partial');assert.equal(partial.state,'partial');assert.deepEqual(partial.planningContribution.usableTasks,['0001']);
+  const delivered=transitionPlanning(m,'delivered');assert.equal(delivered.state,'delivered');assert.deepEqual(delivered.planningContribution.usableTasks,['0001']);
   assert.deepEqual(m,before);assert.equal(e.storeVerified,false);
 });
 test('resolved material choice is reused without reopening interview or fabricating approval',()=>{

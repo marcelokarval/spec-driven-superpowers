@@ -1,9 +1,69 @@
 # Estado evolutivo do ASDS
 
-Atualizado em **2026-10-15**. Leia este documento antes de demandar ou evoluir o
+Atualizado em **2026-10-17**. Leia este documento antes de demandar ou evoluir o
 projeto. Confirme o checkout antes de usar os hashes abaixo como estado corrente.
 
-## Estado atual — C9/C10 demonstrados; C11 documental, aceite ROOT pendente
+## Estado atual — correções delimitadas pós-Atlas na fonte local
+
+### Revalidação Astra — 2026-10-17
+
+Revisão read-only do candidato local atual não identificou novo bypass concreto
+nos gates ou no consumidor no recorte analisado. Dois resíduos distribuídos foram
+corrigidos: descrição do schema de review agora permite coordenador não autor;
+template de manifesto usa identidade `actorId`/`sessionId`. O draft também deixa
+explícitos `not_fulfilled`, revisão independente e `persistenceGranted: false`.
+Regressões em `tests/planning-manifest-template.test.js` cobrem binding sintético,
+coordenador elegível e rejeição de autor/reviewer reutilizado.
+
+Revalidação do checkout com as demais alterações locais preservadas: **653/653
+testes**, zero falhas/skips; `npm run check`, `npm run validate` e
+`git diff --check` passaram. Log: `/tmp/opencode/asds-astra-revalidation.log`.
+Essa evidência é estrutural/determinística, não qualificação de reviewers nativos
+reais nem aprovação da candidata Atlas. Sem commit, publicação ou instalação.
+
+Publicação Git autorizada posteriormente para o recorte de composição, gates e
+schemas/template. Os 653 testes acima pertencem ao checkout combinado, não ao
+candidato separado: agents OpenCode, bridge Hermes e persistence scope do builder
+ficam fora deste recorte. A validação da árvore selecionada e a publicação serão
+reportadas separadamente no PR; não há autorização de merge, release ou instalação.
+
+### Gates de entrega — decisões consolidadas implementadas em 2026-10-17
+
+F/Q válidas e atuais aprovam boundaries completas ainda `pending` no contexto do
+pacote, sem editar contratos ou alterar o digest revisado. Decisões futuras bem
+contratadas bloqueiam apenas a execução dos consumidores e descendentes; um plano
+completo revisado com ao menos uma tarefa utilizável pode ser `ready`/`delivered`.
+Manifesto, readback e receipt expõem `usableTasks` e `blockedTaskIds`. `partial`
+permanece reservado à incompletude do próprio planejamento. O consumidor oficial
+aplica a aprovação contextual em memória, mantendo folhas excluídas sem despacho.
+
+Coordenador não autor pode revisar; F e Q continuam vinculadas à candidata e com
+identidades distintas conforme o adapter. Boundary incompleta, evidência ausente,
+drift e bypass de `candidate:true` em estados finais continuam rejeitados.
+
+Revisão independente e correções sucessoras concluídas; validação final da rodada:
+**622/622 testes**, `npm run check`, `npm run validate`, `git diff --check` passaram.
+Testes de reviewers/CLI são determinísticos e sintéticos, não uma nova qualificação
+de sessões nativas reais. Fonte local sem commit/push, release ou instalação global.
+Ver [evidências e arquivos](docs/research/2026-10-17-planning-gates.md).
+
+### Rodada anterior — composição e documentação
+
+Implementadas localmente: composição não executável e agregados coerentes no builder,
+preservação de prosa customizada/fences, regressões de build/sync e documentação de
+review neutra ao transporte. O harness escolhe como prover o revisor; a documentação
+separa essa responsabilidade dos limites de identidade e publicação do adapter atual.
+Não houve instalação, publicação, commit/push nem alteração da candidata Atlas r1.
+
+Revisão independente encontrou colisão de markers em exemplos fenced; a correção
+foi revalidada. O snapshot da SKILL foi atualizado somente após revisão explícita do
+conteúdo. Provas e limites: [registro desta rodada](docs/research/2026-10-17-closed-corrections.md).
+Validação final: **595/595 testes**, check, validate e diff-check passaram.
+Naquela rodada não houve mudança dos estados de entrega, aprovação de boundaries,
+schemas F/Q ou gates com decisões materiais pendentes; a rodada acima implementa
+as decisões posteriores do proprietário.
+
+## Estado anterior — C9/C10 demonstrados; C11 documental, aceite ROOT pendente
 
 Fonte passiva local, não publicada/instalada nesta operação. As três correções do
 oracle (readiness persistida, resync planning, paridade do schema), snapshot aprovado

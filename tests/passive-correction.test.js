@@ -154,20 +154,23 @@ function pendingBoundaryPair(root) {
   assert.equal(m.reviews.length,2);assert.ok(m.reviews.every(r=>r.verdict==='pass'));
   return m;
 }
-test('C9 P1 ready rejects persisted pending boundary despite valid F/Q',()=>{
+test('package F/Q accepts complete pending boundary without rewriting reviewed task bytes',()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'asds-passive-boundary-ready-'));
   try {
     pendingBoundaryPair(root);
-    const before=fs.readFileSync(path.join(root,'planning-manifest.json'));
-    assert.throws(()=>syncPlanningPackage(root,{state:'ready'}),/reviewed bounded|readiness|boundary/);
-    assert.deepEqual(fs.readFileSync(path.join(root,'planning-manifest.json')),before);
+    const before=fs.readFileSync(path.join(root,'tasks/task-0001.md'));
+    assert.equal(syncPlanningPackage(root,{state:'ready'}).manifest.state,'ready');
+    assert.deepEqual(fs.readFileSync(path.join(root,'tasks/task-0001.md')),before);
     assert.match(fs.readFileSync(path.join(root,'tasks/task-0001.md'),'utf8'),/verdict: pending/);
   }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
-test('C9 P1 publish cannot bypass persisted readiness by forcing manifest ready',async()=>{
+test('publish cannot bypass incomplete persisted boundary with valid F/Q or forced state',async()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'asds-passive-boundary-publish-'));
   try {
-    const m=pendingBoundaryPair(root);m.state='ready';
+    fixture(root);
+    const task=path.join(root,'tasks/task-0001.md');
+    fs.writeFileSync(task,fs.readFileSync(task,'utf8').replace('target: src/csv','target: ""').replace('verdict: ready','verdict: pending'));
+    const m=registerPair(root,syncPlanningPackage(root).manifest);m.state='ready';
     const file=path.join(root,'planning-manifest.json');fs.writeFileSync(file,JSON.stringify(m,null,2)+'\n');
     const before=fs.readFileSync(file);
     await assert.rejects(publishReviewedPlanningPackage(root,{verifiedBy:'synthetic-C',expectedManifestSha256:reviewDigest(before)}),/reviewed bounded|readiness|boundary/);
@@ -248,7 +251,7 @@ test('C10 synthetic author/coordinator separation registers F then Q without imp
     assert.ok(m.reviews.every(r=>r.assignment.requestedBySessionId===c10CoordinatorFixture && r.evidence.observedBySessionId===c10CoordinatorFixture));
   }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
-test('C10 coordinator identities must be explicit, consistent and separate from reviewers',()=>{
+test('coordinator identities must be explicit and consistent; author remains excluded',()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'asds-passive-coordinator-negative-'));
   try {
     const m=fixture(root,{author:c10AuthorFixture}),f=coordinatedFixtureReview(root,m,'fidelity',c10CoordinatorFixture);
@@ -257,7 +260,7 @@ test('C10 coordinator identities must be explicit, consistent and separate from 
       if(value===undefined)delete o[field];else o[field]=value;
       assert.ok(validateHarnessReview(createHarnessPlanningReview(r),harnessCandidate(m)).length,`${field}: ${JSON.stringify(value)}`);
     }
-    for(const mutate of [r=>r.evidence.observedBySessionId='synthetic-different-observer',r=>r.reviewer.sessionId=c10CoordinatorFixture,r=>r.reviewer.actorId=c10CoordinatorFixture,r=>r.reviewer.sessionId=c10AuthorFixture.sessionId,r=>r.reviewer.actorId=c10AuthorFixture.actorId]) {
+    for(const mutate of [r=>r.evidence.observedBySessionId='synthetic-different-observer',r=>r.reviewer.sessionId=c10AuthorFixture.sessionId,r=>r.reviewer.actorId=c10AuthorFixture.actorId]) {
       const r=structuredClone(f);mutate(r);assert.ok(validateHarnessReview(createHarnessPlanningReview(r),harnessCandidate(m)).length);
     }
     const q=coordinatedFixtureReview(root,m,'quality',c10CoordinatorFixture,f);

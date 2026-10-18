@@ -5,10 +5,13 @@
   "revision": "replace-with-reviewed-revision",
   "state": "draft",
   "synthetic": false,
-  "author": "replace-with-planning-author",
+  "author": {
+    "actorId": "replace-with-actual-planning-author-actor-id",
+    "sessionId": "replace-with-actual-planning-author-session-id"
+  },
   "originalRequestedProduct": {
     "kind": "planning",
-    "status": "fulfilled"
+    "status": "not_fulfilled"
   },
   "planningContribution": {
     "product": "reviewed-planning-package",
@@ -17,6 +20,7 @@
   },
   "attendanceOutcome": "planning_in_progress",
   "authority": {
+    "persistenceGranted": false,
     "destination": "replace-with-authorized-project-relative-destination",
     "authorization": "replace-with-authorization-source"
   },
@@ -38,8 +42,8 @@
   "reviewPolicy": {
     "domains": ["replace-with-domain"],
     "risk": "replace-with-risk",
-    "independentRequired": false,
-    "mode": "self-review",
+    "independentRequired": true,
+    "mode": "independent",
     "reason": "replace-with-policy-reason",
     "maxRounds": 3
   },
